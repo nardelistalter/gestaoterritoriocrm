@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSegmentoCulturasTable extends Migration
+class CreateSafraTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSegmentoCulturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('segmento_culturas', function (Blueprint $table) {
+        Schema::create('safras', function (Blueprint $table) {
             $table->id();
             $table->string('descricao', 45)->nullable(false)->unique();
-            $table->string('unidadeMedida', 20)->nullable(false);
+            $table->integer('mesInicio')->nullable(false);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateSegmentoCulturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('segmento_culturas');
+        Schema::dropIfExists('safras');
     }
 }

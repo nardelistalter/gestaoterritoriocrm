@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrupoProdutosTable extends Migration
+class CreateGrupoclienteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateGrupoProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('grupo_produtos', function (Blueprint $table) {
+        Schema::create('grupo_clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 45)->nullable(false)->unique();
-            $table->string('unidadeMedida', 20)->nullable(false);
+            $table->string('descricao', 45)->nullable(false);
+            $table->unsignedBigInteger('funcionario_id')->nullable(false);
             $table->timestamps();
+
+            $table->foreign('funcionario_id')->references('id')->on('funcionarios')->onDelete('restrict');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateGrupoProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grupo_produtos');
+        Schema::dropIfExists('grupo_clientes');
     }
 }

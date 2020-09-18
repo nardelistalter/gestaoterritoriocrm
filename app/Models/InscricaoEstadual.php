@@ -34,7 +34,6 @@ class InscricaoEstadual extends Model
 
     // Relação (MUITOS para 1)
     public function cliente() {
-        return $this->belongsTo(Pessoa::class, 'id');
+        return $this->belongsTo(Cliente::class, 'id');
     }
-
 }

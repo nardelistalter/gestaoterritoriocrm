@@ -10,14 +10,16 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pessoa_id',
+        'id',
         'observacao',
-        'visaoPolitica_id'
+        'visaoPolitica_id',
+        'pf_id',
+        'pj_id'
     ];
 
     // Relação (1 para MUITOS)
     public function inscricaoEstadual() {
-        return $this->hasMany(InscricaoEstadual::class, 'clientePessoa_id');
+        return $this->hasMany(InscricaoEstadual::class, 'cliente_id');
     }
 
     // Relação (MUITOS para 1)
@@ -26,7 +28,12 @@ class Cliente extends Model
     }
 
     // Relação (1 para 1)
-    public function pessoa() {
-        return $this->belongsTo(Pessoa::class, 'id');
+    public function pFisica() {
+        return $this->belongsTo(PFisica::class, 'id');
+    }
+
+    // Relação (1 para 1)
+    public function pJuridica() {
+        return $this->belongsTo(PFisica::class, 'id');
     }
 }

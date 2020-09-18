@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInscricaoEstadualsTable extends Migration
+class CreateAreagrupoclienteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateInscricaoEstadualsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inscricao_estaduals', function (Blueprint $table) {
+        Schema::create('area_grupo_clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('numero', 45)->nullable(false);
-            $table->string('localidade', 100)->nullable(false);
+            $table->decimal('qtdUnidadesArea', 10, 2)->nullable(false);
             $table->unsignedBigInteger('grupoCliente_id')->nullable(false);
-            $table->unsignedBigInteger('cliente_id')->nullable(false);
+            $table->unsignedBigInteger('segmentoCultura_id')->nullable(false);
             $table->unsignedBigInteger('municipio_id')->nullable(false);
             $table->timestamps();
 
             $table->foreign('grupoCliente_id')->references('id')->on('grupo_clientes')->onDelete('restrict');
-            $table->foreign('cliente_id')->references('id')->on('pessoas')->onDelete('restrict');
+            $table->foreign('segmentoCultura_id')->references('id')->on('segmento_culturas')->onDelete('restrict');
             $table->foreign('municipio_id')->references('id')->on('municipios')->onDelete('restrict');
         });
     }
@@ -35,6 +34,6 @@ class CreateInscricaoEstadualsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inscricao_estaduals');
+        Schema::dropIfExists('area_grupo_clientes');
     }
 }

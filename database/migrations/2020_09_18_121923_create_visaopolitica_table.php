@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstadosTable extends Migration
+class CreateVisaopoliticaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateEstadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('estados', function (Blueprint $table) {
+        Schema::create('visao_politicas', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 45)->nullable(false)->unique();
-            $table->string('sigla', 2)->nullable(false)->unique();
+            $table->string('descricao', 45)->nullable(false)->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateEstadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estados');
+        Schema::dropIfExists('visao_politicas');
     }
 }

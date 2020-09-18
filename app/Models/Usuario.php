@@ -10,18 +10,22 @@ class Usuario extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pessoa_id',
-        'email',
         'senha',
         'status',
         'perfilAdministrador',
         'ultimoAcesso',
-        'hashRecovery'
+        'hashRecovery',
+        'funcionario_id',
+        'email_id'
     ];
 
     // Relação (1 para 1)
-    public function pessoa()
-    {
-        return $this->belongsTo(Pessoa::class, 'id');
+    public function funcionario() {
+        return $this->belongsTo(Funcionario::class, 'id');
+    }
+
+    // Relação (1 para 1)
+    public function email() {
+        return $this->belongsTo(Email::class, 'id');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSafrasTable extends Migration
+class CreateMunicipioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateSafrasTable extends Migration
      */
     public function up()
     {
-        Schema::create('safras', function (Blueprint $table) {
+        Schema::create('municipios', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 45)->nullable(false)->unique();
-            $table->integer('mesInicio')->nullable(false);
+            $table->string('nome', 45)->nullable(false);
+            $table->unsignedBigInteger('microrregiao_id')->nullable(false);
             $table->timestamps();
+
+            $table->foreign('microrregiao_id')->references('id')->on('microrregiaos')->onDelete('restrict');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateSafrasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('safras');
+        Schema::dropIfExists('municipios');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProdutosTable extends Migration
+class CreateSegmentoculturaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('segmento_culturas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao', 45)->nullable(false)->unique();
-            $table->unsignedBigInteger('grupoProduto_id')->nullable(false);
+            $table->string('unidadeMedida', 20)->nullable(false);
             $table->timestamps();
-
-            $table->foreign('grupoProduto_id')->references('id')->on('grupo_produtos')->onDelete('restrict');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('segmento_culturas');
     }
 }
