@@ -11,27 +11,27 @@
     <link rel="shortcut icon" type="image/x-icon" href={{ url('../resources/img/logo.ico') }}>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;700&display=swap" rel="stylesheet">
     <!-- MDBootstrap Datatables  -->
     <link href={{ url('../resources/css/addons/datatables2.min.css') }} rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
+    <link href={{ url('../resources/css/style.css') }} rel="stylesheet" type="text/css">
     <link href={{ url('../resources/vendor/fontawesome-free/css/all.min.css') }} rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href={{ url('../resources/css/sb-admin-2.min.css') }} rel="stylesheet">
     <link href={{ url('../resources/css/sb-admin-2.css') }} rel="stylesheet">
 
-    <!-- DataTables CSS
-  <link href="../resources/css/addons/datatables2.min.css" rel="stylesheet">-->
+    <!-- DataTables CSS -->
+    <!-- <link href="../resources/css/addons/datatables2.min.css" rel="stylesheet"> -->
 
-    <!-- DataTables Select CSS  -->
+    <!-- DataTables Select CSS -->
     <link href={{ url('../resources/css/addons/datatables-select2.min.css') }} rel="stylesheet">
 
     <title>GTM</title>
@@ -47,7 +47,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <img id="logo" src={{ url('../resources/img/logo_branco.png') }} alt="" srcset="">
                     <!--<i class="fas fa-laugh-wink"></i>-->
@@ -60,7 +60,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.blade.php">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Painel de Controle</span></a>
             </li>
@@ -84,9 +84,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manutenção de Pessoas:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-card-alt mr-1"></i>Funcionário/Cliente</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-users mr-1"></i>Grupo de Clientes</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>Usuário</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>Clientes</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-users mr-1"></i>Grupos de Clientes</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-card mr-1"></i>Funcionários</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>Usuários</a>
                     </div>
                 </div>
             </li>
@@ -117,15 +118,16 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Manutenção de Território:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>Inscrição Estadual</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>Área Grupo
+                        <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>Inscrições Estaduais</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>Áreas Grupo
                             Cliente</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>Segmento / Cultura</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>Segmentos / Culturas</a>
                         <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>Unidades de
                             Área</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Município</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marked mr-1"></i>Microrregião</a>
-                        <a class="collapse-item" href={{ route('estados.showAll') }}><i class="fas fa-map mr-1"></i>Estado</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-map-marked mr-1"></i>Microrregiões</a>
+                        <a class="collapse-item" href={{ route('estados.showAll') }}><i
+                                class="fas fa-map mr-1"></i>Estados</a>
                     </div>
                 </div>
             </li>
@@ -143,9 +145,10 @@
                         <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>Programas de
                             Negócio</a>
                         <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>Produtos</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produto</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produtos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>Safras</a>
                         <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>Cargos</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>Visões Políticas</a>
                     </div>
                 </div>
             </li>
@@ -224,50 +227,13 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>-->
-
                     <div>
-                        <h1 class="h3 mb-0 text-gray-800 font-weight-bold font-italic">Gestão de Território e Metas</h1>
+                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">Gestão de
+                            Território e Metas</h1>
                     </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>-->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                      aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>-->
-
-                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -276,6 +242,7 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nardeli Miguel Stalter</span>
                                 <img class="img-profile rounded-circle" src={{ url('../resources/img/user-1.png') }}>
                             </a>
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -309,6 +276,27 @@
 
                 <!-- /.container-fluid -->
 
+                <!-- Form Modal-->
+                <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="ModalLabel">Pronto para sair?</h3>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para encerrar sua
+                                sessão atual.
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                <a class="btn btn-primary" href="login.html">Sair</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- End of Main Content -->
 
@@ -339,7 +327,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">Pronto para sair?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -347,8 +335,8 @@
                 <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="login.html">Sair</a>
+                    <button class="btn btn-info" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="login.html">Sair</a>
                 </div>
             </div>
         </div>
@@ -381,7 +369,10 @@
     <script src={{ url('../resources/js/addons/datatables2.min.js') }} type="text/javascript"></script>
 
     <!-- DataTables Select JS -->
-    <script src={{ url('../resources/js/addons/datatables-select2.min.js') }}" type="text/javascript"></script>
+    <script src={{ url('../resources/js/addons/datatables-select2.min.js') }} type="text/javascript"></script>
+
+    <!-- JS -->
+    <script src={{ url('../resources/js/javascript.js') }} type="text/javascript"></script>
 
     <script>
         $(function() {
@@ -442,7 +433,6 @@
           });
         });*/
 
-
         $(document).ready(function() {
             $('#dt_table_crud').dataTable({
 
@@ -473,7 +463,6 @@
         });
 
     </script>
-
 </body>
 
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use resources\css;
 use App\Http\Controllers\EstadoController;
 
 /*
@@ -16,38 +15,13 @@ use App\Http\Controllers\EstadoController;
 */
 
 /*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-
-Route::get('/', function () {
     return view('index');
-});
-
-/**
-* CSS
-*/
-//Route::get('resources_css', 'resources\ccs');
-
-/*Route::get('/cliente', function () {
-    return view('cliente');
 });*/
 
-
+Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::resource('estados', 'App\Http\Controllers\EstadoController');
 Route::get('/estados', [EstadoController::class, 'showAll'])->name('estados.showAll');
-/*
+Route::get('/estados/{id}', [EstadoController::class, 'destroy'])->name('estado.delete');
+//Route::get('/estado/{$id}', [EstadoController::class, 'show'])->name('estado.show');
 
-Route::get('/microrregioes', [MicrorregiaoController::class, 'showAll'])->name('microrregioes.showAll');
-Route::get('/municipios', [MunicipioController::class, 'showAll'])->name('municipios.showAll');
-Route::get('/segmentoculturas', [SegmentoCulturaController::class, 'showAll'])->name('segmentoculturas.showAll');
-Route::get('/unidadesarea', [UnidadesAreaController::class, 'showAll'])->name('unidadesarea.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-Route::get('/grupoprodutos', [GrupoProdutoController::class, 'showAll'])->name('grupoprodutos.showAll');
-
-
-*/
+//Route::get('/estado/{id}', ['as' => 'estados.deletar', 'uses' => 'EstadoController@deletar']);

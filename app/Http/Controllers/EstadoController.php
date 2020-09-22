@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 class EstadoController extends Controller
 {
 
-    private  $estado;
+    private $estado;
 
     public function __construct()
     {
         $this->estado = new Estado();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +22,7 @@ class EstadoController extends Controller
      */
     public function index()
     {
+        $estados = $this->estado;
         return view('content_estado');
     }
 
@@ -98,6 +100,8 @@ class EstadoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //dd($id);
+        Estado::find($id)->delete();
+        return redirect()->route('estados.showAll');
     }
 }
