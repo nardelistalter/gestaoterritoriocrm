@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt_BR">
 
 <head>
 
@@ -16,6 +16,7 @@
     <link href={{ url('../resources/css/addons/datatables2.min.css') }} rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
     <!-- Custom fonts for this template -->
     <link href={{ url('../resources/css/style.css') }} rel="stylesheet" type="text/css">
@@ -126,7 +127,7 @@
                             Área</a>
                         <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
                         <a class="collapse-item" href="#"><i class="fas fa-map-marked mr-1"></i>Microrregiões</a>
-                        <a class="collapse-item" href={{ route('estados.showAll') }}><i
+                        <a class="collapse-item" href={{ route('estado.index') }}><i
                                 class="fas fa-map mr-1"></i>Estados</a>
                     </div>
                 </div>
@@ -349,13 +350,14 @@
     <!-- Core plugin JavaScript-->
     <script src={{ url('../resources/vendor/jquery-easing/jquery.easing.min.js') }}></script>
 
+
     <!-- Custom scripts for all pages-->
     <script src={{ url('../resources/js/sb-admin-2.min.js') }}></script>
 
     <!-- Page level plugins -->
-    <script src={{ url('../resources/resources/vendor/chart.js/Chart.min.js') }}></script>
-    <script src={{ url('../resources/resources/vendor/datatables/jquery.dataTables.min.js') }}></script>
-    <script src={{ url('../resources/resources/vendor/datatables/dataTables.bootstrap4.min.js') }}></script>
+    <script src={{ url('../resources/vendor/chart.js/Chart.min.js') }}></script>
+    <script src={{ url('../resources/vendor/datatables/jquery.dataTables.min.js') }}></script>
+    <script src={{ url('../resources/vendor/datatables/dataTables.bootstrap4.min.js') }}></script>
 
     <!-- Page level custom scripts -->
     <script src={{ url('../resources/js/demo/chart-area-demo.js') }}></script>
@@ -363,7 +365,9 @@
     <script src={{ url('../resources/js/demo/datatables-demo.js') }}></script>
 
     <!-- MDBootstrap Datatables  -->
-    <script type="text/javascript" src={{ url('../js/addons/datatables2.min.js') }}></script>
+    <script type="text/javascript" src={{ url('../resources/js/addons/datatables2.min.js') }}></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- DataTables JS -->
     <script src={{ url('../resources/js/addons/datatables2.min.js') }} type="text/javascript"></script>
@@ -373,8 +377,10 @@
 
     <!-- JS -->
     <script src={{ url('../resources/js/javascript.js') }} type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 
-    <script>
+
+    <script type="text/javascript">
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })
@@ -461,6 +467,66 @@
                 }
             });
         });
+
+
+        $(document).ready(function() {
+
+var table = $('#datatable').DataTable();
+
+//Start Edit Record
+table.on('click', '.edit', function() {
+    $tr = $(this).closest('tr');
+    if ($($tr).hasClass('child')) {
+        $tr = $tr.prev('.parent');
+    }
+
+    var data = table.row($tr).data();
+    console.log(data);
+
+    $('#estado').val(data[1]);
+    $('#sigla').val(data[2]);
+
+    $('#editForm').attr('action', '/estado/' + data[0]);
+    $('#editModal').modal('show');
+});
+//End Edit Record
+
+//Start View
+table.on('click', '.view', function() {
+    $tr = $(this).closest('tr');
+    if ($($tr).hasClass('child')) {
+        $tr = $tr.prev('.parent');
+    }
+
+    var data = table.row($tr).data();
+    console.log(data);
+
+    $('#v-id').val(data[0]);
+    $('#v-estado').val(data[1]);
+    $('#v-sigla').val(data[2]);
+
+    $('#viewForm').attr('action');
+    $('#viewModal').modal('show');
+});
+//End View
+
+//Start Delete Record
+table.on('click', '.delete', function() {
+    $tr = $(this).closest('tr');
+    if ($($tr).hasClass('child')) {
+        $tr = $tr.prev('.parent');
+    }
+
+    var data = table.row($tr).data();
+    console.log(data);
+
+    //$('#id').val(data[0]);
+
+    $('#deleteForm').attr('action', '/estado/' + data[0]);
+    $('#deleteModal').modal('show');
+});
+//End Delete Record
+});
 
     </script>
 </body>

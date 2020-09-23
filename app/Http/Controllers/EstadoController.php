@@ -7,14 +7,6 @@ use Illuminate\Http\Request;
 
 class EstadoController extends Controller
 {
-
-    private $estado;
-
-    public function __construct()
-    {
-        $this->estado = new Estado();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +14,8 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estados = $this->estado;
-        return view('content_estado');
+        $estados = Estado::all();
+        return view('content_estado')->with('estados', $estados);
     }
 
     /**
@@ -44,18 +36,18 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'estado' => 'required',
+            'sigla' => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showAll()
-    {
-        $estados = $this->estado::all();
-        return view('content_estado', compact('estados'));
+        $estados =  new Estado;
+        $estados->nome = $request->input('estado');
+        $estados->sigla = $request->input('sigla');
+
+        $estados->save();
+
+        return redirect('estado')->with('success', 'Data Saved');
     }
 
     /**
@@ -89,7 +81,18 @@ class EstadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'estado' => 'required',
+            'sigla' => 'required'
+        ]);
+
+        $estados =  Estado::find($id);
+        $estados->nome = $request->input('estado');
+        $estados->sigla = $request->input('sigla');
+
+        $estados->save();
+
+        return redirect('estado')->with('success', 'Data Updated');
     }
 
     /**
@@ -100,8 +103,8 @@ class EstadoController extends Controller
      */
     public function destroy($id)
     {
-        //dd($id);
-        Estado::find($id)->delete();
-        return redirect()->route('estados.showAll');
+        $estados = Estado::find($id);
+        $estados->delete();
+        return redirect('estado')->with('success', 'Data Deleted');
     }
 }
