@@ -26,6 +26,6 @@ class Produto extends Model
 
     // Relação (1 para 1)
     public function grupoProduto() {
-        return $this->belongsTo(GrupoProduto::class, 'id');
+        return $this->belongsTo(GrupoProduto::class, 'pessoa_id', 'id');
     }
 }

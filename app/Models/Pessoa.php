@@ -37,6 +37,6 @@ class Pessoa extends Model
 
     // Relação (MUITOS para 1)
     public function municipio() {
-        return $this->belongsTo(Municipio::class, 'id');
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 }

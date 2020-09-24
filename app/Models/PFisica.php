@@ -29,6 +29,6 @@ class PFisica extends Model
 
     // Relação (1 para 1)
     public function pessoa() {
-        return $this->belongsTo(Pessoa::class, 'id');
+        return $this->belongsTo(Pessoa::class, 'pessoa_id', 'id');
     }
 }

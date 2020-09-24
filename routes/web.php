@@ -16,4 +16,5 @@ use App\Http\Controllers\EstadoController;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::resource('/estado', 'App\Http\Controllers\EstadoController');
+Route::resource('/microrregiao', 'App\Http\Controllers\MicrorregiaoController');
 

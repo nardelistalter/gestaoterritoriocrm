@@ -20,11 +20,11 @@ class Operacao extends Model
 
     // Relação (MUITOS para 1)
     public function inscricaoEstadual() {
-        return $this->belongsTo(InscricaoEstadual::class, 'id');
+        return $this->belongsTo(InscricaoEstadual::class, 'inscricaoEstadual_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function produto() {
-        return $this->belongsTo(Produto::class, 'id');
+        return $this->belongsTo(Produto::class, 'produto_id', 'id');
     }
 }

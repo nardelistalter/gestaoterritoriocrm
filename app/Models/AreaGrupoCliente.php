@@ -18,16 +18,16 @@ class AreaGrupoCliente extends Model
 
     // Relação (MUITOS para 1)
     public function grupoCliente() {
-        return $this->belongsTo(GrupoCliente::class, 'id');
+        return $this->belongsTo(GrupoCliente::class, 'grupoCliente_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function segmentoCultura() {
-        return $this->belongsTo(SegmentoCultura::class, 'id');
+        return $this->belongsTo(SegmentoCultura::class, 'segmentoCultura_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function municipio() {
-        return $this->belongsTo(Municipio::class, 'id');
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 }

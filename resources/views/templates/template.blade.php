@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt_BR">
 
@@ -29,9 +28,6 @@
     <!-- Custom styles for this template -->
     <link href={{ URL::to('css/sb-admin-2.min.css') }} rel="stylesheet">
     <link href={{ URL::to('css/sb-admin-2.css') }} rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="../resources/css/addons/datatables2.min.css" rel="stylesheet">
 
     <!-- DataTables Select CSS -->
     <link href={{ URL::to('css/addons/datatables-select2.min.css') }} rel="stylesheet">
@@ -127,7 +123,8 @@
                         <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>Unidades de
                             Área</a>
                         <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marked mr-1"></i>Microrregiões</a>
+                        <a class="collapse-item" href={{ route('microrregiao.index') }}><i
+                                class="fas fa-map-marked mr-1"></i>Microrregiões</a>
                         <a class="collapse-item" href={{ route('estado.index') }}><i
                                 class="fas fa-map mr-1"></i>Estados</a>
                     </div>
@@ -274,22 +271,22 @@
                 <!-- Alert Start  -->
 
                 @if (count($errors) > 0)
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-              @endif
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-              @if (\Session::has('success'))
+                @if (\Session::has('success'))
                     <div class="toast-body">
                         <div class="alert alert-success">
                             <p>{{ \Session::get('success') }}</p>
                         </div>
                     </div>
-              @endif
+                @endif
 
                 <!-- Alert End  -->
 
@@ -380,16 +377,15 @@
     <!-- Custom scripts for all pages-->
     <script src={{ URL::to('js/sb-admin-2.min.js') }}></script>
 
-    <!-- Page level plugins -->
-    <script src={{ URL::to('vendor/chart.js/Chart.min.js') }}></script>
-
     <!-- JS -->
     <script src={{ URL::to('js/javascript.js') }} type="text/javascript"></script>
 
+    <!-- Page level plugins -->
+    <script src={{ URL::to('vendor/chart.js/Chart.min.js') }}></script>
 
     <!-- Page level custom scripts -->
-    <script src={{ URL::to('js/demo/chart-area-demo.js') }}></script>
-    <script src={{ URL::to('js/demo/chart-pie-demo.js') }}></script>
+    {{--<script src={{ URL::to('js/demo/chart-area-demo.js') }}></script>
+    <script src={{ URL::to('js/demo/chart-pie-demo.js') }}></script> --}}
     <script src={{ URL::to('js/demo/datatables-demo.js') }}></script>
 
     <!-- DataTables JS -->
@@ -397,13 +393,10 @@
 
     <!-- DataTables Select JS -->
     <script src={{ URL::to('js/addons/datatables-select2.min.js') }} type="text/javascript"></script>
-
-
     <script src={{ URL::to('vendor/datatables/jquery.dataTables.min.js') }}></script>
     <script src={{ URL::to('vendor/datatables/dataTables.bootstrap4.min.js') }}></script>
 
     <!-- MDBootstrap Datatables  -->
-    <script type="text/javascript" src={{ URL::to('js/addons/datatables2.min.js') }}></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
@@ -414,6 +407,39 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
 
+        function modalValidation() {
+            /*var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');*/
+            var estado = $('#estado').val();
+            var sigla = $('#sigla').val();
+
+            $('#estadoError').addClass('d-none');
+            $('#siglaError').addClass('d-none');
+
+            $.ajax({
+                type: 'POST',
+                //url:"{{ url('App\Http\Controllers\EstadoController@store') }}",
+                data: {/*_token: CSRF_TOKEN,*/
+                    estado:estado,
+                    sigla:sigla,
+                },
+
+
+                success: function(data) {
+                },
+
+                error: function(data) {
+                    var errors = data.responseJSON;
+                    if($.isEmptyObject(errors) == false) {
+                        $.each(errors.errors, function(key, value) {
+                            var ErrorID = '#' + key +  'Error';
+                            $(ErrorID).removeClass('d-none');
+                            $(ErrorID).text(value);
+                        })                
+                    }
+                }
+            });
+            //console.log(data);
+        }
         /* table = $('#dt_table_crud').DataTable({
           retrieve: true,
           paging: false
@@ -469,7 +495,12 @@
         });*/
 
         $(document).ready(function() {
-            $('#datatable').dataTable({
+
+            /*                 $('.datatable').DataTable( {
+                                 "order": [[ 2, "desc" ]]
+                             } );*/
+
+            $('.datatable').dataTable({
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var column = this;
@@ -493,12 +524,17 @@
                         });
                     });
                 }
+
             });
         });
 
+
+
+
+        // Estado
         $(document).ready(function() {
 
-            var table = $('#datatable').DataTable();
+            var table = $('#datatableEstado').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -548,8 +584,75 @@
                 console.log(data);
 
                 //$('#id').val(data[0]);
+                var conteudo = $(".modal-body").html();
 
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
                 $('#deleteForm').attr('action', '/estado/' + data[0]);
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
+
+
+        // Microrregiao
+        $(document).ready(function() {
+
+            var table = $('#datatableMicrorregiao').DataTable();
+
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#editForm').attr('action', '/microrregiao/' + data[0]);
+                $('#microrregiao').val(data[1]);
+                $('#estado').val(data[2]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
+
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#v-id').val(data[0]);
+                $('#v-microrregiao').val(data[1]);
+                $('#v-estado').val(data[2]);
+
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
+
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                //$('#id').val(data[0]);
+
+                $('#deleteForm').attr('action', '/microrregiao/' + data[0]);
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
                 $('#deleteModal').modal('show');
             });
             //End Delete Record

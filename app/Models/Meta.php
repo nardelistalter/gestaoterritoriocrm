@@ -20,16 +20,16 @@ class Meta extends Model
 
     // Relação (MUITOS para 1)
     public function grupoCliente() {
-        return $this->belongsTo(GrupoCliente::class, 'id');
+        return $this->belongsTo(GrupoCliente::class, 'grupoCliente_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function safra() {
-        return $this->belongsTo(Safra::class, 'id');
+        return $this->belongsTo(Safra::class, 'safra_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function grupoProduto() {
-        return $this->belongsTo(GrupoProduto::class, 'id');
+        return $this->belongsTo(GrupoProduto::class, 'grupoProduto_id', 'id');
     }
 }

@@ -21,6 +21,6 @@ class Email extends Model
 
     // Relação (MUITOS para 1)
     public function pessoa() {
-        return $this->belongsTo(Pessoa::class, 'id');
+        return $this->belongsTo(Pessoa::class, 'pessoa_id', 'id');
     }
 }

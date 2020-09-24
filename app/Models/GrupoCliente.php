@@ -31,6 +31,6 @@ class GrupoCliente extends Model
 
     // Relação (MUITOS para 1)
     public function funcionario() {
-        return $this->belongsTo(Funcionario::class, 'id');
+        return $this->belongsTo(Funcionario::class, 'funcionario_id', 'id');
     }
 }

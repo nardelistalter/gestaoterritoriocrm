@@ -24,16 +24,16 @@ class Cliente extends Model
 
     // Relação (MUITOS para 1)
     public function visaPolitica() {
-        return $this->belongsTo(VisaoPolitica::class, 'id');
+        return $this->belongsTo(VisaoPolitica::class, 'visaoPolitica_id', 'id');
     }
 
     // Relação (1 para 1)
     public function pFisica() {
-        return $this->belongsTo(PFisica::class, 'id');
+        return $this->belongsTo(PFisica::class, 'pf_id', 'id');
     }
 
     // Relação (1 para 1)
     public function pJuridica() {
-        return $this->belongsTo(PFisica::class, 'id');
+        return $this->belongsTo(PFisica::class, 'pj_id', 'id');
     }
 }

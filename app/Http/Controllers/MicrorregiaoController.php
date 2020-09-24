@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estado;
+use App\Models\Microrregiao;
 use Illuminate\Http\Request;
 
-class EstadoController extends Controller
+class MicrorregiaoController extends Controller
 {
+    private  $microrregiao;
+    private  $estado;
+
+    public function __construct()
+    {
+        $this->microrregiao = new Microrregiao();
+        $this->estado = new Estado();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +24,10 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estados = Estado::all()->sortBy('nome');
-        //$estados = Estado::orderBy('nome')->get();
-        return view('content_estado')->with('estados', $estados);
+        $microrregioes = $this->microrregiao::all()->sortBy('nome');
+        $estados = $this->estado::all()->sortBy('nome');
+        return view('content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
+        //return view('content_microrregiao', compact('estados'), compact('microrregioes'));
     }
 
     /**
@@ -38,17 +49,17 @@ class EstadoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'estado' => 'required',
-            'sigla' => 'required'
+            'microrregiao' => 'required',
+            'estado' => 'required'
         ]);
 
-        $estados =  new Estado;
-        $estados->nome = $request->input('estado');
-        $estados->sigla = $request->input('sigla');
+        $microrregioes =  new Microrregiao;
+        $microrregioes->nome = $request->input('microrregiao');
+        $microrregioes->estado_id = $request->input('estado');
 
-        $estados->save();
+        $microrregioes->save();
 
-        return redirect('estado')->with('success', 'Estado salvo com sucesso!');
+        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
     }
 
     /**
@@ -83,17 +94,17 @@ class EstadoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'estado' => 'required',
-            'sigla' => 'required'
+            'microrregiao' => 'required',
+            'estado' => 'required'
         ]);
 
-        $estados =  Estado::find($id);
-        $estados->nome = $request->input('estado');
-        $estados->sigla = $request->input('sigla');
+        $microrregioes =  Microrregiao::find($id);
+        $microrregioes->nome = $request->input('microrregiao');
+        $microrregioes->estado_id = $request->input('estado');
 
-        $estados->save();
+        $microrregioes->save();
 
-        return redirect('estado')->with('success', 'Estado alterado com sucesso!');
+        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
     }
 
     /**
@@ -104,8 +115,8 @@ class EstadoController extends Controller
      */
     public function destroy($id)
     {
-        $estados = Estado::find($id);
-        $estados->delete();
-        return redirect('estado')->with('success', 'Estado excluído com sucesso!');
+        $microrregioes =  Microrregiao::find($id);
+        $microrregioes->delete();
+        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
     }
 }

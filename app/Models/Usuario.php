@@ -21,11 +21,11 @@ class Usuario extends Model
 
     // Relação (1 para 1)
     public function funcionario() {
-        return $this->belongsTo(Funcionario::class, 'id');
+        return $this->belongsTo(Funcionario::class, 'funcionario_id', 'id');
     }
 
     // Relação (1 para 1)
     public function email() {
-        return $this->belongsTo(Email::class, 'id');
+        return $this->belongsTo(Email::class, 'email_id', 'id');
     }
 }

@@ -20,7 +20,7 @@ class Microrregiao extends Model
     }
 
     // Relação (MUITOS para 1)
-    public function estado() {
-        return $this->belongsTo(Estado::class, 'id');
+    public function estado(){
+        return $this->belongsTo(Estado::class, 'estado_id', 'id');
     }
 }

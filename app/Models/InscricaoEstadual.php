@@ -24,16 +24,16 @@ class InscricaoEstadual extends Model
 
     // Relação (MUITOS para 1)
     public function municipio() {
-        return $this->belongsTo(Municipio::class, 'id');
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function grupoCliente() {
-        return $this->belongsTo(GrupoCliente::class, 'id');
+        return $this->belongsTo(GrupoCliente::class, 'grupoCliente_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function cliente() {
-        return $this->belongsTo(Cliente::class, 'id');
+        return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
     }
 }

@@ -36,6 +36,6 @@ class Municipio extends Model
 
     // Relação (MUITOS para 1)
     public function microrregiao() {
-        return $this->belongsTo(Microrregiao::class, 'id');
+        return $this->belongsTo(Microrregiao::class, 'microrregiao_id', 'id');
     }
 }

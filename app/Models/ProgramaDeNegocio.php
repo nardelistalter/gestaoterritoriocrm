@@ -29,6 +29,6 @@ class ProgramaDeNegocio extends Model
 
     // Relação (MUITOS para 1)
     public function grupoProduto() {
-        return $this->belongsTo(GrupoProduto::class, 'id');
+        return $this->belongsTo(GrupoProduto::class, 'segmentoCultura_id', 'id');
     }
 }
