@@ -47,7 +47,7 @@ class EstadoController extends Controller
 
         $estados->save();
 
-        return redirect('estado')->with('success', 'Data Saved');
+        return redirect('estado')->with('success', 'Estado salvo com sucesso!');
     }
 
     /**
@@ -92,7 +92,7 @@ class EstadoController extends Controller
 
         $estados->save();
 
-        return redirect('estado')->with('success', 'Data Updated');
+        return redirect('estado')->with('success', 'Estado alterado com sucesso!');
     }
 
     /**
@@ -105,6 +105,6 @@ class EstadoController extends Controller
     {
         $estados = Estado::find($id);
         $estados->delete();
-        return redirect('estado')->with('success', 'Data Deleted');
+        return redirect('estado')->with('success', 'Estado excluído com sucesso!');
     }
 }

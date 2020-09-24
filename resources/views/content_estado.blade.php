@@ -5,22 +5,6 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
-        {{-- @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if (\Session::has('success'))
-            <div class="alert alert-success">
-                <p>{{ \Session::get('success') }}</p>
-            </div>
-        @endif --}}
-
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
@@ -38,8 +22,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatable" class="table table-bordered table-sm table-responsive text-center"
-                        cellspacing="0" width="100%">
+                    <table id="datatable" class="table table-bordered table-sm table-responsive text-center" cellspacing="0"
+                        width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
@@ -55,12 +39,12 @@
                                     <td>{{ $e->nome }}</td>
                                     <td>{{ $e->sigla }}</td>
                                     <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i
-                                                class="fas fa-eye"></i></a>
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                                data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                                class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,8 +66,7 @@
     <!-- Begin Page Content -->
 
     <!-- Start Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
@@ -118,8 +101,7 @@
 
 
     <!-- Start EDIT Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
@@ -153,8 +135,7 @@
     <!-- End EDIT Modal -->
 
     <!-- Start VIEW Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
@@ -168,7 +149,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px"  readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label for="v-estado">Descrição</label>
@@ -179,9 +160,9 @@
                             <input type="text" class="form-control" maxlength="2"
                                 style="text-transform: uppercase; width: 60px" id="v-sigla" name="v-sigla" readonly>
                         </div>
-                        <div class="modal-footer bg-light">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
                     </div>
                 </form>
             </div>
@@ -201,7 +182,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/estados" method="POST" id="deleteForm">
+                <form action="/estado" method="POST" id="deleteForm">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <div class="modal-body">

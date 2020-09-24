@@ -1,39 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="pt_BR">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" type="image/x-icon" href={{ url('../resources/img/logo.ico') }}>
+    <link rel="shortcut icon" type="image/x-icon" href={{ URL::to('img/logo.png') }}>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;700&display=swap" rel="stylesheet">
+
     <!-- MDBootstrap Datatables  -->
-    <link href={{ url('../resources/css/addons/datatables2.min.css') }} rel="stylesheet">
+    <link href={{ URL::to('css/addons/datatables2.min.css') }} rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
     <!-- Custom fonts for this template -->
-    <link href={{ url('../resources/css/style.css') }} rel="stylesheet" type="text/css">
-    <link href={{ url('../resources/vendor/fontawesome-free/css/all.min.css') }} rel="stylesheet" type="text/css">
+    <link href={{ URL::to('css/style.css') }} rel="stylesheet" type="text/css">
+    <link href={{ URL::to('vendor/fontawesome-free/css/all.min.css') }} rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href={{ url('../resources/css/sb-admin-2.min.css') }} rel="stylesheet">
-    <link href={{ url('../resources/css/sb-admin-2.css') }} rel="stylesheet">
+    <link href={{ URL::to('css/sb-admin-2.min.css') }} rel="stylesheet">
+    <link href={{ URL::to('css/sb-admin-2.css') }} rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <!-- <link href="../resources/css/addons/datatables2.min.css" rel="stylesheet"> -->
+    <link href="../resources/css/addons/datatables2.min.css" rel="stylesheet">
 
     <!-- DataTables Select CSS -->
-    <link href={{ url('../resources/css/addons/datatables-select2.min.css') }} rel="stylesheet">
+    <link href={{ URL::to('css/addons/datatables-select2.min.css') }} rel="stylesheet">
 
     <title>GTM</title>
 
@@ -48,9 +49,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ URL::to('/') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img id="logo" src={{ url('../resources/img/logo_branco.png') }} alt="" srcset="">
+                    <img id="logo" src={{ URL::to('img/logo_branco.png') }} alt="" srcset="">
                     <!--<i class="fas fa-laugh-wink"></i>-->
                 </div>
                 <div class="sidebar-brand-text mx-3">GTM <sup></sup></div>
@@ -241,7 +242,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nardeli Miguel Stalter</span>
-                                <img class="img-profile rounded-circle" src={{ url('../resources/img/user-1.png') }}>
+                                <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}>
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -269,6 +270,29 @@
                         </li>
                     </ul>
                 </nav>
+
+                <!-- Alert Start  -->
+
+                @if (count($errors) > 0)
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+
+              @if (\Session::has('success'))
+                    <div class="toast-body">
+                        <div class="alert alert-success">
+                            <p>{{ \Session::get('success') }}</p>
+                        </div>
+                    </div>
+              @endif
+
+                <!-- Alert End  -->
+
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -343,41 +367,46 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+
     <!-- Bootstrap core JavaScript-->
-    <script src={{ url('../resources/vendor/jquery/jquery.min.js') }}></script>
-    <script src={{ url('../resources/vendor/bootstrap/js/bootstrap.bundle.min.js') }}></script>
+    {{-- --}}<script
+        src={{ URL::to('vendor/jquery/jquery.min.js') }}></script>
+    <script src={{ URL::to('vendor/bootstrap/js/bootstrap.bundle.min.js') }}></script>
 
     <!-- Core plugin JavaScript-->
-    <script src={{ url('../resources/vendor/jquery-easing/jquery.easing.min.js') }}></script>
-
+    <script src={{ URL::to('vendor/jquery-easing/jquery.easing.min.js') }}></script>
 
     <!-- Custom scripts for all pages-->
-    <script src={{ url('../resources/js/sb-admin-2.min.js') }}></script>
+    <script src={{ URL::to('js/sb-admin-2.min.js') }}></script>
 
     <!-- Page level plugins -->
-    <script src={{ url('../resources/vendor/chart.js/Chart.min.js') }}></script>
-    <script src={{ url('../resources/vendor/datatables/jquery.dataTables.min.js') }}></script>
-    <script src={{ url('../resources/vendor/datatables/dataTables.bootstrap4.min.js') }}></script>
+    <script src={{ URL::to('vendor/chart.js/Chart.min.js') }}></script>
+
+    <!-- JS -->
+    <script src={{ URL::to('js/javascript.js') }} type="text/javascript"></script>
+
 
     <!-- Page level custom scripts -->
-    <script src={{ url('../resources/js/demo/chart-area-demo.js') }}></script>
-    <script src={{ url('../resources/js/demo/chart-pie-demo.js') }}></script>
-    <script src={{ url('../resources/js/demo/datatables-demo.js') }}></script>
+    <script src={{ URL::to('js/demo/chart-area-demo.js') }}></script>
+    <script src={{ URL::to('js/demo/chart-pie-demo.js') }}></script>
+    <script src={{ URL::to('js/demo/datatables-demo.js') }}></script>
+
+    <!-- DataTables JS -->
+    <script src={{ URL::to('js/addons/datatables2.min.js') }} type="text/javascript"></script>
+
+    <!-- DataTables Select JS -->
+    <script src={{ URL::to('js/addons/datatables-select2.min.js') }} type="text/javascript"></script>
+
+
+    <script src={{ URL::to('vendor/datatables/jquery.dataTables.min.js') }}></script>
+    <script src={{ URL::to('vendor/datatables/dataTables.bootstrap4.min.js') }}></script>
 
     <!-- MDBootstrap Datatables  -->
-    <script type="text/javascript" src={{ url('../resources/js/addons/datatables2.min.js') }}></script>
+    <script type="text/javascript" src={{ URL::to('js/addons/datatables2.min.js') }}></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
-    <!-- DataTables JS -->
-    <script src={{ url('../resources/js/addons/datatables2.min.js') }} type="text/javascript"></script>
-
-    <!-- DataTables Select JS -->
-    <script src={{ url('../resources/js/addons/datatables-select2.min.js') }} type="text/javascript"></script>
-
-    <!-- JS -->
-    <script src={{ url('../resources/js/javascript.js') }} type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 
 
     <script type="text/javascript">
@@ -385,14 +414,14 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
 
-        /*table = $('#dt_table_crud').DataTable({
+        /* table = $('#dt_table_crud').DataTable({
           retrieve: true,
           paging: false
         });*/
 
         //Seleção de filtro
         /*$(document).ready(function () {
-          $('#dt_table_crud').dataTable({
+          $('.datatable').dataTable({
 
             initComplete: function () {
               this.api().columns().every(function () {
@@ -434,14 +463,13 @@
 
         /*$(document).ready(function () {
           //Pagination full Numbers
-          $('#dt_table_crud').DataTable({
+          $('.datatable').DataTable({
             "pagingType": "full_numbers"
           });
         });*/
 
         $(document).ready(function() {
-            $('#dt_table_crud').dataTable({
-
+            $('#datatable').dataTable({
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var column = this;
@@ -468,65 +496,64 @@
             });
         });
 
-
         $(document).ready(function() {
 
-var table = $('#datatable').DataTable();
+            var table = $('#datatable').DataTable();
 
-//Start Edit Record
-table.on('click', '.edit', function() {
-    $tr = $(this).closest('tr');
-    if ($($tr).hasClass('child')) {
-        $tr = $tr.prev('.parent');
-    }
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-    var data = table.row($tr).data();
-    console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-    $('#estado').val(data[1]);
-    $('#sigla').val(data[2]);
+                $('#estado').val(data[1]);
+                $('#sigla').val(data[2]);
 
-    $('#editForm').attr('action', '/estado/' + data[0]);
-    $('#editModal').modal('show');
-});
-//End Edit Record
+                $('#editForm').attr('action', '/estado/' + data[0]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
 
-//Start View
-table.on('click', '.view', function() {
-    $tr = $(this).closest('tr');
-    if ($($tr).hasClass('child')) {
-        $tr = $tr.prev('.parent');
-    }
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-    var data = table.row($tr).data();
-    console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-    $('#v-id').val(data[0]);
-    $('#v-estado').val(data[1]);
-    $('#v-sigla').val(data[2]);
+                $('#v-id').val(data[0]);
+                $('#v-estado').val(data[1]);
+                $('#v-sigla').val(data[2]);
 
-    $('#viewForm').attr('action');
-    $('#viewModal').modal('show');
-});
-//End View
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
 
-//Start Delete Record
-table.on('click', '.delete', function() {
-    $tr = $(this).closest('tr');
-    if ($($tr).hasClass('child')) {
-        $tr = $tr.prev('.parent');
-    }
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-    var data = table.row($tr).data();
-    console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-    //$('#id').val(data[0]);
+                //$('#id').val(data[0]);
 
-    $('#deleteForm').attr('action', '/estado/' + data[0]);
-    $('#deleteModal').modal('show');
-});
-//End Delete Record
-});
+                $('#deleteForm').attr('action', '/estado/' + data[0]);
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
 
     </script>
 </body>

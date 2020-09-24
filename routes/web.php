@@ -14,16 +14,6 @@ use App\Http\Controllers\EstadoController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('index');
-});*/
-
-
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::resource('/estado', 'App\Http\Controllers\EstadoController');
-//Route::post('/estados', [EstadoController::class, 'store'])->name('estados.store');
 
-//Route::get('/estados/{id}', [EstadoController::class, 'destroy'])->name('estado.delete');
-//Route::get('/estado/{$id}', [EstadoController::class, 'show'])->name('estado.show');
-
-//Route::get('/estado/{id}', ['as' => 'estados.deletar', 'uses' => 'EstadoController@deletar']);
