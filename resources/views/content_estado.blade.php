@@ -80,15 +80,15 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="estado">Descrição</label>
-                            <input type="text" class="form-control"id="estado"  name="estado" >
-                            <span class="text-danger" id="estadoError"></span>
+                            <label for="add-estado">Descrição</label>
+                            <input type="text" class="form-control"id="add-estado"  name="add-estado" >
+                            <span class="text-danger" id="add-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="sigla">Sigla</label>
+                            <label for="add-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="sigla" name="sigla" >
-                                <span class="text-danger" id="siglaError"></span>
+                                style="text-transform: uppercase; width: 60px" id="add-sigla" name="add-sigla" >
+                                <span class="text-danger" id="add-siglaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -118,15 +118,15 @@
                     {{ method_field('PUT') }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="estado">Descrição</label>
-                            <input type="text" class="form-control" id="estado" name="estado" required>
-                            <span class="text-danger" id="estadoError"></span>
+                            <label for="up-estado">Descrição</label>
+                            <input type="text" class="form-control" id="up-estado" name="up-estado" required>
+                            <span class="text-danger" id="up-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="sigla">Sigla</label>
+                            <label for="up-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="sigla" name="sigla" required>
-                                <span class="text-danger" id="estadoError"></span>
+                                style="text-transform: uppercase; width: 60px" id="up-sigla" name="up-sigla" required>
+                                <span class="text-danger" id="up-estadoError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">

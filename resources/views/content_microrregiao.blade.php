@@ -84,17 +84,17 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="microrregiao">Descrição</label>
-                            <input type="text" class="form-control" name="microrregiao" required>
+                            <label for="add-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" name="add-microrregiao" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="estado">Estado</label>
+                            <label for="add-estado">Estado</label>
                             <!--<input type="text" class="form-control" maxlength="2"
                                                 style="text-transform: uppercase; width: 60px" name="estado" required>-->
-                            <select class="form-control selectpicker" data-live-search="true" name="estado">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-estado">
                                 <option>Selecione um Estado</option>
                                 @foreach ($estados as $estado)
-                                    <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>
+                                    <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
                                 @endforeach
                             </select>
 
@@ -125,18 +125,17 @@
                     {{ method_field('PUT') }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="microrregiao">Descrição</label>
-                            <input type="text" class="form-control" id="microrregiao" name="microrregiao" required>
+                            <label for="up-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label id="" for="estado">Estado</label>
-                            <!--<input type="text" class="form-control" id="estado" name="estado" required>-->
-                            <select class="form-control selectpicker" data-live-search="true" name="estado">
+                        <div id="select-microrregiao" class="form-group col-xs-2">
+                           {{-- <label id="" for="up-estado">Estado</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-estado">
                                 <option value="">Selecione um Estado</option>
                                 @foreach ($estados as $estado)
-                                    <option value={{ $estado->id }} @if ($estado->id === $microrregiao->estado_id) selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>
+                                    <option value={{ $estado->id }} @if ($estado->id === $microrregiao->estado->id) selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </div>
                     </div>
                     <div class="modal-footer bg-light">

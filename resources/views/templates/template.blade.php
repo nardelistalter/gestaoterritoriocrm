@@ -400,15 +400,13 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
-
-
     <script type="text/javascript">
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         })
 
-        function modalValidation() {
-            /*var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');*/
+        /*function modalValidation() {
+            //var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             var estado = $('#estado').val();
             var sigla = $('#sigla').val();
 
@@ -418,7 +416,7 @@
             $.ajax({
                 type: 'POST',
                 //url:"{{ url('App\Http\Controllers\EstadoController@store') }}",
-                data: {/*_token: CSRF_TOKEN,*/
+                data: {//_token: CSRF_TOKEN,
                     estado:estado,
                     sigla:sigla,
                 },
@@ -434,12 +432,12 @@
                             var ErrorID = '#' + key +  'Error';
                             $(ErrorID).removeClass('d-none');
                             $(ErrorID).text(value);
-                        })                
+                        })
                     }
                 }
             });
             //console.log(data);
-        }
+        }*/
         /* table = $('#dt_table_crud').DataTable({
           retrieve: true,
           paging: false
@@ -546,8 +544,8 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#estado').val(data[1]);
-                $('#sigla').val(data[2]);
+                $('#up-estado').val(data[1]);
+                $('#up-sigla').val(data[2]);
 
                 $('#editForm').attr('action', '/estado/' + data[0]);
                 $('#editModal').modal('show');
@@ -596,6 +594,7 @@
         });
 
 
+
         // Microrregiao
         $(document).ready(function() {
 
@@ -611,9 +610,22 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
+                var conteudo = $(".modal-body").html();
+
+                $('#select-microrregiao').html(
+                    '<label for="up-estado">Estado</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
+                        '<option value="">Selecione um Estado</option>' +
+                        '@if (isset($estados))' +
+                            '@foreach ($estados ?? '' as $estado)' +
+                                '<option value={{ $estado->id }} @if ($estado->id == "' + data[0] + '") selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                            '@endforeach' +
+                        '@endif' +
+                    '</select>');
                 $('#editForm').attr('action', '/microrregiao/' + data[0]);
-                $('#microrregiao').val(data[1]);
-                $('#estado').val(data[2]);
+                $('#up-microrregiao').val(data[1]);
+                $('#up-estado').val(data[2]);
+
                 $('#editModal').modal('show');
             });
             //End Edit Record

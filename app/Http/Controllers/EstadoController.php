@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Estado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EstadoController extends Controller
 {
+    private $estado;
+
+    public function __construct()
+    {
+        $this->estado = new Estado();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +22,7 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        $estados = Estado::all()->sortBy('nome');
-        //$estados = Estado::orderBy('nome')->get();
+        $estados = $this->estado::all()->sortBy('nome');
         return view('content_estado')->with('estados', $estados);
     }
 
@@ -37,14 +44,16 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate($request, [
-            'estado' => 'required',
-            'sigla' => 'required'
+            //'estado' => ['required', 'unique:estados, nome,' . $request->id, 'max:45'],
+            'add-estado' => 'required|max:45',
+            'add-sigla' => ['required', 'max:2']
         ]);
 
-        $estados =  new Estado;
-        $estados->nome = $request->input('estado');
-        $estados->sigla = $request->input('sigla');
+        $estados =  $this->estado;
+        $estados->nome = $request->input('add-estado');
+        $estados->sigla = $request->input('add-sigla');
 
         $estados->save();
 
@@ -82,14 +91,16 @@ class EstadoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $estado = DB::table('estados')->where('id', $id)->first();
+
         $this->validate($request, [
-            'estado' => 'required',
-            'sigla' => 'required'
+            'up-estado' => ['required', 'max:45'],
+            'up-sigla' => ['required', 'max:2']
         ]);
 
-        $estados =  Estado::find($id);
-        $estados->nome = $request->input('estado');
-        $estados->sigla = $request->input('sigla');
+        $estados =  $this->estado::find($id);
+        $estados->nome = $request->input('up-estado');
+        $estados->sigla = $request->input('up-sigla');
 
         $estados->save();
 
@@ -104,7 +115,7 @@ class EstadoController extends Controller
      */
     public function destroy($id)
     {
-        $estados = Estado::find($id);
+        $estados = $this->estado::find($id);
         $estados->delete();
         return redirect('estado')->with('success', 'Estado excluído com sucesso!');
     }
