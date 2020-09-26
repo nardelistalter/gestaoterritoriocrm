@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estado;
-use App\Models\Microrregiao;
+use App\Models\Cargo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class MicrorregiaoController extends Controller
+class CargoController extends Controller
 {
-    private  $microrregiao;
-    private  $estado;
+    private $cargo;
 
     public function __construct()
     {
-        $this->microrregiao = new Microrregiao();
-        $this->estado = new Estado();
+        $this->cargo = new Cargo();
     }
 
     /**
@@ -24,10 +22,8 @@ class MicrorregiaoController extends Controller
      */
     public function index()
     {
-        $microrregioes = $this->microrregiao::all()->sortBy('nome');
-        $estados = $this->estado::all()->sortBy('nome');
-        return view('microrregiao.content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
-        //return view('content_microrregiao', compact('estados'), compact('microrregioes'));
+        $cargos = $this->cargo::all()->sortBy('descricao');
+        return view('cargo.content_cargo')->with('cargos', $cargos);
     }
 
     /**
@@ -48,18 +44,17 @@ class MicrorregiaoController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate($request, [
-            'add-microrregiao' => 'required',
-            'add-estado' => 'required'
+            'add-cargo' => 'required|max:45',
         ]);
 
-        $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $cargos =  $this->cargo;
+        $cargos->descricao = $request->input('add-cargo');
 
-        $microrregioes->save();
+        $cargos->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('cargo')->with('success', 'Cargo salvo com sucesso!');
     }
 
     /**
@@ -93,18 +88,18 @@ class MicrorregiaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $cargo = DB::table('cargos')->where('id', $id)->first();
+
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
-            'up-estado' => ['required', 'integer']
+            'up-cargo' => ['required', 'max:45'],
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $cargos =  $this->cargo::find($id);
+        $cargos->descricao = $request->input('up-cargo');
 
-        $microrregioes->save();
+        $cargos->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('cargo')->with('success', 'Cargo alterado com sucesso!');
     }
 
     /**
@@ -115,8 +110,8 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        $cargos = $this->cargo::find($id);
+        $cargos->delete();
+        return redirect('cargo')->with('success', 'Cargo excluído com sucesso!');
     }
 }

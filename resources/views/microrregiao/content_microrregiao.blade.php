@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($microrregioes ?? '' as $microrregiao)
+                            @foreach ($microrregioes as $microrregiao)
                                 @php
                                     $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
@@ -204,7 +204,7 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
-                        <button type="submit" class="btn btn-danger">Sim!</button>
+                        <button type="submit" class="btn btn-danger">Sim</button>
                     </div>
                 </form>
             </div>

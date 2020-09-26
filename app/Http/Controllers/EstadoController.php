@@ -23,7 +23,7 @@ class EstadoController extends Controller
     public function index()
     {
         $estados = $this->estado::all()->sortBy('nome');
-        return view('content_estado')->with('estados', $estados);
+        return view('estado.content_estado')->with('estados', $estados);
     }
 
     /**

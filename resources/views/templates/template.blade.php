@@ -146,7 +146,7 @@
                         <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>Produtos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produtos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>Safras</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>Cargos</a>
+                        <a class="collapse-item" href={{ route('cargo.index') }}><i class="fas fa-user-tie mr-1"></i>Cargos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>Visões Políticas</a>
                     </div>
                 </div>
@@ -526,9 +526,6 @@
             });
         });
 
-
-
-
         // Estado
         $(document).ready(function() {
 
@@ -592,8 +589,6 @@
             });
             //End Delete Record
         });
-
-
 
         // Microrregiao
         $(document).ready(function() {
@@ -668,6 +663,68 @@
                 $('#deleteModal').modal('show');
             });
             //End Delete Record
+        });
+
+        // Cargo
+        $(document).ready(function() {
+
+        var table = $('#datatableCargo').DataTable();
+
+        //Start Edit Record
+        table.on('click', '.edit', function() {
+            $tr = $(this).closest('tr');
+            if ($($tr).hasClass('child')) {
+                $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+
+            $('#up-cargo').val(data[1]);
+
+            $('#editForm').attr('action', '/cargo/' + data[0]);
+            $('#editModal').modal('show');
+        });
+        //End Edit Record
+
+        //Start View
+        table.on('click', '.view', function() {
+            $tr = $(this).closest('tr');
+            if ($($tr).hasClass('child')) {
+                $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+
+            $('#v-id').val(data[0]);
+            $('#v-cargo').val(data[1]);
+
+            $('#viewForm').attr('action');
+            $('#viewModal').modal('show');
+        });
+        //End View
+
+        //Start Delete Record
+        table.on('click', '.delete', function() {
+            $tr = $(this).closest('tr');
+            if ($($tr).hasClass('child')) {
+                $tr = $tr.prev('.parent');
+            }
+
+            var data = table.row($tr).data();
+            console.log(data);
+
+            //$('#id').val(data[0]);
+            var conteudo = $(".modal-body").html();
+
+            $('#delete-modal-body').html(
+                '<input type="hidden" name="_method" value="DELETE">' +
+                '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+            $('#deleteForm').attr('action', '/cargo/' + data[0]);
+            $('#deleteModal').modal('show');
+        });
+        //End Delete Record
         });
 
     </script>
