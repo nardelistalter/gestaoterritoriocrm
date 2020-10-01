@@ -104,7 +104,7 @@ class MicrorregiaoController extends Controller
 
         $microrregioes->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
     }
 
     /**

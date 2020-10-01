@@ -16,7 +16,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Início</h6>
             </div>
             <div class="card-body">
-                <h5>Área de Conteúdo</h5>
+                <h5>Home - Área de Conteúdo</h5>
             </div>
         </div>
         <!-- End Content -->

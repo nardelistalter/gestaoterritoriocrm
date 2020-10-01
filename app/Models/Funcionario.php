@@ -30,6 +30,18 @@ class Funcionario extends Model
         return $this->hasOne(Usuario::class, 'funcionario_id');
     }
 
+
+
+
+    // Relação 1 para 1 com usuario (Usuário com acesso ao sistema)
+    public function user()
+    {
+        return $this->hasOne(User::class, 'funcionario_id');
+    }
+
+
+
+
     //Relação 1 gerente para muitos funcionários (auto-relacionamento)
     public function gerente()
     {

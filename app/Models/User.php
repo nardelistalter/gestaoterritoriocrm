@@ -17,7 +17,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        /*'name', 'email', 'password',*/
+        'password',
+        'status',
+        'perfilAdministrador',
+        'ultimoAcesso',
+        'funcionario_id',
+        'email'
     ];
 
     /**
@@ -37,4 +43,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    // Relação (1 para 1)
+    public function funcionario()
+    {
+        return $this->belongsTo(Funcionario::class, 'funcionario_id', 'id');
+    }
+
 }

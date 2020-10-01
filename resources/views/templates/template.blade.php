@@ -125,8 +125,9 @@
                         <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i
                                 class="fas fa-map-marked mr-1"></i>Microrregiões</a>
-                        <a class="collapse-item" href={{ route('estado.index') }}><i
-                                class="fas fa-map mr-1"></i>Estados</a>
+                                <a class="collapse-item"
+                                href={{ route('estado.index') }}>
+                                <i class="fas fa-map mr-1"></i>Estados</a>
                     </div>
                 </div>
             </li>
@@ -146,7 +147,8 @@
                         <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>Produtos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produtos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>Safras</a>
-                        <a class="collapse-item" href={{ route('cargo.index') }}><i class="fas fa-user-tie mr-1"></i>Cargos</a>
+                        <a class="collapse-item" href={{ route('cargo.index') }}><i
+                                class="fas fa-user-tie mr-1"></i>Cargos</a>
                         <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>Visões Políticas</a>
                     </div>
                 </div>
@@ -229,6 +231,9 @@
                     <div>
                         <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">Gestão de
                             Território e Metas</h1>
+
+
+
                     </div>
 
                     <!-- Topbar Navbar -->
@@ -358,7 +363,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger" href="login.html">Sair</a>
+                    <a class="btn btn-danger" href="{{ url('logout') }}">Sair</a>
                 </div>
             </div>
         </div>
@@ -610,12 +615,15 @@
                 $('#select-microrregiao').html(
                     '<label for="up-estado">Estado</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
-                        '<option value="">Selecione um Estado</option>' +
-                        '@if (isset($estados))' +
-                            '@foreach ($estados ?? '' as $estado)' +
-                                '<option value={{ $estado->id }} @if ($estado->id == "' + data[0] + '") selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
-                            '@endforeach' +
-                        '@endif' +
+                    '<option value="">Selecione um Estado</option>' +
+                    '@if (isset($estados))' +
+                    '@foreach ($estados ?? '
+                    ' as $estado)' +
+                    '<option value={{ $estado->id }} @if ($estado->id == "' +
+                    data[0] +
+                    '") selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                    '@endforeach' +
+                    '@endif' +
                     '</select>');
                 $('#editForm').attr('action', '/microrregiao/' + data[0]);
                 $('#up-microrregiao').val(data[1]);
@@ -668,63 +676,63 @@
         // Cargo
         $(document).ready(function() {
 
-        var table = $('#datatableCargo').DataTable();
+            var table = $('#datatableCargo').DataTable();
 
-        //Start Edit Record
-        table.on('click', '.edit', function() {
-            $tr = $(this).closest('tr');
-            if ($($tr).hasClass('child')) {
-                $tr = $tr.prev('.parent');
-            }
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-            var data = table.row($tr).data();
-            console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-            $('#up-cargo').val(data[1]);
+                $('#up-cargo').val(data[1]);
 
-            $('#editForm').attr('action', '/cargo/' + data[0]);
-            $('#editModal').modal('show');
-        });
-        //End Edit Record
+                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
 
-        //Start View
-        table.on('click', '.view', function() {
-            $tr = $(this).closest('tr');
-            if ($($tr).hasClass('child')) {
-                $tr = $tr.prev('.parent');
-            }
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-            var data = table.row($tr).data();
-            console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-            $('#v-id').val(data[0]);
-            $('#v-cargo').val(data[1]);
+                $('#v-id').val(data[0]);
+                $('#v-cargo').val(data[1]);
 
-            $('#viewForm').attr('action');
-            $('#viewModal').modal('show');
-        });
-        //End View
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
 
-        //Start Delete Record
-        table.on('click', '.delete', function() {
-            $tr = $(this).closest('tr');
-            if ($($tr).hasClass('child')) {
-                $tr = $tr.prev('.parent');
-            }
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
 
-            var data = table.row($tr).data();
-            console.log(data);
+                var data = table.row($tr).data();
+                console.log(data);
 
-            //$('#id').val(data[0]);
-            var conteudo = $(".modal-body").html();
+                //$('#id').val(data[0]);
+                var conteudo = $(".modal-body").html();
 
-            $('#delete-modal-body').html(
-                '<input type="hidden" name="_method" value="DELETE">' +
-                '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-            $('#deleteForm').attr('action', '/cargo/' + data[0]);
-            $('#deleteModal').modal('show');
-        });
-        //End Delete Record
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+                $('#deleteForm').attr('action', '/cargo/' + data[0]);
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
         });
 
     </script>
