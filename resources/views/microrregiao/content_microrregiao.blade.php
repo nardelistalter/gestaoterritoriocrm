@@ -30,18 +30,20 @@
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Nome</th>
                                 <th class="th-sm">Estado</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($microrregioes as $microrregiao)
                                 @php
-                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
                                     <th>{{ $microrregiao->id }}</th>
                                     <td>{{ $microrregiao->nome }}</td>
-                                    <td>{{ $estado->nome }} ({{ $estado->sigla }})</td>
+                                    <td>{{ $estado->nome }} - {{ $estado->sigla }}</td>
+                                    <td style="display: none;">{{ $estado->id }}</td>
                                     <td>
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -58,6 +60,7 @@
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Nome</th>
                                 <th class="th-sm">Estado</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </tfoot>
@@ -90,7 +93,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-estado">Estado</label>
                             <!--<input type="text" class="form-control" maxlength="2"
-                                                style="text-transform: uppercase; width: 60px" name="estado" required>-->
+                                                    style="text-transform: uppercase; width: 60px" name="estado" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-estado">
                                 <option>Selecione um Estado</option>
                                 @foreach ($estados as $estado)
@@ -129,11 +132,27 @@
                             <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
                         </div>
                         <div id="select-microrregiao" class="form-group col-xs-2">
-                           {{-- <label id="" for="up-estado">Estado</label>
+                            {{-- <label id="" for="up-estado">Estado</label>
                             <select class="form-control selectpicker" data-live-search="true" name="up-estado">
                                 <option value="">Selecione um Estado</option>
                                 @foreach ($estados as $estado)
-                                    <option value={{ $estado->id }} @if ($estado->id === $microrregiao->estado->id) selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>
+                                    <option value={{ $estado->id }} @if ($estado->id === $microrregiao->estado->id) selected
+                                @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>
+                                @endforeach
+                            </select>--}}
+                            {{-- <label id="" for="up-estado">Estado</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-estado">
+                                <option value="">Selecione um Estado</option>
+                                @php
+                                $id_estado_selecionado = "2";
+                                @endphp
+                                @foreach ($estados as $estado)
+                                    <option value={{ $estado->id }}
+                                        {{ old('estado_id', $microrregiao->estado_id) == $estado->id ? 'selected' : '' }}>
+                                        {{ $estado->nome }} - {{ $estado->sigla }}</option>
+                                    <option value={{ $estado->id }}
+                                        {{ $id_estado_selecionado == $estado->id ? 'selected' : '' }}>{{ $estado->nome }} -
+                                        {{ $estado->sigla }}</option>
                                 @endforeach
                             </select> --}}
                         </div>
@@ -159,7 +178,6 @@
                     </button>
                 </div>
                 <form action="" method="POST" id="viewForm">
-
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="v-id">id</label>
@@ -211,5 +229,95 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
+@endsection
 
+
+@section('script_pages')
+    <script type="text/javascript">
+        // Microrregiao
+        $(document).ready(function() {
+
+            var table = $('#datatableMicrorregiao').DataTable();
+
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+
+                //var x = "x = '" + data[3] + "'";
+                var y = data[3];
+                //var y = parseInt(data[3]);
+                var x = '<option value={{ $estado->id }} {{ $estado->id == '27' ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>';
+                //var x = '<option value={{ $estado->id }} {{ $estado->id == "' + y  + '" ? "selected " : "" }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>';
+                /*var x = '   @foreach ($estados as $estado)' +
+                    '       <option value={{ $estado->id }} {{ $estado->id == "' + y + '" ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                    '   @endforeach';*/
+
+                console.log(y);
+                console.log(x);
+
+
+
+                $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
+                    '   <option value="">Selecione um Estado</option>' +
+                    '   @foreach ($estados as $estado)' +
+                    '       <option value={{ $estado->id }} {{ $estado->id == ' + data[3] + ' ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                    '   @endforeach' +
+                    '</select>');
+
+                $('#editForm').attr('action', '/microrregiao/' + data[0]);
+                $('#up-microrregiao').val(data[1]);
+                $('#up-estado').val(data[2]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
+
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#v-id').val(data[0]);
+                $('#v-microrregiao').val(data[1]);
+                $('#v-estado').val(data[2]);
+
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
+
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                //$('#id').val(data[0]);
+
+                $('#deleteForm').attr('action', '/microrregiao/' + data[0]);
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
+
+    </script>
 @endsection

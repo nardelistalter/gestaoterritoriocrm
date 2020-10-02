@@ -22,8 +22,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableEstado" class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
-                        width="100%">
+                    <table id="datatableEstado" class="table table-bordered table-sm table-responsive text-center datatable"
+                        cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
@@ -81,14 +81,14 @@
 
                         <div class="form-group">
                             <label for="add-estado">Descrição</label>
-                            <input type="text" class="form-control"id="add-estado"  name="add-estado" >
+                            <input type="text" class="form-control" id="add-estado" name="add-estado">
                             <span class="text-danger" id="add-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label for="add-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="add-sigla" name="add-sigla" >
-                                <span class="text-danger" id="add-siglaError"></span>
+                                style="text-transform: uppercase; width: 60px" id="add-sigla" name="add-sigla">
+                            <span class="text-danger" id="add-siglaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -126,7 +126,7 @@
                             <label for="up-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
                                 style="text-transform: uppercase; width: 60px" id="up-sigla" name="up-sigla" required>
-                                <span class="text-danger" id="up-estadoError"></span>
+                            <span class="text-danger" id="up-estadoError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -203,5 +203,76 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
+
+@endsection
+
+@section('script_pages')
+
+    <script type="text/javascript">
+        // Estado
+        $(document).ready(function() {
+
+            var table = $('#datatableEstado').DataTable();
+
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#up-estado').val(data[1]);
+                $('#up-sigla').val(data[2]);
+
+                $('#editForm').attr('action', '/estado/' + data[0]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
+
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#v-id').val(data[0]);
+                $('#v-estado').val(data[1]);
+                $('#v-sigla').val(data[2]);
+
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
+
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                //$('#id').val(data[0]);
+                var conteudo = $(".modal-body").html();
+
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+                $('#deleteForm').attr('action', '/estado/' + data[0]);
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
+
+    </script>
 
 @endsection

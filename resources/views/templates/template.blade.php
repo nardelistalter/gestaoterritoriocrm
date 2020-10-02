@@ -125,9 +125,8 @@
                         <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i
                                 class="fas fa-map-marked mr-1"></i>Microrregiões</a>
-                                <a class="collapse-item"
-                                href={{ route('estado.index') }}>
-                                <i class="fas fa-map mr-1"></i>Estados</a>
+                        <a class="collapse-item" href={{ route('estado.index') }}>
+                            <i class="fas fa-map mr-1"></i>Estados</a>
                     </div>
                 </div>
             </li>
@@ -405,48 +404,12 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
+
     <script type="text/javascript">
+
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
-        })
-
-        /*function modalValidation() {
-            //var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            var estado = $('#estado').val();
-            var sigla = $('#sigla').val();
-
-            $('#estadoError').addClass('d-none');
-            $('#siglaError').addClass('d-none');
-
-            $.ajax({
-                type: 'POST',
-                //url:"{{ url('App\Http\Controllers\EstadoController@store') }}",
-                data: {//_token: CSRF_TOKEN,
-                    estado:estado,
-                    sigla:sigla,
-                },
-
-
-                success: function(data) {
-                },
-
-                error: function(data) {
-                    var errors = data.responseJSON;
-                    if($.isEmptyObject(errors) == false) {
-                        $.each(errors.errors, function(key, value) {
-                            var ErrorID = '#' + key +  'Error';
-                            $(ErrorID).removeClass('d-none');
-                            $(ErrorID).text(value);
-                        })
-                    }
-                }
-            });
-            //console.log(data);
-        }*/
-        /* table = $('#dt_table_crud').DataTable({
-          retrieve: true,
-          paging: false
-        });*/
+        });
 
         //Seleção de filtro
         /*$(document).ready(function () {
@@ -455,7 +418,7 @@
             initComplete: function () {
               this.api().columns().every(function () {
                 var column = this;
-                var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>')
+                var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" SELECTED>Search</option></select>')
                   .appendTo($(column.footer()).empty())
                   .on('change', function () {
                     var val = $.fn.dataTable.util.escapeRegex(
@@ -499,16 +462,12 @@
 
         $(document).ready(function() {
 
-            /*                 $('.datatable').DataTable( {
-                                 "order": [[ 2, "desc" ]]
-                             } );*/
-
             $('.datatable').dataTable({
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var column = this;
                         var select = $(
-                                '<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>'
+                                '<select  class="browser-default custom-select form-control-sm"><option value="" SELECTED>Search</option></select>'
                             )
                             .appendTo($(column.footer()).empty())
                             .on('change', function() {
@@ -527,215 +486,15 @@
                         });
                     });
                 }
-
             });
-        });
-
-        // Estado
-        $(document).ready(function() {
-
-            var table = $('#datatableEstado').DataTable();
-
-            //Start Edit Record
-            table.on('click', '.edit', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#up-estado').val(data[1]);
-                $('#up-sigla').val(data[2]);
-
-                $('#editForm').attr('action', '/estado/' + data[0]);
-                $('#editModal').modal('show');
-            });
-            //End Edit Record
-
-            //Start View
-            table.on('click', '.view', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#v-id').val(data[0]);
-                $('#v-estado').val(data[1]);
-                $('#v-sigla').val(data[2]);
-
-                $('#viewForm').attr('action');
-                $('#viewModal').modal('show');
-            });
-            //End View
-
-            //Start Delete Record
-            table.on('click', '.delete', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                //$('#id').val(data[0]);
-                var conteudo = $(".modal-body").html();
-
-                $('#delete-modal-body').html(
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/estado/' + data[0]);
-                $('#deleteModal').modal('show');
-            });
-            //End Delete Record
-        });
-
-        // Microrregiao
-        $(document).ready(function() {
-
-            var table = $('#datatableMicrorregiao').DataTable();
-
-            //Start Edit Record
-            table.on('click', '.edit', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                var conteudo = $(".modal-body").html();
-
-                $('#select-microrregiao').html(
-                    '<label for="up-estado">Estado</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
-                    '<option value="">Selecione um Estado</option>' +
-                    '@if (isset($estados))' +
-                    '@foreach ($estados ?? '
-                    ' as $estado)' +
-                    '<option value={{ $estado->id }} @if ($estado->id == "' +
-                    data[0] +
-                    '") selected @endif >{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
-                    '@endforeach' +
-                    '@endif' +
-                    '</select>');
-                $('#editForm').attr('action', '/microrregiao/' + data[0]);
-                $('#up-microrregiao').val(data[1]);
-                $('#up-estado').val(data[2]);
-
-                $('#editModal').modal('show');
-            });
-            //End Edit Record
-
-            //Start View
-            table.on('click', '.view', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#v-id').val(data[0]);
-                $('#v-microrregiao').val(data[1]);
-                $('#v-estado').val(data[2]);
-
-                $('#viewForm').attr('action');
-                $('#viewModal').modal('show');
-            });
-            //End View
-
-            //Start Delete Record
-            table.on('click', '.delete', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                //$('#id').val(data[0]);
-
-                $('#deleteForm').attr('action', '/microrregiao/' + data[0]);
-                $('#delete-modal-body').html(
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteModal').modal('show');
-            });
-            //End Delete Record
-        });
-
-        // Cargo
-        $(document).ready(function() {
-
-            var table = $('#datatableCargo').DataTable();
-
-            //Start Edit Record
-            table.on('click', '.edit', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#up-cargo').val(data[1]);
-
-                $('#editForm').attr('action', '/cargo/' + data[0]);
-                $('#editModal').modal('show');
-            });
-            //End Edit Record
-
-            //Start View
-            table.on('click', '.view', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#v-id').val(data[0]);
-                $('#v-cargo').val(data[1]);
-
-                $('#viewForm').attr('action');
-                $('#viewModal').modal('show');
-            });
-            //End View
-
-            //Start Delete Record
-            table.on('click', '.delete', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
-
-                var data = table.row($tr).data();
-                console.log(data);
-
-                //$('#id').val(data[0]);
-                var conteudo = $(".modal-body").html();
-
-                $('#delete-modal-body').html(
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/cargo/' + data[0]);
-                $('#deleteModal').modal('show');
-            });
-            //End Delete Record
         });
 
     </script>
+
+    <!-- Start script for specific page -->
+    @yield('script_pages')
+    <!-- End script for specific page -->
+
 </body>
 
 </html>

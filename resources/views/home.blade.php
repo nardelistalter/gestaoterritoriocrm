@@ -22,3 +22,9 @@
         <!-- End Content -->
 
     @endsection
+
+    @section('script_pages')
+
+        <!-- Null -->
+
+    @endsection

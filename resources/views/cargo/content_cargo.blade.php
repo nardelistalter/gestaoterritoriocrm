@@ -22,8 +22,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
-                        width="100%">
+                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable"
+                        cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
@@ -78,7 +78,7 @@
 
                         <div class="form-group">
                             <label for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control"id="add-cargo"  name="add-cargo" >
+                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
                             <span class="text-danger" id="add-cargoError"></span>
                         </div>
                     </div>
@@ -184,5 +184,74 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
+
+@endsection
+
+@section('script_pages')
+
+    <script type="text/javascript">
+        // Cargo
+        $(document).ready(function() {
+
+            var table = $('#datatableCargo').DataTable();
+
+            //Start Edit Record
+            table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#up-cargo').val(data[1]);
+
+                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record
+
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#v-id').val(data[0]);
+                $('#v-cargo').val(data[1]);
+
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
+
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                //$('#id').val(data[0]);
+                var conteudo = $(".modal-body").html();
+
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+                $('#deleteForm').attr('action', '/cargo/' + data[0]);
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
+
+    </script>
 
 @endsection
