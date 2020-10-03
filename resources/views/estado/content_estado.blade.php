@@ -1,4 +1,6 @@
-@extends('templates.template')
+@extends('layouts.template')
+
+@section('titulo', 'Estados')
 
 @section('content')
 

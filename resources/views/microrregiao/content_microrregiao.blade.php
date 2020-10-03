@@ -1,4 +1,6 @@
-@extends('templates.template')
+@extends('layouts.template')
+
+@section('titulo', 'Microrregiões')
 
 @section('content')
 
@@ -249,28 +251,15 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-
-                //var x = "x = '" + data[3] + "'";
-                var y = data[3];
-                //var y = parseInt(data[3]);
-                var x = '<option value={{ $estado->id }} {{ $estado->id == '27' ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>';
-                //var x = '<option value={{ $estado->id }} {{ $estado->id == "' + y  + '" ? "selected " : "" }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>';
-                /*var x = '   @foreach ($estados as $estado)' +
-                    '       <option value={{ $estado->id }} {{ $estado->id == "' + y + '" ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
-                    '   @endforeach';*/
-
-                console.log(y);
-                console.log(x);
-
-
-
                 $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
                     '   <option value="">Selecione um Estado</option>' +
                     '   @foreach ($estados as $estado)' +
-                    '       <option value={{ $estado->id }} {{ $estado->id == ' + data[3] + ' ? 'selected' : '' }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                    '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
                     '   @endforeach' +
                     '</select>');
+
+                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected','selected');
 
                 $('#editForm').attr('action', '/microrregiao/' + data[0]);
                 $('#up-microrregiao').val(data[1]);

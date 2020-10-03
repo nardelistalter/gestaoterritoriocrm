@@ -1,4 +1,4 @@
-@extends('templates.access-template')
+@extends('layouts.access-template')
 
 @section('access-content')
 

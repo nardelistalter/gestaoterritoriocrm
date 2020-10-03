@@ -32,7 +32,7 @@
     <!-- DataTables Select CSS -->
     <link href={{ URL::to('css/addons/datatables-select2.min.css') }} rel="stylesheet">
 
-    <title>GTM</title>
+    <title>GTM | @yield('titulo')</title>
 
 </head>
 
