@@ -85,9 +85,10 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <!--<button type="button" class="btn btn-primary" onclick="modalValidation();">Salvar</button>-->
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
+                            class="fas fa-undo-alt mr-1"></i>Cancelar</button>
+                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>Salvar</button>    
                     </div>
                 </form>
             </div>
@@ -117,8 +118,10 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
+                            class="fas fa-undo-alt mr-1"></i>Cancelar</button>
+                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>Salvar</button>
                     </div>
                 </form>
             </div>
@@ -149,14 +152,14 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Sair"><i
+                            class="fas fa-undo-alt mr-1"></i>Sair</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- End VIEW Modal -->
-
 
     <!-- Start DELETE Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
@@ -178,8 +181,10 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Não</button>
-                        <button type="submit" class="btn btn-danger">Sim</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                            class="fas fa-undo-alt mr-1"></i>Não</button>
+                        <button type="submit" class="btn btn-danger"><i
+                            class="fas fa-trash-alt mr-1"></i>Sim</button>
                     </div>
                 </form>
             </div>
