@@ -12,15 +12,15 @@
             <div class="crud_button">
                 <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
-                        title="Incluir item"></i>Novo</button>
+                        title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">Cadastro de Cargos</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Cargos') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Cargos/Funções</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Cargos/Funções') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -69,7 +69,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">Novo Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Cargo') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -86,9 +86,9 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>Cancelar</button>
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
                         <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>Salvar</button>    
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>    
                     </div>
                 </form>
             </div>
@@ -102,7 +102,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">Alterar Cargo</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Cargo') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -119,9 +119,9 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>Cancelar</button>
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
                         <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>Salvar</button>
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                     </div>
                 </form>
             </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Sair"><i
-                            class="fas fa-undo-alt mr-1"></i>Sair</button>
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
                     </div>
                 </form>
             </div>
@@ -167,7 +167,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">Excluir Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Cargo') }}</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -182,9 +182,9 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-success" data-dismiss="modal"><i
-                            class="fas fa-undo-alt mr-1"></i>Não</button>
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
                         <button type="submit" class="btn btn-danger"><i
-                            class="fas fa-trash-alt mr-1"></i>Sim</button>
+                            class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
                     </div>
                 </form>
             </div>

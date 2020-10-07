@@ -50,7 +50,7 @@
                     <img id="logo" src={{ URL::to('img/logo_branco.png') }} alt="" srcset="">
                     <!--<i class="fas fa-laugh-wink"></i>-->
                 </div>
-                <div class="sidebar-brand-text mx-3">GTM <sup></sup></div>
+                <div class="sidebar-brand-text mx-3">{{ __('GTM') }}<sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -60,7 +60,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Painel de Controle</span></a>
+                    <span>{{ __('Painel de Controle') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -68,7 +68,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Cadastro
+                {{ __('Cadastro') }}
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -76,16 +76,16 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePessoa"
                     aria-expanded="true" aria-controls="collapsePessoa">
                     <i class="fas fa-user-alt"></i>
-                    <span>Pessoas</span>
+                    <span>{{ __('Pessoas') }}</span>
                 </a>
                 <div id="collapsePessoa" class="collapse" aria-labelledby="headingPessoa"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manutenção de Pessoas:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>Clientes</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-users mr-1"></i>Grupos de Clientes</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-card mr-1"></i>Funcionários</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>Usuários</a>
+                        <h6 class="collapse-header">{{ __('Manutenção de Pessoas:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
                     </div>
                 </div>
             </li>
@@ -94,14 +94,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOperacao"
                     aria-expanded="true" aria-controls="collapseOperacao">
                     <i class="fas fa-fw fa-calculator"></i>
-                    <span>Operações</span>
+                    <span>{{ __('Operações') }}</span>
                 </a>
                 <div id="collapseOperacao" class="collapse" aria-labelledby="headingOperacao"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manutenção de Operações:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i></i>Metas</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>Vendas</a>
+                        <h6 class="collapse-header">{{ __('Operações') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
                     </div>
                 </div>
             </li>
@@ -110,23 +110,21 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTerritorio"
                     aria-expanded="true" aria-controls="collapseTerritorio">
                     <i class="fas fa-globe-americas"></i>
-                    <span>Território</span>
+                    <span>{{ __('Território') }}</span>
                 </a>
                 <div id="collapseTerritorio" class="collapse" aria-labelledby="headingTerritorio"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manutenção de Território:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>Inscrições Estaduais</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>Áreas Grupo
-                            Cliente</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>Segmentos / Culturas</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>Unidades de
-                            Área</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>Municípios</a>
+                        <h6 class="collapse-header">{{ __('Manutenção de Território:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i
-                                class="fas fa-map-marked mr-1"></i>Microrregiões</a>
+                                class="fas fa-map-marked mr-1"></i>{{ __('Microrregiões') }}</a>
                         <a class="collapse-item" href={{ route('estado.index') }}>
-                            <i class="fas fa-map mr-1"></i>Estados</a>
+                            <i class="fas fa-map mr-1"></i>{{ __('Estados') }}</a>
                     </div>
                 </div>
             </li>
@@ -135,20 +133,19 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseParametro"
                     aria-expanded="true" aria-controls="collapseParametro">
                     <i class="fas fa-sliders-h"></i>
-                    <span>Parâmetros</span>
+                    <span>{{ __('Parâmetros') }}</span>
                 </a>
                 <div id="collapseParametro" class="collapse" aria-labelledby="headingParametro"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manut. de Parâmetros:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>Programas de
-                            Negócio</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>Produtos</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produtos</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>Safras</a>
+                        <h6 class="collapse-header">{{ __('Manut. de Parâmetros:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                         <a class="collapse-item" href={{ route('cargo.index') }}><i
-                                class="fas fa-user-tie mr-1"></i>Cargos</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>Visões Políticas</a>
+                                class="fas fa-user-tie mr-1"></i>{{ __('Cargos') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>{{ __('Visões Políticas') }}</a>
                     </div>
                 </div>
             </li>
@@ -158,7 +155,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Outros
+                {{ __('Outros') }}
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -166,31 +163,29 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRelatorio"
                     aria-expanded="true" aria-controls="collapseRelatorio">
                     <i class="fas fa-file-export"></i>
-                    <span>Relatórios</span>
+                    <span>{{ __('Relatórios') }}</span>
                 </a>
                 <div id="collapseRelatorio" class="collapse" aria-labelledby="headingRelatorio"
                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Pessoas:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>Clientes</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-card-alt mr-1"></i>Funcionários</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>Usuários</a>
+                    <div class="bg-white py-2 collapse-inner rounded"> 
+                    <h6 class="collapse-header">{{ _('Pessoas:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-card-alt mr-1"></i>{{ __('Funcionários') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Território:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>Culturas</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>Potencial de
-                            Negócios</a>
+                        <h6 class="collapse-header">{{ __('Território:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>{{ __('Culturas') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Potencial de Negócios') }}</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Operações:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i>Metas</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>Vendas</a>
+                        <h6 class="collapse-header">{{ __('Operações') }}:</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i>{{ __('Metas') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Parâmetros:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>Programas de
-                            Negócio</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>Produtos</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>Grupos de Produto</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>Safras</a>
+                        <h6 class="collapse-header">{{ __('Parâmetros:') }}</h6>
+                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}</a>
+                        <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                     </div>
                 </div>
             </li>
@@ -199,7 +194,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-bar"></i>
-                    <span>Gráficos</span></a>
+                    <span>{{ __('Gráficos') }}</span></a>
             </li>
 
             <!-- Divider -->
@@ -228,10 +223,8 @@
                     </button>
 
                     <div>
-                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">Gestão de
-                            Território e Metas</h1>
-
-
+                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">{{ __('Gestão de
+                            Território e Metas')}}</h1>
 
                     </div>
 
@@ -242,7 +235,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Nardeli Miguel Stalter</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ __('Nardeli Miguel Stalter') }}</span>
                                 <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}>
                             </a>
 
@@ -251,21 +244,21 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
+                                    {{ __('Perfil') }}
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <!--<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                     <i class="fas fa-cogs fa-sm fa-key mr-2 text-gray-400"></i>
-                                    Alterar Senha
+                                    {{ __('Alterar Senha') }}
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Registro de Atividades
+                                    {{ __('Registro de Atividades') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Sair
+                                    {{ __('Sair') }}
                                 </a>
                             </div>
                         </li>
@@ -308,17 +301,16 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h3 class="modal-title" id="ModalLabel">Pronto para sair?</h3>
+                                <h3 class="modal-title" id="ModalLabel">{{ __('Pronto para sair?') }}</h3>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para encerrar sua
-                                sessão atual.
+                            <div class="modal-body">{{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                <a class="btn btn-primary" href="login.html">Sair</a>
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('Cancelar') }}</button>
+                                <a class="btn btn-primary" href="login.html">{{ __('Sair') }}</a>
                             </div>
                         </div>
                     </div>
@@ -330,7 +322,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Nardeli Miguel Stalter 2020</span>
+                        <span>Copyright &copy; {{ __('Nardeli Miguel Stalter 2020') }}</span>
                     </div>
                 </div>
             </footer>
@@ -353,16 +345,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="exampleModalLabel">Pronto para sair?</h5>
+                    <h5 class="modal-title text-danger" id="exampleModalLabel">{{ __('Pronto para sair?') }}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.
+                <div class="modal-body">{{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger" href="{{ url('logout') }}">Sair</a>
+                    <button class="btn btn-info" type="button" data-dismiss="modal">{{ __('Cancelar') }}</button>
+                    <a class="btn btn-danger" href="{{ url('logout') }}">{{ __('Sair') }}</a>
                 </div>
             </div>
         </div>
