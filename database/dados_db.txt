@@ -838,11 +838,11 @@ App\Models\Email::create(['email'  => 'grupo@bonfim.com', 'pessoa_id'  => 23]);
 App\Models\Email::create(['email'  => 'compras@bonfim.com', 'pessoa_id'  => 23]);
 App\Models\Email::create(['email'  => 'grupo@cardin.com', 'pessoa_id'  => 25]);
 
-App\Models\Usuario::create(['funcionario_id' => 1, 'senha' => md5('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 1]);
-App\Models\Usuario::create(['funcionario_id' => 21, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 13]);
-App\Models\Usuario::create(['funcionario_id' => 4, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 2]);
-App\Models\Usuario::create(['funcionario_id' => 9, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 7]);
-App\Models\Usuario::create(['funcionario_id' => 15, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 10]);
+App\Models\Usuario::create(['funcionario_id' => 1, 'senha' => bcrypt('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 1]);
+App\Models\Usuario::create(['funcionario_id' => 21, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 13]);
+App\Models\Usuario::create(['funcionario_id' => 4, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 2]);
+App\Models\Usuario::create(['funcionario_id' => 9, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 7]);
+App\Models\Usuario::create(['funcionario_id' => 15, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 10]);
 
 App\Models\GrupoCliente::create(['descricao' => 'Agrotop Agropecuaria', 'funcionario_id' => 4]);
 App\Models\GrupoCliente::create(['descricao' => 'Mantas, Bahia e Leão', 'funcionario_id' => 4]);
@@ -962,8 +962,8 @@ App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 356, 
 App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 357, 'qtdUnidadesProduto' =>  20,64, 'valorUnitario' =>  990,  'produto_id' =>  20, 'inscricaoEstadual_id' => 20]);
 App\Models\Operacao::create(['data' =>  '2020-08-15', 'numeroDocumento' => 682, 'qtdUnidadesProduto' =>  200, 'valorUnitario' =>  41,  'produto_id' =>  17, 'inscricaoEstadual_id' => 22]);
 
-App\Models\User::create(['funcionario_id' => 1, 'password' => md5('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'admin@admin.com']);
-App\Models\User::create(['funcionario_id' => 21, 'password' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'zuleide@empresa.com']);
-App\Models\User::create(['funcionario_id' => 4, 'password' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'eduarda@empresa.com']);
-App\Models\User::create(['funcionario_id' => 9, 'password' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'helder@empresa.com']);
-App\Models\User::create(['funcionario_id' => 15, 'password' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'rodrigo@empresa.com']);
+App\Models\User::create(['funcionario_id' => 1, 'nickname' => 'Admin', 'password' => bcrypt('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'admin@admin.com']);
+App\Models\User::create(['funcionario_id' => 21, 'nickname' => 'Zuleide Collaço', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'zuleide@empresa.com']);
+App\Models\User::create(['funcionario_id' => 4, 'nickname' => 'Eduarda Fragoso', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'eduarda@empresa.com']);
+App\Models\User::create(['funcionario_id' => 9, 'nickname' => 'Hélder Varão', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'helder@empresa.com']);
+App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Rodrigo Tévez', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'rodrigo@empresa.com']);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class HomeController extends Controller
 {
@@ -25,26 +25,18 @@ class HomeController extends Controller
         return view('forgot-password');
     }
 
-    /*function checklogin(Request $request) {
+    function checklogin(Request $request) {
         $this->validate($request, [
             'inputEmail' => 'required|email',
             'inputPassword' => 'required|min:5'
         ]);
 
-        $user_data = array(
-            'email' => $request->get('inputEmail'),
-            'password' =>  md5($request->get('inputPassword'))
-        );
+        $dados = $request->all();
 
-        if(Auth::attempt($user_data)) {
-            echo "Entrou aqui!";
-            die();
-            return redirect('home');
-        } else {
-            return view('home');
-            return back()->with('error', 'Erro ao efetuar login!');
+        if(Auth::attempt(['email'=> $dados['inputEmail'], 'password'=>$dados['inputPassword']])){
+            return redirect()->route('home');
         }
-    }*/
+    }
 
     function logout() {
         Auth::logout();

@@ -26,8 +26,8 @@
     @endif
     <!-- Fim erros no formulário -->
 
-    <form class="user" action="{{--  --}}" method="POST">
-        {{--  {{ csrf_field() }} --}}
+    <form class="user" action="{{ route('checklogin') }}" method="POST">
+        {{ csrf_field() }}
         <div class="form-group">
             <input type="email" class="form-control form-control-user" id="inputEmail" name="inputEmail" aria-describedby="emailHelp"
                 placeholder="E-mail">
@@ -41,7 +41,7 @@
                 <label class="custom-control-label" for="customCheck">Lembre-me</label>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-user btn-block" disabled>Login</button>
+        <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
     </form>
     <hr>
     <div class="text-center">

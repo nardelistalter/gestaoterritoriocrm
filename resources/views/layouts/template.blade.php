@@ -1,3 +1,7 @@
+@if (Auth::guest())
+    {{ redirect('/login') }}
+@endif
+
 <!DOCTYPE html>
 <html lang="pt_BR">
 
@@ -167,7 +171,7 @@
                 </a>
                 <div id="collapseRelatorio" class="collapse" aria-labelledby="headingRelatorio"
                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded"> 
+                    <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">{{ _('Pessoas:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-id-card-alt mr-1"></i>{{ __('Funcionários') }}</a>
@@ -235,7 +239,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ __('Nardeli Miguel Stalter') }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nickname }}</span>
                                 <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}>
                             </a>
 
