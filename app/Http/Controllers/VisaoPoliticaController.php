@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estado;
-use App\Models\Microrregiao;
+use App\Models\VisaoPolitica;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class MicrorregiaoController extends Controller
+class VisaoPoliticaController extends Controller
 {
-    private  $microrregiao;
-    private  $estado;
+    private $visaopolitica;
 
     public function __construct()
     {
-        $this->microrregiao = new Microrregiao();
-        $this->estado = new Estado();
+        $this->visaopolitica = new VisaoPolitica();
     }
 
     /**
@@ -24,9 +22,8 @@ class MicrorregiaoController extends Controller
      */
     public function index()
     {
-        $microrregioes = $this->microrregiao::all()->sortBy('nome');
-        $estados = $this->estado::all()->sortBy('nome');
-        return view('microrregiao.content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
+        $visaopoliticas = $this->visaopolitica::all()->sortBy('descricao');
+        return view('visaopolitica.content_visaopolitica')->with('visaopoliticas', $visaopoliticas);
     }
 
     /**
@@ -47,18 +44,17 @@ class MicrorregiaoController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'add-microrregiao' => 'required',
-            'add-estado' => 'required'
+            'add-visaopolitica' => 'required|max:45',
         ]);
 
-        $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $visaopoliticas =  $this->visaopolitica;
+        $visaopoliticas->descricao = $request->input('add-visaopolitica');
 
-        $microrregioes->save();
+        $visaopoliticas->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('visaopolitica')->with('success', 'Visão Política salva com sucesso!');
     }
 
     /**
@@ -92,18 +88,18 @@ class MicrorregiaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $visaopolitica = DB::table('visao_politicas')->where('id', $id)->first();
+
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
-            'up-estado' => ['required', 'integer']
+            'up-visaopolitica' => ['required', 'max:45'],
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $visaopoliticas =  $this->visaopolitica::find($id);
+        $visaopoliticas->descricao = $request->input('up-visaopolitica');
 
-        $microrregioes->save();
+        $visaopoliticas->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
+        return redirect('visaopolitica')->with('success', 'Visão Política alterada com sucesso!');
     }
 
     /**
@@ -114,8 +110,8 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        $visaopoliticas = $this->visaopolitica::find($id);
+        $visaopoliticas->delete();
+        return redirect('visaopolitica')->with('success', 'Visão Política excluída com sucesso!');
     }
 }

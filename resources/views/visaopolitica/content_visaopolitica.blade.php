@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Cargos')
+@section('titulo', 'Visões Políticas')
 
 @section('content')
 
@@ -14,17 +14,17 @@
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Cargos') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Visões Políticas') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Cargos/Funções') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Visões Políticas') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable"
+                    <table id="datatableVisaoPolitica" class="table table-bordered table-sm table-responsive text-center datatable"
                         cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cargos as $obj)
+                            @foreach ($visaopoliticas as $obj)
                                 <tr>
                                     <th>{{ $obj->id }}</th>
                                     <td>{{ $obj->descricao }}</td>
@@ -69,19 +69,19 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Visão Política') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\CargoController@store') }}" method="POST">
+                <form action="{{ action('App\Http\Controllers\VisaoPoliticaController@store') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
-                            <span class="text-danger" id="add-cargoError"></span>
+                            <label for="add-visaopolitica">Descrição</label>
+                            <input type="text" class="form-control" id="add-visaopolitica" name="add-visaopolitica">
+                            <span class="text-danger" id="add-visaopoliticaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -102,19 +102,19 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Cargo') }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Visão Política') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="editForm">
+                <form action="/visaopolitica" method="POST" id="editForm">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="up-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="up-cargo" name="up-cargo" required>
-                            <span class="text-danger" id="up-cargoError"></span>
+                            <label for="up-visaopolitica">Descrição</label>
+                            <input type="text" class="form-control" id="up-visaopolitica" name="up-visaopolitica" required>
+                            <span class="text-danger" id="up-visaopoliticaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -134,7 +134,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">Ver Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">Ver Visão Política</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -147,8 +147,8 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="v-cargo" name="v-cargo" readonly>
+                            <label for="v-visaopolitica">Descrição</label>
+                            <input type="text" class="form-control" id="v-visaopolitica" name="v-visaopolitica" readonly>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -167,12 +167,12 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Visão Política') }}</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="deleteForm">
+                <form action="/visaopolitica" method="POST" id="deleteForm">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <div class="modal-body">
@@ -197,10 +197,10 @@
 @section('script_pages')
 
     <script type="text/javascript">
-        // Cargo
+        // Visão Política
         $(document).ready(function() {
 
-            var table = $('#datatableCargo').DataTable();
+            var table = $('#datatableVisaoPolitica').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -212,9 +212,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#up-cargo').val(data[1]);
+                $('#up-visaopolitica').val(data[1]);
 
-                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $('#editForm').attr('action', '/visaopolitica/' + data[0]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -230,7 +230,7 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-cargo').val(data[1]);
+                $('#v-visaopolitica').val(data[1]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -253,7 +253,7 @@
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/cargo/' + data[0]);
+                $('#deleteForm').attr('action', '/visaopolitica/' + data[0]);
                 $('#deleteModal').modal('show');
             });
             //End Delete Record

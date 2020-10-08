@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estado;
-use App\Models\Microrregiao;
+use App\Models\Safra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class MicrorregiaoController extends Controller
+class SafraController extends Controller
 {
-    private  $microrregiao;
-    private  $estado;
+    private $safra;
 
     public function __construct()
     {
-        $this->microrregiao = new Microrregiao();
-        $this->estado = new Estado();
+        $this->safra = new Safra();
     }
 
     /**
@@ -24,9 +22,8 @@ class MicrorregiaoController extends Controller
      */
     public function index()
     {
-        $microrregioes = $this->microrregiao::all()->sortBy('nome');
-        $estados = $this->estado::all()->sortBy('nome');
-        return view('microrregiao.content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
+        $safras = $this->safra::all()->sortBy('descricao');
+        return view('safra.content_safra')->with('safras', $safras);
     }
 
     /**
@@ -47,18 +44,19 @@ class MicrorregiaoController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'add-microrregiao' => 'required',
-            'add-estado' => 'required'
+            'add-safra' => 'required|max:45',
+            'add-mesInicio' => 'required|numeric|min:1|max:12',
         ]);
 
-        $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $safras =  $this->safra;
+        $safras->descricao = $request->input('add-safra');
+        $safras->mesInicio = $request->input('add-mesInicio');
 
-        $microrregioes->save();
+        $safras->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('safra')->with('success', 'Safra salva com sucesso!');
     }
 
     /**
@@ -92,18 +90,20 @@ class MicrorregiaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $safra = DB::table('safras')->where('id', $id)->first();
+
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
-            'up-estado' => ['required', 'integer']
+            'up-safra' => 'required|max:45',
+            'up-mesInicio' => 'required|numeric|min:1|max:12',
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $safras =  $this->safra::find($id);
+        $safras->descricao = $request->input('up-safra');
+        $safras->mesInicio = $request->input('up-mesInicio');
 
-        $microrregioes->save();
+        $safras->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
+        return redirect('safra')->with('success', 'Safra alterada com sucesso!');
     }
 
     /**
@@ -114,8 +114,8 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        $safras = $this->safra::find($id);
+        $safras->delete();
+        return redirect('safra')->with('success', 'Safra excluída com sucesso!');
     }
 }

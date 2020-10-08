@@ -122,9 +122,9 @@
                         <h6 class="collapse-header">{{ __('Manutenção de Território:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
+                        <a class="collapse-item" href={{ route('segmentocultura.index') }}><i class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
+                        <a class="collapse-item" href={{ route('municipio.index') }}><i class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i
                                 class="fas fa-map-marked mr-1"></i>{{ __('Microrregiões') }}</a>
                         <a class="collapse-item" href={{ route('estado.index') }}>
@@ -144,12 +144,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manut. de Parâmetros:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
+                        <a class="collapse-item" href={{ route('produto.index') }}><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
+                        <a class="collapse-item" href={{ route('grupoproduto.index') }}><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
+                        <a class="collapse-item" href={{ route('safra.index') }}><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                         <a class="collapse-item" href={{ route('cargo.index') }}><i
                                 class="fas fa-user-tie mr-1"></i>{{ __('Cargos') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-vote-yea mr-1"></i>{{ __('Visões Políticas') }}</a>
+                        <a class="collapse-item" href={{ route('visaopolitica.index') }}><i class="fas fa-vote-yea mr-1"></i>{{ __('Visões Políticas') }}</a>
                     </div>
                 </div>
             </li>
@@ -255,9 +255,9 @@
                                     <i class="fas fa-cogs fa-sm fa-key mr-2 text-gray-400"></i>
                                     {{ __('Alterar Senha') }}
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                {{--  <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('Registro de Atividades') }}
+                                    {{ __('Registro de Atividades') }}--}}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

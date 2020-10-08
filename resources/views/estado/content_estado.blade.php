@@ -35,11 +35,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($estados as $e)
+                            @foreach ($estados as $obj)
                                 <tr>
-                                    <th>{{ $e->id }}</th>
-                                    <td>{{ $e->nome }}</td>
-                                    <td>{{ $e->sigla }}</td>
+                                    <th>{{ $obj->id }}</th>
+                                    <td>{{ $obj->nome }}</td>
+                                    <td>{{ $obj->sigla }}</td>
                                     <td>
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -97,7 +97,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
                             class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
                         <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>    
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                     </div>
                 </form>
             </div>
@@ -136,7 +136,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
                             class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
                         <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>    
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                     </div>
                 </form>
             </div>

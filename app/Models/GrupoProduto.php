@@ -20,7 +20,7 @@ class GrupoProduto extends Model
     }
 
     // Relação 1 para muitos com programas de negócio
-    public function programaDeNegocio() {
+    public function programadenegocio() {
         return $this->hasMany(ProgramaDeNegocio::class, 'grupoProduto_id');
     }
 

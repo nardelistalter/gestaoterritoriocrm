@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Cargos')
+@section('titulo', 'Segmento/Culturas')
 
 @section('content')
 
@@ -14,30 +14,32 @@
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Cargos') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Segmento/Culturas') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Cargos/Funções') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Segmento/Culturas') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable"
+                    <table id="datatableSegmentoCultura" class="table table-bordered table-sm table-responsive text-center datatable"
                         cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Unidade de Medida</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cargos as $obj)
+                            @foreach ($segmentoculturas as $e)
                                 <tr>
-                                    <th>{{ $obj->id }}</th>
-                                    <td>{{ $obj->descricao }}</td>
+                                    <th>{{ $e->id }}</th>
+                                    <td>{{ $e->descricao }}</td>
+                                    <td>{{ $e->unidadeMedida }}</td>
                                     <td>
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -53,6 +55,7 @@
                             <tr>
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Unidade de Medida</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </tfoot>
@@ -69,19 +72,25 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Segmento/Cultura') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\CargoController@store') }}" method="POST">
+                <form action="{{ action('App\Http\Controllers\SegmentoCulturaController@store') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
-                            <span class="text-danger" id="add-cargoError"></span>
+                            <label for="add-segmentocultura">Descrição</label>
+                            <input type="text" class="form-control" maxlength="45" id="add-segmentocultura" name="add-segmentocultura">
+                            <span class="text-danger" id="add-segmentoculturaError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="add-unidadeMedida">Unidade de Medida</label>
+                            <input type="text" class="form-control"  maxlength="20"
+                                style="width: 180px" id="add-unidadeMedida" name="add-unidadeMedida">
+                            <span class="text-danger" id="add-unidadeMedidaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -102,19 +111,25 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Cargo') }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Segmento/Cultura') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="editForm">
+                <form action="/segmentocultura" method="POST" id="editForm">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="up-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="up-cargo" name="up-cargo" required>
-                            <span class="text-danger" id="up-cargoError"></span>
+                            <label for="up-segmentocultura">Descrição</label>
+                            <input type="text" class="form-control" maxlength="45" id="up-segmentocultura" name="up-segmentocultura" required>
+                            <span class="text-danger" id="up-segmentoculturaError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="up-unidadeMedida">Unidade de Medida</label>
+                            <input type="text" class="form-control" maxlength="20"
+                                style="width: 180px" id="up-unidadeMedida" name="up-unidadeMedida" required>
+                            <span class="text-danger" id="up-unidadeMedidaError"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -134,7 +149,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">Ver Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Segmento/Cultura') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -147,8 +162,13 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="v-cargo" name="v-cargo" readonly>
+                            <label for="v-segmentocultura">Descrição</label>
+                            <input type="text" class="form-control" maxlength="45" id="v-segmentocultura" name="v-segmentocultura" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="v-unidadeMedida">Unidade de Medida</label>
+                            <input type="text" class="form-control"  maxlength="20"
+                                style="width: 180px" id="v-unidadeMedida" name="v-unidadeMedida" readonly>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
@@ -167,12 +187,12 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Segmento/Cultura') }}</h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="deleteForm">
+                <form action="/segmentocultura" method="POST" id="deleteForm">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <div class="modal-body">
@@ -197,10 +217,10 @@
 @section('script_pages')
 
     <script type="text/javascript">
-        // Cargo
+        // SegmentoCultura
         $(document).ready(function() {
 
-            var table = $('#datatableCargo').DataTable();
+            var table = $('#datatableSegmentoCultura').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -212,9 +232,10 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#up-cargo').val(data[1]);
+                $('#up-segmentocultura').val(data[1]);
+                $('#up-unidadeMedida').val(data[2]);
 
-                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $('#editForm').attr('action', '/segmentocultura/' + data[0]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -230,7 +251,8 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-cargo').val(data[1]);
+                $('#v-segmentocultura').val(data[1]);
+                $('#v-unidadeMedida').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -253,7 +275,7 @@
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/cargo/' + data[0]);
+                $('#deleteForm').attr('action', '/segmentocultura/' + data[0]);
                 $('#deleteModal').modal('show');
             });
             //End Delete Record

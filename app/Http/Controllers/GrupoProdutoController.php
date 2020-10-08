@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estado;
-use App\Models\Microrregiao;
+use App\Models\GrupoProduto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class MicrorregiaoController extends Controller
+class GrupoProdutoController extends Controller
 {
-    private  $microrregiao;
-    private  $estado;
+    private $grupoproduto;
 
     public function __construct()
     {
-        $this->microrregiao = new Microrregiao();
-        $this->estado = new Estado();
+        $this->grupoproduto = new GrupoProduto();
     }
 
     /**
@@ -24,9 +22,8 @@ class MicrorregiaoController extends Controller
      */
     public function index()
     {
-        $microrregioes = $this->microrregiao::all()->sortBy('nome');
-        $estados = $this->estado::all()->sortBy('nome');
-        return view('microrregiao.content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
+        $grupoprodutos = $this->grupoproduto::all()->sortBy('descricao');
+        return view('grupoproduto.content_grupoproduto')->with('grupoprodutos', $grupoprodutos);
     }
 
     /**
@@ -47,18 +44,19 @@ class MicrorregiaoController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
-            'add-microrregiao' => 'required',
-            'add-estado' => 'required'
+            'add-grupoproduto' => 'required|max:45',
+            'add-unidadeMedida' => 'required|max:20'
         ]);
 
-        $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $grupoprodutos =  $this->grupoproduto;
+        $grupoprodutos->descricao = $request->input('add-grupoproduto');
+        $grupoprodutos->unidadeMedida = $request->input('add-unidadeMedida');
 
-        $microrregioes->save();
+        $grupoprodutos->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('grupoproduto')->with('success', 'Grupo de Produtos salvo com sucesso!');
     }
 
     /**
@@ -92,18 +90,20 @@ class MicrorregiaoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $grupoprodutos = DB::table('grupo_produtos')->where('id', $id)->first();
+
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
-            'up-estado' => ['required', 'integer']
+            'up-grupoproduto' => 'required|max:45',
+            'up-unidadeMedida' => 'required|max:20'
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $grupoprodutos =  $this->grupoproduto::find($id);
+        $grupoprodutos->descricao = $request->input('up-grupoproduto');
+        $grupoprodutos->unidadeMedida = $request->input('up-unidadeMedida');
 
-        $microrregioes->save();
+        $grupoprodutos->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
+        return redirect('grupoproduto')->with('success', 'Grupo de Produtos alterado com sucesso!');
     }
 
     /**
@@ -114,8 +114,8 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        $grupoprodutos = $this->grupoproduto::find($id);
+        $grupoprodutos->delete();
+        return redirect('grupoproduto')->with('success', 'Grupo de Produtos excluído com sucesso!');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Cargos')
+@section('titulo', 'Produtos')
 
 @section('content')
 
@@ -14,30 +14,38 @@
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Cargos') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Produtos') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Cargos/Funções') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Produtos') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable"
-                        cellspacing="0" width="100%">
+                    <table id="datatableProduto"
+                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Grupo</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cargos as $obj)
+                            @foreach ($produtos as $produto)
+                                @php
+                                $grupoproduto = $produto->find($produto->id)->grupoproduto;
+                                @endphp
                                 <tr>
-                                    <th>{{ $obj->id }}</th>
-                                    <td>{{ $obj->descricao }}</td>
+                                    <th>{{ $produto->id }}</th>
+                                    <td>{{ $produto->descricao }}</td>
+                                    <td>{{ $grupoproduto->descricao }}</td>
+                                    <td style="display: none;">{{ $grupoproduto->id }}</td>
                                     <td>
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -53,6 +61,8 @@
                             <tr>
                                 <th class="th-sm">id</th>
                                 <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Grupo</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </tfoot>
@@ -69,26 +79,37 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Produto') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\CargoController@store') }}" method="POST">
+                <form action="{{ action('App\Http\Controllers\ProdutoController@store') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
-                            <span class="text-danger" id="add-cargoError"></span>
+                            <label for="add-produto">Descrição</label>
+                            <input type="text" class="form-control" name="add-produto" required>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="add-grupoproduto">Grupo</label>
+                            <!--<input type="text" class="form-control" maxlength="2"
+                                                        style="text-transform: uppercase; width: 60px" name="grupoproduto" required>-->
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
+                                <option>Selecione um Grupo</option>
+                                @foreach ($grupoprodutos as $grupoproduto)
+                                    <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                     </div>
                 </form>
             </div>
@@ -96,32 +117,33 @@
     </div>
     <!-- End Add Modal -->
 
-
     <!-- Start EDIT Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Cargo') }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Produto' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="editForm">
+                <form action="/produto" method="POST" id="editForm">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="up-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="up-cargo" name="up-cargo" required>
-                            <span class="text-danger" id="up-cargoError"></span>
+                            <label for="up-produto">Descrição</label>
+                            <input type="text" class="form-control" id="up-produto" name="up-produto" required>
+                        </div>
+                        <div id="select-produto" class="form-group col-xs-2">
+                            <!-- jquery -->
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                     </div>
                 </form>
             </div>
@@ -134,26 +156,29 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">Ver Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Produto') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="" method="POST" id="viewForm">
-
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="v-cargo" name="v-cargo" readonly>
+                            <label for="v-produto">Descrição</label>
+                            <input type="text" class="form-control" id="v-produto" name="v-produto" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="v-grupoproduto">Grupo</label>
+                            <input type="text" class="form-control" id="v-grupoproduto" name="v-grupoproduto" readonly>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Sair"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                            title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
                     </div>
                 </form>
             </div>
@@ -167,12 +192,13 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
+                    </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/cargo" method="POST" id="deleteForm">
+                <form action="/produto" method="POST" id="deleteForm">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
                     <div class="modal-body">
@@ -182,25 +208,24 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <button type="button" class="btn btn-success" data-dismiss="modal"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
+                                class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
                         <button type="submit" class="btn btn-danger"><i
-                            class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
+                                class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- End DELETE Modal -->
-
 @endsection
 
-@section('script_pages')
 
+@section('script_pages')
     <script type="text/javascript">
-        // Cargo
+        // Produto
         $(document).ready(function() {
 
-            var table = $('#datatableCargo').DataTable();
+            var table = $('#datatableProduto').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -212,9 +237,20 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#up-cargo').val(data[1]);
+                $('#select-produto').html('<label for="up-grupoproduto">Grupo</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
+                    '   <option value="">Selecione um grupoproduto</option>' +
+                    '   @foreach ($grupoprodutos as $grupoproduto)' +
+                    '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
+                    '   @endforeach' +
+                    '</select>');
 
-                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $("select[name='up-grupoproduto'] option[value='" + data[3] + "']").attr('selected',
+                    'selected');
+
+                $('#editForm').attr('action', '/produto/' + data[0]);
+                $('#up-produto').val(data[1]);
+                $('#up-grupoproduto').val(data[2]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -230,7 +266,8 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-cargo').val(data[1]);
+                $('#v-produto').val(data[1]);
+                $('#v-grupoproduto').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -248,17 +285,15 @@
                 console.log(data);
 
                 //$('#id').val(data[0]);
-                var conteudo = $(".modal-body").html();
 
+                $('#deleteForm').attr('action', '/produto/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/cargo/' + data[0]);
                 $('#deleteModal').modal('show');
             });
             //End Delete Record
         });
 
     </script>
-
 @endsection

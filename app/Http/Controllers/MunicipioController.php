@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Estado;
 use App\Models\Microrregiao;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 
-class MicrorregiaoController extends Controller
+class MunicipioController extends Controller
 {
+    private  $municipio;
     private  $microrregiao;
     private  $estado;
 
     public function __construct()
     {
+        $this->municipio = new Municipio();
         $this->microrregiao = new Microrregiao();
         $this->estado = new Estado();
     }
@@ -24,9 +27,10 @@ class MicrorregiaoController extends Controller
      */
     public function index()
     {
+        $municipios = $this->municipio::all()->sortBy('nome');
         $microrregioes = $this->microrregiao::all()->sortBy('nome');
         $estados = $this->estado::all()->sortBy('nome');
-        return view('microrregiao.content_microrregiao')->with('microrregioes', $microrregioes)->with('estados', $estados);
+        return view('municipio.content_municipio')->with('municipios', $municipios)->with('microrregioes', $microrregioes)->with('estados', $estados);
     }
 
     /**
@@ -48,17 +52,17 @@ class MicrorregiaoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-microrregiao' => 'required',
-            'add-estado' => 'required'
+            'add-municipio' => 'required',
+            'add-microrregiao' => 'required'
         ]);
 
-        $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $municipios =  new Municipio;
+        $municipios->nome = $request->input('add-municipio');
+        $municipios->microrregiao_id = $request->input('add-microrregiao');
 
-        $microrregioes->save();
+        $municipios->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('municipio')->with('success', 'Município salvo com sucesso!');
     }
 
     /**
@@ -93,17 +97,17 @@ class MicrorregiaoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
-            'up-estado' => ['required', 'integer']
+            'up-municipio' => ['required', 'max:45'],
+            'up-microrregiao' => ['required', 'integer']
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $municipios =  Municipio::find($id);
+        $municipios->nome = $request->input('up-municipio');
+        $municipios->microrregiao_id = $request->input('up-microrregiao');
 
-        $microrregioes->save();
+        $municipios->save();
 
-        return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
+        return redirect('municipio')->with('success', 'Município alterado com sucesso!');
     }
 
     /**
@@ -114,8 +118,8 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        $municipios =  Municipio::find($id);
+        $municipios->delete();
+        return redirect('municipio')->with('success', 'Município excluído com sucesso!');
     }
 }

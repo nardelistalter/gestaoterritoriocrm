@@ -24,7 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::resource('estado', 'App\Http\Controllers\EstadoController');
     Route::resource('microrregiao', 'App\Http\Controllers\MicrorregiaoController');
+    Route::resource('municipio', 'App\Http\Controllers\MunicipioController');
     Route::resource('cargo', 'App\Http\Controllers\CargoController');
+    Route::resource('safra', 'App\Http\Controllers\SafraController');
+    Route::resource('grupoproduto', 'App\Http\Controllers\GrupoProdutoController');
+    Route::resource('produto', 'App\Http\Controllers\ProdutoController');
+    Route::resource('visaopolitica', 'App\Http\Controllers\VisaoPoliticaController');
+    Route::resource('segmentocultura', 'App\Http\Controllers\SegmentoCulturaController');
 });
 
 
