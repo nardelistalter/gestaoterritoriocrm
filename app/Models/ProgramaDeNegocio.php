@@ -18,17 +18,17 @@ class ProgramaDeNegocio extends Model
     ];
 
     // Relação (MUITOS para 1)
-    public function segmentoCultura() {
-        return $this->belongsTo(SegmentoCultura::class, 'id');
+    public function segmentocultura() {
+        return $this->belongsTo(SegmentoCultura::class, 'segmentoCultura_id', 'id');
     }
 
     // Relação (MUITOS para 1)
     public function safra() {
-        return $this->belongsTo(Safra::class, 'id');
+        return $this->belongsTo(Safra::class, 'safra_id', 'id');
     }
 
     // Relação (MUITOS para 1)
-    public function grupoProduto() {
-        return $this->belongsTo(GrupoProduto::class, 'segmentoCultura_id', 'id');
+    public function grupoproduto() {
+        return $this->belongsTo(GrupoProduto::class, 'grupoProduto_id', 'id');
     }
 }

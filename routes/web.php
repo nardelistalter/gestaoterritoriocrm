@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EstadoController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('produto', 'App\Http\Controllers\ProdutoController');
     Route::resource('visaopolitica', 'App\Http\Controllers\VisaoPoliticaController');
     Route::resource('segmentocultura', 'App\Http\Controllers\SegmentoCulturaController');
+    Route::resource('programadenegocio', 'App\Http\Controllers\ProgramaDeNegocioController');
 });
 
 

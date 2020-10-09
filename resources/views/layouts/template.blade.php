@@ -21,6 +21,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    {{--  
+    <!-- BBBootstrap mask  -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"> --}}
 
     <!-- Custom fonts for this template -->
     <link href={{ URL::to('css/style.css') }} rel="stylesheet" type="text/css">
@@ -61,7 +64,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item collapsed">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Painel de Controle') }}</span></a>
@@ -143,7 +146,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manut. de Parâmetros:') }}</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
+                        <a class="collapse-item" href={{  route('programadenegocio.index')  }}><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
                         <a class="collapse-item" href={{ route('produto.index') }}><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
                         <a class="collapse-item" href={{ route('grupoproduto.index') }}><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
                         <a class="collapse-item" href={{ route('safra.index') }}><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
@@ -400,6 +403,10 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
+    {{-- 
+    <!-- BBBootstrap Mask  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
 
     <script type="text/javascript">
 
