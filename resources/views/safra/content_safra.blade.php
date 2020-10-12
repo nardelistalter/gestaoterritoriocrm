@@ -39,70 +39,70 @@
                             @foreach ($safras as $obj)
                                 @switch($obj->mesInicio)
                                     @case(1)
-                                        @php
-                                            $mes = 'Janeiro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Janeiro'
+                                    @endphp
                                     @break
 
                                     @case(2)
-                                        @php
-                                            $mes = 'Fevereiro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Fevereiro'
+                                    @endphp
                                     @break
 
                                     @case(3)
-                                        @php
-                                            $mes = 'Março'
-                                        @endphp
+                                    @php
+                                    $mes = 'Março'
+                                    @endphp
                                     @break
 
                                     @case(4)
-                                        @php
-                                            $mes = 'Abril'
-                                        @endphp
+                                    @php
+                                    $mes = 'Abril'
+                                    @endphp
                                     @break
 
                                     @case(5)
-                                        @php
-                                            $mes = 'Maio'
-                                        @endphp
+                                    @php
+                                    $mes = 'Maio'
+                                    @endphp
                                     @break
 
                                     @case(6)
-                                        @php
-                                            $mes = 'Junho'
-                                        @endphp
+                                    @php
+                                    $mes = 'Junho'
+                                    @endphp
                                     @break
 
                                     @case(7)
-                                        @php
-                                            $mes = 'Julho'
-                                        @endphp
+                                    @php
+                                    $mes = 'Julho'
+                                    @endphp
                                     @break
                                     @case(8)
-                                        @php
-                                            $mes = 'Agosto'
-                                        @endphp
+                                    @php
+                                    $mes = 'Agosto'
+                                    @endphp
                                     @break
                                     @case(9)
-                                        @php
-                                            $mes = 'Setembro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Setembro'
+                                    @endphp
                                     @break
                                     @case(10)
-                                        @php
-                                            $mes = 'Outubro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Outubro'
+                                    @endphp
                                     @break
                                     @case(11)
-                                        @php
-                                            $mes = 'Novembro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Novembro'
+                                    @endphp
                                     @break
                                     @case(12)
-                                        @php
-                                            $mes = 'Dezembro'
-                                        @endphp
+                                    @php
+                                    $mes = 'Dezembro'
+                                    @endphp
                                     @break
 
                                 @endswitch
@@ -149,9 +149,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\SafraController@store') }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="{{ action('App\Http\Controllers\SafraController@store') }}" method="POST" id="addForm">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="add-safra">Descrição</label>
                             <input type="text" class="form-control" id="add-safra" name="add-safra">
@@ -176,14 +176,14 @@
                             </select>
                             <span class="text-danger" id="add-mesInicioError"></span>
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
-                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="addForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -199,10 +199,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/safra" method="POST" id="editForm">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="/safra" method="POST" id="editForm">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="form-group">
                             <label for="up-safra">Descrição</label>
                             <input type="text" class="form-control" id="up-safra" name="up-safra" required>
@@ -211,14 +211,14 @@
                         <div id="select-safra" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
-                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="editForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -234,8 +234,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST" id="viewForm">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
@@ -248,12 +248,12 @@
                             <label for="v-mesInicio">Mês Início</label>
                             <input type="text" class="form-control" id="v-mesInicio" name="v-mesInicio" readonly>
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -265,26 +265,28 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Safra') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">
+                        {{ __('Excluir Produto') }}
+                    </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/safra" method="POST" id="deleteForm">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="/produto" method="POST" id="deleteForm">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
                             <!-- Content Jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-success" data-dismiss="modal"><i
-                                class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
-                        <button type="submit" class="btn btn-danger"><i
-                                class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
+                    <button type="submit" form="deleteForm" class="btn btn-danger"><i
+                            class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -327,7 +329,8 @@
                     '    <option value="12">Dezembro</option>' +
                     '</select>');
 
-                $("select[name='up-mesInicio'] option[value='" + data[3] + "']").attr('selected','selected');
+                $("select[name='up-mesInicio'] option[value='" + data[3] + "']").attr('selected',
+                    'selected');
 
                 $('#up-safra').val(data[1]);
                 $('#up-mesInicio').val(data[2]);

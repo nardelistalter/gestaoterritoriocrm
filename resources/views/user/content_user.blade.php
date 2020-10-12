@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Cargos')
+@section('titulo', 'Usuários')
 
 @section('content')
 
@@ -14,30 +14,40 @@
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Cargos') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Usuários') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Cargos/Funções') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Usuários') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCargo" class="table table-bordered table-sm table-responsive text-center datatable"
-                        cellspacing="0" width="100%">
+                    <table id="datatableMicrorregiao"
+                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify">
                                 <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Nome</th>
+                                <th class="th-sm">E-mail</th>
+                                <th class="th-sm">Ativo</th>
+                                <th class="th-sm">Administrador</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cargos as $obj)
+                            @foreach ($microrregioes as $microrregiao)
+                                @php
+                                $estado = $microrregiao->find($microrregiao->id)->estado;
+                                @endphp
                                 <tr>
-                                    <th>{{ $obj->id }}</th>
-                                    <td>{{ $obj->descricao }}</td>
+                                    <th>{{ $microrregiao->id }}</th>
+                                    <td>{{ $microrregiao->nome }}</td>
+                                    <td>{{ $estado->nome }} - {{ $estado->sigla }}</td>
+                                    <td style="display: none;">{{ $estado->id }}</td>
                                     <td>
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -52,7 +62,9 @@
                         <tfoot>
                             <tr>
                                 <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
+                                <th class="th-sm">Nome</th>
+                                <th class="th-sm">Estado</th>
+                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm">Ações</th>
                             </tr>
                         </tfoot>
@@ -69,18 +81,31 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Cargo') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Microrregião') }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\CargoController@store') }}" method="POST" id="addForm">
+                    <form action="{{ action('App\Http\Controllers\MicrorregiaoController@store') }}" method="POST"
+                        id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
-                            <span class="text-danger" id="add-cargoError"></span>
+                            <label for="add-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" name="add-microrregiao" required>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="add-estado">Estado</label>
+                            <!--<input type="text" class="form-control" maxlength="2"
+                                                                style="text-transform: uppercase; width: 60px" name="estado" required>-->
+                            <select class="form-control selectpicker" data-live-search="true" name="add-estado">
+                                <option>Selecione um Estado</option>
+                                @foreach ($estados as $estado)
+                                    <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </form>
                 </div>
@@ -100,19 +125,21 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ __('Alterar Cargo') }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Microrregião' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cargo" method="POST" id="editForm">
+                    <form action="/microrregiao" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="up-cargo" name="up-cargo" required>
-                            <span class="text-danger" id="up-cargoError"></span>
+                            <label for="up-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
+                        </div>
+                        <div id="select-microrregiao" class="form-group col-xs-2">
+                            <!-- jquery -->
                         </div>
                     </form>
                 </div>
@@ -132,7 +159,8 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">Ver Cargo</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Microrregião') }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -144,8 +172,12 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="v-cargo" name="v-cargo" readonly>
+                            <label for="v-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" id="v-microrregiao" name="v-microrregiao" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="v-estado">Estado</label>
+                            <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
                         </div>
                     </form>
                 </div>
@@ -192,13 +224,13 @@
 
 @endsection
 
-@section('script_pages')
 
+@section('script_pages')
     <script type="text/javascript">
-        // Cargo
+        // Microrregiao
         $(document).ready(function() {
 
-            var table = $('#datatableCargo').DataTable();
+            var table = $('#datatableMicrorregiao').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -210,9 +242,19 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#up-cargo').val(data[1]);
+                $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
+                    '   <option value="">Selecione um Estado</option>' +
+                    '   @foreach ($estados as $estado)' +
+                    '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                    '   @endforeach' +
+                    '</select>');
 
-                $('#editForm').attr('action', '/cargo/' + data[0]);
+                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected', 'selected');
+
+                $('#editForm').attr('action', '/microrregiao/' + data[0]);
+                $('#up-microrregiao').val(data[1]);
+                $('#up-estado').val(data[2]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -228,7 +270,8 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-cargo').val(data[1]);
+                $('#v-microrregiao').val(data[1]);
+                $('#v-estado').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -246,17 +289,15 @@
                 console.log(data);
 
                 //$('#id').val(data[0]);
-                var conteudo = $(".modal-body").html();
 
+                $('#deleteForm').attr('action', '/microrregiao/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteForm').attr('action', '/cargo/' + data[0]);
                 $('#deleteModal').modal('show');
             });
             //End Delete Record
         });
 
     </script>
-
 @endsection

@@ -14,7 +14,8 @@
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Programas de Negócio') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Programas de Negócio') }}
+            </h1>
         </div>
 
         <!-- Content Datatable -->
@@ -50,72 +51,72 @@
                                 @endphp
 
                                 @switch($programadenegocio->mesLimite)
-                                @case(1)
+                                    @case(1)
                                     @php
-                                        $mes = 'Janeiro'
+                                    $mes = 'Janeiro'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(2)
+                                    @case(2)
                                     @php
-                                        $mes = 'Fevereiro'
+                                    $mes = 'Fevereiro'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(3)
+                                    @case(3)
                                     @php
-                                        $mes = 'Março'
+                                    $mes = 'Março'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(4)
+                                    @case(4)
                                     @php
-                                        $mes = 'Abril'
+                                    $mes = 'Abril'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(5)
+                                    @case(5)
                                     @php
-                                        $mes = 'Maio'
+                                    $mes = 'Maio'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(6)
+                                    @case(6)
                                     @php
-                                        $mes = 'Junho'
+                                    $mes = 'Junho'
                                     @endphp
-                                @break
+                                    @break
 
-                                @case(7)
+                                    @case(7)
                                     @php
-                                        $mes = 'Julho'
+                                    $mes = 'Julho'
                                     @endphp
-                                @break
-                                @case(8)
+                                    @break
+                                    @case(8)
                                     @php
-                                        $mes = 'Agosto'
+                                    $mes = 'Agosto'
                                     @endphp
-                                @break
-                                @case(9)
+                                    @break
+                                    @case(9)
                                     @php
-                                        $mes = 'Setembro'
+                                    $mes = 'Setembro'
                                     @endphp
-                                @break
-                                @case(10)
+                                    @break
+                                    @case(10)
                                     @php
-                                        $mes = 'Outubro'
+                                    $mes = 'Outubro'
                                     @endphp
-                                @break
-                                @case(11)
+                                    @break
+                                    @case(11)
                                     @php
-                                        $mes = 'Novembro'
+                                    $mes = 'Novembro'
                                     @endphp
-                                @break
-                                @case(12)
+                                    @break
+                                    @case(12)
                                     @php
-                                        $mes = 'Dezembro'
+                                    $mes = 'Dezembro'
                                     @endphp
-                                @break
+                                    @break
 
                                 @endswitch
                                 <tr>
@@ -162,19 +163,23 @@
     <!-- Begin Page Content -->
 
     <!-- Start Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
+        id="editForm">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Novo Programa de Negócio') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">
+                        {{ __('Novo Programa de Negócio') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\ProgramaDeNegocioController@store') }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="{{ action('App\Http\Controllers\ProgramaDeNegocioController@store') }}" method="POST"
+                        id="addForm">
+                        {{ csrf_field() }}
+
                         <div class="form-group col-xs-2">
                             <label for="add-segmentocultura">Segmento/Cultura</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
@@ -207,8 +212,8 @@
                         </div>
                         <div class="form-group">
                             <label for="add-valorunitario">Valor Unitário</label>
-                            <input type="text" class="form-control" id="add-valorunitario" name="add-valorunitario" 
-                                data-inputmask="'alias': 'currency'" style="text-align: right; width: 150px;">
+                            <input type="number" class="form-control" id="add-valorunitario" name="add-valorunitario"
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
                             <span class="text-danger" id="add-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
@@ -230,14 +235,14 @@
                             </select>
                             <span class="text-danger" id="add-meslimiteError"></span>
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
-                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="addForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -248,15 +253,17 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Programa de Negócio' }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
+                        {{ 'Alterar Programa de Negócio' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/programadenegocio" method="POST" id="editForm">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <div class="modal-body">
+
+                <div class="modal-body">
+                    <form action="/programadenegocio" method="POST" id="editForm">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div id="select-segmentocultura" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
@@ -268,21 +275,21 @@
                         </div>
                         <div class="form-group">
                             <label for="up-valorunitario">Valor Unitário</label>
-                            <input type="text" class="form-control" id="up-valorunitario" name="up-valorunitario" 
-                                data-inputmask="'alias': 'currency'" style="text-align: right; width: 150px;">
+                            <input type="number" class="form-control" id="up-valorunitario" name="up-valorunitario"
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
                             <span class="text-danger" id="up-valorunitarioError"></span>
                         </div>
                         <div id="select-meslimite" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
-                                class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="editForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -293,21 +300,23 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Programa de Negócio') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">
+                        {{ __('Ver Programa de Negócio') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST" id="viewForm">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label for="v-segmentocultura">Segmento/Cultura</label>
-                            <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura" readonly>
+                            <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura"
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label for="v-grupoproduto">Grupo de Produtos</label>
@@ -319,20 +328,19 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label for="v-valorunitario">Valor Unitário</label>
-                            <input type="text" class="form-control" id="v-valorunitario" name="v-valorunitario" 
-                                data-inputmask="'alias': 'currency'" style="text-align: right; width: 150px;" readonly>
+                            <input type="number" class="form-control" id="v-valorunitario" name="v-valorunitario"
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label for="v-meslimite">Mês Limite</label>
-                            <input type="text" class="form-control"
-                                id="v-meslimite" name="v-meslimite" readonly>
+                            <input type="text" class="form-control" id="v-meslimite" name="v-meslimite" readonly>
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
-                            title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -344,31 +352,32 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">
-                        {{ __('Excluir Programa de Negócio') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
+                    </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/programadenegocio" method="POST" id="deleteForm">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="/produto" method="POST" id="deleteForm">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
                             <!-- Content Jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-success" data-dismiss="modal"><i
-                                class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
-                        <button type="submit" class="btn btn-danger"><i
-                                class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                            class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
+                    <button type="submit" form="deleteForm" class="btn btn-danger"><i
+                            class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
+                </div>
             </div>
         </div>
     </div>
     <!-- End DELETE Modal -->
+
 @endsection
 
 
@@ -390,7 +399,8 @@
                 console.log(data);
                 console.log(data[8]);
 
-                $('#select-segmentocultura').html('<label for="up-segmentocultura">Segmento/Cultura</label>' +
+                $('#select-segmentocultura').html(
+                    '<label for="up-segmentocultura">Segmento/Cultura</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
                     '   @foreach ($segmentoculturas as $segmentocultura)' +
                     '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
@@ -399,7 +409,7 @@
                 $("select[name='up-segmentocultura'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
-                    $('#select-grupoproduto').html('<label for="up-grupoproduto">Grupo de Produtos</label>' +
+                $('#select-grupoproduto').html('<label for="up-grupoproduto">Grupo de Produtos</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
@@ -433,8 +443,9 @@
                     '    <option value="11">Novembro</option>' +
                     '    <option value="12">Dezembro</option>' +
                     '</select>');
-                        
-                $("select[name='up-meslimite'] option[value='" + data[8] + "']").attr('selected','selected');
+
+                $("select[name='up-meslimite'] option[value='" + data[8] + "']").attr('selected',
+                    'selected');
 
                 $('#editForm').attr('action', '/programadenegocio/' + data[0]);
                 $('#up-valorunitario').val(data[7]);
@@ -477,7 +488,8 @@
                 $('#deleteForm').attr('action', '/programadenegocio/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[3] + '-' + data[1] + '-' + data[5] + '</strong>"?</p>');
+                    '<p>Deseja excluir "<strong>' + data[3] + '-' + data[1] + '-' + data[5] +
+                    '</strong>"?</p>');
                 $('#deleteModal').modal('show');
             });
             //End Delete Record

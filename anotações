@@ -1,0 +1,9 @@
+Tratamento de erros:
+    *Restrições de Integridade;
+    *Formulários: exibir erros antes do submit e abaixo do input (CRUD e LOGIN);
+
+Manutenção do Perfil do Usuário:
+    *Alteração dos Dados
+    *Inclusão da foto
+
+Troca de idioma Datatables

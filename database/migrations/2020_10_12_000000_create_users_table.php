@@ -24,10 +24,11 @@ class CreateUsersTable extends Migration
             $table->timestamps();*/
 
             $table->id();
-            $table->string('nickname');
+            $table->string('nickname')->nullable(false);
+            $table->binary('image')->nullable(true);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable(false);
             $table->rememberToken();
             $table->boolean('status')->nullable(false)->default(false);
             $table->boolean('perfilAdministrador')->nullable(false)->default(false);

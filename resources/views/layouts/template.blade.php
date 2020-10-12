@@ -21,7 +21,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    {{--  
+    {{--
     <!-- BBBootstrap mask  -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"> --}}
 
@@ -243,7 +243,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nickname }}</span>
-                                <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}>
+                                <img class="img-profile rounded-circle" src={{ Auth::user()->image }}>
+                                {{-- <img class="img-profile rounded-circle" src={{ url('storage/users/'.Auth::user()->image) }}>
+                                <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}> --}}
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -253,12 +255,12 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Perfil') }}
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                {{--  <a class="dropdown-item" href="#">
                                     <!--<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                     <i class="fas fa-cogs fa-sm fa-key mr-2 text-gray-400"></i>
                                     {{ __('Alterar Senha') }}
                                 </a>
-                                {{--  <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Registro de Atividades') }}--}}
                                 </a>
@@ -403,7 +405,7 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
-    {{-- 
+    {{--
     <!-- BBBootstrap Mask  -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}

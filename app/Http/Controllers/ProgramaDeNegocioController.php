@@ -24,7 +24,7 @@ class ProgramaDeNegocioController extends Controller
     }
 
     /**
-     * Display a listing of the resource.   
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -58,10 +58,10 @@ class ProgramaDeNegocioController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-segmentocultura' => 'required',
-            'add-grupoproduto' => 'required',
-            'add-safra' => 'required',
-            'add-valorunitario' => 'required',
+            'add-segmentocultura' => 'required|numeric|min:1',
+            'add-grupoproduto' => 'required|numeric|min:1',
+            'add-safra' => 'required|numeric|min:1',
+            'add-valorunitario' => 'required|numeric|min:1',
             'add-meslimite' => 'required|numeric|min:1|max:12'
         ]);
 
@@ -109,10 +109,10 @@ class ProgramaDeNegocioController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-segmentocultura' => 'required',
-            'up-grupoproduto' => 'required',
-            'up-safra' => 'required',
-            'up-valorunitario' => 'required',
+            'up-segmentocultura' => 'required|min:1',
+            'up-grupoproduto' => 'required|min:1',
+            'up-safra' => 'required|min:1',
+            'up-valorunitario' => 'required|min:1',
             'up-meslimite' => 'required|numeric|min:1|max:12'
         ]);
 

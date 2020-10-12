@@ -681,8 +681,8 @@ App\Models\Produto::create(['descricao' => 'TRIGO EM GRÃOS (KG)', 'grupoProduto
 App\Models\Produto::create(['descricao' => 'UNIZEB GOLD (KG)', 'grupoProduto_id' => 5]);
 App\Models\Produto::create(['descricao' => 'UREIA (KG)', 'grupoProduto_id' => 4]);
 
-App\Models\Safra::create(['descricao' => '2019-2020', 'mesInicio' => 5]);
-App\Models\Safra::create(['descricao' => '2020-2021', 'mesInicio' => 5]);
+App\Models\Safra::create(['descricao' => '2019/2020', 'mesInicio' => 5]);
+App\Models\Safra::create(['descricao' => '2020/2021', 'mesInicio' => 5]);
 
 App\Models\ProgramaDeNegocio::create(['valorUnitario' => 4.8, 'grupoProduto_id' => 1, 'safra_id' => 2, 'segmentoCultura_id' => 3, 'mesLimite' => 7]);
 App\Models\ProgramaDeNegocio::create(['valorUnitario' => 9.6, 'grupoProduto_id' => 1, 'safra_id' => 2, 'segmentoCultura_id' => 3, 'mesLimite' => 10]);
@@ -967,3 +967,4 @@ App\Models\User::create(['funcionario_id' => 21, 'nickname' => 'Zuleide Collaço
 App\Models\User::create(['funcionario_id' => 4, 'nickname' => 'Eduarda Fragoso', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'eduarda@empresa.com']);
 App\Models\User::create(['funcionario_id' => 9, 'nickname' => 'Hélder Varão', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'helder@empresa.com']);
 App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Rodrigo Tévez', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'rodrigo@empresa.com']);
+App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Nardeli Miguel Stalter', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' => 'nardelistalter@gmail.com', 'image' => file('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\masculino1.jpg')]);

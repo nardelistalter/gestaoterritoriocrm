@@ -79,15 +79,16 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Microrregião') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Microrregião') }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ action('App\Http\Controllers\MicrorregiaoController@store') }}" method="POST">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-
+                <div class="modal-body">
+                    <form action="{{ action('App\Http\Controllers\MicrorregiaoController@store') }}" method="POST"
+                        id="addForm">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="add-microrregiao">Descrição</label>
                             <input type="text" class="form-control" name="add-microrregiao" required>
@@ -95,7 +96,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-estado">Estado</label>
                             <!--<input type="text" class="form-control" maxlength="2"
-                                                    style="text-transform: uppercase; width: 60px" name="estado" required>-->
+                                                                style="text-transform: uppercase; width: 60px" name="estado" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-estado">
                                 <option>Selecione um Estado</option>
                                 @foreach ($estados as $estado)
@@ -104,14 +105,14 @@
                             </select>
 
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>    
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="addForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -122,15 +123,15 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ ('Alterar Microrregião') }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Microrregião' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/microrregiao" method="POST" id="editForm">
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="/microrregiao" method="POST" id="editForm">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="form-group">
                             <label for="up-microrregiao">Descrição</label>
                             <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
@@ -138,14 +139,14 @@
                         <div id="select-microrregiao" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Cancelar"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                        <button type="submit" class="btn btn-success"  data-toggle="tooltip" title="Salvar"><i
-                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>    
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="editForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -156,13 +157,14 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Microrregião') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Microrregião') }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="POST" id="viewForm">
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
@@ -175,12 +177,12 @@
                             <label for="v-estado">Estado</label>
                             <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip" title="Sair"><i
-                            class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Sair"><i class="fas fa-undo-alt mr-1"></i>{{ __('Sair') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -192,30 +194,32 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Microrregião') }}</h5>
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
+                    </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/microrregiao" method="POST" id="deleteForm">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <div class="modal-body">
+                <div class="modal-body">
+                    <form action="/produto" method="POST" id="deleteForm">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
                             <!-- Content Jquery -->
                         </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-success" data-dismiss="modal"><i
                             class="fas fa-undo-alt mr-1"></i>{{ __('Não') }}</button>
-                        <button type="submit" class="btn btn-danger"><i
+                    <button type="submit" form="deleteForm" class="btn btn-danger"><i
                             class="fas fa-trash-alt mr-1"></i>{{ __('Sim') }}</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
     <!-- End DELETE Modal -->
+
 @endsection
 
 
@@ -244,7 +248,7 @@
                     '   @endforeach' +
                     '</select>');
 
-                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected','selected');
+                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected', 'selected');
 
                 $('#editForm').attr('action', '/microrregiao/' + data[0]);
                 $('#up-microrregiao').val(data[1]);
