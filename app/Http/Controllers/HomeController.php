@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
-use Faker\Provider\Image;
 
 class HomeController extends Controller
 {
@@ -14,19 +12,39 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index() {
+    public function index()
+    {
         return view('home');
     }
 
-    public function login() {
+    /**
+     * Login page redirect
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function login()
+    {
         return view('login');
     }
 
-    public function forgot_password () {
+    /**
+     * Forgot password page redirect
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function forgot_password()
+    {
         return view('forgot-password');
     }
 
-    function checklogin(Request $request) {
+    /**
+     * Login page redirect
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function checklogin(Request $request)
+    {
         $this->validate($request, [
             'inputEmail' => 'required|email',
             'inputPassword' => 'required|min:5'
@@ -34,14 +52,20 @@ class HomeController extends Controller
 
         $dados = $request->all();
 
-        if(Auth::attempt(['email'=> $dados['inputEmail'], 'password'=>$dados['inputPassword']])){
+        if (Auth::attempt(['email' => $dados['inputEmail'], 'password' => $dados['inputPassword']])) {
             return redirect()->route('home');
         } else {
             return redirect()->route('login')->with('error', 'Login não permitido!');;
         }
     }
 
-    function logout() {
+    /**
+     * Login page redirect
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    function logout()
+    {
         Auth::logout();
         return redirect('login');
     }

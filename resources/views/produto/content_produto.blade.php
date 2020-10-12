@@ -25,15 +25,15 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatableProduto"
-                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
                         width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
-                                <th class="th-sm">Grupo</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Grupo</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,12 +42,12 @@
                                 $grupoproduto = $produto->find($produto->id)->grupoproduto;
                                 @endphp
                                 <tr>
-                                    <th>{{ $produto->id }}</th>
-                                    <td>{{ $produto->descricao }}</td>
-                                    <td>{{ $grupoproduto->descricao }}</td>
+                                    <th class="align-middle border-left">{{ $produto->id }}</th>
+                                    <td class="align-middle border-left">{{ $produto->descricao }}</td>
+                                    <td class="align-middle border-left">{{ $grupoproduto->descricao }}</td>
                                     <td style="display: none;">{{ $grupoproduto->id }}</td>
-                                    <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                    <td class="align-middle th-sm border-left border-right">
+                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -57,13 +57,13 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
-                                <th class="th-sm">Grupo</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Grupo</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -94,7 +94,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-grupoproduto">Grupo</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
-                                <option>Selecione um Grupo</option>
+                                <option>Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }}</option>
                                 @endforeach
@@ -237,7 +237,7 @@
 
                 $('#select-produto').html('<label for="up-grupoproduto">Grupo</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
-                    '   <option value="">Selecione um grupoproduto</option>' +
+                    '   <option value="">Selecione</option>' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
                     '   @endforeach' +

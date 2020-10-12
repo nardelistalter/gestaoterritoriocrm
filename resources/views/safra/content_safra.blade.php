@@ -24,15 +24,15 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableSafra" class="table table-bordered table-sm table-responsive text-center datatable"
+                    <table id="datatableSafra" class="datatable table table-sm table-responsive text-center rounded"
                         cellspacing="0" width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
-                                <th class="th-sm">Mês Início</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Mês Início</th>
                                 <th style="display: none;">mesNum</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,12 +107,12 @@
 
                                 @endswitch
                                 <tr>
-                                    <th>{{ $obj->id }}</th>
-                                    <td>{{ $obj->descricao }}</td>
-                                    <td>{{ $mes }}</td>
+                                    <th class="align-middle border-left">{{ $obj->id }}</th>
+                                    <td class="align-middle border-left">{{ $obj->descricao }}</td>
+                                    <td class="align-middle border-left">{{ $mes }}</td>
                                     <td style="display: none;">{{ $obj->mesInicio }}</td>
-                                    <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                    <td class="align-middle th-sm border-left border-right">
+                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -122,13 +122,13 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Descrição</th>
-                                <th class="th-sm">Mês Início</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Mês Início</th>
                                 <th style="display: none;">mesNum</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -160,7 +160,7 @@
                         <div class="form-group">
                             <label for="add-mesInicio">Mês Início</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-mesInicio">
-                                <option value="">Selecione um Mês</option>
+                                <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>
@@ -273,7 +273,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produto" method="POST" id="deleteForm">
+                    <form action="/safra" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -314,7 +314,7 @@
 
                 $('#select-safra').html('<label for="up-mesInicio">Mês Início</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-mesInicio">' +
-                    '   <option value="">Selecione um Mês</option>' +
+                    '   <option value="">Selecione...</option>' +
                     '   <option value="1">Janeiro</option>' +
                     '    <option value="2">Fevereiro</option>' +
                     '    <option value="3">Março</option>' +

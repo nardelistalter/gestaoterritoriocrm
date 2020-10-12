@@ -17,4 +17,16 @@ class UnidadesArea extends Model
         'segmentoCultura_id',
         'observacao'
     ];
+
+    // Relação (MUITOS para 1)
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
+    }
+
+    // Relação (MUITOS para 1)
+    public function segmentocultura()
+    {
+        return $this->belongsTo(SegmentoCultura::class, 'segmentoCultura_id', 'id');
+    }
 }

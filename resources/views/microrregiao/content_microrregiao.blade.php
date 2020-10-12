@@ -25,15 +25,15 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatableMicrorregiao"
-                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
                         width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">Estado</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome</th>
+                                <th class="th-sm border-bottom border-left">Estado</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,12 +42,12 @@
                                 $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
-                                    <th>{{ $microrregiao->id }}</th>
-                                    <td>{{ $microrregiao->nome }}</td>
-                                    <td>{{ $estado->nome }} - {{ $estado->sigla }}</td>
+                                    <th class="align-middle border-left">{{ $microrregiao->id }}</th>
+                                    <td class="align-middle border-left">{{ $microrregiao->nome }}</td>
+                                    <td class="align-middle border-left">{{ $estado->nome }} - {{ $estado->sigla }}</td>
                                     <td style="display: none;">{{ $estado->id }}</td>
-                                    <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                    <td class="align-middle th-sm border-left border-right">
+                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -57,13 +57,13 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">Estado</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome</th>
+                                <th class="th-sm border-bottom border-left">Estado</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -98,7 +98,7 @@
                             <!--<input type="text" class="form-control" maxlength="2"
                                                                 style="text-transform: uppercase; width: 60px" name="estado" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-estado">
-                                <option>Selecione um Estado</option>
+                                <option>Selecione...</option>
                                 @foreach ($estados as $estado)
                                     <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
                                 @endforeach
@@ -201,7 +201,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produto" method="POST" id="deleteForm">
+                    <form action="/microrregiao" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -242,7 +242,7 @@
 
                 $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
-                    '   <option value="">Selecione um Estado</option>' +
+                    '   <option value="">Selecione...</option>' +
                     '   @foreach ($estados as $estado)' +
                     '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
                     '   @endforeach' +

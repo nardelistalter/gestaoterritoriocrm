@@ -25,16 +25,16 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatableMunicipio"
-                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
                         width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">Microrregião</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome</th>
+                                <th class="th-sm border-bottom border-left">Microrregião</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">UF</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">UF</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,13 +44,13 @@
                                 $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
-                                    <th>{{ $municipio->id }}</th>
-                                    <td>{{ $municipio->nome }}</td>
-                                    <td>{{ $microrregiao->nome }}</td>
+                                    <th class="align-middle border-left">{{ $municipio->id }}</th>
+                                    <td class="align-middle border-left">{{ $municipio->nome }}</td>
+                                    <td class="align-middle border-left">{{ $microrregiao->nome }}</td>
                                     <td style="display: none;">{{ $microrregiao->id }}</td>
-                                    <td>{{ $estado->sigla }}</td>
-                                    <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                    <td class="align-middle border-left">{{ $estado->sigla }}</td>
+                                    <td class="align-middle th-sm border-left border-right">
+                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -60,14 +60,14 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">Microrregião</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome</th>
+                                <th class="th-sm border-bottom border-left">Microrregião</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">UF</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">UF</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -83,7 +83,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-success">
-                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Microrregião') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">{{ __('Nova Município') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -99,12 +99,10 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label for="add-microrregiao">Microrregião</label>
-                            <!--<input type="text" class="form-control" maxlength="2"
-                                                                    style="text-transform: uppercase; width: 60px" name="microrregiao" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-microrregiao">
-                                <option>Selecione uma Microrregião</option>
+                                <option>Selecione...</option>
                                 @foreach ($microrregioes as $microrregiao)
-                                    <option value={{ $microrregiao->id }}> {{ $microrregiao->nome }} </option>
+                                    <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}</option>
                                 @endforeach
                             </select>
 
@@ -127,7 +125,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
-                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Microrregião' }}</h5>
+                    <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">{{ 'Alterar Município' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -161,7 +159,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
-                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Microrregião') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">{{ __('Ver Município') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -203,14 +201,14 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Município') }}
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produto" method="POST" id="deleteForm">
+                    <form action="/municipio" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -251,9 +249,9 @@
 
                 $('#select-municipio').html('<label for="up-microrregiao">Microrregião</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-microrregiao">' +
-                    '   <option value="">Selecione uma Microrregião</option>' +
+                    '   <option value="">Selecione...</option>' +
                     '   @foreach ($microrregioes as $microrregiao)' +
-                    '       <option value={{ $microrregiao->id }}>{{ $microrregiao->nome }} ({{ $estado->sigla }})</option>' +
+                    '       <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}</option>' +
                     '   @endforeach' +
                     '</select>');
 

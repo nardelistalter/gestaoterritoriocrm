@@ -15,17 +15,17 @@ class SegmentoCultura extends Model
     ];
 
     // Relação 1 para muitos com unidades de área
-    public function unidadesArea() {
+    public function unidadesarea() {
         return $this->hasMany(Address::class, 'segmentoCultura_id');
     }
 
     // Relação 1 para muitos com programas de negócio
-    public function programaDeNegocio() {
+    public function programadenegocio() {
         return $this->hasMany(Address::class, 'segmentoCultura_id');
     }
 
     // Relação 1 para muitos com áreas por grupos de cliente
-    public function areaGrupoCliente() {
+    public function areagrupocliente() {
         return $this->hasMany(Address::class, 'segmentoCultura_id');
     }
 }

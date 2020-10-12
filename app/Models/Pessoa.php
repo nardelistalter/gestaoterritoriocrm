@@ -26,12 +26,12 @@ class Pessoa extends Model
     }
 
      // Relação 1 para muitos com pessoas fisicas
-     public function pFisica() {
+     public function pfisica() {
         return $this->hasOne(PFisica::class, 'pessoa_id');
     }
 
     // Relação 1 para 1 com pessoas juridicas
-    public function pJuridica() {
+    public function pjuridica() {
         return $this->hasOne(PJuridica::class, 'pessoa_id');
     }
 

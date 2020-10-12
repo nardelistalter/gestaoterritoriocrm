@@ -26,20 +26,20 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatableProgramaDeNegocio"
-                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
                         width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Segmento/Cultura</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Grupo de Produtos</th>
+                                <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm">Safra</th>
+                                <th class="th-sm border-bottom border-left">Safra</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm">Valor</th>
-                                <th class="th-sm">Mes Limite</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Valor</th>
+                                <th class="th-sm border-bottom border-left">Mes Limite</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,17 +120,17 @@
 
                                 @endswitch
                                 <tr>
-                                    <th>{{ $programadenegocio->id }}</th>
-                                    <td>{{ $segmentocultura->descricao }}</td>
+                                    <th class="align-middle border-left">{{ $programadenegocio->id }}</th>
+                                    <td class="align-middle border-left">{{ $segmentocultura->descricao }}</td>
                                     <td style="display: none;">{{ $segmentocultura->id }}</td>
-                                    <td>{{ $grupoproduto->descricao }}</td>
+                                    <td class="align-middle border-left">{{ $grupoproduto->descricao }}</td>
                                     <td style="display: none;">{{ $grupoproduto->id }}</td>
-                                    <td>{{ $safra->descricao }}</td>
+                                    <td class="align-middle border-left">{{ $safra->descricao }}</td>
                                     <td style="display: none;">{{ $safra->id }}</td>
-                                    <td>{{ $programadenegocio->valorUnitario }}</td>
-                                    <td>{{ $mes }}</td>
-                                    <td>
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                    <td class="align-middle border-left">{{ $programadenegocio->valorUnitario }}</td>
+                                    <td class="align-middle border-left">{{ $mes }}</td>
+                                    <td class="align-middle th-sm border-left border-right">
+                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -140,18 +140,18 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Segmento/Cultura</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Grupo de Produtos</th>
+                                <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm">Safra</th>
+                                <th class="th-sm border-bottom border-left">Safra</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm">Valor Unitário</th>
-                                <th class="th-sm">Mes Limite</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Valor Unitário</th>
+                                <th class="th-sm border-bottom border-left">Mes Limite</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -183,7 +183,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-segmentocultura">Segmento/Cultura</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
-                                <option>Selecione um Segmento/Cultura</option>
+                                <option>Selecione...</option>
                                 @foreach ($segmentoculturas as $segmentocultura)
                                     <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
                                 @endforeach
@@ -193,7 +193,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-grupoproduto">Grupo de Produtos</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
-                                <option>Selecione um Grupo de Produtos</option>
+                                <option>Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }} </option>
                                 @endforeach
@@ -203,7 +203,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-safra">Safra</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-safra">
-                                <option>Selecione uma Safra</option>
+                                <option>Selecione...</option>
                                 @foreach ($safras as $safra)
                                     <option value={{ $safra->id }}> {{ $safra->descricao }} </option>
                                 @endforeach
@@ -219,7 +219,7 @@
                         <div class="form-group">
                             <label for="add-meslimite">Mês Limite</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-meslimite">
-                                <option value="">Selecione um Mês</option>
+                                <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>
@@ -359,7 +359,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produto" method="POST" id="deleteForm">
+                    <form action="/programadenegocio" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">

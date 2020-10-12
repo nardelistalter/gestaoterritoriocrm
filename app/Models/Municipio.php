@@ -20,17 +20,17 @@ class Municipio extends Model
     }
 
     // Relação 1 para muitos com unidades de area
-    public function unidadesArea() {
+    public function unidadesarea() {
         return $this->hasMany(UnidadesArea::class, 'municipio_id');
     }
 
     // Relação 1 para muitos com inscrições estaduais
-    public function inscricaoEstadual() {
+    public function inscricaoestadual() {
         return $this->hasMany(InscricaoEstadual::class, 'municipio_id');
     }
 
     // Relação 1 para muitos com áreas por grupos de cliente
-    public function areaGrupoCliente() {
+    public function areagrupocliente() {
         return $this->hasMany(AreaGrupoCliente::class, 'municipio_id');
     }
 

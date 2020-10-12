@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('visaopolitica', 'App\Http\Controllers\VisaoPoliticaController');
     Route::resource('segmentocultura', 'App\Http\Controllers\SegmentoCulturaController');
     Route::resource('programadenegocio', 'App\Http\Controllers\ProgramaDeNegocioController');
+    Route::resource('unidadesarea', 'App\Http\Controllers\UnidadesAreaController');
+    Route::resource('usuario', 'App\Http\Controllers\UserController');
+    Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
 });
 
 

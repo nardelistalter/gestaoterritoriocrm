@@ -6,8 +6,8 @@ use App\Models\Funcionario;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-//use Intervention\Image\Facades\Image;
-use Faker\Provider\Image;
+use Intervention\Image\Facades\Image;
+//use Faker\Provider\Image;
 
 
 class UserController extends Controller
@@ -59,7 +59,7 @@ class UserController extends Controller
         ]);
 
         $file = $request->input('add-image');
-        $img = Image:: make($file);
+        $img = Image::make($file);
         Response::make($img->encode('jpeg'));
 
         $users =  new User;
@@ -134,5 +134,24 @@ class UserController extends Controller
         $users =  User::find($id);
         $users->delete();
         return redirect('user')->with('success', 'Microrregião excluída com sucesso!');
+    }
+
+    /**
+     * Exibir imagem do usuário logado
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function image($id)
+    {
+        $user = User::find($id);
+        dump($user);
+        die();
+
+        $pic = Image::make($user->imagem);
+        $response = Response::make($pic->encode('jpeg'));
+        $response->header('Content-Type', 'image/jpeg');
+
+        return $response;
     }
 }

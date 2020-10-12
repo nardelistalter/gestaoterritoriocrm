@@ -24,31 +24,39 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableMicrorregiao"
-                        class="table table-bordered table-sm table-responsive text-center datatable" cellspacing="0"
+                    <table id="datatableUser"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
                         width="100%">
                         <thead class="thead-dark">
-                            <tr class="text-justify">
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">E-mail</th>
-                                <th class="th-sm">Ativo</th>
-                                <th class="th-sm">Administrador</th>
+                            <tr class="text-justify border">
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome de Usuário</th>
+                                <th class="th-sm border-bottom border-left">E-mail</th>
+                                <th class="th-sm border-bottom border-left">Ativo</th>
+                                <th class="th-sm border-bottom border-left">Admin</th>
+                                <th class="th-sm border-bottom border-left">Funcionário</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Foto</th>
+                                <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($microrregioes as $microrregiao)
+                            @foreach ($users as $user)
                                 @php
-                                $estado = $microrregiao->find($microrregiao->id)->estado;
+                                $funcionario = $user->find($user->id)->funcionario;
+                                $pfisica = $funcionario->find($funcionario->id)->pfisica;
+                                $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                 @endphp
                                 <tr>
-                                    <th>{{ $microrregiao->id }}</th>
-                                    <td>{{ $microrregiao->nome }}</td>
-                                    <td>{{ $estado->nome }} - {{ $estado->sigla }}</td>
-                                    <td style="display: none;">{{ $estado->id }}</td>
-                                    <td>
+                                    <th class="align-middle border-left">{{ $user->id }}</th>
+                                    <td class="align-middle border-left">{{ $user->nickname }}</td>
+                                    <td class="align-middle border-left">{{ $user->email }}</td>
+                                    <td class="align-middle border-left">{{ ($user->status == 1) ? 'Sim' : 'Não' }}</td>
+                                    <td class="align-middle border-left">{{ ($user->perfilAdministrador == 1) ? 'Sim' : 'Não' }}</td>
+                                    <td class="align-middle border-left">{{ $pessoa->nome }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $funcionario->id }}</td>
+                                    <td class="align-middle border-left"><img class="img-fluid rounded-circle" width="50px" height="auto" src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}"></td>
+                                    <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
@@ -59,13 +67,17 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-light">
                             <tr>
-                                <th class="th-sm">id</th>
-                                <th class="th-sm">Nome</th>
-                                <th class="th-sm">Estado</th>
+                                <th class="th-sm border-bottom border-left">id</th>
+                                <th class="th-sm border-bottom border-left">Nome de Usuário</th>
+                                <th class="th-sm border-bottom border-left">E-mail</th>
+                                <th class="th-sm border-bottom border-left">Ativo</th>
+                                <th class="th-sm border-bottom border-left">Admin</th>
+                                <th class="th-sm border-bottom border-left">Funcionário</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm">Ações</th>
+                                <th class="th-sm border-bottom border-left">Foto</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -76,6 +88,7 @@
     </div>
     <!-- Begin Page Content -->
 
+    {{--
     <!-- Start Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -88,21 +101,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\MicrorregiaoController@store') }}" method="POST"
+                    <form action="{{ action('App\Http\Controllers\UserController@store') }}" method="POST"
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" name="add-microrregiao" required>
+                            <label for="add-user">Descrição</label>
+                            <input type="text" class="form-control" name="add-user" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-estado">Estado</label>
+                            <label for="add-funcionario">Funcionário</label>
                             <!--<input type="text" class="form-control" maxlength="2"
-                                                                style="text-transform: uppercase; width: 60px" name="estado" required>-->
-                            <select class="form-control selectpicker" data-live-search="true" name="add-estado">
-                                <option>Selecione um Estado</option>
-                                @foreach ($estados as $estado)
-                                    <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
+                                                                style="text-transform: uppercase; width: 60px" name="funcionario" required>-->
+                            <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
+                                <option>Selecione...</option>
+                                @foreach ($funcionarios as $funcionario)
+                                    <option value={{ $funcionario->id }}> {{ $funcionario->nome }} - {{ $funcionario->sigla }} </option>
                                 @endforeach
                             </select>
 
@@ -131,14 +144,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/microrregiao" method="POST" id="editForm">
+                    <form action="/user" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
+                            <label for="up-user">Descrição</label>
+                            <input type="text" class="form-control" id="up-user" name="up-user" required>
                         </div>
-                        <div id="select-microrregiao" class="form-group col-xs-2">
+                        <div id="select-user" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
                     </form>
@@ -172,12 +185,12 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" id="v-microrregiao" name="v-microrregiao" readonly>
+                            <label for="v-user">Descrição</label>
+                            <input type="text" class="form-control" id="v-user" name="v-user" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-estado">Estado</label>
-                            <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
+                            <label for="v-funcionario">Funcionário</label>
+                            <input type="text" class="form-control" id="v-funcionario" name="v-funcionario" readonly>
                         </div>
                     </form>
                 </div>
@@ -203,7 +216,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/produto" method="POST" id="deleteForm">
+                    <form action="/user" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -221,17 +234,17 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
-
+ --}}
 @endsection
 
 
 @section('script_pages')
     <script type="text/javascript">
-        // Microrregiao
+        // User
         $(document).ready(function() {
 
-            var table = $('#datatableMicrorregiao').DataTable();
-
+            var table = $('#datatableUser').DataTable();
+/*
             //Start Edit Record
             table.on('click', '.edit', function() {
                 $tr = $(this).closest('tr');
@@ -242,19 +255,19 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
-                    '   <option value="">Selecione um Estado</option>' +
-                    '   @foreach ($estados as $estado)' +
-                    '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
+                $('#select-user').html('<label for="up-funcionario">Funcionário</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
+                    '   <option value="">Selecione...</option>' +
+                    '   @foreach ($funcionarios as $funcionario)' +
+                    '       <option value={{ $funcionario->id }}>{{ $funcionario->nome }} - {{ $funcionario->sigla }}</option>' +
                     '   @endforeach' +
                     '</select>');
 
-                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected', 'selected');
+                $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected', 'selected');
 
-                $('#editForm').attr('action', '/microrregiao/' + data[0]);
-                $('#up-microrregiao').val(data[1]);
-                $('#up-estado').val(data[2]);
+                $('#editForm').attr('action', '/user/' + data[0]);
+                $('#up-user').val(data[1]);
+                $('#up-funcionario').val(data[2]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -270,8 +283,8 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-microrregiao').val(data[1]);
-                $('#v-estado').val(data[2]);
+                $('#v-user').val(data[1]);
+                $('#v-funcionario').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -290,13 +303,13 @@
 
                 //$('#id').val(data[0]);
 
-                $('#deleteForm').attr('action', '/microrregiao/' + data[0]);
+                $('#deleteForm').attr('action', '/user/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
                     '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
                 $('#deleteModal').modal('show');
             });
-            //End Delete Record
+            //End Delete Record*/
         });
 
     </script>

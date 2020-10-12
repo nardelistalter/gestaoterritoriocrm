@@ -97,7 +97,7 @@ class MicrorregiaoController extends Controller
             'up-estado' => ['required', 'integer']
         ]);
 
-        $microrregioes =  Microrregiao::find($id);
+        $microrregioes = Microrregiao::find($id);
         $microrregioes->nome = $request->input('up-microrregiao');
         $microrregioes->estado_id = $request->input('up-estado');
 

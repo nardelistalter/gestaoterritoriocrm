@@ -31,15 +31,11 @@ class Funcionario extends Model
     }
 
 
-
-
     // Relação 1 para 1 com usuario (Usuário com acesso ao sistema)
     public function user()
     {
         return $this->hasOne(User::class, 'funcionario_id');
     }
-
-
 
 
     //Relação 1 gerente para muitos funcionários (auto-relacionamento)
@@ -61,7 +57,7 @@ class Funcionario extends Model
     }
 
     // Relação (1 para 1)
-    public function pFisica()
+    public function pfisica()
     {
         return $this->belongsTo(PFisica::class, 'pf_id', 'id');
     }

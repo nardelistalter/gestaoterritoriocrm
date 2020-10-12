@@ -23,7 +23,8 @@
 
     {{--
     <!-- BBBootstrap mask  -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    --}}
 
     <!-- Custom fonts for this template -->
     <link href={{ URL::to('css/style.css') }} rel="stylesheet" type="text/css">
@@ -90,9 +91,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Pessoas:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
+                        <a class="collapse-item" href={{ route('usuario.index') }}><i
+                                class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
                     </div>
                 </div>
             </li>
@@ -107,8 +111,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Operações') }}</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
                     </div>
                 </div>
             </li>
@@ -123,11 +129,16 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Território:') }}</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
-                        <a class="collapse-item" href={{ route('segmentocultura.index') }}><i class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
-                        <a class="collapse-item" href={{ route('municipio.index') }}><i class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
+                        <a class="collapse-item" href={{ route('segmentocultura.index') }}><i
+                                class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
+                        <a class="collapse-item" href={{ route('unidadesarea.index') }}><i
+                                class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
+                        <a class="collapse-item" href={{ route('municipio.index') }}><i
+                                class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i
                                 class="fas fa-map-marked mr-1"></i>{{ __('Microrregiões') }}</a>
                         <a class="collapse-item" href={{ route('estado.index') }}>
@@ -146,13 +157,18 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manut. de Parâmetros:') }}</h6>
-                        <a class="collapse-item" href={{  route('programadenegocio.index')  }}><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
-                        <a class="collapse-item" href={{ route('produto.index') }}><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
-                        <a class="collapse-item" href={{ route('grupoproduto.index') }}><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
-                        <a class="collapse-item" href={{ route('safra.index') }}><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
+                        <a class="collapse-item" href={{ route('programadenegocio.index') }}><i
+                                class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
+                        <a class="collapse-item" href={{ route('produto.index') }}><i
+                                class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
+                        <a class="collapse-item" href={{ route('grupoproduto.index') }}><i
+                                class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
+                        <a class="collapse-item" href={{ route('safra.index') }}><i
+                                class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                         <a class="collapse-item" href={{ route('cargo.index') }}><i
                                 class="fas fa-user-tie mr-1"></i>{{ __('Cargos') }}</a>
-                        <a class="collapse-item" href={{ route('visaopolitica.index') }}><i class="fas fa-vote-yea mr-1"></i>{{ __('Visões Políticas') }}</a>
+                        <a class="collapse-item" href={{ route('visaopolitica.index') }}><i
+                                class="fas fa-vote-yea mr-1"></i>{{ __('Visões Políticas') }}</a>
                     </div>
                 </div>
             </li>
@@ -175,23 +191,28 @@
                 <div id="collapseRelatorio" class="collapse" aria-labelledby="headingRelatorio"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">{{ _('Pessoas:') }}</h6>
+                        <h6 class="collapse-header">{{ _('Pessoas:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-id-card-alt mr-1"></i>{{ __('Funcionários') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-id-card-alt mr-1"></i>{{ __('Funcionários') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">{{ __('Território:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-spa mr-1"></i>{{ __('Culturas') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Potencial de Negócios') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-money-bill-alt mr-1"></i>{{ __('Potencial de Negócios') }}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">{{ __('Operações') }}:</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-crosshairs mr-1"></i>{{ __('Metas') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">{{ __('Parâmetros:') }}</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-business-time mr-1"></i>{{ __('Programas de Negócio') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
-                        <a class="collapse-item" href="#"><i class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}</a>
+                        <a class="collapse-item" href="#"><i
+                                class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}</a>
                         <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                     </div>
                 </div>
@@ -231,7 +252,7 @@
 
                     <div>
                         <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">{{ __('Gestão de
-                            Território e Metas')}}</h1>
+                            Território e Metas') }}</h1>
 
                     </div>
 
@@ -242,10 +263,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->nickname }}</span>
-                                <img class="img-profile rounded-circle" src={{ Auth::user()->image }}>
-                                {{-- <img class="img-profile rounded-circle" src={{ url('storage/users/'.Auth::user()->image) }}>
-                                <img class="img-profile rounded-circle" src={{ URL::to('img/user-1.png') }}> --}}
+                                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ Auth::user()->nickname }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
                             </a>
 
                             <!-- Dropdown - User Information -->
@@ -255,7 +275,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Perfil') }}
                                 </a>
-                                {{--  <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <!--<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
                                     <i class="fas fa-cogs fa-sm fa-key mr-2 text-gray-400"></i>
                                     {{ __('Alterar Senha') }}
@@ -315,10 +335,12 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">{{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
+                            <div class="modal-body">
+                                {{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('Cancelar') }}</button>
+                                <button class="btn btn-secondary" type="button"
+                                    data-dismiss="modal">{{ __('Cancelar') }}</button>
                                 <a class="btn btn-primary" href="login.html">{{ __('Sair') }}</a>
                             </div>
                         </div>
@@ -359,7 +381,8 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">{{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
+                <div class="modal-body">
+                    {{ __('Selecione "Sair" abaixo se você estiver pronto para encerrar sua sessão atual.') }}
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-info" type="button" data-dismiss="modal">{{ __('Cancelar') }}</button>
@@ -394,6 +417,7 @@
     <script src={{ URL::to('js/demo/datatables-demo.js') }}></script>
 
     <!-- DataTables JS -->
+
     <script src={{ URL::to('js/addons/datatables2.min.js') }} type="text/javascript"></script>
 
     <!-- DataTables Select JS -->
@@ -408,88 +432,79 @@
     {{--
     <!-- BBBootstrap Mask  -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    --}}
+
+
 
     <script type="text/javascript">
-
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()
         });
 
         //Seleção de filtro
-        /*$(document).ready(function () {
-          $('.datatable').dataTable({
-
-            initComplete: function () {
-              this.api().columns().every(function () {
-                var column = this;
-                var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" SELECTED>Search</option></select>')
-                  .appendTo($(column.footer()).empty())
-                  .on('change', function () {
-                    var val = $.fn.dataTable.util.escapeRegex(
-                      $(this).val()
-                    );
-
-                    column
-                      .search(val ? '^' + val + '$' : '', true, false)
-                      .draw();
-                  });
-
-                column.data().unique().sort().each(function (d, j) {
-                  select.append('<option value="' + d + '">' + d + '</option>')
-                });
-              });
-            }
-          });
-        });*/
-
-        /*$(document).ready(function () {
-          $('#dt_table_crud').dataTable({
-
-            columnDefs: [{
-              orderable: false,
-              className: 'select-checkbox',
-              targets: 0
-            }],
-            select: {
-              style: 'os',
-              selector: 'td:first-child'
-            }
-          });
-        });*/
-
-        /*$(document).ready(function () {
-          //Pagination full Numbers
-          $('.datatable').DataTable({
-            "pagingType": "full_numbers"
-          });
-        });*/
-
         $(document).ready(function() {
-
             $('.datatable').dataTable({
                 initComplete: function() {
                     this.api().columns().every(function() {
                         var column = this;
                         var select = $(
-                                '<select  class="browser-default custom-select form-control-sm"><option value="" SELECTED>Search</option></select>'
+                                '<select  class="browser-default custom-select form-control-sm"><option value="" SELECTED>Selecionar</option></select>'
                             )
                             .appendTo($(column.footer()).empty())
                             .on('change', function() {
                                 var val = $.fn.dataTable.util.escapeRegex(
                                     $(this).val()
                                 );
-
                                 column
-                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .search(val ? '^' + val + '$' : '', true,
+                                        false)
                                     .draw();
                             });
-
                         column.data().unique().sort().each(function(d, j) {
                             select.append('<option value="' + d + '">' + d +
                                 '</option>')
                         });
                     });
+                },
+
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "Selecionado %d linhas",
+                            "0": "Nenhuma linha selecionada",
+                            "1": "Selecionado 1 linha"
+                        }
+                    },
+                    "buttons": {
+                        "copy": "Copiar para a área de transferência",
+                        "copyTitle": "Cópia bem sucedida",
+                        "copySuccess": {
+                            "1": "Uma linha copiada com sucesso",
+                            "_": "%d linhas copiadas com sucesso"
+                        }
+                    }
                 }
             });
         });
