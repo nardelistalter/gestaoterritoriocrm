@@ -20,12 +20,12 @@ class GrupoCliente extends Model
     }
 
     // Relação 1 para muitos com Inscrição Estadual
-    public function inscricaoEstadual() {
+    public function inscricaoestadual() {
         return $this->hasMany(InscricaoEstadual::class, 'grupoCliente_id');
     }
 
     // Relação 1 para muitos com áreas por grupos de cliente
-    public function areaGrupoCliente() {
+    public function areagrupocliente() {
         return $this->hasMany(AreaGrupoCliente::class, 'grupoCliente_id');
     }
 

@@ -19,7 +19,7 @@ class Funcionario extends Model
     ];
 
     // Relação 1 para muitos com grupos de clientes
-    public function grupoCliente()
+    public function grupocliente()
     {
         return $this->hasMany(GrupoCliente::class, 'funcionario_id');
     }

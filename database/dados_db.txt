@@ -747,7 +747,7 @@ App\Models\Pessoa::create(['nome' => 'Eduarda Fragoso', 'logradouro' =>'Rua das 
 App\Models\Pessoa::create(['nome' => 'Estela Mantas', 'logradouro' =>'Avenida Rio Branco', 'numero' =>'2453', 'bairro' =>'Centro', 'telefone1' =>'(54) 99999-4367', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Evaristo Bahia', 'logradouro' =>'Linha Nona', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99943-1143', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Filipe Leão', 'logradouro' =>'Linha Castro Alves', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99799-1338', 'municipio_id' =>67]);
-App\Models\Pessoa::create(['nome' => 'Gueda Guimaraes', 'logradouro' =>'Linha Dois', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99499-1122', 'municipio_id' =>67]);
+App\Models\Pessoa::create(['nome' => 'Gueda Guimarrães', 'logradouro' =>'Linha Dois', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99499-1122', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Hélder Varão', 'logradouro' =>'Rua das Couves', 'numero' =>'123', 'bairro' =>'Centro', 'telefone1' =>'(54) 99959-3333', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Jordão Beserril', 'logradouro' =>'Linha Soledade', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99998-3322', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Jorge Pedrozo', 'logradouro' =>'Linha Alvorada', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 98999-7654', 'municipio_id' =>93]);
@@ -849,7 +849,7 @@ App\Models\GrupoCliente::create(['descricao' => 'Mantas, Bahia e Leão', 'funcio
 App\Models\GrupoCliente::create(['descricao' => 'Gouvêa, Beltrão e Mederos', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Grupo Bonfim', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Grupo Cardin', 'funcionario_id' => 4]);
-App\Models\GrupoCliente::create(['descricao' => 'Gueda Guimaraes', 'funcionario_id' => 15]);
+App\Models\GrupoCliente::create(['descricao' => 'Gueda Guimarrães', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Jordão Beserril', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Marina Porciúncula e Higuera', 'funcionario_id' => 9]);
 App\Models\GrupoCliente::create(['descricao' => 'Marroquim Agropecuária', 'funcionario_id' => 9]);

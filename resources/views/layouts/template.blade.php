@@ -91,7 +91,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Pessoas:') }}</h6>
                         <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('grupocliente.index') }}><i
                                 class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
                         <a class="collapse-item" href="#"><i
                                 class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
@@ -131,10 +131,8 @@
                         <h6 class="collapse-header">{{ __('Manutenção de Território:') }}</h6>
                         <a class="collapse-item" href="#"><i
                                 class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('areagrupocliente.index') }}><i
                                 class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
-                        <a class="collapse-item" href={{ route('segmentocultura.index') }}><i
-                                class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
                         <a class="collapse-item" href={{ route('unidadesarea.index') }}><i
                                 class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
                         <a class="collapse-item" href={{ route('municipio.index') }}><i
@@ -163,6 +161,8 @@
                                 class="fas fa-box-open mr-1"></i>{{ __('Produtos') }}</a>
                         <a class="collapse-item" href={{ route('grupoproduto.index') }}><i
                                 class="fas fa-boxes mr-1"></i>{{ __('Grupos de Produto') }}s</a>
+                        <a class="collapse-item" href={{ route('segmentocultura.index') }}><i
+                                class="fas fa-spa mr-1"></i>{{ __('Segmentos / Culturas') }}</a>
                         <a class="collapse-item" href={{ route('safra.index') }}><i
                                 class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                         <a class="collapse-item" href={{ route('cargo.index') }}><i

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Segmento/Cultura por Município')
+@section('titulo', 'Área por Grupo de Clientes')
 
 @section('content')
 
@@ -15,54 +15,55 @@
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
             <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">
-                {{ __('Cadastro de Segmento/Cultura por Município') }}
+                {{ __('Cadastro de Área por Grupo de Clientes') }}
             </h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Segmento/Cultura por Município') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Área por Grupo de Clientes') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="dataTableUnidadesArea" class="datatable table table-sm table-responsive text-center rounded"
-                        cellspacing="0" width="100%">
+                    <table id="datatableAreaGrupoCliente"
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
-                                <th class="th-sm border-bottom border-left">Quantidade</th>
-                                <th style="display: none;">qtdArea</th>
-                                <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado (%)</th>
-                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Município</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
+                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th style="display: none;">id_fk3</th>
+                                <th class="th-sm border-bottom border-left">Quantidade</th>
+                                <th style="display: none;">qtd</th>
+                                <th style="display: none;">um</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($unidadesareas as $unidadesarea)
+                            @foreach ($areagrupoclientes as $areagrupocliente)
                                 @php
-                                $segmentocultura = $unidadesarea->find($unidadesarea->id)->segmentocultura;
-                                $municipio = $unidadesarea->find($unidadesarea->id)->municipio;
+                                $segmentocultura = $areagrupocliente->find($areagrupocliente->id)->segmentocultura;
+                                $grupocliente = $areagrupocliente->find($areagrupocliente->id)->grupocliente;
+                                $municipio = $areagrupocliente->find($areagrupocliente->id)->municipio;
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
                                 $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
-                                    <th class="align-middle border-left">{{ $unidadesarea->id }}</th>
-                                    <td class="align-middle border-left">{{ $unidadesarea->qtdArea }}
-                                        {{ $unidadesarea->unidadeMedida }}</td>
-                                    <td style="display: none;">{{ $unidadesarea->qtdArea }}</td>
-                                    <td style="display: none;">{{ $unidadesarea->unidadeMedida }}</td>
-                                    <td class="align-middle border-left">{{ $unidadesarea->mktShareDesejado }}</td>
+                                    <th class="align-middle border-left">{{ $areagrupocliente->id }}</th>
+                                    <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
+                                    <td style="display: none;">{{ $grupocliente->id }}</td>
                                     <td class="align-middle border-left">{{ $segmentocultura->descricao }}</td>
                                     <td style="display: none;">{{ $segmentocultura->id }}</td>
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
                                     <td style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left" style="max-width: 15em;">{{ $unidadesarea->observacao }}</td>
+                                    <td class="align-middle border-left">{{ $areagrupocliente->qtdUnidadesArea }}
+                                        {{ $segmentocultura->unidadeMedida }}</td>
+                                    <td style="display: none;">{{ $areagrupocliente->qtdUnidadesArea }}</td>
+                                    <td style="display: none;">{{ $segmentocultura->unidadeMedida }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -77,16 +78,15 @@
                         <tfoot class="bg-light">
                             <tr>
                                 <th class="th-sm border-bottom border-left">id</th>
-                                <th class="th-sm border-bottom border-left">Quantidade</th>
-                                <th style="display: none;">qtdArea</th>
-                                <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado  (%)</th>
-                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Município</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
-                                <th class="th-sm border-bottom border-left">Ações</th>
+                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th style="display: none;">id_fk3</th>
+                                <th class="th-sm border-bottom border-left">Quantidade</th>
+                                <th style="display: none;">qtd</th>
+                                <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -104,46 +104,28 @@
             <div class="modal-content">
                 <div class="modal-header bg-success">
                     <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">
-                        {{ __('Novo Unidade de Área') }}
+                        {{ __('Novo Área por Grupo de Clientes') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\UnidadesAreaController@store') }}" method="POST"
+                    <form action="{{ action('App\Http\Controllers\AreaGrupoClienteController@store') }}" method="POST"
                         id="addForm">
                         {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="add-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="add-qtdarea" name="add-qtdarea" step="0.01"
-                                min="0.01" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="add-qtdareaError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="add-unidademedida">Unidade de Medida</label>
-                            <input type="text" class="form-control" name="add-unidademedida" maxlength="45"
-                                style="width: 170px;" required>
-                            <span class="text-danger" id="add-unidademedidaError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="add-mktsharedesejado">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="add-mktsharedesejado" name="add-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="add-mktsharedesejadoError"></span>
-                        </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-segmentocultura">Segmento/Cultura</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
+                            <label for="add-grupocliente">Grupo de Clientes</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente">
                                 <option value="">Selecione...</option>
-                                @foreach ($segmentoculturas as $segmentocultura)
-                                    <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
+                                @foreach ($grupoclientes as $grupocliente)
+                                    <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }} </option>
                                 @endforeach
                             </select>
-                            <span class="text-danger" id="add-segmentoculturaError"></span>
+                            <span class="text-danger" id="add-grupoclienteError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-municipio">Municípios</label>
+                            <label for="add-municipio">Município</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-municipio">
                                 <option value="">Selecione...</option>
                                 @foreach ($municipios as $municipio)
@@ -157,10 +139,28 @@
                             </select>
                             <span class="text-danger" id="add-municipioError"></span>
                         </div>
+                        <div class="form-group col-xs-2">
+                            <label for="add-segmentocultura">Segmento/Cultura</label>
+                            <select class="form-control selectpicker" data-live-search="true" id="add-segmentocultura"
+                                name="add-segmentocultura">
+                                <option value="">Selecione...</option>
+                                @foreach ($segmentoculturas as $segmentocultura)
+                                    <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="add-segmentoculturaError"></span>
+                        </div>
                         <div class="form-group">
-                            <label for="add-observacao">Observação</label>
-                            <textarea type="text" class="form-control" name="add-observacao" maxlength="100"></textarea>
-                            <span class="text-danger" id="add-observacaoError"></span>
+                            <label for="add-unidademedida">Unidade de Medida</label>
+                            <input type="text" class="form-control" id="add-unidademedida" name="add-unidademedida"
+                                value="{{ route('showUM', 2) }}" onClick="getHTML(select,textfield)" style="width: 90px"
+                                readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="add-qtdunidadesarea">Quantidade</label>
+                            <input type="number" class="form-control" id="add-qtdunidadesarea" name="add-qtdunidadesarea"
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                            <span class="text-danger" id="add-qtdunidadesareaError"></span>
                         </div>
                     </form>
                 </div>
@@ -181,44 +181,35 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Unidade de Área' }}</h5>
+                        {{ 'Alterar Área por Grupo de Clientes' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <form action="/unidadesarea" method="POST" id="editForm">
+                    <form action="/areagrupocliente" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <div class="form-group">
-                            <label for="up-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="up-qtdarea" name="up-qtdarea" step="0.01"
-                                min="0.01" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="up-qtdareaError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="up-valorunitario">Unidade de Medida</label>
-                            <input type="text" class="form-control" id="up-unidademedida" name="up-unidademedida"
-                                maxlength="45" style="width: 170px;" required>
-                            <span class="text-danger" id="up-unidademedidaError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="up-qtdarea">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="up-mktsharedesejado" name="up-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="up-mktsharedesejadoError"></span>
-                        </div>
-                        <div id="select-segmentocultura" class="form-group col-xs-2">
+                        <div id="select-grupocliente" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
                         <div id="select-municipio" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
+                        <div id="select-segmentocultura" class="form-group col-xs-2">
+                            <!-- jquery -->
+                        </div>
                         <div class="form-group">
-                            <label for="up-observacao">Observação</label>
-                            <textarea type="text" class="form-control" id="up-observacao" name="up-observacao" maxlength="100"></textarea>
-                            <span class="text-danger" id="up-observacaoError"></span>
+                            <label for="up-qtdunidadesarea">Quantidade</label>
+                            <input type="number" class="form-control" id="up-qtdunidadesarea" name="up-qtdunidadesarea"
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                            <span class="text-danger" id="up-qtdunidadesareaError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="up-unidademedida">Unidade de Medida</label>
+                            <input type="text" class="form-control" id="up-unidademedida" name="up-unidademedida"
+                                style="width: 120px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -239,7 +230,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-info">
                     <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">
-                        {{ __('Ver Unidade de Área') }}
+                        {{ __('Ver Área por Grupo de Clientes') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -251,35 +242,28 @@
                             <label for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label for="v-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="v-qtdarea" name="v-qtdarea" step="0.01" min="0.01"
-                                style="text-align: right; width: 150px;" readonly>
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label for="v-unidademedida">Unidade de Medida</label>
-                            <input type="number" class="form-control" id="v-unidademedida" name="v-unidademedida" step="0.01" min="0.01"
-                                style="text-align: right; width: 170px;" readonly>
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label for="v-mktsharedesejado">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="v-mktsharedesejado" name="v-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 100px;"
-                                readonly>
-                        </div>
                         <div class="form-group">
-                            <label for="v-segmentocultura">Segmento/Cultura</label>
-                            <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura"
-                                readonly>
+                            <label for="v-grupocliente">Grupo de Clientes</label>
+                            <input type="text" class="form-control" id="v-grupocliente" name="v-grupocliente" readonly>
                         </div>
                         <div class="form-group">
                             <label for="v-municipio">Município/UF</label>
                             <input type="text" class="form-control" id="v-municipio" name="v-municipio" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-observacao">Observação</label>
-                            <textarea type="text" class="form-control" id="v-observacao" name="v-observacao"
-                                readonly></textarea>
+                            <label for="v-segmentocultura">Segmento/Cultura</label>
+                            <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura"
+                                readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="v-qtdunidadesarea">Quantidade</label>
+                            <input type="text" class="form-control" id="v-qtdunidadesarea" name="v-qtdunidadesarea"
+                                style="text-align: right; width: 150px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label for="v-unidademedida">Unidade de Medida</label>
+                            <input type="text" class="form-control" id="v-unidademedida" name="v-unidademedida"
+                                style="width: 120px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -298,15 +282,14 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">
-                        {{ __('Excluir Unidade de Área') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/unidadesarea" method="POST" id="deleteForm">
+                    <form action="/areagrupocliente" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -330,10 +313,18 @@
 
 @section('script_pages')
     <script type="text/javascript">
-        // UnidadesArea
+        // AreaGrupoCliente
+
+        $('#add-segmentocultura').change(function() {
+            //$('#add-unidademedida').val(this.value);
+            //$('#add-unidademedida').attr('value', '{{ route('showUM', ' + this.value +') }}');
+            //$("input[name='add-unidademedida']").attr('value', '{{ route('showUM', ' + this.value +') }}');
+            //$("input[name='add-unidademedida']").attr('value', '{{ route('showUM', '2') }}');
+        });
+
         $(document).ready(function() {
 
-            var table = $('#dataTableUnidadesArea').DataTable();
+            var table = $('#datatableAreaGrupoCliente').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -344,15 +335,15 @@
 
                 var data = table.row($tr).data();
                 console.log(data);
+                console.log(data[8]);
 
-                $('#select-segmentocultura').html(
-                    '<label for="up-segmentocultura">Segmento/Cultura</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
-                    '   @foreach ($segmentoculturas as $segmentocultura)' +
-                    '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
+                $('#select-grupocliente').html('<label for="up-grupocliente">Grupo de Clientes</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente">' +
+                    '   @foreach ($grupoclientes as $grupocliente)' +
+                    '       <option value={{ $grupocliente->id }}>{{ $grupocliente->descricao }}</option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-segmentocultura'] option[value='" + data[6] + "']").attr('selected',
+                $("select[name='up-grupocliente'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
                 $('#select-municipio').html('<label for="up-municipio">Município</label>' +
@@ -361,14 +352,22 @@
                     '       <option value={{ $municipio->id }}>{{ $municipio->nome }}/{{ $estado->sigla }}</option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-municipio'] option[value='" + data[8] + "']").attr('selected',
+                $("select[name='up-municipio'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
 
-                $('#editForm').attr('action', '/unidadesarea/' + data[0]);
-                $('#up-qtdarea').val(data[2]);
-                $('#up-unidademedida').val(data[3]);
-                $('#up-mktsharedesejado').val(data[4]);
-                $('#up-observacao').val(data[9]);
+                $('#select-segmentocultura').html(
+                    '<label for="up-segmentocultura">Segmento/Cultura</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
+                    '   @foreach ($segmentoculturas as $segmentocultura)' +
+                    '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
+                    '   @endforeach' +
+                    '</select>');
+                $("select[name='up-segmentocultura'] option[value='" + data[4] + "']").attr('selected',
+                    'selected');
+
+                $('#editForm').attr('action', '/areagrupocliente/' + data[0]);
+                $('#up-qtdunidadesarea').val(data[8]);
+                $('#up-unidademedida').val(data[9]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -384,12 +383,11 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-qtdarea').val(data[2]);
-                $('#v-unidademedida').val(data[3]);
-                $('#v-mktsharedesejado').val(data[4]);
-                $('#v-segmentocultura').val(data[5]);
-                $('#v-municipio').val(data[7]);
-                $('#v-observacao').val(data[9]);
+                $('#v-grupocliente').val(data[1]);
+                $('#v-municipio').val(data[5]);
+                $('#v-segmentocultura').val(data[3]);
+                $('#v-qtdunidadesarea').val(data[7]);
+                $('#v-unidademedida').val(data[9]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -406,11 +404,10 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#deleteForm').attr('action', '/unidadesarea/' + data[0]);
+                $('#deleteForm').attr('action', '/areagrupocliente/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[4] + '% de ' + data[1] + ' de ' + data[5] +
-                    ' em ' + data[7] +
+                    '<p>Deseja excluir "<strong>' + data[3] + '-' + data[1] + '-' + data[5] +
                     '</strong>"?</p>');
                 $('#deleteModal').modal('show');
             });

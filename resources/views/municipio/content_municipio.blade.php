@@ -24,9 +24,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableMunicipio"
-                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
-                        width="100%">
+                    <table id="datatableMunicipio" class="datatable table table-sm table-responsive text-center rounded"
+                        cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
@@ -50,7 +49,7 @@
                                     <td style="display: none;">{{ $microrregiao->id }}</td>
                                     <td class="align-middle border-left">{{ $estado->sigla }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
@@ -100,9 +99,13 @@
                         <div class="form-group col-xs-2">
                             <label for="add-microrregiao">Microrregião</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-microrregiao">
-                                <option>Selecione...</option>
+                                <option value="">Selecione...</option>
                                 @foreach ($microrregioes as $microrregiao)
-                                    <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}</option>
+                                    @php
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}
+                                    </option>
                                 @endforeach
                             </select>
 

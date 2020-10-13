@@ -145,8 +145,6 @@ class UserController extends Controller
     public function image($id)
     {
         $user = User::find($id);
-        dump($user);
-        die();
 
         $pic = Image::make($user->imagem);
         $response = Response::make($pic->encode('jpeg'));

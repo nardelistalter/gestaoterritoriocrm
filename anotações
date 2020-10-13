@@ -4,6 +4,13 @@ Tratamento de erros:
 
 Manutenção do Perfil do Usuário:
     *Alteração dos Dados
-    *Inclusão da foto
 
-Troca de idioma Datatables
+Exibir dados corretos no Modal de Edição (Jquery - Foreach):
+    *Município: sigla do estado junto á microrregião
+    *Grupo de Clientes: nome do funcionários
+    *Unidades Área: sigla do estado junto ao município
+    *Área Grupo de Clientes: sigla do estado junto ao município
+    *Área Grupo de Clientes: sigla do estado junto ao município
+
+Exibir dados corretos no Modal de Inserção (Jquery - Foreach):
+    *Área Grupo de Clientes: Unidade de medida

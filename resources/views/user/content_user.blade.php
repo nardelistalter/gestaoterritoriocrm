@@ -113,7 +113,7 @@
                             <!--<input type="text" class="form-control" maxlength="2"
                                                                 style="text-transform: uppercase; width: 60px" name="funcionario" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
-                                <option>Selecione...</option>
+                                <option value="">Selecione...</option>
                                 @foreach ($funcionarios as $funcionario)
                                     <option value={{ $funcionario->id }}> {{ $funcionario->nome }} - {{ $funcionario->sigla }} </option>
                                 @endforeach

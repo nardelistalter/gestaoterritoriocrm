@@ -94,7 +94,7 @@
                         <div class="form-group col-xs-2">
                             <label for="add-grupoproduto">Grupo</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
-                                <option>Selecione...</option>
+                                <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }}</option>
                                 @endforeach
