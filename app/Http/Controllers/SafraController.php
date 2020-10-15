@@ -47,12 +47,14 @@ class SafraController extends Controller
 
         $this->validate($request, [
             'add-safra' => 'required|max:45',
-            'add-mesInicio' => 'required|numeric|min:1|max:12',
+            'add-mesinicio' => 'required|numeric|min:1|max:12',
+            'add-anoinicio' => 'required|numeric|min:1901|max:2100',
         ]);
 
         $safras =  $this->safra;
         $safras->descricao = $request->input('add-safra');
-        $safras->mesInicio = $request->input('add-mesInicio');
+        $safras->mesInicio = $request->input('add-mesinicio');
+        $safras->anoInicio = $request->input('add-anoinicio');
 
         $safras->save();
 
@@ -94,12 +96,14 @@ class SafraController extends Controller
 
         $this->validate($request, [
             'up-safra' => 'required|max:45',
-            'up-mesInicio' => 'required|numeric|min:1|max:12',
+            'up-anoinicio' => 'required|numeric|min:1|max:12',
+            'up-anoinicio' => 'required|numeric|min:1901|max:2100',
         ]);
 
         $safras =  $this->safra::find($id);
         $safras->descricao = $request->input('up-safra');
-        $safras->mesInicio = $request->input('up-mesInicio');
+        $safras->mesInicio = $request->input('up-mesinicio');
+        $safras->anoInicio = $request->input('up-anoinicio');
 
         $safras->save();
 

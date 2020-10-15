@@ -93,11 +93,11 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-municipio">Descrição</label>
+                            <label class="mb-0" for="add-municipio">Descrição</label>
                             <input type="text" class="form-control" name="add-municipio" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-microrregiao">Microrregião</label>
+                            <label class="mb-0" for="add-microrregiao">Microrregião</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-microrregiao">
                                 <option value="">Selecione...</option>
                                 @foreach ($microrregioes as $microrregiao)
@@ -138,7 +138,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-municipio">Descrição</label>
+                            <label class="mb-0" for="up-municipio">Descrição</label>
                             <input type="text" class="form-control" id="up-municipio" name="up-municipio" required>
                         </div>
                         <div id="select-municipio" class="form-group col-xs-2">
@@ -171,19 +171,19 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-municipio">Descrição</label>
+                            <label class="mb-0" for="v-municipio">Descrição</label>
                             <input type="text" class="form-control" id="v-municipio" name="v-municipio" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-microrregiao">Microrregião</label>
+                            <label class="mb-0" for="v-microrregiao">Microrregião</label>
                             <input type="text" class="form-control" id="v-microrregiao" name="v-microrregiao" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-estado">Estado</label>
+                            <label class="mb-0" for="v-estado">Estado</label>
                             <input type="text" class="form-control" style="text-transform: uppercase; width: 60px"
                                 id="v-estado" name="v-estado" readonly>
                         </div>
@@ -250,7 +250,7 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-municipio').html('<label for="up-microrregiao">Microrregião</label>' +
+                $('#select-municipio').html('<label class="mb-0" for="up-microrregiao">Microrregião</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-microrregiao">' +
                     '   <option value="">Selecione...</option>' +
                     '   @foreach ($microrregioes as $microrregiao)' +

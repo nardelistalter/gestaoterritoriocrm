@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Segmento/Cultura por Município')
+@section('titulo', 'Vendas')
 
 @section('content')
 
@@ -15,54 +15,60 @@
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
             <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">
-                {{ __('Cadastro de Segmento/Cultura por Município') }}
+                {{ __('Cadastro de Vendas') }}
             </h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Segmento/Cultura por Município') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Vendas') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="dataTableUnidadesArea" class="datatable table table-sm table-responsive text-center rounded"
+                    <table id="datatableOperacao" class="datatable table table-sm table-responsive text-center rounded"
                         cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
-                                <th class="th-sm border-bottom border-left">Quantidade</th>
-                                <th style="display: none;">qtdArea</th>
-                                <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado (%)</th>
-                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Data</th>
+                                <th class="th-sm border-bottom border-left">Docum.</th>
+                                <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Município</th>
+                                <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
+                                <th class="th-sm border-bottom border-left">Qtd</th>
+                                <th class="th-sm border-bottom border-left">Valor Unit.</th>
+                                <th class="th-sm border-bottom border-left">Total</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($unidadesareas as $unidadesarea)
+                            @foreach ($operacaos as $operacao)
                                 @php
-                                $segmentocultura = $unidadesarea->find($unidadesarea->id)->segmentocultura;
-                                $municipio = $unidadesarea->find($unidadesarea->id)->municipio;
-                                $microrregiao = $municipio->find($municipio->id)->microrregiao;
-                                $estado = $microrregiao->find($microrregiao->id)->estado;
+                                $produto = $operacao->find($operacao->id)->produto;
+                                $inscricaoestadual = $operacao->find($operacao->id)->inscricaoestadual;
+                                $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
+                                $pfisica = $cliente->find($cliente->id)->pfisica;
+                                $pjuridica = $cliente->find($cliente->id)->pjuridica;
+                                if ($pfisica != null) {
+                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                } else {
+                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                }    
                                 @endphp
                                 <tr>
-                                    <th class="align-middle border-left">{{ $unidadesarea->id }}</th>
-                                    <td class="align-middle border-left">{{ $unidadesarea->qtdArea }}
-                                        {{ $unidadesarea->unidadeMedida }}</td>
-                                    <td style="display: none;">{{ $unidadesarea->qtdArea }}</td>
-                                    <td style="display: none;">{{ $unidadesarea->unidadeMedida }}</td>
-                                    <td class="align-middle border-left">{{ $unidadesarea->mktShareDesejado }}</td>
-                                    <td class="align-middle border-left">{{ $segmentocultura->descricao }}</td>
-                                    <td style="display: none;">{{ $segmentocultura->id }}</td>
-                                    <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
-                                    <td style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left" style="max-width: 15em;">{{ $unidadesarea->observacao }}</td>
+                                    <th class="align-middle border-left">{{ $operacao->id }}</th>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($operacao->data)) }}</td>
+                                    <td style="display: none;">{{ $operacao->data }}</td>
+                                    <td class="align-middle border-left">{{ $operacao->numeroDocumento }}</td>
+                                    <td class="align-middle border-left">{{ $pessoa->nome }} ({{ $inscricaoestadual->numero }})</td>
+                                    <td style="display: none;">{{ $inscricaoestadual->id }}</td>
+                                    <td class="align-middle border-left">{{ $produto->descricao }}</td>
+                                    <td style="display: none;">{{ $produto->id }}</td>
+                                    <td class="align-middle border-left">{{ $operacao->qtdUnidadesProduto }}</td>
+                                    <td class="align-middle border-left">R$ {{ $operacao->valorUnitario }}</td>
+                                    <td class="align-middle border-left">R$ {{ $operacao->qtdUnidadesProduto * $operacao->valorUnitario }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -77,15 +83,15 @@
                         <tfoot class="bg-light">
                             <tr>
                                 <th class="th-sm border-bottom border-left">id</th>
-                                <th class="th-sm border-bottom border-left">Quantidade</th>
-                                <th style="display: none;">qtdArea</th>
-                                <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado  (%)</th>
-                                <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th class="th-sm border-bottom border-left">Data</th>
+                                <th class="th-sm border-bottom border-left">Docum.</th>
+                                <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Município</th>
+                                <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
+                                <th class="th-sm border-bottom border-left">Qtd</th>
+                                <th class="th-sm border-bottom border-left">Valor Unit.</th>
+                                <th class="th-sm border-bottom border-left">Total</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </tfoot>
@@ -96,7 +102,7 @@
         <!-- End Content Datatable -->
     </div>
     <!-- Begin Page Content -->
-
+{{-- 
     <!-- Start Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
         id="editForm">
@@ -111,7 +117,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\UnidadesAreaController@store') }}" method="POST"
+                    <form action="{{ action('App\Http\Controllers\OperacaoController@store') }}" method="POST"
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
@@ -133,29 +139,29 @@
                             <span class="text-danger" id="add-mktsharedesejadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-segmentocultura">Segmento/Cultura</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
+                            <label class="mb-0" for="add-produto">Produto</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-produto">
                                 <option value="">Selecione...</option>
-                                @foreach ($segmentoculturas as $segmentocultura)
-                                    <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
+                                @foreach ($produtos as $produto)
+                                    <option value={{ $produto->id }}> {{ $produto->descricao }} </option>
                                 @endforeach
                             </select>
-                            <span class="text-danger" id="add-segmentoculturaError"></span>
+                            <span class="text-danger" id="add-produtoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-municipio">Municípios</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio">
+                            <label class="mb-0" for="add-inscricaoestadual">Cliente/Inscrição Estadual</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual">
                                 <option value="">Selecione...</option>
-                                @foreach ($municipios as $municipio)
+                                @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
-                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
+                                    $microrregiao = $inscricaoestadual->find($inscricaoestadual->id)->microrregiao;
                                     $estado = $microrregiao->find($microrregiao->id)->estado;
                                     @endphp
-                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
+                                    <option value={{ $inscricaoestadual->id }}> {{ $inscricaoestadual->nome }}
                                     </option>
                                 @endforeach
                             </select>
-                            <span class="text-danger" id="add-municipioError"></span>
+                            <span class="text-danger" id="add-inscricaoestadualError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-observacao">Observação</label>
@@ -188,7 +194,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="/unidadesarea" method="POST" id="editForm">
+                    <form action="/operacao" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
@@ -209,10 +215,10 @@
                                 step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="up-mktsharedesejadoError"></span>
                         </div>
-                        <div id="select-segmentocultura" class="form-group col-xs-2">
+                        <div id="select-produto" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                        <div id="select-municipio" class="form-group col-xs-2">
+                        <div id="select-inscricaoestadual" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
                         <div class="form-group">
@@ -268,13 +274,13 @@
                                 readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-segmentocultura">Segmento/Cultura</label>
-                            <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura"
+                            <label class="mb-0" for="v-produto">Produto</label>
+                            <input type="text" class="form-control" id="v-produto" name="v-produto"
                                 readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-municipio">Município/UF</label>
-                            <input type="text" class="form-control" id="v-municipio" name="v-municipio" readonly>
+                            <label class="mb-0" for="v-inscricaoestadual">Cliente/Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="v-inscricaoestadual" name="v-inscricaoestadual" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-observacao">Observação</label>
@@ -291,7 +297,7 @@
         </div>
     </div>
     <!-- End VIEW Modal -->
-
+--}}
     <!-- Start DELETE Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
         aria-hidden="true">
@@ -306,7 +312,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/unidadesarea" method="POST" id="deleteForm">
+                    <form action="/operacao" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
@@ -324,17 +330,25 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
-
+ 
 @endsection
 
 
 @section('script_pages')
     <script type="text/javascript">
-        // UnidadesArea
-        $(document).ready(function() {
+        // Operacao
 
-            var table = $('#dataTableUnidadesArea').DataTable();
+        //https://stackoverflow.com/questions/50894003/bootstrap-4-date-time-picker-date-format-change
+        /*$(function() {
+            $(".datepicker").datepicker({
+            });
+        });*/
 
+
+       $(document).ready(function() {
+
+            var table = $('#datatableOperacao').DataTable();
+/* 
             //Start Edit Record
             table.on('click', '.edit', function() {
                 $tr = $(this).closest('tr');
@@ -345,26 +359,26 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-segmentocultura').html(
-                    '<label class="mb-0" for="up-segmentocultura">Segmento/Cultura</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
-                    '   @foreach ($segmentoculturas as $segmentocultura)' +
-                    '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
+                $('#select-produto').html(
+                    '<label class="mb-0" for="up-produto">Produto</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-produto">' +
+                    '   @foreach ($produtos as $produto)' +
+                    '       <option value={{ $produto->id }}>{{ $produto->descricao }}</option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-segmentocultura'] option[value='" + data[6] + "']").attr('selected',
+                $("select[name='up-produto'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
 
-                $('#select-municipio').html('<label class="mb-0" for="up-municipio">Município</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-municipio">' +
-                    '   @foreach ($municipios as $municipio)' +
-                    '       <option value={{ $municipio->id }}>{{ $municipio->nome }}/{{ $estado->sigla }}</option>' +
+                $('#select-inscricaoestadual').html('<label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual">' +
+                    '   @foreach ($inscricaoestaduals as $inscricaoestadual)' +
+                    '       <option value={{ $inscricaoestadual->id }}>{{ $inscricaoestadual->nome }}</option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-municipio'] option[value='" + data[8] + "']").attr('selected',
+                $("select[name='up-inscricaoestadual'] option[value='" + data[8] + "']").attr('selected',
                     'selected');
 
-                $('#editForm').attr('action', '/unidadesarea/' + data[0]);
+                $('#editForm').attr('action', '/operacao/' + data[0]);
                 $('#up-qtdarea').val(data[2]);
                 $('#up-unidademedida').val(data[3]);
                 $('#up-mktsharedesejado').val(data[4]);
@@ -387,14 +401,14 @@
                 $('#v-qtdarea').val(data[2]);
                 $('#v-unidademedida').val(data[3]);
                 $('#v-mktsharedesejado').val(data[4]);
-                $('#v-segmentocultura').val(data[5]);
-                $('#v-municipio').val(data[7]);
+                $('#v-produto').val(data[5]);
+                $('#v-inscricaoestadual').val(data[7]);
                 $('#v-observacao').val(data[9]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
             });
-            //End View
+            //End View*/
 
             //Start Delete Record
             table.on('click', '.delete', function() {
@@ -406,11 +420,10 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#deleteForm').attr('action', '/unidadesarea/' + data[0]);
+                $('#deleteForm').attr('action', '/operacao/' + data[0]);
                 $('#delete-modal-body').html(
                     '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[4] + '% de ' + data[1] + ' de ' + data[5] +
-                    ' em ' + data[7] +
+                    '<p>Deseja excluir "<strong>' + data[3] + '-' + data[4] + '-' + data[6] +
                     '</strong>"?</p>');
                 $('#deleteModal').modal('show');
             });

@@ -81,7 +81,7 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-visaopolitica">Descrição</label>
+                            <label class="mb-0" for="add-visaopolitica">Descrição</label>
                             <input type="text" class="form-control" id="add-visaopolitica" name="add-visaopolitica">
                             <span class="text-danger" id="add-visaopoliticaError"></span>
                         </div>
@@ -114,7 +114,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-visaopolitica">Descrição</label>
+                            <label class="mb-0" for="up-visaopolitica">Descrição</label>
                             <input type="text" class="form-control" id="up-visaopolitica" name="up-visaopolitica" required>
                             <span class="text-danger" id="up-visaopoliticaError"></span>
                         </div>
@@ -144,11 +144,11 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-visaopolitica">Descrição</label>
+                            <label class="mb-0" for="v-visaopolitica">Descrição</label>
                             <input type="text" class="form-control" id="v-visaopolitica" name="v-visaopolitica" readonly>
                         </div>
                     </form>

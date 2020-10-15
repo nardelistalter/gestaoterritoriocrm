@@ -11,7 +11,8 @@ class Safra extends Model
 
     protected $fillable = [
         'descricao',
-        'mesInicio'
+        'mesInicio',
+        'anoInicio'
     ];
 
     // Relação 1 para muitos com programas de negócio

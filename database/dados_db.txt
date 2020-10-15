@@ -681,8 +681,8 @@ App\Models\Produto::create(['descricao' => 'TRIGO EM GRÃOS (KG)', 'grupoProduto
 App\Models\Produto::create(['descricao' => 'UNIZEB GOLD (KG)', 'grupoProduto_id' => 5]);
 App\Models\Produto::create(['descricao' => 'UREIA (KG)', 'grupoProduto_id' => 4]);
 
-App\Models\Safra::create(['descricao' => '2019/2020', 'mesInicio' => 5]);
-App\Models\Safra::create(['descricao' => '2020/2021', 'mesInicio' => 5]);
+App\Models\Safra::create(['descricao' => '2019-2020', 'mesInicio' => 5, 'anoInicio' => 2019]);
+App\Models\Safra::create(['descricao' => '2020-2021', 'mesInicio' => 5, 'anoInicio' => 2020]);
 
 App\Models\ProgramaDeNegocio::create(['valorUnitario' => 4.8, 'grupoProduto_id' => 1, 'safra_id' => 2, 'segmentoCultura_id' => 3, 'mesLimite' => 7]);
 App\Models\ProgramaDeNegocio::create(['valorUnitario' => 9.6, 'grupoProduto_id' => 1, 'safra_id' => 2, 'segmentoCultura_id' => 3, 'mesLimite' => 10]);
@@ -747,7 +747,7 @@ App\Models\Pessoa::create(['nome' => 'Eduarda Fragoso', 'logradouro' =>'Rua das 
 App\Models\Pessoa::create(['nome' => 'Estela Mantas', 'logradouro' =>'Avenida Rio Branco', 'numero' =>'2453', 'bairro' =>'Centro', 'telefone1' =>'(54) 99999-4367', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Evaristo Bahia', 'logradouro' =>'Linha Nona', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99943-1143', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Filipe Leão', 'logradouro' =>'Linha Castro Alves', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99799-1338', 'municipio_id' =>67]);
-App\Models\Pessoa::create(['nome' => 'Gueda Guimarrães', 'logradouro' =>'Linha Dois', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99499-1122', 'municipio_id' =>67]);
+App\Models\Pessoa::create(['nome' => 'Gueda Guimaraes', 'logradouro' =>'Linha Dois', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99499-1122', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Hélder Varão', 'logradouro' =>'Rua das Couves', 'numero' =>'123', 'bairro' =>'Centro', 'telefone1' =>'(54) 99959-3333', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Jordão Beserril', 'logradouro' =>'Linha Soledade', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 99998-3322', 'municipio_id' =>67]);
 App\Models\Pessoa::create(['nome' => 'Jorge Pedrozo', 'logradouro' =>'Linha Alvorada', 'numero' =>'SN', 'bairro' =>'Interior', 'telefone1' =>'(54) 98999-7654', 'municipio_id' =>93]);
@@ -765,11 +765,7 @@ App\Models\Pessoa::create(['nome' => 'Agrotop Agropecuaria', 'logradouro' =>'Ave
 App\Models\Pessoa::create(['nome' => 'Grupo Bonfim', 'logradouro' =>'Rua Dez', 'numero' =>'1546', 'bairro' =>'Centro', 'telefone1' =>'(54) 3888-7895', 'municipio_id' =>244]);
 App\Models\Pessoa::create(['nome' => 'Marroquim Agropecuária', 'logradouro' =>'Avenida Arena', 'numero' =>'875', 'bairro' =>'Centro', 'telefone1' =>'(54) 3888-5421', 'municipio_id' =>305]);
 App\Models\Pessoa::create(['nome' => 'Grupo Cardin', 'logradouro' =>'Rua Trinta e Nove', 'numero' =>'354', 'bairro' =>'Centro', 'telefone1' =>'(54) 3888-9934', 'municipio_id' =>305]);
-
-App\Models\PJuridica::create(['id' => 22, 'cnpj' => '20.953.607/0001-01', 'dataFundacao' => '2020-01-03', 'pessoa_id' => 22]);
-App\Models\PJuridica::create(['id' => 23, 'cnpj' => '76.701.463/0001-42', 'dataFundacao' => '1990-08-19', 'pessoa_id' => 23]);
-App\Models\PJuridica::create(['id' => 24, 'cnpj' => '23.417.022/0001-57', 'pessoa_id' => 24]);
-App\Models\PJuridica::create(['id' => 25, 'cnpj' => '16.941.823/0001-51', 'dataFundacao' => '1985-07-08', 'pessoa_id' => 25]);
+App\Models\Pessoa::create(['nome' => 'Nardeli Miguel Stalter', 'logradouro' =>'Rua A', 'numero' =>'1234', 'bairro' =>'Centro', 'telefone1' =>'(54) 99971-5451', 'municipio_id' =>282]);
 
 App\Models\PFisica::create(['id' => 1, 'cpf' => '678.890.630-08', 'dataNascimento' => '1901-01-01', 'pessoa_id' => 1]);
 App\Models\PFisica::create(['id' => 2, 'cpf' => '328.573.060-91', 'dataNascimento' => '1972-04-02', 'sexo' => 'MASCULINO', 'pessoa_id' => 2]);
@@ -792,12 +788,19 @@ App\Models\PFisica::create(['id' => 18, 'cpf' => '173.371.860-53', 'dataNascimen
 App\Models\PFisica::create(['id' => 19, 'cpf' => '672.031.040-28', 'dataNascimento' => '1996-12-04', 'sexo' => 'FEMININO', 'pessoa_id' => 19]);
 App\Models\PFisica::create(['id' => 20, 'cpf' => '181.162.290-95', 'dataNascimento' => '1981-04-24', 'sexo' => 'MASCULINO', 'pessoa_id' => 20]);
 App\Models\PFisica::create(['id' => 21, 'cpf' => '990.424.320-47', 'dataNascimento' => '1979-07-07', 'sexo' => 'NÃO INFORMADO', 'pessoa_id' => 21]);
+App\Models\PFisica::create(['id' => 26, 'cpf' => '148.309.270-46', 'dataNascimento' => '1986-04-24', 'sexo' => 'MASCULINO', 'pessoa_id' => 26]);
+
+App\Models\PJuridica::create(['id' => 22, 'cnpj' => '20.953.607/0001-01', 'dataFundacao' => '2020-01-03', 'pessoa_id' => 22]);
+App\Models\PJuridica::create(['id' => 23, 'cnpj' => '76.701.463/0001-42', 'dataFundacao' => '1990-08-19', 'pessoa_id' => 23]);
+App\Models\PJuridica::create(['id' => 24, 'cnpj' => '23.417.022/0001-57', 'pessoa_id' => 24]);
+App\Models\PJuridica::create(['id' => 25, 'cnpj' => '16.941.823/0001-51', 'dataFundacao' => '1985-07-08', 'pessoa_id' => 25]);
 
 App\Models\Funcionario::create(['id'  => 1, 'pf_id'  => 1, 'dataAdmissao'  => '1901-01-01', 'cargo_id'  => 2]);
 App\Models\Funcionario::create(['id'  => 21, 'pf_id'  => 21, 'dataAdmissao'  => '2002-06-15', 'cargo_id'  => 3]);
 App\Models\Funcionario::create(['id'  => 4, 'pf_id'  => 4, 'dataAdmissao'  => '2016-05-01', 'cargo_id'  => 1]);
 App\Models\Funcionario::create(['id'  => 9, 'pf_id'  => 9, 'dataAdmissao'  => '2012-07-01', 'cargo_id'  => 1]);
 App\Models\Funcionario::create(['id'  => 15, 'pf_id'  => 15, 'dataAdmissao'  => '2018-11-01', 'cargo_id'  => 1]);
+App\Models\Funcionario::create(['id'  => 26, 'pf_id'  => 26, 'dataAdmissao'  => '2012-07-15', 'cargo_id'  => 2]);
 
 App\Models\Cliente::create(['id'  => 2, 'pf_id'  => 2, 'visaPolitica_id'  => 4, 'observacao'  => 'Formador de opinião na sua comunidade']);
 App\Models\Cliente::create(['id'  => 3, 'pf_id'  => 3, 'visaPolitica_id'  => 5]);
@@ -837,19 +840,21 @@ App\Models\Email::create(['email'  => 'agrotop@agrotop.com', 'pessoa_id'  => 22]
 App\Models\Email::create(['email'  => 'grupo@bonfim.com', 'pessoa_id'  => 23]);
 App\Models\Email::create(['email'  => 'compras@bonfim.com', 'pessoa_id'  => 23]);
 App\Models\Email::create(['email'  => 'grupo@cardin.com', 'pessoa_id'  => 25]);
+App\Models\Email::create(['email'  => 'nardelistalter@gmail.com', 'pessoa_id'  => 26]);
 
-App\Models\Usuario::create(['funcionario_id' => 1, 'senha' => bcrypt('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 1]);
-App\Models\Usuario::create(['funcionario_id' => 21, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 13]);
-App\Models\Usuario::create(['funcionario_id' => 4, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 2]);
-App\Models\Usuario::create(['funcionario_id' => 9, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 7]);
-App\Models\Usuario::create(['funcionario_id' => 15, 'senha' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 10]);
+App\Models\Usuario::create(['funcionario_id' => 1, 'senha' => md5('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 1]);
+App\Models\Usuario::create(['funcionario_id' => 21, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 13]);
+App\Models\Usuario::create(['funcionario_id' => 4, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 2]);
+App\Models\Usuario::create(['funcionario_id' => 9, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 7]);
+App\Models\Usuario::create(['funcionario_id' => 15, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email_id' => 10]);
+App\Models\Usuario::create(['funcionario_id' => 26, 'senha' => md5('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email_id' => 18]);
 
 App\Models\GrupoCliente::create(['descricao' => 'Agrotop Agropecuaria', 'funcionario_id' => 4]);
 App\Models\GrupoCliente::create(['descricao' => 'Mantas, Bahia e Leão', 'funcionario_id' => 4]);
 App\Models\GrupoCliente::create(['descricao' => 'Gouvêa, Beltrão e Mederos', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Grupo Bonfim', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Grupo Cardin', 'funcionario_id' => 4]);
-App\Models\GrupoCliente::create(['descricao' => 'Gueda Guimarrães', 'funcionario_id' => 15]);
+App\Models\GrupoCliente::create(['descricao' => 'Gueda Guimaraes', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Jordão Beserril', 'funcionario_id' => 15]);
 App\Models\GrupoCliente::create(['descricao' => 'Marina Porciúncula e Higuera', 'funcionario_id' => 9]);
 App\Models\GrupoCliente::create(['descricao' => 'Marroquim Agropecuária', 'funcionario_id' => 9]);
@@ -962,9 +967,9 @@ App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 356, 
 App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 357, 'qtdUnidadesProduto' =>  20,64, 'valorUnitario' =>  990,  'produto_id' =>  20, 'inscricaoEstadual_id' => 20]);
 App\Models\Operacao::create(['data' =>  '2020-08-15', 'numeroDocumento' => 682, 'qtdUnidadesProduto' =>  200, 'valorUnitario' =>  41,  'produto_id' =>  17, 'inscricaoEstadual_id' => 22]);
 
-App\Models\User::create(['funcionario_id' => 1, 'nickname' => 'Admin', 'password' => bcrypt('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'admin@admin.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\default.png')->encode('jpeg')->resize(50, 50)]);
-App\Models\User::create(['funcionario_id' => 21, 'nickname' => 'Zuleide Collaço', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' =>  'zuleide@empresa.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\feminino1.jpg')->encode('jpeg')->resize(50, 50)]);
-App\Models\User::create(['funcionario_id' => 4, 'nickname' => 'Eduarda Fragoso', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'eduarda@empresa.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\feminino2.jpg')->encode('jpeg')->resize(50, 50)]);
-App\Models\User::create(['funcionario_id' => 9, 'nickname' => 'Hélder Varão', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'helder@empresa.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\masculino2.jpg')->encode('jpeg')->resize(50, 50)]);
-App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Rodrigo Tévez', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'rodrigo@empresa.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\masculino1.jpg')->encode('jpeg')->resize(50, 50)]);
-App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Nardeli Miguel Stalter', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' => 'nardelistalter@gmail.com', 'image' => Image::make('C:\xampp\htdocs\laravel\gestaoterritoriocrm\database\imagensperfil\nardeli.png')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 1, 'nickname' => 'admin', 'password' => bcrypt('admin'), 'status' => 1, 'perfilAdministrador' => 1, 'email' => 'admin@admin.com', 'image' => Image::make('database/imagensperfil/default.png')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 21, 'nickname' => 'Zuleide Collaço', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' => 'zuleide@empresa.com', 'image' => Image::make('database/imagensperfil/feminino1.jpg')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 4, 'nickname' => 'Eduarda Fragoso', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'eduarda@empresa.com', 'image' => Image::make('database/imagensperfil/feminino2.jpg')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 9, 'nickname' => 'Hélder Varão', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'helder@empresa.com', 'image' => Image::make('database/imagensperfil/feminino2.jpg')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 15, 'nickname' => 'Rodrigo Tévez', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 0, 'email' => 'rodrigo@empresa.com', 'image' => Image::make('database/imagensperfil/masculino1.jpg')->encode('jpeg')->resize(50, 50)]);
+App\Models\User::create(['funcionario_id' => 26, 'nickname' => 'Nardeli Miguel Stalter', 'password' => bcrypt('12345'), 'status' => 1, 'perfilAdministrador' => 1, 'email' => 'nardelistalter@gmail.com', 'image' => Image::make('database/imagensperfil/nardeli.png')->encode('jpeg')->resize(50, 50)]);

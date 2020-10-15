@@ -88,11 +88,11 @@
                     <form action="{{ action('App\Http\Controllers\ProdutoController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-produto">Descrição</label>
+                            <label class="mb-0" for="add-produto">Descrição</label>
                             <input type="text" class="form-control" name="add-produto" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-grupoproduto">Grupo</label>
+                            <label class="mb-0" for="add-grupoproduto">Grupo</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
@@ -129,7 +129,7 @@
                         {{ method_field('PUT') }}
 
                         <div class="form-group">
-                            <label for="up-produto">Descrição</label>
+                            <label class="mb-0" for="up-produto">Descrição</label>
                             <input type="text" class="form-control" id="up-produto" name="up-produto" required>
                         </div>
                         <div id="select-produto" class="form-group col-xs-2">
@@ -161,15 +161,15 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-produto">Descrição</label>
+                            <label class="mb-0" for="v-produto">Descrição</label>
                             <input type="text" class="form-control" id="v-produto" name="v-produto" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-grupoproduto">Grupo</label>
+                            <label class="mb-0" for="v-grupoproduto">Grupo</label>
                             <input type="text" class="form-control" id="v-grupoproduto" name="v-grupoproduto" readonly>
                         </div>
                 </div>
@@ -235,7 +235,7 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-produto').html('<label for="up-grupoproduto">Grupo</label>' +
+                $('#select-produto').html('<label class="mb-0" for="up-grupoproduto">Grupo</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
                     '   <option value="">Selecione</option>' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +

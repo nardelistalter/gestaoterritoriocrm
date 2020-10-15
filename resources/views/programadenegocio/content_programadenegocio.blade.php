@@ -181,7 +181,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group col-xs-2">
-                            <label for="add-segmentocultura">Segmento/Cultura</label>
+                            <label class="mb-0" for="add-segmentocultura">Segmento/Cultura</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
                                 <option value="">Selecione...</option>
                                 @foreach ($segmentoculturas as $segmentocultura)
@@ -191,7 +191,7 @@
                             <span class="text-danger" id="add-segmentoculturaError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-grupoproduto">Grupo de Produtos</label>
+                            <label class="mb-0" for="add-grupoproduto">Grupo de Produtos</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
@@ -201,7 +201,7 @@
                             <span class="text-danger" id="add-grupoprodutoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-safra">Safra</label>
+                            <label class="mb-0" for="add-safra">Safra</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-safra">
                                 <option value="">Selecione...</option>
                                 @foreach ($safras as $safra)
@@ -211,13 +211,13 @@
                             <span class="text-danger" id="add-safraError"></span>
                         </div>
                         <div class="form-group">
-                            <label for="add-valorunitario">Valor Unitário</label>
+                            <label class="mb-0" for="add-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="add-valorunitario" name="add-valorunitario"
                                 step="0.01" min="0.01" style="text-align: right; width: 150px;">
                             <span class="text-danger" id="add-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
-                            <label for="add-meslimite">Mês Limite</label>
+                            <label class="mb-0" for="add-meslimite">Mês Limite</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-meslimite">
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
@@ -274,7 +274,7 @@
                             <!-- jquery -->
                         </div>
                         <div class="form-group">
-                            <label for="up-valorunitario">Valor Unitário</label>
+                            <label class="mb-0" for="up-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="up-valorunitario" name="up-valorunitario"
                                 step="0.01" min="0.01" style="text-align: right; width: 150px;">
                             <span class="text-danger" id="up-valorunitarioError"></span>
@@ -310,29 +310,29 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-segmentocultura">Segmento/Cultura</label>
+                            <label class="mb-0" for="v-segmentocultura">Segmento/Cultura</label>
                             <input type="text" class="form-control" id="v-segmentocultura" name="v-segmentocultura"
                                 readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-grupoproduto">Grupo de Produtos</label>
+                            <label class="mb-0" for="v-grupoproduto">Grupo de Produtos</label>
                             <input type="text" class="form-control" id="v-grupoproduto" name="v-grupoproduto" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-safra">Safra</label>
+                            <label class="mb-0" for="v-safra">Safra</label>
                             <input type="text" class="form-control" id="v-safra" name="v-safra" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-valorunitario">Valor Unitário</label>
+                            <label class="mb-0" for="v-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="v-valorunitario" name="v-valorunitario"
                                 step="0.01" min="0.01" style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-meslimite">Mês Limite</label>
+                            <label class="mb-0" for="v-meslimite">Mês Limite</label>
                             <input type="text" class="form-control" id="v-meslimite" name="v-meslimite" readonly>
                         </div>
                     </form>
@@ -400,7 +400,7 @@
                 console.log(data[8]);
 
                 $('#select-segmentocultura').html(
-                    '<label for="up-segmentocultura">Segmento/Cultura</label>' +
+                    '<label class="mb-0" for="up-segmentocultura">Segmento/Cultura</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
                     '   @foreach ($segmentoculturas as $segmentocultura)' +
                     '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
@@ -409,7 +409,7 @@
                 $("select[name='up-segmentocultura'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
-                $('#select-grupoproduto').html('<label for="up-grupoproduto">Grupo de Produtos</label>' +
+                $('#select-grupoproduto').html('<label class="mb-0" for="up-grupoproduto">Grupo de Produtos</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
@@ -418,7 +418,7 @@
                 $("select[name='up-grupoproduto'] option[value='" + data[4] + "']").attr('selected',
                     'selected');
 
-                $('#select-safra').html('<label for="up-safra">Safra</label>' +
+                $('#select-safra').html('<label class="mb-0" for="up-safra">Safra</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-safra">' +
                     '   @foreach ($safras as $safra)' +
                     '       <option value={{ $safra->id }}>{{ $safra->descricao }}</option>' +
@@ -428,7 +428,7 @@
                     'selected');
 
 
-                $('#select-meslimite').html('<label for="up-meslimite">Mês Limite</label>' +
+                $('#select-meslimite').html('<label class="mb-0" for="up-meslimite">Mês Limite</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-meslimite">' +
                     '   <option value="1">Janeiro</option>' +
                     '    <option value="2">Fevereiro</option>' +

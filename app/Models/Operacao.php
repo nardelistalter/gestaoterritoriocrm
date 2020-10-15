@@ -19,7 +19,7 @@ class Operacao extends Model
     ];
 
     // Relação (MUITOS para 1)
-    public function inscricaoEstadual() {
+    public function inscricaoestadual() {
         return $this->belongsTo(InscricaoEstadual::class, 'inscricaoEstadual_id', 'id');
     }
 

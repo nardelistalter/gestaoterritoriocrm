@@ -85,13 +85,13 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-grupoproduto">Descrição</label>
+                            <label class="mb-0" for="add-grupoproduto">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="add-grupoproduto"
                                 name="add-grupoproduto">
                             <span class="text-danger" id="add-grupoprodutoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="add-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px"
                                 id="add-unidadeMedida" name="add-unidadeMedida">
                             <span class="text-danger" id="add-unidadeMedidaError"></span>
@@ -126,13 +126,13 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-grupoproduto">Descrição</label>
+                            <label class="mb-0" for="up-grupoproduto">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="up-grupoproduto"
                                 name="up-grupoproduto" required>
                             <span class="text-danger" id="up-grupoprodutoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="up-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="up-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px"
                                 id="up-unidadeMedida" name="up-unidadeMedida" required>
                             <span class="text-danger" id="up-unidadeMedidaError"></span>
@@ -164,16 +164,16 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-grupoproduto">Descrição</label>
+                            <label class="mb-0" for="v-grupoproduto">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="v-grupoproduto" name="v-grupoproduto"
                                 readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="v-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px" id="v-unidadeMedida"
                                 name="v-unidadeMedida" readonly>
                         </div>

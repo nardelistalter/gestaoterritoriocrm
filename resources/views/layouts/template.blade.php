@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Software de Gestão de Metas e Território">
+    <meta name="author" content="Nardeli Miguel Stalter">
     <link rel="shortcut icon" type="image/x-icon" href={{ URL::to('img/logo.png') }}>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -20,6 +20,8 @@
     <link href={{ URL::to('css/addons/datatables2.min.css') }} rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../../extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
+    
 
     {{--
     <!-- BBBootstrap mask  -->
@@ -113,7 +115,7 @@
                         <h6 class="collapse-header">{{ __('Operações') }}</h6>
                         <a class="collapse-item" href="#"><i
                                 class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('operacao.index') }}><i
                                 class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
                     </div>
                 </div>
@@ -129,7 +131,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Território:') }}</h6>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('inscricaoestadual.index') }}><i
                                 class="fas fa-paste mr-1"></i>{{ __('Inscrições Estaduais') }}</a>
                         <a class="collapse-item" href={{ route('areagrupocliente.index') }}><i
                                 class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>

@@ -90,11 +90,11 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-microrregiao">Descrição</label>
+                            <label class="mb-0" for="add-microrregiao">Descrição</label>
                             <input type="text" class="form-control" name="add-microrregiao" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-estado">Estado</label>
+                            <label class="mb-0" for="add-estado">Estado</label>
                             <!--<input type="text" class="form-control" maxlength="2"
                                                                 style="text-transform: uppercase; width: 60px" name="estado" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-estado">
@@ -133,7 +133,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-microrregiao">Descrição</label>
+                            <label class="mb-0" for="up-microrregiao">Descrição</label>
                             <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
                         </div>
                         <div id="select-microrregiao" class="form-group col-xs-2">
@@ -166,15 +166,15 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-microrregiao">Descrição</label>
+                            <label class="mb-0" for="v-microrregiao">Descrição</label>
                             <input type="text" class="form-control" id="v-microrregiao" name="v-microrregiao" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-estado">Estado</label>
+                            <label class="mb-0" for="v-estado">Estado</label>
                             <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
                         </div>
                     </form>
@@ -240,7 +240,7 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-microrregiao').html('<label for="up-estado">Estado</label>' +
+                $('#select-microrregiao').html('<label class="mb-0" for="up-estado">Estado</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
                     '   <option value="">Selecione...</option>' +
                     '   @foreach ($estados as $estado)' +

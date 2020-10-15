@@ -105,11 +105,11 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-user">Descrição</label>
+                            <label class="mb-0" for="add-user">Descrição</label>
                             <input type="text" class="form-control" name="add-user" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-funcionario">Funcionário</label>
+                            <label class="mb-0" for="add-funcionario">Funcionário</label>
                             <!--<input type="text" class="form-control" maxlength="2"
                                                                 style="text-transform: uppercase; width: 60px" name="funcionario" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
@@ -148,7 +148,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-user">Descrição</label>
+                            <label class="mb-0" for="up-user">Descrição</label>
                             <input type="text" class="form-control" id="up-user" name="up-user" required>
                         </div>
                         <div id="select-user" class="form-group col-xs-2">
@@ -181,15 +181,15 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-user">Descrição</label>
+                            <label class="mb-0" for="v-user">Descrição</label>
                             <input type="text" class="form-control" id="v-user" name="v-user" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-funcionario">Funcionário</label>
+                            <label class="mb-0" for="v-funcionario">Funcionário</label>
                             <input type="text" class="form-control" id="v-funcionario" name="v-funcionario" readonly>
                         </div>
                     </form>
@@ -255,7 +255,7 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-user').html('<label for="up-funcionario">Funcionário</label>' +
+                $('#select-user').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
                     '   <option value="">Selecione...</option>' +
                     '   @foreach ($funcionarios as $funcionario)' +

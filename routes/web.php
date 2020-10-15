@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('usuario', 'App\Http\Controllers\UserController');
     Route::resource('grupocliente', 'App\Http\Controllers\GrupoClienteController');
     Route::resource('areagrupocliente', 'App\Http\Controllers\AreaGrupoClienteController');
+    Route::resource('inscricaoestadual', 'App\Http\Controllers\InscricaoEstadualController');
+    Route::resource('operacao', 'App\Http\Controllers\OperacaoController');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
     Route::get('areagrupocliente/showUM/{id}', 'App\Http\Controllers\AreaGrupoClienteController@showUM')->name('showUM');
 });

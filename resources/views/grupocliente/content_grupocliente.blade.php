@@ -92,11 +92,11 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-grupocliente">Grupo de Clientes</label>
+                            <label class="mb-0" for="add-grupocliente">Grupo de Clientes</label>
                             <input type="text" class="form-control" name="add-grupocliente" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-funcionario">Funcionário</label>
+                            <label class="mb-0" for="add-funcionario">Funcionário</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
                                 <option value="">Selecione...</option>
                                 @foreach ($funcionarios as $funcionario)
@@ -138,7 +138,7 @@
                         {{ method_field('PUT') }}
 
                         <div class="form-group">
-                            <label for="up-grupocliente">Grupo de Clientes</label>
+                            <label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>
                             <input type="text" class="form-control" id="up-grupocliente" name="up-grupocliente" required>
                         </div>
                         <div id="select-grupocliente" class="form-group col-xs-2">
@@ -171,15 +171,15 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-grupocliente">Grupo de Clientes</label>
+                            <label class="mb-0" for="v-grupocliente">Grupo de Clientes</label>
                             <input type="text" class="form-control" id="v-grupocliente" name="v-grupocliente" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-funcionario">Funcionário</label>
+                            <label class="mb-0" for="v-funcionario">Funcionário</label>
                             <input type="text" class="form-control" id="v-funcionario" name="v-funcionario" readonly>
                         </div>
                 </div>
@@ -246,7 +246,7 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-grupocliente').html('<label for="up-funcionario">Funcionário</label>' +
+                $('#select-grupocliente').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
                     '   <option value="">Selecione</option>' +
                     '   @foreach ($funcionarios as $funcionario)' +

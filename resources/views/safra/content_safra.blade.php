@@ -30,6 +30,7 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Ano Início</th>
                                 <th class="th-sm border-bottom border-left">Mês Início</th>
                                 <th style="display: none;">mesNum</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
@@ -109,6 +110,7 @@
                                 <tr>
                                     <th class="align-middle border-left">{{ $obj->id }}</th>
                                     <td class="align-middle border-left">{{ $obj->descricao }}</td>
+                                    <td class="align-middle border-left">{{ $obj->anoInicio }}</td>
                                     <td class="align-middle border-left">{{ $mes }}</td>
                                     <td style="display: none;">{{ $obj->mesInicio }}</td>
                                     <td class="align-middle th-sm border-left border-right">
@@ -126,6 +128,7 @@
                             <tr>
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Descrição</th>
+                                <th class="th-sm border-bottom border-left">Ano Início</th>
                                 <th class="th-sm border-bottom border-left">Mês Início</th>
                                 <th style="display: none;">mesNum</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
@@ -153,13 +156,20 @@
                     <form action="{{ action('App\Http\Controllers\SafraController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-safra">Descrição</label>
+                            <label class="mb-0" for="add-safra">Descrição</label>
                             <input type="text" class="form-control" id="add-safra" name="add-safra">
                             <span class="text-danger" id="add-safraError"></span>
                         </div>
                         <div class="form-group">
-                            <label for="add-mesInicio">Mês Início</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-mesInicio">
+                            <label class="mb-0" for="add-anoinicio">Ano Início</label>
+                            <input type="number" class="form-control" id="add-anoinicio" name="add-anoinicio"
+                                step="1" min="1901" max="2100" style="width: 85px;">
+                            <span class="text-danger" id="add-anoinicioError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="add-mesinicio">Mês Início</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-mesinicio"
+                            style="width: 130px;">
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -174,7 +184,7 @@
                                 <option value="11">Novembro</option>
                                 <option value="12">Dezembro</option>
                             </select>
-                            <span class="text-danger" id="add-mesInicioError"></span>
+                            <span class="text-danger" id="add-mesinicioError"></span>
                         </div>
                     </form>
                 </div>
@@ -204,9 +214,15 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-safra">Descrição</label>
+                            <label class="mb-0" for="up-safra">Descrição</label>
                             <input type="text" class="form-control" id="up-safra" name="up-safra" required>
                             <span class="text-danger" id="up-safraError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-anoinicio">Ano Início</label>
+                            <input type="number" class="form-control" id="up-anoinicio" name="up-anoinicio"
+                                step="1" min="1901" max="2100" style="width: 85px;">
+                            <span class="text-danger" id="up-anoinicioError"></span>
                         </div>
                         <div id="select-safra" class="form-group col-xs-2">
                             <!-- jquery -->
@@ -237,16 +253,22 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-safra">Descrição</label>
+                            <label class="mb-0" for="v-safra">Descrição</label>
                             <input type="text" class="form-control" id="v-safra" name="v-safra" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-mesInicio">Mês Início</label>
-                            <input type="text" class="form-control" id="v-mesInicio" name="v-mesInicio" readonly>
+                            <label class="mb-0" for="v-anoinicio">Ano Início</label>
+                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio" 
+                                step="1" min="1901" max="2100" style="width: 85px;" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="v-mesinicio">Mês Início</label>
+                            <input type="text" class="form-control" id="v-mesinicio" name="v-mesinicio"
+                                style="width: 130px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -312,8 +334,8 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-safra').html('<label for="up-mesInicio">Mês Início</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-mesInicio">' +
+                $('#select-safra').html('<label class="mb-0" for="up-mesinicio">Mês Início</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-mesinicio" style="width: 130px;">' +
                     '   <option value="">Selecione...</option>' +
                     '   <option value="1">Janeiro</option>' +
                     '    <option value="2">Fevereiro</option>' +
@@ -329,11 +351,12 @@
                     '    <option value="12">Dezembro</option>' +
                     '</select>');
 
-                $("select[name='up-mesInicio'] option[value='" + data[3] + "']").attr('selected',
+                $("select[name='up-mesinicio'] option[value='" + data[4] + "']").attr('selected',
                     'selected');
 
                 $('#up-safra').val(data[1]);
-                $('#up-mesInicio').val(data[2]);
+                $('#up-anoinicio').val(data[2]);
+                $('#up-mesinicio').val(data[3]);
 
                 $('#editForm').attr('action', '/safra/' + data[0]);
                 $('#editModal').modal('show');
@@ -352,7 +375,8 @@
 
                 $('#v-id').val(data[0]);
                 $('#v-safra').val(data[1]);
-                $('#v-mesInicio').val(data[2]);
+                $('#v-anoinicio').val(data[2]);
+                $('#v-mesinicio').val(data[3]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

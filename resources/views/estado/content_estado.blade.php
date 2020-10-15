@@ -81,12 +81,12 @@
                     <form action="{{ action('App\Http\Controllers\EstadoController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-estado">Descrição</label>
+                            <label class="mb-0" for="add-estado">Descrição</label>
                             <input type="text" class="form-control" id="add-estado" name="add-estado">
                             <span class="text-danger" id="add-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-sigla">Sigla</label>
+                            <label class="mb-0" for="add-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
                                 style="text-transform: uppercase; width: 60px" id="add-sigla" name="add-sigla">
                             <span class="text-danger" id="add-siglaError"></span>
@@ -119,12 +119,12 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-estado">Descrição</label>
+                            <label class="mb-0" for="up-estado">Descrição</label>
                             <input type="text" class="form-control" id="up-estado" name="up-estado" required>
                             <span class="text-danger" id="up-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="up-sigla">Sigla</label>
+                            <label class="mb-0" for="up-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
                                 style="text-transform: uppercase; width: 60px" id="up-sigla" name="up-sigla" required>
                             <span class="text-danger" id="up-estadoError"></span>
@@ -155,15 +155,15 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-estado">Descrição</label>
+                            <label class="mb-0" for="v-estado">Descrição</label>
                             <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-sigla">Sigla</label>
+                            <label class="mb-0" for="v-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
                                 style="text-transform: uppercase; width: 60px" id="v-sigla" name="v-sigla" readonly>
                         </div>

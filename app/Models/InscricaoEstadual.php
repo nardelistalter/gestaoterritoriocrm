@@ -28,7 +28,7 @@ class InscricaoEstadual extends Model
     }
 
     // Relação (MUITOS para 1)
-    public function grupoCliente() {
+    public function grupocliente() {
         return $this->belongsTo(GrupoCliente::class, 'grupoCliente_id', 'id');
     }
 

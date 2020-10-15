@@ -18,7 +18,7 @@ class PJuridica extends Model
 
     // Relação 1 para 1 com cliente
     public function cliente() {
-        return $this->hasOne(Funcionario::class, 'pj_id');
+        return $this->hasOne(Cliente::class, 'pj_id');
     }
 
     // Relação (1 para 1)

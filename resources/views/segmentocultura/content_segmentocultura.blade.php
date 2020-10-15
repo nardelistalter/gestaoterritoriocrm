@@ -85,13 +85,13 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-segmentocultura">Descrição</label>
+                            <label class="mb-0" for="add-segmentocultura">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="add-segmentocultura"
                                 name="add-segmentocultura">
                             <span class="text-danger" id="add-segmentoculturaError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="add-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="add-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px"
                                 id="add-unidadeMedida" name="add-unidadeMedida">
                             <span class="text-danger" id="add-unidadeMedidaError"></span>
@@ -125,13 +125,13 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-segmentocultura">Descrição</label>
+                            <label class="mb-0" for="up-segmentocultura">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="up-segmentocultura"
                                 name="up-segmentocultura" required>
                             <span class="text-danger" id="up-segmentoculturaError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="up-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="up-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px"
                                 id="up-unidadeMedida" name="up-unidadeMedida" required>
                             <span class="text-danger" id="up-unidadeMedidaError"></span>
@@ -164,16 +164,16 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-segmentocultura">Descrição</label>
+                            <label class="mb-0" for="v-segmentocultura">Descrição</label>
                             <input type="text" class="form-control" maxlength="45" id="v-segmentocultura"
                                 name="v-segmentocultura" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label for="v-unidadeMedida">Unidade de Medida</label>
+                            <label class="mb-0" for="v-unidadeMedida">Unidade de Medida</label>
                             <input type="text" class="form-control" maxlength="20" style="width: 180px" id="v-unidadeMedida"
                                 name="v-unidadeMedida" readonly>
                         </div>

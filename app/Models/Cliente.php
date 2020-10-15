@@ -18,22 +18,22 @@ class Cliente extends Model
     ];
 
     // Relação (1 para MUITOS)
-    public function inscricaoEstadual() {
+    public function inscricaoestadual() {
         return $this->hasMany(InscricaoEstadual::class, 'cliente_id');
     }
 
     // Relação (MUITOS para 1)
-    public function visaPolitica() {
+    public function visapolitica() {
         return $this->belongsTo(VisaoPolitica::class, 'visaoPolitica_id', 'id');
     }
 
     // Relação (1 para 1)
-    public function pFisica() {
+    public function pfisica() {
         return $this->belongsTo(PFisica::class, 'pf_id', 'id');
     }
 
     // Relação (1 para 1)
-    public function pJuridica() {
-        return $this->belongsTo(PFisica::class, 'pj_id', 'id');
+    public function pjuridica() {
+        return $this->belongsTo(PJuridica::class, 'pj_id', 'id');
     }
 }

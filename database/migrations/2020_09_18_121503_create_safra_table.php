@@ -17,6 +17,7 @@ class CreateSafraTable extends Migration
             $table->id();
             $table->string('descricao', 45)->nullable(false)->unique();
             $table->integer('mesInicio')->nullable(false);
+            $table->integer('anoInicio')->nullable(false);
             $table->timestamps();
         });
     }

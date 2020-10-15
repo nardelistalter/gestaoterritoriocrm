@@ -78,7 +78,7 @@
                     <form action="{{ action('App\Http\Controllers\CargoController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="add-cargo">Descrição</label>
+                            <label class="mb-0" for="add-cargo">Descrição</label>
                             <input type="text" class="form-control" id="add-cargo" name="add-cargo">
                             <span class="text-danger" id="add-cargoError"></span>
                         </div>
@@ -110,7 +110,7 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="up-cargo">Descrição</label>
+                            <label class="mb-0" for="up-cargo">Descrição</label>
                             <input type="text" class="form-control" id="up-cargo" name="up-cargo" required>
                             <span class="text-danger" id="up-cargoError"></span>
                         </div>
@@ -140,11 +140,11 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label for="v-id">id</label>
+                            <label class="mb-0" for="v-id">id</label>
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="v-cargo">Descrição</label>
+                            <label class="mb-0" for="v-cargo">Descrição</label>
                             <input type="text" class="form-control" id="v-cargo" name="v-cargo" readonly>
                         </div>
                     </form>
