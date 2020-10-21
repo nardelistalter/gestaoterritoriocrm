@@ -204,7 +204,7 @@
                             <span class="text-danger" id="up-unidademedidaError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-qtdarea">Market Share Desejado (%)</label>
+                            <label class="mb-0" for="up-mktsharedesejado">Market Share Desejado (%)</label>
                             <input type="number" class="form-control" id="up-mktsharedesejado" name="up-mktsharedesejado"
                                 step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="up-mktsharedesejadoError"></span>

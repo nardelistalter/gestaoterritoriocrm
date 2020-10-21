@@ -12,7 +12,7 @@
             <div class="crud_button">
                 <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
-                        title="Incluir item"></i>{{ __('Novo') }}</button>
+                        title="Incluir Venda"></i>{{ __('Novo') }}</button>
             </div>
             <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">
                 {{ __('Cadastro de Vendas') }}
@@ -32,13 +32,15 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Data</th>
-                                <th class="th-sm border-bottom border-left">Docum.</th>
+                                <th style="display: none;">data</th>
+                                <th class="th-sm border-bottom border-left">Doc.</th>
                                 <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Qtd</th>
                                 <th class="th-sm border-bottom border-left">Valor Unit.</th>
+                                <th style="display: none;">unit</th>
                                 <th class="th-sm border-bottom border-left">Total</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
@@ -51,7 +53,7 @@
                                 $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
                                 $pfisica = $cliente->find($cliente->id)->pfisica;
                                 $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                if ($pfisica != null) {
+                                if ($pfisica) {
                                     $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                 } else {
                                     $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
@@ -68,6 +70,7 @@
                                     <td style="display: none;">{{ $produto->id }}</td>
                                     <td class="align-middle border-left">{{ $operacao->qtdUnidadesProduto }}</td>
                                     <td class="align-middle border-left">R$ {{ $operacao->valorUnitario }}</td>
+                                    <td style="display: none;">{{ $operacao->valorUnitario }}</td>
                                     <td class="align-middle border-left">R$ {{ $operacao->qtdUnidadesProduto * $operacao->valorUnitario }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
@@ -83,14 +86,16 @@
                         <tfoot class="bg-light">
                             <tr>
                                 <th class="th-sm border-bottom border-left">id</th>
-                                <th class="th-sm border-bottom border-left">Data</th>
-                                <th class="th-sm border-bottom border-left">Docum.</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Data</th>
+                                <th style="display: none;">data</th>
+                                <th class="th-sm border-bottom border-left">Doc.</th>
                                 <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Qtd</th>
                                 <th class="th-sm border-bottom border-left">Valor Unit.</th>
+                                <th style="display: none;">unit</th>
                                 <th class="th-sm border-bottom border-left">Total</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
@@ -102,7 +107,7 @@
         <!-- End Content Datatable -->
     </div>
     <!-- Begin Page Content -->
-{{-- 
+
     <!-- Start Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
         id="editForm">
@@ -110,7 +115,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-success">
                     <h5 class="modal-title text-white font-weight-bold" id="addModalLabel">
-                        {{ __('Nova Unidade de Área') }}
+                        {{ __('Nova Venda') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -121,22 +126,35 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="add-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="add-qtdarea" name="add-qtdarea" step="0.01"
-                                min="0.01" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="add-qtdareaError"></span>
+                            <label class="mb-0" for="add-data">Data</label>
+                            <input type="date" class="form-control" id="add-data" name="add-data" style="width: 170px;" required>
+                            <span class="text-danger" id="add-dataError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-unidademedida">Unidade de Medida</label>
-                            <input type="text" class="form-control" name="add-unidademedida" maxlength="45"
+                            <label class="mb-0" for="add-numerodocumento">Número do Documento</label>
+                            <input type="text" class="form-control" id="add-numerodocumento" name="add-numerodocumento" maxlength="15"
                                 style="width: 120px;" required>
-                            <span class="text-danger" id="add-unidademedidaError"></span>
+                            <span class="text-danger" id="add-numerodocumentoError"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-mktsharedesejado">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="add-mktsharedesejado" name="add-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="add-mktsharedesejadoError"></span>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="add-inscricaoestadual">Cliente/Inscrição Estadual</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual">
+                                <option value="">Selecione...</option>
+                                @foreach ($inscricaoestaduals as $inscricaoestadual)
+                                    @php
+                                    $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
+                                    $pfisica = $cliente->find($cliente->id)->pfisica;
+                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
+                                    if ($pfisica) {
+                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                    } else {
+                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                    } 
+                                    @endphp
+                                    <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="add-inscricaoestadualError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-produto">Produto</label>
@@ -148,25 +166,23 @@
                             </select>
                             <span class="text-danger" id="add-produtoError"></span>
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-inscricaoestadual">Cliente/Inscrição Estadual</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual">
-                                <option value="">Selecione...</option>
-                                @foreach ($inscricaoestaduals as $inscricaoestadual)
-                                    @php
-                                    $microrregiao = $inscricaoestadual->find($inscricaoestadual->id)->microrregiao;
-                                    $estado = $microrregiao->find($microrregiao->id)->estado;
-                                    @endphp
-                                    <option value={{ $inscricaoestadual->id }}> {{ $inscricaoestadual->nome }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger" id="add-inscricaoestadualError"></span>
+                        <div class="form-group">
+                            <label class="mb-0" for="add-qtdunidadesproduto">Quantidade</label>
+                            <input type="number" class="form-control" id="add-qtdunidadesproduto" name="add-qtdunidadesproduto"
+                                step="0.01" min="0.01" style="text-align: right; width: 160px;" required>
+                            <span class="text-danger" id="add-qtdunidadesprodutoError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-observacao">Observação</label>
-                            <textarea type="text" class="form-control" name="add-observacao" maxlength="100"></textarea>
-                            <span class="text-danger" id="add-observacaoError"></span>
+                            <label class="mb-0" for="add-valorunitario">Valor Unitário</label>
+                            <input type="number" class="form-control" id="add-valorunitario" name="add-valorunitario"
+                                step="0.01" min="0.01" style="text-align: right; width: 200px;" required>
+                            <span class="text-danger" id="add-valorunitarioError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="add-valortotal">Valor Total</label>
+                            <input type="number" class="form-control" id="add-valortotal" name="add-valortotal"
+                                step="0.01" min="0.01" style="text-align: right; width: 250px;" readonly>
+                            <span class="text-danger" id="add-valortotalError"></span>
                         </div>
                     </form>
                 </div>
@@ -187,7 +203,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Unidade de Área' }}</h5>
+                        {{ 'Alterar Venda' }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -198,33 +214,39 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label class="mb-0" for="up-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="up-qtdarea" name="up-qtdarea" step="0.01"
-                                min="0.01" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="up-qtdareaError"></span>
+                            <label class="mb-0" for="up-data">Data</label>
+                            <input type="date" class="form-control" id="up-data" name="up-data" style="width: 170px;" required>
+                            <span class="text-danger" id="up-dataError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-valorunitario">Unidade de Medida</label>
-                            <input type="text" class="form-control" id="up-unidademedida" name="up-unidademedida"
-                                maxlength="45" style="width: 120px;" required>
-                            <span class="text-danger" id="up-unidademedidaError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-qtdarea">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="up-mktsharedesejado" name="up-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="up-mktsharedesejadoError"></span>
-                        </div>
-                        <div id="select-produto" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            <label class="mb-0" for="up-numerodocumento">Número do Documento</label>
+                            <input type="text" class="form-control" id="up-numerodocumento" name="up-numerodocumento" maxlength="15"
+                                style="width: 120px;" required>
+                            <span class="text-danger" id="up-numerodocumentoError"></span>
                         </div>
                         <div id="select-inscricaoestadual" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
+                        <div  id="select-produto" class="form-group col-xs-2">
+                            <!-- jquery -->
+                        </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-observacao">Observação</label>
-                            <textarea type="text" class="form-control" id="up-observacao" name="up-observacao" maxlength="100"></textarea>
-                            <span class="text-danger" id="up-observacaoError"></span>
+                            <label class="mb-0" for="up-qtdunidadesproduto">Quantidade</label>
+                            <input type="number" class="form-control" id="up-qtdunidadesproduto" name="up-qtdunidadesproduto"
+                                step="0.01" min="0.01" style="text-align: right; width: 160px;" required>
+                            <span class="text-danger" id="up-qtdunidadesprodutoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-valorunitario">Valor Unitário</label>
+                            <input type="number" class="form-control" id="up-valorunitario" name="up-valorunitario"
+                                step="0.01" min="0.01" style="text-align: right; width: 200px;" required>
+                            <span class="text-danger" id="up-valorunitarioError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-valortotal">Valor Total</label>
+                            <input type="number" class="form-control" id="up-valortotal" name="up-valortotal"
+                                step="0.01" min="0.01" style="text-align: right; width: 250px;" readonly>
+                            <span class="text-danger" id="up-valortotalError"></span>
                         </div>
                     </form>
                 </div>
@@ -238,14 +260,14 @@
         </div>
     </div>
     <!-- End EDIT Modal -->
-
+ 
     <!-- Start VIEW Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-info">
                     <h5 class="modal-title text-white font-weight-bold" id="viewModalTitle">
-                        {{ __('Ver Unidade de Área') }}
+                        {{ __('Ver Venda') }}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -258,34 +280,38 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="v-qtdarea" name="v-qtdarea" step="0.01" min="0.01"
-                                style="text-align: right; width: 150px;" readonly>
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-unidademedida">Unidade de Medida</label>
-                            <input type="text" class="form-control" id="v-unidademedida" name="v-unidademedida"
+                            <label class="mb-0" for="v-data">Data</label>
+                            <input type="text" class="form-control" id="v-data" name="v-data" step="0.01" min="0.01"
                                 style="text-align: right; width: 120px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-mktsharedesejado">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="v-mktsharedesejado" name="v-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 100px;"
-                                readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="v-produto">Produto</label>
-                            <input type="text" class="form-control" id="v-produto" name="v-produto"
-                                readonly>
+                            <label class="mb-0" for="v-numerodocumento">Número do Documento</label>
+                            <input type="text" class="form-control" id="v-numerodocumento" name="v-numerodocumento"
+                                style="width: 120px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-inscricaoestadual">Cliente/Inscrição Estadual</label>
                             <input type="text" class="form-control" id="v-inscricaoestadual" name="v-inscricaoestadual" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-observacao">Observação</label>
-                            <textarea type="text" class="form-control" id="v-observacao" name="v-observacao"
-                                readonly></textarea>
+                            <label class="mb-0" for="v-produto">Produto</label>
+                            <input type="text" class="form-control" id="v-produto" name="v-produto" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-qtdunidadesproduto">Quantidade</label>
+                            <input type="number" class="form-control" id="v-qtdunidadesproduto" name="v-qtdunidadesproduto"
+                                style="text-align: right; width: 160px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-valorunitario">Valor Unitário</label>
+                            <input type="text" class="form-control" id="v-valorunitario" name="v-valorunitario"
+                                style="text-align: right; width: 200px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-valortotal">Valor Total</label>
+                            <input type="text" class="form-control" id="v-valortotal" name="v-valortotal"
+                                step="0.01" min="0.01" max="100" style="text-align: right; width: 250px;"
+                                readonly>
                         </div>
                     </form>
                 </div>
@@ -297,7 +323,7 @@
         </div>
     </div>
     <!-- End VIEW Modal -->
---}}
+
     <!-- Start DELETE Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
         aria-hidden="true">
@@ -305,7 +331,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-danger">
                     <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">
-                        {{ __('Excluir Unidade de Área') }}
+                        {{ __('Excluir Venda') }}
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -337,18 +363,10 @@
 @section('script_pages')
     <script type="text/javascript">
         // Operacao
-
-        //https://stackoverflow.com/questions/50894003/bootstrap-4-date-time-picker-date-format-change
-        /*$(function() {
-            $(".datepicker").datepicker({
-            });
-        });*/
-
-
        $(document).ready(function() {
 
             var table = $('#datatableOperacao').DataTable();
-/* 
+ 
             //Start Edit Record
             table.on('click', '.edit', function() {
                 $tr = $(this).closest('tr');
@@ -359,30 +377,48 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
+                $('#select-inscricaoestadual').html('<label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual">' +
+                    '   @foreach ($inscricaoestaduals as $inscricaoestadual)' +
+                    '       @php' +
+                    '        $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;' +
+                    '        $pfisica = $cliente->find($cliente->id)->pfisica;' +
+                    '        $pjuridica = $cliente->find($cliente->id)->pjuridica;' +
+                    '        if ($pfisica) {' +
+                    '            $pessoa = $pfisica->find($pfisica->id)->pessoa;' +
+                    '        } else {' +
+                    '            $pessoa = $pjuridica->find($pjuridica->id)->pessoa;' +
+                    '        } ' +
+                    '        @endphp' +
+                    '        <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>' +
+                    '   @endforeach' +
+                    '</select>' +
+                    '<span class="text-danger" id="up-inscricaoestadualError"></span>');
+
+                $("select[name='up-inscricaoestadual'] option[value='" + data[5] + "']").attr('selected',
+                    'selected');
+
                 $('#select-produto').html(
                     '<label class="mb-0" for="up-produto">Produto</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-produto">' +
                     '   @foreach ($produtos as $produto)' +
                     '       <option value={{ $produto->id }}>{{ $produto->descricao }}</option>' +
                     '   @endforeach' +
-                    '</select>');
-                $("select[name='up-produto'] option[value='" + data[6] + "']").attr('selected',
-                    'selected');
+                    '</select>' +
+                    '<span class="text-danger" id="up-produtoError"></span>');
 
-                $('#select-inscricaoestadual').html('<label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual">' +
-                    '   @foreach ($inscricaoestaduals as $inscricaoestadual)' +
-                    '       <option value={{ $inscricaoestadual->id }}>{{ $inscricaoestadual->nome }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
-                $("select[name='up-inscricaoestadual'] option[value='" + data[8] + "']").attr('selected',
+                $("select[name='up-produto'] option[value='" + data[7] + "']").attr('selected',
                     'selected');
 
                 $('#editForm').attr('action', '/operacao/' + data[0]);
-                $('#up-qtdarea').val(data[2]);
-                $('#up-unidademedida').val(data[3]);
-                $('#up-mktsharedesejado').val(data[4]);
-                $('#up-observacao').val(data[9]);
+                $('#up-id').val(data[0]);
+                //$('#up-data').val(data[1]);
+                document.getElementById("up-data").valueAsDate = new Date(data[2]);
+                $('#up-numerodocumento').val(data[3]);
+                $('#up-qtdunidadesproduto').val(data[8]);
+                $('#up-valorunitario').val(data[10]);
+                $('#up-valortotal').val(data[11]);
+                
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -398,17 +434,18 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-qtdarea').val(data[2]);
-                $('#v-unidademedida').val(data[3]);
-                $('#v-mktsharedesejado').val(data[4]);
-                $('#v-produto').val(data[5]);
-                $('#v-inscricaoestadual').val(data[7]);
-                $('#v-observacao').val(data[9]);
+                $('#v-data').val(data[1]);
+                $('#v-inscricaoestadual').val(data[4]);
+                $('#v-numerodocumento').val(data[3]);
+                $('#v-produto').val(data[6]);
+                $('#v-qtdunidadesproduto').val(data[8]);
+                $('#v-valorunitario').val(data[9]);
+                $('#v-valortotal').val(data[11]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
             });
-            //End View*/
+            //End View
 
             //Start Delete Record
             table.on('click', '.delete', function() {

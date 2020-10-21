@@ -6,20 +6,20 @@
         <h1 class="h4 text-gray-900 mb-4">Bem Vindo!</h1>
     </div>
 
-    {{-- --}}
+    {{-- 
      @if (isset($message) && $message == Session::get('error'))
         <div class="alert alert-danger alert-block">
             <button type="button" class="close" data-dismiss="alert">X</button>
             <strong>{{ $message }}</strong>
         </div>
-    @endif
+    @endif--}}
 
     <!-- Exibe erros no formulário -->
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                @foreach ($errors->all() as $erro)
+                    <li>{{ $erro }}</li>
                 @endforeach
             </ul>
         </div>

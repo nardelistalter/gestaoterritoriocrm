@@ -137,6 +137,7 @@
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-clienteError"></span>
+                        </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupocliente">Grupo de Clientes</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente">
@@ -170,7 +171,6 @@
                             <input type="text" class="form-control" id="add-numero" name="add-numero"
                                 style="width: 150px;">
                             <span class="text-danger" id="add-numeroError"></span>
-                        </div>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-localidade">Localidade</label>

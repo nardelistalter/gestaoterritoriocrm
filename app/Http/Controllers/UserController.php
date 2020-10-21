@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $users->save();
 
-        return redirect('user')->with('success', 'Microrregião salva com sucesso!');
+        return redirect('user')->with('success', 'Usuário salvo com sucesso!');
     }
 
     /**
@@ -120,7 +120,7 @@ class UserController extends Controller
 
         $users->save();
 
-        return redirect('user')->with('success', 'Microrregião alterada com sucesso!');
+        return redirect('user')->with('success', 'Usuário alterado com sucesso!');
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
     {
         $users =  User::find($id);
         $users->delete();
-        return redirect('user')->with('success', 'Microrregião excluída com sucesso!');
+        return redirect('user')->with('success', 'Usuário excluído com sucesso!');
     }
 
     /**

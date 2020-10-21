@@ -55,7 +55,7 @@ class HomeController extends Controller
         if (Auth::attempt(['email' => $dados['inputEmail'], 'password' => $dados['inputPassword']])) {
             return redirect()->route('home');
         } else {
-            return redirect()->route('login')->with('error', 'Login não permitido!');;
+            return redirect('login')->with('errors', 'Login não permitido! Verifique e-mail ou senha!');
         }
     }
 

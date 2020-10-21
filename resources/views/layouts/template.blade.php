@@ -20,8 +20,6 @@
     <link href={{ URL::to('css/addons/datatables2.min.css') }} rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="../../extensions/Editor/css/editor.dataTables.min.css" rel="stylesheet">
-    
 
     {{--
     <!-- BBBootstrap mask  -->
@@ -436,8 +434,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     --}}
-
-
 
     <script type="text/javascript">
         $(function() {

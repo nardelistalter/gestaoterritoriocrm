@@ -11,7 +11,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
                 <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
-                    data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
+                    data-target="#addModal" disabled><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
             <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Usuários') }}</h1>
@@ -57,11 +57,11 @@
                                     <td class="align-middle" style="display: none;">{{ $funcionario->id }}</td>
                                     <td class="align-middle border-left"><img class="img-fluid rounded-circle" width="50px" height="auto" src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}"></td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view disabled"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
+                                        <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
                                             title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>

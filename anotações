@@ -11,10 +11,11 @@ Exibir dados corretos no Modal de Edição (Jquery - Foreach):
     *Unidades Área: sigla do estado junto ao município
     *Área Grupo de Clientes: sigla do estado junto ao município
     *Inscrição Estadual: nome da pessoa no campo cliente
+    *Operação (Venda): nome da pessoa no campo cliente/Inscrição Estadual
 
 Exibir dados corretos no Modal de Inserção (Jquery - Foreach):
     *Área Grupo de Clientes: Unidade de medida
 
 Definir validação do ano das classes dependentes de Safra (Formulário e Banco):
-    *Meta: Se o mes (Meta) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1. Senão, ano igual ao da Safra
+    *Meta: Se o mês (Meta) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1. Senão, ano igual ao da Safra
     *Programa de Negócios: Se o mesLimite (ProgramaNegocio) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1.  Senão, ano igual ao da Safra
