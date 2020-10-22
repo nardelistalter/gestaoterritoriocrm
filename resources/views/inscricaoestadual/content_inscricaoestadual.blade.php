@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -49,10 +49,10 @@
                                 $pfisica = $cliente->find($cliente->id)->pfisica;
                                 $pjuridica = $cliente->find($cliente->id)->pjuridica;
                                 if ($pfisica != null) {
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                 } else {
-                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                }                              
+                                $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                }
                                 $grupocliente = $inscricaoestadual->find($inscricaoestadual->id)->grupocliente;
                                 $municipio = $inscricaoestadual->find($inscricaoestadual->id)->municipio;
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
@@ -100,7 +100,7 @@
         <!-- End Content Datatable -->
     </div>
     <!-- Begin Page Content -->
- 
+
     <!-- Start Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
         id="editForm">
@@ -118,20 +118,26 @@
                     <form action="{{ action('App\Http\Controllers\InscricaoEstadualController@store') }}" method="POST"
                         id="addForm">
                         {{ csrf_field() }}
+                        <div class="form-group">
+                            <label class="mb-0" for="add-numero">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="add-numero" name="add-numero" style="width: 150px;"
+                                required>
+                            <span class="text-danger" id="add-numeroError"></span>
+                        </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-cliente">Cliente</label>
                             <select class="form-control selectpicker" data-live-search="true" id="add-cliente"
-                                name="add-cliente">
+                                name="add-cliente" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($clientes as $cliente)
                                     @php
                                     $pfisica = $cliente->find($cliente->id)->pfisica;
                                     $pjuridica = $cliente->find($cliente->id)->pjuridica;
                                     if ($pfisica != null) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                     } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }  
+                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                    }
                                     @endphp
                                     <option value={{ $cliente->id }}> {{ $pessoa->nome }} </option>
                                 @endforeach
@@ -140,7 +146,8 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupocliente">Grupo de Clientes</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente"
+                                required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoclientes as $grupocliente)
                                     <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }} </option>
@@ -150,7 +157,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-municipio">Município/UF</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($municipios as $municipio)
                                     @php
@@ -161,20 +168,14 @@
                                         <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
                                         </option>
                                     </div>
-                                    
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-municipioError"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-numero">Inscrição Estadual</label>
-                            <input type="text" class="form-control" id="add-numero" name="add-numero"
-                                style="width: 150px;">
-                            <span class="text-danger" id="add-numeroError"></span>
-                        </div>
+
                         <div class="form-group">
                             <label class="mb-0" for="add-localidade">Localidade</label>
-                            <input type="text" class="form-control" id="add-localidade" name="add-localidade">
+                            <input type="text" class="form-control" id="add-localidade" name="add-localidade" required>
                             <span class="text-danger" id="add-localidadeError"></span>
                         </div>
                     </form>
@@ -189,14 +190,15 @@
         </div>
     </div>
     <!-- End Add Modal -->
-  
+
     <!-- Start EDIT Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Inscrição Estadual' }}</h5>
+                        {{ 'Alterar Inscrição Estadual' }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -210,24 +212,30 @@
                             <label class="mb-0" for="up-id">id</label>
                             <input type="text" class="form-control" id="up-id" name="up-id" style="width: 90px" readonly>
                         </div>
-                        {{--  <select class="form-control selectpicker" data-live-search="true" id="add-cliente"
-                                name="add-cliente">
-                                <option value="">Selecione...</option>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-numero">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 150px;"
+                                required>
+                            <span class="text-danger" id="up-numeroError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="up-cliente">Cliente</label>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-cliente"
+                                name="up-cliente" required>
                                 @foreach ($clientes as $cliente)
                                     @php
                                     $pfisica = $cliente->find($cliente->id)->pfisica;
                                     $pjuridica = $cliente->find($cliente->id)->pjuridica;
                                     if ($pfisica != null) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                     } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }  
+                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                    }
                                     @endphp
-                                    <option id="option_cliente" value=""></option>
+                                    <option value={{ $cliente->id }}> {{ $pessoa->nome }} </option>
                                 @endforeach
-                            </select>--}}
-                        <div id="select-cliente" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            </select>
+                            <span class="text-danger" id="up-clienteError"></span>
                         </div>
                         <div id="select-grupocliente" class="form-group col-xs-2">
                             <!-- jquery -->
@@ -235,15 +243,9 @@
                         <div id="select-municipio" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-numero">Inscrição Estadual</label>
-                            <input type="text" class="form-control" id="up-numero" name="up-numero"
-                                style="width: 150px;">
-                            <span class="text-danger" id="up-numeroError"></span>
-                        </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-localidade">Localidade</label>
-                            <input type="text" class="form-control" id="up-localidade" name="up-localidade">
+                            <input type="text" class="form-control" id="up-localidade" name="up-localidade" required>
                             <span class="text-danger" id="up-localidadeError"></span>
                         </div>
                     </form>
@@ -275,12 +277,13 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-numero">InscricaoEstadual</label>
-                            <input type="text" class="form-control" id="v-numero" name="v-numero"
-                                style="width: 150px;" readonly>
+                            <input type="text" class="form-control" id="v-numero" name="v-numero" style="width: 150px;"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-localidade">Localidade</label>
@@ -308,7 +311,7 @@
         </div>
     </div>
     <!-- End VIEW Modal -->
- 
+
     <!-- Start DELETE Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle"
         aria-hidden="true">
@@ -363,27 +366,13 @@
                 console.log(data);
                 console.log(data[8]);
 
-                $('#select-cliente').html(
-                    '<label class="mb-0" for="up-cliente">Cliente</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-cliente">' +
-                    '   @foreach ($clientes as $cliente)' +
-                    '   @php' +
-                    '    $pfisica = $cliente->find($cliente->id)->pfisica;' +
-                    '    $pjuridica = $cliente->find($cliente->id)->pjuridica;' +
-                    '    if ($pfisica != null) {' +
-                    '        $pessoa = $pfisica->find($pfisica->id)->pessoa;' +
-                    '    } else {' +
-                    '        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;' +
-                    '    }' +
-                    '    @endphp' +
-                    '       <option value={{ $cliente->id }}>{{ $pessoa->nome }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
                 $("select[name='up-cliente'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
+                $("select[name='up-cliente'] option[value='" + data[6] + "']").text(data[5]);
 
-                $('#select-grupocliente').html('<label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente">' +
+                $('#select-grupocliente').html(
+                    '<label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente" required>' +
                     '   @foreach ($grupoclientes as $grupocliente)' +
                     '       <option value={{ $grupocliente->id }}>{{ $grupocliente->descricao }}</option>' +
                     '   @endforeach' +
@@ -392,7 +381,7 @@
                     'selected');
 
                 $('#select-municipio').html('<label class="mb-0" for="up-municipio">Município/UF</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-municipio">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-municipio" required>' +
                     '   @foreach ($municipios as $municipio)' +
                     '       <option value={{ $municipio->id }}>{{ $municipio->nome }}/{{ $estado->sigla }}</option>' +
                     '   @endforeach' +

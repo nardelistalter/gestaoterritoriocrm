@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -39,6 +39,7 @@
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Valor</th>
                                 <th class="th-sm border-bottom border-left">Mes Limite</th>
+                                <th style="display: none;">mes</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
@@ -117,7 +118,6 @@
                                     $mes = 'Dezembro'
                                     @endphp
                                     @break
-
                                 @endswitch
                                 <tr>
                                     <th class="align-middle border-left">{{ $programadenegocio->id }}</th>
@@ -129,6 +129,7 @@
                                     <td style="display: none;">{{ $safra->id }}</td>
                                     <td class="align-middle border-left">{{ $programadenegocio->valorUnitario }}</td>
                                     <td class="align-middle border-left">{{ $mes }}</td>
+                                    <td style="display: none;">{{ $programadenegocio->mesLimite }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -151,6 +152,7 @@
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Valor Unitário</th>
                                 <th class="th-sm border-bottom border-left">Mes Limite</th>
+                                <th style="display: none;">mes</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
@@ -182,7 +184,7 @@
 
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-segmentocultura">Segmento/Cultura</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($segmentoculturas as $segmentocultura)
                                     <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
@@ -192,7 +194,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupoproduto">Grupo de Produtos</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }} </option>
@@ -202,7 +204,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-safra">Safra</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-safra">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-safra" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($safras as $safra)
                                     <option value={{ $safra->id }}> {{ $safra->descricao }} </option>
@@ -213,12 +215,12 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="add-valorunitario" name="add-valorunitario"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="add-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-meslimite">Mês Limite</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-meslimite">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-meslimite" required>
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -276,7 +278,7 @@
                         <div class="form-group">
                             <label class="mb-0" for="up-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="up-valorunitario" name="up-valorunitario"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="up-valorunitarioError"></span>
                         </div>
                         <div id="select-meslimite" class="form-group col-xs-2">
@@ -311,7 +313,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-segmentocultura">Segmento/Cultura</label>
@@ -401,7 +403,7 @@
 
                 $('#select-segmentocultura').html(
                     '<label class="mb-0" for="up-segmentocultura">Segmento/Cultura</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura" required>' +
                     '   @foreach ($segmentoculturas as $segmentocultura)' +
                     '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
                     '   @endforeach' +
@@ -410,7 +412,7 @@
                     'selected');
 
                 $('#select-grupoproduto').html('<label class="mb-0" for="up-grupoproduto">Grupo de Produtos</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto" required>' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
                     '   @endforeach' +
@@ -419,7 +421,7 @@
                     'selected');
 
                 $('#select-safra').html('<label class="mb-0" for="up-safra">Safra</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-safra">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-safra" required>' +
                     '   @foreach ($safras as $safra)' +
                     '       <option value={{ $safra->id }}>{{ $safra->descricao }}</option>' +
                     '   @endforeach' +
@@ -429,8 +431,8 @@
 
 
                 $('#select-meslimite').html('<label class="mb-0" for="up-meslimite">Mês Limite</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-meslimite">' +
-                    '   <option value="1">Janeiro</option>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-meslimite" required>' +
+                    '    <option value="1">Janeiro</option>' +
                     '    <option value="2">Fevereiro</option>' +
                     '    <option value="3">Março</option>' +
                     '    <option value="4">Abril</option>' +
@@ -444,7 +446,7 @@
                     '    <option value="12">Dezembro</option>' +
                     '</select>');
 
-                $("select[name='up-meslimite'] option[value='" + data[8] + "']").attr('selected',
+                $("select[name='up-meslimite'] option[value='" + data[9] + "']").attr('selected',
                     'selected');
 
                 $('#editForm').attr('action', '/programadenegocio/' + data[0]);

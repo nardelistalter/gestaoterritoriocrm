@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -157,19 +157,19 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="mb-0" for="add-safra">Descrição</label>
-                            <input type="text" class="form-control" id="add-safra" name="add-safra">
+                            <input type="text" class="form-control" id="add-safra" name="add-safra" required>
                             <span class="text-danger" id="add-safraError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-anoinicio">Ano Início</label>
                             <input type="number" class="form-control" id="add-anoinicio" name="add-anoinicio"
-                                step="1" min="1901" max="2100" style="width: 85px;">
+                                step="1" min="1901" max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="add-anoinicioError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-mesinicio">Mês Início</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-mesinicio"
-                            style="width: 130px;">
+                            style="width: 130px;" required>
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -221,7 +221,7 @@
                         <div class="form-group">
                             <label class="mb-0" for="up-anoinicio">Ano Início</label>
                             <input type="number" class="form-control" id="up-anoinicio" name="up-anoinicio"
-                                step="1" min="1901" max="2100" style="width: 85px;">
+                                step="1" min="1901" max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="up-anoinicioError"></span>
                         </div>
                         <div id="select-safra" class="form-group col-xs-2">
@@ -254,7 +254,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-safra">Descrição</label>
@@ -262,7 +262,7 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio" 
+                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio"
                                 step="1" min="1901" max="2100" style="width: 85px;" readonly>
                         </div>
                         <div class="form-group">

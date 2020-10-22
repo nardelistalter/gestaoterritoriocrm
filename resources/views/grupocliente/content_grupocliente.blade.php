@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-funcionario">Funcionário</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-funcionario" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($funcionarios as $funcionario)
                                     @php
@@ -141,8 +141,17 @@
                             <label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>
                             <input type="text" class="form-control" id="up-grupocliente" name="up-grupocliente" required>
                         </div>
-                        <div id="select-grupocliente" class="form-group col-xs-2">
-                            <!-- jquery -->
+                        <div id="select-funcionario" class="form-group col-xs-2">
+                            <label class="mb-0" for="up-funcionario">Funcionário</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-funcionario" required>
+                                @foreach ($funcionarios as $funcionario)
+                                    @php
+                                    $pfisica = $funcionario->find($funcionario->id)->pfisica;
+                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                    @endphp
+                                    <option value={{ $funcionario->id }}> {{ $pessoa->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -172,7 +181,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-grupocliente">Grupo de Clientes</label>
@@ -246,16 +255,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-grupocliente').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
-                    '   <option value="">Selecione</option>' +
-                    '   @foreach ($funcionarios as $funcionario)' +
-                    '       <option value={{ $funcionario->id }}>{{ $pessoa->nome }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
-
                 $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected',
                     'selected');
+                $("select[name='up-funcionario'] option[value='" + data[3] + "']").text(data[2]);
 
                 $('#editForm').attr('action', '/grupocliente/' + data[0]);
                 $('#up-grupocliente').val(data[1]);

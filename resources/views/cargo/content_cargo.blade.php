@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -79,7 +79,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="mb-0" for="add-cargo">Descrição</label>
-                            <input type="text" class="form-control" id="add-cargo" name="add-cargo">
+                            <input type="text" class="form-control" id="add-cargo" name="add-cargo" required>
                             <span class="text-danger" id="add-cargoError"></span>
                         </div>
                     </form>
@@ -141,7 +141,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-cargo">Descrição</label>

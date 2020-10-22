@@ -10,8 +10,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
-                    data-target="#addModal" disabled><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal" data-target="#addModal"
+                    disabled><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
             <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Usuários') }}</h1>
@@ -24,9 +24,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableUser"
-                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
-                        width="100%">
+                    <table id="datatableUser" class="datatable table table-sm table-responsive text-center rounded"
+                        cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
@@ -51,18 +50,22 @@
                                     <th class="align-middle border-left">{{ $user->id }}</th>
                                     <td class="align-middle border-left">{{ $user->nickname }}</td>
                                     <td class="align-middle border-left">{{ $user->email }}</td>
-                                    <td class="align-middle border-left">{{ ($user->status == 1) ? 'Sim' : 'Não' }}</td>
-                                    <td class="align-middle border-left">{{ ($user->perfilAdministrador == 1) ? 'Sim' : 'Não' }}</td>
+                                    <td class="align-middle border-left">{{ $user->status == 1 ? 'Sim' : 'Não' }}</td>
+                                    <td class="align-middle border-left">
+                                        {{ $user->perfilAdministrador == 1 ? 'Sim' : 'Não' }}
+                                    </td>
                                     <td class="align-middle border-left">{{ $pessoa->nome }}</td>
                                     <td class="align-middle" style="display: none;">{{ $funcionario->id }}</td>
-                                    <td class="align-middle border-left"><img class="img-fluid rounded-circle" width="50px" height="auto" src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}"></td>
+                                    <td class="align-middle border-left"><img class="img-fluid rounded-circle" width="30px"
+                                            height="auto"
+                                            src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}"></td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view disabled"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
-                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete disabled"
+                                            data-toggle="tooltip" title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -101,8 +104,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\UserController@store') }}" method="POST"
-                        id="addForm">
+                    <form action="{{ action('App\Http\Controllers\UserController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="mb-0" for="add-user">Descrição</label>
@@ -111,11 +113,13 @@
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-funcionario">Funcionário</label>
                             <!--<input type="text" class="form-control" maxlength="2"
-                                                                style="text-transform: uppercase; width: 60px" name="funcionario" required>-->
+                                                                                            style="text-transform: uppercase; width: 60px" name="funcionario" required>-->
                             <select class="form-control selectpicker" data-live-search="true" name="add-funcionario">
                                 <option value="">Selecione...</option>
                                 @foreach ($funcionarios as $funcionario)
-                                    <option value={{ $funcionario->id }}> {{ $funcionario->nome }} - {{ $funcionario->sigla }} </option>
+                                    <option value={{ $funcionario->id }}> {{ $funcionario->nome }} -
+                                        {{ $funcionario->sigla }}
+                                    </option>
                                 @endforeach
                             </select>
 
@@ -182,7 +186,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-user">Descrição</label>
@@ -234,82 +238,79 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
- --}}
+    --}}
 @endsection
-
 
 @section('script_pages')
     <script type="text/javascript">
         // User
         $(document).ready(function() {
+            /*
+                        //Start Edit Record
+                        table.on('click', '.edit', function() {
+                            $tr = $(this).closest('tr');
+                            if ($($tr).hasClass('child')) {
+                                $tr = $tr.prev('.parent');
+                            }
 
-            var table = $('#datatableUser').DataTable();
-/*
-            //Start Edit Record
-            table.on('click', '.edit', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
+                            var data = table.row($tr).data();
+                            console.log(data);
 
-                var data = table.row($tr).data();
-                console.log(data);
+                            $('#select-user').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
+                                '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
+                                '   <option value="">Selecione...</option>' +
+                                '   @foreach ($funcionarios as $funcionario)' +
+                                '       <option value={{ $funcionario->id }}>{{ $funcionario->nome }} - {{ $funcionario->sigla }}</option>' +
+                                '   @endforeach' +
+                                '</select>');
 
-                $('#select-user').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
-                    '   <option value="">Selecione...</option>' +
-                    '   @foreach ($funcionarios as $funcionario)' +
-                    '       <option value={{ $funcionario->id }}>{{ $funcionario->nome }} - {{ $funcionario->sigla }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
+                            $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected', 'selected');
 
-                $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected', 'selected');
+                            $('#editForm').attr('action', '/user/' + data[0]);
+                            $('#up-user').val(data[1]);
+                            $('#up-funcionario').val(data[2]);
+                            $('#editModal').modal('show');
+                        });
+                        //End Edit Record
 
-                $('#editForm').attr('action', '/user/' + data[0]);
-                $('#up-user').val(data[1]);
-                $('#up-funcionario').val(data[2]);
-                $('#editModal').modal('show');
-            });
-            //End Edit Record
+                        //Start View
+                        table.on('click', '.view', function() {
+                            $tr = $(this).closest('tr');
+                            if ($($tr).hasClass('child')) {
+                                $tr = $tr.prev('.parent');
+                            }
 
-            //Start View
-            table.on('click', '.view', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
+                            var data = table.row($tr).data();
+                            console.log(data);
 
-                var data = table.row($tr).data();
-                console.log(data);
+                            $('#v-id').val(data[0]);
+                            $('#v-user').val(data[1]);
+                            $('#v-funcionario').val(data[2]);
 
-                $('#v-id').val(data[0]);
-                $('#v-user').val(data[1]);
-                $('#v-funcionario').val(data[2]);
+                            $('#viewForm').attr('action');
+                            $('#viewModal').modal('show');
+                        });
+                        //End View
 
-                $('#viewForm').attr('action');
-                $('#viewModal').modal('show');
-            });
-            //End View
+                        //Start Delete Record
+                        table.on('click', '.delete', function() {
+                            $tr = $(this).closest('tr');
+                            if ($($tr).hasClass('child')) {
+                                $tr = $tr.prev('.parent');
+                            }
 
-            //Start Delete Record
-            table.on('click', '.delete', function() {
-                $tr = $(this).closest('tr');
-                if ($($tr).hasClass('child')) {
-                    $tr = $tr.prev('.parent');
-                }
+                            var data = table.row($tr).data();
+                            console.log(data);
 
-                var data = table.row($tr).data();
-                console.log(data);
+                            //$('#id').val(data[0]);
 
-                //$('#id').val(data[0]);
-
-                $('#deleteForm').attr('action', '/user/' + data[0]);
-                $('#delete-modal-body').html(
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                $('#deleteModal').modal('show');
-            });
-            //End Delete Record*/
+                            $('#deleteForm').attr('action', '/user/' + data[0]);
+                            $('#delete-modal-body').html(
+                                '<input type="hidden" name="_method" value="DELETE">' +
+                                '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
+                            $('#deleteModal').modal('show');
+                        });
+                        //End Delete Record*/
         });
 
     </script>

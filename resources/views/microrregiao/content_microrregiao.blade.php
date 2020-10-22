@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -97,7 +97,7 @@
                             <label class="mb-0" for="add-estado">Estado</label>
                             <!--<input type="text" class="form-control" maxlength="2"
                                                                 style="text-transform: uppercase; width: 60px" name="estado" required>-->
-                            <select class="form-control selectpicker" data-live-search="true" name="add-estado">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-estado" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($estados as $estado)
                                     <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
@@ -167,7 +167,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-microrregiao">Descrição</label>
@@ -241,8 +241,7 @@
                 console.log(data);
 
                 $('#select-microrregiao').html('<label class="mb-0" for="up-estado">Estado</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado">' +
-                    '   <option value="">Selecione...</option>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado" required>' +
                     '   @foreach ($estados as $estado)' +
                     '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
                     '   @endforeach' +

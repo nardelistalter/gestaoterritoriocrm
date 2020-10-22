@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir Venda"></i>{{ __('Novo') }}</button>
             </div>
@@ -34,7 +34,7 @@
                                 <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Data</th>
                                 <th style="display: none;">data</th>
                                 <th class="th-sm border-bottom border-left">Doc.</th>
-                                <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
+                                <th class="th-sm border-bottom border-left">Cliente - Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
@@ -57,14 +57,14 @@
                                     $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                 } else {
                                     $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                }    
+                                }
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $operacao->id }}</th>
                                     <td class="align-middle border-left">{{ date("d/m/Y", strtotime($operacao->data)) }}</td>
                                     <td style="display: none;">{{ $operacao->data }}</td>
                                     <td class="align-middle border-left">{{ $operacao->numeroDocumento }}</td>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }} ({{ $inscricaoestadual->numero }})</td>
+                                    <td class="align-middle border-left">{{ $pessoa->nome }} - {{ $inscricaoestadual->numero }}</td>
                                     <td style="display: none;">{{ $inscricaoestadual->id }}</td>
                                     <td class="align-middle border-left">{{ $produto->descricao }}</td>
                                     <td style="display: none;">{{ $produto->id }}</td>
@@ -89,7 +89,7 @@
                                 <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Data</th>
                                 <th style="display: none;">data</th>
                                 <th class="th-sm border-bottom border-left">Doc.</th>
-                                <th class="th-sm border-bottom border-left">Cliente/Inscrição Estadual</th>
+                                <th class="th-sm border-bottom border-left">Cliente - Inscrição Estadual</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
@@ -138,7 +138,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-inscricaoestadual">Cliente/Inscrição Estadual</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
@@ -149,7 +149,7 @@
                                         $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                     } else {
                                         $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    } 
+                                    }
                                     @endphp
                                     <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>
                                 @endforeach
@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-produto">Produto</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-produto">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-produto" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($produtos as $produto)
                                     <option value={{ $produto->id }}> {{ $produto->descricao }} </option>
@@ -225,8 +225,27 @@
                             <span class="text-danger" id="up-numerodocumentoError"></span>
                         </div>
                         <div id="select-inscricaoestadual" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            <label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual" required>
+                                @foreach ($inscricaoestaduals as $inscricaoestadual)
+                                    @php
+                                    $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
+                                    $pfisica = $cliente->find($cliente->id)->pfisica;
+                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
+                                    if ($pfisica) {
+                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                    } else {
+                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
+                                    }
+                                    @endphp
+                                    <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="up-inscricaoestadualError"></span>
                         </div>
+                        {{--  <div id="select-inscricaoestadual" class="form-group col-xs-2">
+                            <!-- jquery -->
+                        </div>--}}
                         <div  id="select-produto" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
@@ -260,7 +279,7 @@
         </div>
     </div>
     <!-- End EDIT Modal -->
- 
+
     <!-- Start VIEW Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -277,7 +296,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-data">Data</label>
@@ -356,7 +375,7 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
- 
+
 @endsection
 
 
@@ -366,7 +385,7 @@
        $(document).ready(function() {
 
             var table = $('#datatableOperacao').DataTable();
- 
+
             //Start Edit Record
             table.on('click', '.edit', function() {
                 $tr = $(this).closest('tr');
@@ -377,30 +396,13 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-inscricaoestadual').html('<label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual">' +
-                    '   @foreach ($inscricaoestaduals as $inscricaoestadual)' +
-                    '       @php' +
-                    '        $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;' +
-                    '        $pfisica = $cliente->find($cliente->id)->pfisica;' +
-                    '        $pjuridica = $cliente->find($cliente->id)->pjuridica;' +
-                    '        if ($pfisica) {' +
-                    '            $pessoa = $pfisica->find($pfisica->id)->pessoa;' +
-                    '        } else {' +
-                    '            $pessoa = $pjuridica->find($pjuridica->id)->pessoa;' +
-                    '        } ' +
-                    '        @endphp' +
-                    '        <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>' +
-                    '   @endforeach' +
-                    '</select>' +
-                    '<span class="text-danger" id="up-inscricaoestadualError"></span>');
-
                 $("select[name='up-inscricaoestadual'] option[value='" + data[5] + "']").attr('selected',
                     'selected');
+                $("select[name='up-inscricaoestadual'] option[value='" + data[5] + "']").text(data[4]);
 
                 $('#select-produto').html(
                     '<label class="mb-0" for="up-produto">Produto</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-produto">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-produto" required>' +
                     '   @foreach ($produtos as $produto)' +
                     '       <option value={{ $produto->id }}>{{ $produto->descricao }}</option>' +
                     '   @endforeach' +
@@ -418,7 +420,7 @@
                 $('#up-qtdunidadesproduto').val(data[8]);
                 $('#up-valorunitario').val(data[10]);
                 $('#up-valortotal').val(data[11]);
-                
+
                 $('#editModal').modal('show');
             });
             //End Edit Record

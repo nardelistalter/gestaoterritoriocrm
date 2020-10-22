@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupoproduto">Grupo</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }}</option>
@@ -162,7 +162,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-produto">Descrição</label>
@@ -236,7 +236,7 @@
                 console.log(data);
 
                 $('#select-produto').html('<label class="mb-0" for="up-grupoproduto">Grupo</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto" required>' +
                     '   <option value="">Selecione</option>' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +

@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -33,6 +33,7 @@
                                 <th class="th-sm border-bottom border-left">Microrregião</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">UF</th>
+                                <th style="display: none;">estado_micro</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                                     <td class="align-middle border-left">{{ $microrregiao->nome }}</td>
                                     <td style="display: none;">{{ $microrregiao->id }}</td>
                                     <td class="align-middle border-left">{{ $estado->sigla }}</td>
+                                    <td style="display: none;">{{ $estado->sigla }} - {{ $microrregiao->nome }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -66,6 +68,7 @@
                                 <th class="th-sm border-bottom border-left">Microrregião</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">UF</th>
+                                <th style="display: none;">estado_micro</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
@@ -98,7 +101,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-microrregiao">Microrregião</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-microrregiao">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-microrregiao" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($microrregioes as $microrregiao)
                                     @php
@@ -108,7 +111,6 @@
                                     </option>
                                 @endforeach
                             </select>
-
                         </div>
                     </form>
                 </div>
@@ -142,7 +144,17 @@
                             <input type="text" class="form-control" id="up-municipio" name="up-municipio" required>
                         </div>
                         <div id="select-municipio" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            <label class="mb-0" for="up-microrregiao">Microrregião</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-microrregiao" required>
+                                <option value="">Selecione...</option>
+                                @foreach ($microrregioes as $microrregiao)
+                                    @php
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -172,7 +184,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-municipio">Descrição</label>
@@ -250,16 +262,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-municipio').html('<label class="mb-0" for="up-microrregiao">Microrregião</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-microrregiao">' +
-                    '   <option value="">Selecione...</option>' +
-                    '   @foreach ($microrregioes as $microrregiao)' +
-                    '       <option value={{ $microrregiao->id }}> {{ $estado->sigla }} - {{ $microrregiao->nome }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
-
                 $("select[name='up-microrregiao'] option[value='" + data[3] + "']").attr('selected',
                     'selected');
+                $("select[name='up-microrregiao'] option[value='" + data[3] + "']").text(data[5]);
 
                 $('#editForm').attr('action', '/municipio/' + data[0]);
                 $('#up-municipio').val(data[1]);

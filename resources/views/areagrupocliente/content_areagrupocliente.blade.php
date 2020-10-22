@@ -10,7 +10,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <div class="crud_button">
-                <button type="button" class="btn btn-group-sm btn-success mb-0" data-toggle="modal"
+                <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                     data-target="#addModal"><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
@@ -116,7 +116,7 @@
                         {{ csrf_field() }}
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupocliente">Grupo de Clientes</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoclientes as $grupocliente)
                                     <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }} </option>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-municipio">Município</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio">
+                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($municipios as $municipio)
                                     @php
@@ -142,7 +142,7 @@
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-segmentocultura">Segmento/Cultura</label>
                             <select class="form-control selectpicker" data-live-search="true" id="add-segmentocultura"
-                                name="add-segmentocultura">
+                                name="add-segmentocultura" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($segmentoculturas as $segmentocultura)
                                     <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
@@ -159,7 +159,7 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-qtdunidadesarea">Quantidade</label>
                             <input type="number" class="form-control" id="add-qtdunidadesarea" name="add-qtdunidadesarea"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="add-qtdunidadesareaError"></span>
                         </div>
                     </form>
@@ -195,7 +195,18 @@
                             <!-- jquery -->
                         </div>
                         <div id="select-municipio" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            <label class="mb-0" for="up-municipio">Município</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-municipio" required>
+                                @foreach ($municipios as $municipio)
+                                    @php
+                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="up-municipioError"></span>
                         </div>
                         <div id="select-segmentocultura" class="form-group col-xs-2">
                             <!-- jquery -->
@@ -203,7 +214,7 @@
                         <div class="form-group">
                             <label class="mb-0" for="up-qtdunidadesarea">Quantidade</label>
                             <input type="number" class="form-control" id="up-qtdunidadesarea" name="up-qtdunidadesarea"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;">
+                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="up-qtdunidadesareaError"></span>
                         </div>
                         <div class="form-group col-xs-2">
@@ -240,7 +251,7 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-grupocliente">Grupo de Clientes</label>
@@ -315,6 +326,7 @@
     <script type="text/javascript">
         // AreaGrupoCliente
 
+        //https://pt.stackoverflow.com/questions/301175/carregar-texto-do-select-no-input
         $('#add-segmentocultura').change(function() {
             //$('#add-unidademedida').val(this.value);
             //$('#add-unidademedida').attr('value', '{{ route('showUM', ' + this.value +') }}');
@@ -338,7 +350,7 @@
                 console.log(data[8]);
 
                 $('#select-grupocliente').html('<label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente" required>' +
                     '   @foreach ($grupoclientes as $grupocliente)' +
                     '       <option value={{ $grupocliente->id }}>{{ $grupocliente->descricao }}</option>' +
                     '   @endforeach' +
@@ -346,18 +358,13 @@
                 $("select[name='up-grupocliente'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
-                $('#select-municipio').html('<label class="mb-0" for="up-municipio">Município</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-municipio">' +
-                    '   @foreach ($municipios as $municipio)' +
-                    '       <option value={{ $municipio->id }}>{{ $municipio->nome }}/{{ $estado->sigla }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
                 $("select[name='up-municipio'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
+                $("select[name='up-municipio'] option[value='" + data[6] + "']").text(data[5]);
 
                 $('#select-segmentocultura').html(
                     '<label class="mb-0" for="up-segmentocultura">Segmento/Cultura</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura">' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-segmentocultura" required>' +
                     '   @foreach ($segmentoculturas as $segmentocultura)' +
                     '       <option value={{ $segmentocultura->id }}>{{ $segmentocultura->descricao }}</option>' +
                     '   @endforeach' +
