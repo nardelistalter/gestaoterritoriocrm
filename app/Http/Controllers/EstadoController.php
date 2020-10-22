@@ -44,7 +44,7 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
             //'estado' => ['required', 'unique:estados, nome,' . $request->id, 'max:45'],
             'add-estado' => 'required|max:45',
@@ -115,8 +115,15 @@ class EstadoController extends Controller
      */
     public function destroy($id)
     {
-        $estados = $this->estado::find($id);
-        $estados->delete();
-        return redirect('estado')->with('success', 'Estado excluído com sucesso!');
+        try {
+            $estados = $this->estado::find($id);
+            $estados->delete();
+            //return redirect('estado')->with('success', 'Estado excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'error', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'error', 'message' => $qe->getMessage()];
+		}
     }
 }

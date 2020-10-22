@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EstadoController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +22,7 @@ Route::get('logout', 'App\Http\Controllers\HomeController@logout')->name('logout
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::resource('estado', 'App\Http\Controllers\EstadoController');
+    Route::get('/{id}/destroy', 'App\Http\Controllers\EstadoController@destroy');
     Route::resource('microrregiao', 'App\Http\Controllers\MicrorregiaoController');
     Route::resource('municipio', 'App\Http\Controllers\MunicipioController');
     Route::resource('cargo', 'App\Http\Controllers\CargoController');

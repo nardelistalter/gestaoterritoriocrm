@@ -1,0 +1,40 @@
+PRIORIDADE:
+    1-Metas:
+        1.1-Tela para exibir metas por cliente
+            1.1.1-Exibir potencial e metas definidas para o mês pro safra
+            1.1.2-Filtro de Safra
+            1.1.3-Clientes dos usuários logados
+    2-Privilégios:
+        2.1-Verificar definição para usuário/Funcionário (Madallozzo)
+            2.1.1-Parâmetros: somente para cargo de gerente (ou superior ou ADMINISTRADOR)
+            2.1.2-Operações: somente o que envolve seu nome (Consultor, Gerente ou ADMINISTRADOR)
+        2.2-CRUD
+            2.2.1-Definir privilégios para cada caso
+    2-Dashboard:
+        2.1-
+
+
+    Tratamento de erros:
+        *Restrições de Integridade: ver projeto enviado pelo Gustavo Rizzon;
+        *Formulários: exibir erros antes do submit e abaixo do input (CRUD e LOGIN);
+
+    Manutenção do Perfil do Usuário:
+        *Criar Form
+        *Alteração dos Dados
+
+    Exibir dados corretos no Modal de Inserção (Jquery - Foreach?):
+        *Área Grupo de Clientes: Unidade de medida
+
+    Definir validação do ano das classes dependentes de Safra (Formulário e Banco):
+        *Meta: Se o mês (Meta) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1. Senão, ano igual ao da Safra
+        *Programa de Negócios: Se o mesLimite (ProgramaNegocio) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1.  Senão, ano igual ao da Safra
+
+    Verificar nome de Unidades Área no Menu X Segmento/Cultura por Município
+
+    Vendas:
+        *Javascript para calcular valor total nos Formulários de Inserção e Edição
+
+    Máscaras:
+        *Vendas: R$ e Quantidade (Tabela e Formulários)
+        *Programas de Negócio: R$ (Tabela e Formulários)
+        *Unidades de Área: % (Tabela e Formulários)
