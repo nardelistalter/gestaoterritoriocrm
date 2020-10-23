@@ -346,7 +346,6 @@
 
 @endsection
 
-
 @section('script_pages')
     <script type="text/javascript">
         // InscricaoEstadual
@@ -364,7 +363,6 @@
 
                 var data = table.row($tr).data();
                 console.log(data);
-                console.log(data[8]);
 
                 $("select[name='up-cliente'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
