@@ -150,8 +150,15 @@ class InscricaoEstadualController extends Controller
      */
     public function destroy($id)
     {
-        $inscricaoestaduals =  InscricaoEstadual::find($id);
-        $inscricaoestaduals->delete();
-        return redirect('inscricaoestadual')->with('success', 'Inscrição Estadual excluída com sucesso!');
+        try {
+            $inscricaoestaduals =  InscricaoEstadual::find($id);
+            $inscricaoestaduals->delete();
+            //return redirect('inscricaoestadual')->with('success', 'Inscrição Estadual excluída com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

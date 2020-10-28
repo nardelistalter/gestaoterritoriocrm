@@ -135,8 +135,15 @@ class OperacaoController extends Controller
      */
     public function destroy($id)
     {
-        $operacaos =  Operacao::find($id);
-        $operacaos->delete();
-        return redirect('operacao')->with('success', 'Operação excluída com sucesso!');
+        try {
+            $operacaos =  Operacao::find($id);
+            $operacaos->delete();
+            //return redirect('operacao')->with('success', 'Operação excluída com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

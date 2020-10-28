@@ -118,8 +118,15 @@ class SafraController extends Controller
      */
     public function destroy($id)
     {
-        $safras = $this->safra::find($id);
-        $safras->delete();
-        return redirect('safra')->with('success', 'Safra excluída com sucesso!');
+        try {
+            $safras = $this->safra::find($id);
+            $safras->delete();
+            //return redirect('safra')->with('success', 'Safra excluída com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

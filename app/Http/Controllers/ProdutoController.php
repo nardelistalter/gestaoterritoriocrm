@@ -114,8 +114,15 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        $produtos =  Produto::find($id);
-        $produtos->delete();
-        return redirect('produto')->with('success', 'Produto excluído com sucesso!');
+        try {
+            $produtos =  Produto::find($id);
+            $produtos->delete();
+            //return redirect('produto')->with('success', 'Produto excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

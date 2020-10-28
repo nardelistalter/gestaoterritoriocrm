@@ -64,8 +64,11 @@
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete disabled"
-                                            data-toggle="tooltip" title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                        <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
+                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
+                                        onclick="return confirmDeletion({{ $user->id }}, '{{ $user->nickname }} - {{ $user->email }}');" title="Excluir"><i
+                                            class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -314,4 +317,7 @@
         });
 
     </script>
+    
+ @include('scripts.confirmdeletion')
+
 @endsection

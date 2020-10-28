@@ -136,8 +136,15 @@ class ProgramaDeNegocioController extends Controller
      */
     public function destroy($id)
     {
-        $programadenegocios =  ProgramaDeNegocio::find($id);
-        $programadenegocios->delete();
-        return redirect('programadenegocio')->with('success', 'Programa de Negócio excluído com sucesso!');
+        try {
+            $programadenegocios =  ProgramaDeNegocio::find($id);
+            $programadenegocios->delete();
+            //return redirect('programadenegocio')->with('success', 'Programa de Negócio excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

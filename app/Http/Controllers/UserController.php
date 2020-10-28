@@ -131,9 +131,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $users =  User::find($id);
-        $users->delete();
-        return redirect('user')->with('success', 'Usuário excluído com sucesso!');
+        try {
+            $users =  User::find($id);
+            $users->delete();
+            //return redirect('user')->with('success', 'Usuário excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 
     /**

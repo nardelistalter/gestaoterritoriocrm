@@ -114,8 +114,15 @@ class MicrorregiaoController extends Controller
      */
     public function destroy($id)
     {
-        $microrregioes =  Microrregiao::find($id);
-        $microrregioes->delete();
-        return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+        try {
+            $microrregioes =  Microrregiao::find($id);
+            $microrregioes->delete();
+            //return redirect('microrregiao')->with('success', 'Microrregião excluída com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

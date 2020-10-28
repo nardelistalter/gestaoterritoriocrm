@@ -33,9 +33,9 @@
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Município</th>
-                                <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th style="display: none;">id_fk2</th>
+                                <th class="th-sm border-bottom border-left">Município/UF</th>
                                 <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left">Quantidade</th>
                                 <th style="display: none;">qtd</th>
@@ -69,8 +69,11 @@
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                        <!-- href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
+                                                title="Excluir"><i class="fas fa-trash-alt"></i></!-->
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
+                                            onclick="return confirmDeletion({{ $areagrupocliente->id }}, '{{ $segmentocultura->descricao }}-{{ $municipio->nome }}/{{ $estado->sigla }}-{{ $grupocliente->descricao }}');" title="Excluir"><i
+                                                class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,9 +83,9 @@
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Município</th>
-                                <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
+                                <th style="display: none;">id_fk2</th>
+                                <th class="th-sm border-bottom border-left">Município/UF</th>
                                 <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left">Quantidade</th>
                                 <th style="display: none;">qtd</th>
@@ -153,7 +156,7 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-unidademedida">Unidade de Medida</label>
                             <input type="text" class="form-control" id="add-unidademedida" name="add-unidademedida"
-                                value="{{ route('showUM', 2) }}" onClick="getHTML(select,textfield)" style="width: 90px"
+                                value="{{ route('showUM', 2) }}" style="width: 90px"
                                 readonly>
                         </div>
                         <div class="form-group">
@@ -422,4 +425,7 @@
         });
 
     </script>
+    
+ @include('scripts.confirmdeletion')
+
 @endsection

@@ -118,8 +118,15 @@ class MunicipioController extends Controller
      */
     public function destroy($id)
     {
-        $municipios =  Municipio::find($id);
-        $municipios->delete();
-        return redirect('municipio')->with('success', 'Município excluído com sucesso!');
+        try {
+            $municipios =  Municipio::find($id);
+            $municipios->delete();
+            //return redirect('municipio')->with('success', 'Município excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

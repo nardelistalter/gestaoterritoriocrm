@@ -118,8 +118,11 @@
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
+                                        <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
+                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
+                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->descricao }}');" title="Excluir"><i
+                                                class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -406,5 +409,7 @@
         });
 
     </script>
+    
+ @include('scripts.confirmdeletion')
 
 @endsection

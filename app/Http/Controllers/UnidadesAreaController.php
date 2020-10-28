@@ -142,8 +142,15 @@ class UnidadesAreaController extends Controller
      */
     public function destroy($id)
     {
-        $unidadesareas =  UnidadesArea::find($id);
-        $unidadesareas->delete();
-        return redirect('unidadesarea')->with('success', 'Unidade de Área excluído com sucesso!');
+        try {
+            $unidadesareas =  UnidadesArea::find($id);
+            $unidadesareas->delete();
+            //return redirect('unidadesarea')->with('success', 'Unidade de Área excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

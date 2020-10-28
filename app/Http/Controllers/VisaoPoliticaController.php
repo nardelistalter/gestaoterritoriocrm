@@ -110,8 +110,15 @@ class VisaoPoliticaController extends Controller
      */
     public function destroy($id)
     {
-        $visaopoliticas = $this->visaopolitica::find($id);
-        $visaopoliticas->delete();
-        return redirect('visaopolitica')->with('success', 'Visão Política excluída com sucesso!');
+        try {
+            $visaopoliticas = $this->visaopolitica::find($id);
+            $visaopoliticas->delete();
+            //return redirect('visaopolitica')->with('success', 'Visão Política excluída com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

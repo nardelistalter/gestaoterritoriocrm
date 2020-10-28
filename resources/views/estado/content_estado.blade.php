@@ -2,6 +2,8 @@
 
 @section('titulo', 'Estados')
 
+@section('table-delete', 'estado')
+
 @section('content')
 
     <!-- Begin Page Content -->
@@ -48,7 +50,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->nome }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->nome }}/{{ $obj->sigla }}');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -285,6 +287,7 @@
         });
 
     </script>
+    
     @include('scripts.confirmdeletion')
 
 @endsection

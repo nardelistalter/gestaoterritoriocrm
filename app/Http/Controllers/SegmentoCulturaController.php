@@ -114,8 +114,15 @@ class SegmentoCulturaController extends Controller
      */
     public function destroy($id)
     {
-        $segmentoculturas = $this->segmentocultura::find($id);
-        $segmentoculturas->delete();
-        return redirect('segmentocultura')->with('success', 'Segmento/Cultura excluído com sucesso!');
+        try {
+            $segmentoculturas = $this->segmentocultura::find($id);
+            $segmentoculturas->delete();
+            //return redirect('segmentocultura')->with('success', 'Segmento/Cultura excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

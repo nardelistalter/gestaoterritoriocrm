@@ -114,8 +114,15 @@ class GrupoProdutoController extends Controller
      */
     public function destroy($id)
     {
-        $grupoprodutos = $this->grupoproduto::find($id);
-        $grupoprodutos->delete();
-        return redirect('grupoproduto')->with('success', 'Grupo de Produtos excluído com sucesso!');
+        try {
+            $grupoprodutos = $this->grupoproduto::find($id);
+            $grupoprodutos->delete();
+            //return redirect('grupoproduto')->with('success', 'Grupo de Produtos excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

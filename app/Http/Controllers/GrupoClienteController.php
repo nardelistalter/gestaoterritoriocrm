@@ -114,8 +114,15 @@ class GrupoClienteController extends Controller
      */
     public function destroy($id)
     {
-        $grupoclientes =  GrupoCliente::find($id);
-        $grupoclientes->delete();
-        return redirect('grupocliente')->with('success', 'Grupo de clientes excluído com sucesso!');
+        try {
+            $grupoclientes =  GrupoCliente::find($id);
+            $grupoclientes->delete();
+            //return redirect('grupocliente')->with('success', 'Grupo de clientes excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }

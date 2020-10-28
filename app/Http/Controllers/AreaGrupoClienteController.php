@@ -96,8 +96,9 @@ class AreaGrupoClienteController extends Controller
      */
     public function showUM($id)
     {
-        $areagrupocliente = AreaGrupoCliente::find($id);
-        return $areagrupocliente->unidadeMedida;
+        $segmentocultura = SegmentoCultura::find($id);
+        //dd($segmentocultura);
+        return $segmentocultura->unidadeMedida;
     }
 
     /**
@@ -146,8 +147,15 @@ class AreaGrupoClienteController extends Controller
      */
     public function destroy($id)
     {
-        $areagrupoclientes =  AreaGrupoCliente::find($id);
-        $areagrupoclientes->delete();
-        return redirect('areagrupocliente')->with('success', 'Área por Grupo de Clientes excluído com sucesso!');
+        try {
+            $areagrupoclientes =  AreaGrupoCliente::find($id);
+            $areagrupoclientes->delete();
+            //return redirect('areagrupocliente')->with('success', 'Área por Grupo de Clientes excluído com sucesso!');
+            return ['status' => 'success'];
+		} catch (\Illuminate\Database\QueryException $qe) {
+			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+		} catch (\PDOException $e) {
+			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+		}
     }
 }
