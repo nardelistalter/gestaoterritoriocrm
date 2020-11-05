@@ -134,7 +134,7 @@
                         <a class="collapse-item" href={{ route('areagrupocliente.index') }}><i
                                 class="fas fa-map-marker-alt mr-1"></i>{{ __('Áreas Grupo Cliente') }}</a>
                         <a class="collapse-item" href={{ route('unidadesarea.index') }}><i
-                                class="fas fa-drafting-compass mr-1"></i>{{ __('Unidades de Área') }}</a>
+                                class="fas fa-drafting-compass mr-1"></i>{{ __('Seg-Cultura/Município') }}</a>
                         <a class="collapse-item" href={{ route('municipio.index') }}><i
                                 class="fas fa-map-marked-alt mr-1"></i>{{ __('Municípios') }}</a>
                         <a class="collapse-item" href={{ route('microrregiao.index') }}><i

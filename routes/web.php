@@ -13,16 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('login', 'App\Http\Controllers\HomeController@login')->name('login');
 Route::get('recuperar-senha', 'App\Http\Controllers\HomeController@forgot_password')->name('recuperar-senha');
+Route::post('recuperar-senha', 'App\Http\Controllers\HomeController@password')->name('recuperar-senha');
 Route::post('checklogin', 'App\Http\Controllers\HomeController@checklogin')->name('checklogin');
 Route::get('logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
 
+/**
+ * Grupo de rotas que necessitam de usuário autenticado
+ * Route::resource: cria todas as rotas das funções padrões do controller 
+ */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::resource('estado', 'App\Http\Controllers\EstadoController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\EstadoController@destroy');
+    Route::get('estado/{id}/destroy', 'App\Http\Controllers\EstadoController@destroy');
     Route::resource('microrregiao', 'App\Http\Controllers\MicrorregiaoController');
     //Route::get('/{id}/destroy', 'App\Http\Controllers\MicrorregiaoController@destroy');
     Route::resource('municipio', 'App\Http\Controllers\MunicipioController');
@@ -48,13 +52,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('grupocliente', 'App\Http\Controllers\GrupoClienteController');
     //Route::get('/{id}/destroy', 'App\Http\Controllers\GrupoClienteController@destroy');
     Route::resource('areagrupocliente', 'App\Http\Controllers\AreaGrupoClienteController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\AreaGrupoClienteController@destroy');
+    Route::get('areagrupocliente/{id}/destroy', 'App\Http\Controllers\AreaGrupoClienteController@destroy');
     Route::resource('inscricaoestadual', 'App\Http\Controllers\InscricaoEstadualController');
     //Route::get('/{id}/destroy', 'App\Http\Controllers\InscricaoEstadualController@destroy');
     Route::resource('operacao', 'App\Http\Controllers\OperacaoController');
-    Route::get('/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
+    Route::get('operacao/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
-    Route::get('areagrupocliente/showUM/{id}', 'App\Http\Controllers\AreaGrupoClienteController@showUM')->name('showUM');
+    Route::post('areagrupocliente/showUM', 'App\Http\Controllers\AreaGrupoClienteController@showUM')->name('showUM');
 });
 
 

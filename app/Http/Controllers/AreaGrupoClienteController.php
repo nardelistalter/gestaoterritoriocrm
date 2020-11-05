@@ -94,11 +94,11 @@ class AreaGrupoClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showUM($id)
+    public function showUM(Request $request)
     {
-        $segmentocultura = SegmentoCultura::find($id);
+        $segmentocultura = SegmentoCultura::find($request->all())->first();
         //dd($segmentocultura);
-        return $segmentocultura->unidadeMedida;
+        return ['unidadeMedida', $segmentocultura->unidadeMedida];
     }
 
     /**

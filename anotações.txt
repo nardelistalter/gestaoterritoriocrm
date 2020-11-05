@@ -1,18 +1,39 @@
 PRIORIDADE:
+
+    X.1-Rotas para confirmação de exclusão em todos os CRUDS (Aceita apenas rota de um controller)
+
     1-Metas:
         1.1-Tela para exibir metas por cliente
             1.1.1-Exibir potencial e metas definidas para o mês pro safra
             1.1.2-Filtro de Safra
             1.1.3-Clientes dos usuários logados
+            
     2-Privilégios:
         2.1-Verificar definição para usuário/Funcionário (Madallozzo)
             2.1.1-Parâmetros: somente para cargo de gerente (ou superior ou ADMINISTRADOR)
             2.1.2-Operações: somente o que envolve seu nome (Consultor, Gerente ou ADMINISTRADOR)
         2.2-CRUD
-            2.2.1-Definir privilégios para cada caso
-    2-Dashboard:
-        2.1-
+            2.2.1-Definir privilégios para cada caso (View e Controller)
 
+    3-Dashboard (com filtro por cargo e safra):
+        3.1-Exibir Potencial de Negócios total
+        3.2-Exibir Meta total
+        3.3-Exibir Total de Vendas
+        3.4-Exibir Municípios e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
+        3.5-Exibir Grupos de Clientes e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
+        3.6-Exibir Segmento/Culturas e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
+        3.7-Para cargos superiores exibir subordinados e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
+
+    4-Manutenção do Perfil do Usuário:
+        4.1-Criar Form
+        4.2-Alteração dos Dados
+
+    5-Recuperação de senha
+        5.1-Função no HomeController
+        5.2-Definir e-mail funcional para envio
+
+RELATÓRIOS:
+    
 
 TRATAMENTO DE ERROS E VALIDAÇÕES
     1-Formulários: exibir erros antes do submit e abaixo do input (CRUD e LOGIN);
@@ -20,18 +41,9 @@ TRATAMENTO DE ERROS E VALIDAÇÕES
 
 
 =============================================================================================================
-    Manutenção do Perfil do Usuário:
-        *Criar Form
-        *Alteração dos Dados
-
-    Exibir dados corretos no Modal de Inserção (Jquery - Foreach?):
-        *Área Grupo de Clientes: Unidade de medida
-
     Definir validação do ano das classes dependentes de Safra (Formulário e Banco):
         *Meta: Se o mês (Meta) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1. Senão, ano igual ao da Safra
         *Programa de Negócios: Se o mesLimite (ProgramaNegocio) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1.  Senão, ano igual ao da Safra
-
-    Verificar nome de Unidades Área no Menu X Segmento/Cultura por Município
 
     Vendas:
         *Javascript para calcular valor total nos Formulários de Inserção e Edição

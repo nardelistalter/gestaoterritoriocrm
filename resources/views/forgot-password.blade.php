@@ -5,14 +5,43 @@
     <div class="text-center">
         <h1 class="h4 text-gray-900 mb-2">Esqueceu sua senha?</h1>
     </div>
-    <form class="user" action="{{--  --}}" method="POST">
+    <!-- Alert Start  -->
+
+    @if ($errors->any())
+    @php
+        dd($errors);
+    @endphp
+    
+        <!-- ou (count($errors) > 0)-->
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (\Session::has('success'))
+        <div class="toast-body">
+            <div class="alert alert-success">
+                <p>{{ \Session::get('success') }}</p>
+            </div>
+        </div>
+    @endif
+
+    <!-- Alert End  -->
+    <form id="forgotForm" class="user" action="{{ route('recuperar-senha') }}" method="POST">
+        {{ csrf_field() }}
         <div class="form-group">
-            <input type="email" class="form-control form-control-user" id="inputEmail" aria-describedby="emailHelp"
+            <input type="email" class="form-control form-control-user" id="email" name="email" aria-describedby="emailHelp"
                 placeholder="Insira seu e-mail...">
         </div>
-        <a href="#" class="btn btn-primary btn-user btn-block">
+        {{-- <a type="submit" form="forgotForm" class="btn btn-primary btn-user btn-block">
             Redefinir Senha
-        </a>
+        </a> --}}
+        <button type="submit" form="forgotForm"
+            class="btn btn-primary btn-user btn-block">{{ __('Redefinir Senha') }}</button>
     </form>
     <hr>
 

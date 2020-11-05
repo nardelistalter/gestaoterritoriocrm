@@ -61,7 +61,8 @@
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
                                     <td style="display: none;">{{ $municipio->id }}</td>
                                     <td class="align-middle border-left">{{ $areagrupocliente->qtdUnidadesArea }}
-                                        {{ $segmentocultura->unidadeMedida }}</td>
+                                        {{ $segmentocultura->unidadeMedida }}
+                                    </td>
                                     <td style="display: none;">{{ $areagrupocliente->qtdUnidadesArea }}</td>
                                     <td style="display: none;">{{ $segmentocultura->unidadeMedida }}</td>
                                     <td class="align-middle th-sm border-left border-right">
@@ -70,10 +71,10 @@
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <!-- href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></!-->
+                                                                                            title="Excluir"><i class="fas fa-trash-alt"></i></!-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $areagrupocliente->id }}, '{{ $segmentocultura->descricao }}-{{ $municipio->nome }}/{{ $estado->sigla }}-{{ $grupocliente->descricao }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $areagrupocliente->id }}, '{{ $segmentocultura->descricao }}-{{ $municipio->nome }}/{{ $estado->sigla }}-{{ $grupocliente->descricao }}', '{{ strtolower(class_basename($areagrupocliente)) }}')"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -119,7 +120,8 @@
                         {{ csrf_field() }}
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupocliente">Grupo de Clientes</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupocliente"
+                                required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoclientes as $grupocliente)
                                     <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }} </option>
@@ -153,11 +155,15 @@
                             </select>
                             <span class="text-danger" id="add-segmentoculturaError"></span>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="mb-0" for="add-unidademedida">Unidade de Medida</label>
                             <input type="text" class="form-control" id="add-unidademedida" name="add-unidademedida"
-                                value="{{ route('showUM', 2) }}" style="width: 90px"
-                                readonly>
+                                value="{{ route('showUM', 2) }}" style="width: 90px" readonly>
+                        </div>--}}
+                        <div class="form-group">
+                            <label class="mb-0" for="add-unidademedida">Unidade de Medida</label>
+                            <input type="text" class="form-control" id="add-unidademedida" name="add-unidademedida" value=""
+                                style="width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-qtdunidadesarea">Quantidade</label>
@@ -184,7 +190,8 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Área por Grupo de Clientes' }}</h5>
+                        {{ 'Alterar Área por Grupo de Clientes' }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -254,7 +261,8 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-grupocliente">Grupo de Clientes</label>
@@ -326,16 +334,44 @@
 
 
 @section('script_pages')
+
+    {{-- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("jquery", "1.4.2");
+
+    </script>--}}
+
+    <script type="text/javascript">
+        $(function() {
+            $('#add-segmentocultura').change(function() {
+                if ($(this).val()) {
+                    $('#add-unidademedida').hide();
+
+                    $.ajax({
+                        url: '{{ route("showUM") }}', //This is the current doc
+                        type: "POST",
+                        dataType: 'json', // add json datatype to get json
+                        data: ({
+                            _token: "{{ csrf_token() }}",
+                            id: $(this).val()
+                        }),
+                        success: function(data) {
+                            console.log(data);
+                            $('#add-unidademedida').val(data[1]);
+                            $('#add-unidademedida').show();
+                        }
+                    });
+
+                } else {
+                    $('#add-unidademedida').val('');
+                }
+            });
+        });
+
+    </script>
+
     <script type="text/javascript">
         // AreaGrupoCliente
-
-        //https://pt.stackoverflow.com/questions/301175/carregar-texto-do-select-no-input
-        $('#add-segmentocultura').change(function() {
-            //$('#add-unidademedida').val(this.value);
-            //$('#add-unidademedida').attr('value', '{{ route('showUM', ' + this.value +') }}');
-            //$("input[name='add-unidademedida']").attr('value', '{{ route('showUM', ' + this.value +') }}');
-            //$("input[name='add-unidademedida']").attr('value', '{{ route('showUM', '2') }}');
-        });
 
         $(document).ready(function() {
 
@@ -352,7 +388,8 @@
                 console.log(data);
                 console.log(data[8]);
 
-                $('#select-grupocliente').html('<label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>' +
+                $('#select-grupocliente').html(
+                    '<label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupocliente" required>' +
                     '   @foreach ($grupoclientes as $grupocliente)' +
                     '       <option value={{ $grupocliente->id }}>{{ $grupocliente->descricao }}</option>' +
@@ -425,7 +462,7 @@
         });
 
     </script>
-    
- @include('scripts.confirmdeletion')
+
+    @include('scripts.confirmdeletion')
 
 @endsection

@@ -80,7 +80,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }}', 'operacao');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>

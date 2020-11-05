@@ -48,10 +48,10 @@
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                                    title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->nome }}/{{ $obj->sigla }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->nome }}/{{ $obj->sigla }}', '{{ strtolower(class_basename($obj)) }}')"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -221,7 +221,6 @@
 @section('script_pages')
 
     <script type="text/javascript">
-
         // Estado
         $(document).ready(function() {
 
@@ -287,7 +286,7 @@
         });
 
     </script>
-    
+
     @include('scripts.confirmdeletion')
 
 @endsection
