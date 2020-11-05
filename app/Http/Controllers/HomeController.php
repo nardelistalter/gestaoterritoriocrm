@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class HomeController extends Controller
 {
@@ -51,8 +52,7 @@ class HomeController extends Controller
         //dd($user);
 
         if ($user == null) {
-            return redirect()->back()->with(['error' => 'Email not exists']);
-            
+            return redirect()->back()->with(['error' => 'Email não cadastrado!']);
         }
 
         /*$user = Sentinel::findById($user->id);
@@ -61,6 +61,26 @@ class HomeController extends Controller
 
         return redirect()->back()->with(['success' => 'Chave de recuperação enviada com sucesso! Verifique seu e-mail']);
     }
+
+    /**
+     * Email send
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendEmail($user, $code)
+    {
+        /*Mail::send(
+            'email.forgot',
+            ['user' => $user, 'code' => $code],
+            function($message) use ($user) {
+                $message->to($user->email);
+                $message->subject("Olá $user->nickname, redefina sua senha.");
+            }
+        );*/
+    }
+
 
     /**
      * Login page redirect
@@ -80,7 +100,7 @@ class HomeController extends Controller
         if (Auth::attempt(['email' => $dados['inputEmail'], 'password' => $dados['inputPassword']])) {
             return redirect()->route('home');
         } else {
-            return redirect('login')->with('errors', 'Login não permitido! Verifique e-mail ou senha!');
+            return redirect('login')->with('error', 'Login não permitido! Verifique e-mail ou senha!');
         }
     }
 

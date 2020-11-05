@@ -7,26 +7,15 @@
     </div>
     <!-- Alert Start  -->
 
-    @if ($errors->any())
-    @php
-        dd($errors);
-    @endphp
-    
-        <!-- ou (count($errors) > 0)-->
+    @if (session('error'))
         <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            {{ session('error') }}
         </div>
     @endif
 
-    @if (\Session::has('success'))
-        <div class="toast-body">
-            <div class="alert alert-success">
-                <p>{{ \Session::get('success') }}</p>
-            </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
     @endif
 

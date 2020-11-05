@@ -6,8 +6,8 @@
         <h1 class="h4 text-gray-900 mb-4">Bem Vindo!</h1>
     </div>
 
-    {{-- 
-     @if (isset($message) && $message == Session::get('error'))
+    {{--
+    @if (isset($message) && $message == Session::get('error'))
         <div class="alert alert-danger alert-block">
             <button type="button" class="close" data-dismiss="alert">X</button>
             <strong>{{ $message }}</strong>
@@ -15,13 +15,9 @@
     @endif--}}
 
     <!-- Exibe erros no formulário -->
-    @if (count($errors) > 0)
+    @if (session('error'))
         <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $erro)
-                    <li>{{ $erro }}</li>
-                @endforeach
-            </ul>
+            {{ session('error') }}
         </div>
     @endif
     <!-- Fim erros no formulário -->
@@ -29,11 +25,12 @@
     <form class="user" action="{{ route('checklogin') }}" method="POST">
         {{ csrf_field() }}
         <div class="form-group">
-            <input type="email" class="form-control form-control-user" id="inputEmail" name="inputEmail" aria-describedby="emailHelp"
-                placeholder="E-mail">
+            <input type="email" class="form-control form-control-user" id="inputEmail" name="inputEmail"
+                aria-describedby="emailHelp" placeholder="E-mail">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control form-control-user" id="inputPassword" name="inputPassword" placeholder="Senha">
+            <input type="password" class="form-control form-control-user" id="inputPassword" name="inputPassword"
+                placeholder="Senha">
         </div>
         <div class="form-group">
             <div class="custom-control custom-checkbox small">

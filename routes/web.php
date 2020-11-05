@@ -25,6 +25,7 @@ Route::get('logout', 'App\Http\Controllers\HomeController@logout')->name('logout
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+    Route::get('profile', 'App\Http\Controllers\UserController@profile')->name('perfil');
     Route::resource('estado', 'App\Http\Controllers\EstadoController');
     Route::get('estado/{id}/destroy', 'App\Http\Controllers\EstadoController@destroy');
     Route::resource('microrregiao', 'App\Http\Controllers\MicrorregiaoController');

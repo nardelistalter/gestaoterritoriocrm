@@ -114,15 +114,15 @@
                                     <td class="align-middle border-left">{{ $mes }}</td>
                                     <td style="display: none;">{{ $obj->mesInicio }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                                    title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->descricao }}', '{{ strtolower(class_basename($obj)) }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->descricao }}', '{{ strtolower(class_basename($obj)) }}');"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -165,14 +165,14 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="add-anoinicio" name="add-anoinicio"
-                                step="1" min="1901" max="2100" style="width: 85px;" required>
+                            <input type="number" class="form-control" id="add-anoinicio" name="add-anoinicio" step="1"
+                                min="1901" max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="add-anoinicioError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-mesinicio">Mês Início</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-mesinicio"
-                            style="width: 130px;" required>
+                                style="width: 130px;" required>
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -223,8 +223,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="up-anoinicio" name="up-anoinicio"
-                                step="1" min="1901" max="2100" style="width: 85px;" required>
+                            <input type="number" class="form-control" id="up-anoinicio" name="up-anoinicio" step="1"
+                                min="1901" max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="up-anoinicioError"></span>
                         </div>
                         <div id="select-safra" class="form-group col-xs-2">
@@ -257,7 +257,8 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-safra">Descrição</label>
@@ -265,8 +266,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio"
-                                step="1" min="1901" max="2100" style="width: 85px;" readonly>
+                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio" step="1"
+                                min="1901" max="2100" style="width: 85px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-mesinicio">Mês Início</label>
@@ -339,8 +340,7 @@
 
                 $('#select-safra').html('<label class="mb-0" for="up-mesinicio">Mês Início</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-mesinicio" style="width: 130px;">' +
-                    '   <option value="">Selecione...</option>' +
-                    '   <option value="1">Janeiro</option>' +
+                    '    <option value="1">Janeiro</option>' +
                     '    <option value="2">Fevereiro</option>' +
                     '    <option value="3">Março</option>' +
                     '    <option value="4">Abril</option>' +
@@ -410,6 +410,6 @@
 
     </script>
 
- @include('scripts.confirmdeletion')
+    @include('scripts.confirmdeletion')
 
 @endsection

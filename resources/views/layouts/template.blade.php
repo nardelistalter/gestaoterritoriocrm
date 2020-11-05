@@ -219,11 +219,13 @@
             </li>
 
             <!-- Nav Item - Charts -->
+            {{--
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     <span>{{ __('Gráficos') }}</span></a>
             </li>
+             --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -271,7 +273,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('perfil') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('Perfil') }}
                                 </a>
