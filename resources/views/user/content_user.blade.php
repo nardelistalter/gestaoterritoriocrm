@@ -67,7 +67,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
-                                        onclick="return confirmDeletion({{ $user->id }}, '{{ $user->nickname }} - {{ $user->email }}');" title="Excluir"><i
+                                        onclick="return confirmDeletion({{ $user->id }}, '{{ $user->nickname }} - {{ $user->email }}', '{{ strtolower(class_basename($user)) }}');" title="Excluir"><i
                                             class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -317,7 +317,7 @@
         });
 
     </script>
-    
+
  @include('scripts.confirmdeletion')
 
 @endsection

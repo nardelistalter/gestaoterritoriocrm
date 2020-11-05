@@ -71,7 +71,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $unidadesarea->id }}, '{{ $unidadesarea->qtdArea }} {{ $unidadesarea->unidadeMedida }} - {{ $segmentocultura->descricao }} - {{ $municipio->nome }}/{{ $estado->sigla }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $unidadesarea->id }}, '{{ $unidadesarea->qtdArea }} {{ $unidadesarea->unidadeMedida }} - {{ $segmentocultura->descricao }} - {{ $municipio->nome }}/{{ $estado->sigla }}', '{{ strtolower(class_basename($unidadesarea)) }}');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -427,7 +427,7 @@
         });
 
     </script>
-    
+
  @include('scripts.confirmdeletion')
 
 @endsection

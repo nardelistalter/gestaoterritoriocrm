@@ -21,44 +21,45 @@ Route::get('logout', 'App\Http\Controllers\HomeController@logout')->name('logout
 
 /**
  * Grupo de rotas que necessitam de usuário autenticado
- * Route::resource: cria todas as rotas das funções padrões do controller 
+ * Route::resource: cria todas as rotas das funções padrões do controller
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::resource('estado', 'App\Http\Controllers\EstadoController');
     Route::get('estado/{id}/destroy', 'App\Http\Controllers\EstadoController@destroy');
     Route::resource('microrregiao', 'App\Http\Controllers\MicrorregiaoController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\MicrorregiaoController@destroy');
+    Route::get('microrregiao/{id}/destroy', 'App\Http\Controllers\MicrorregiaoController@destroy');
     Route::resource('municipio', 'App\Http\Controllers\MunicipioController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\MunicipioController@destroy');
+    Route::get('municipio/{id}/destroy', 'App\Http\Controllers\MunicipioController@destroy');
     Route::resource('cargo', 'App\Http\Controllers\CargoController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\CargoController@destroy');
+    Route::get('cargo/{id}/destroy', 'App\Http\Controllers\CargoController@destroy');
     Route::resource('safra', 'App\Http\Controllers\SafraController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\SafraController@destroy');
+    Route::get('safra/{id}/destroy', 'App\Http\Controllers\SafraController@destroy');
     Route::resource('grupoproduto', 'App\Http\Controllers\GrupoProdutoController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\GrupoProdutoController@destroy');
+    Route::get('grupoproduto/{id}/destroy', 'App\Http\Controllers\GrupoProdutoController@destroy');
     Route::resource('produto', 'App\Http\Controllers\ProdutoController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\ProdutoController@destroy');
+    Route::get('produto/{id}/destroy', 'App\Http\Controllers\ProdutoController@destroy');
     Route::resource('visaopolitica', 'App\Http\Controllers\VisaoPoliticaController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\VisaoPoliticaController@destroy');
+    Route::get('visaopolitica/{id}/destroy', 'App\Http\Controllers\VisaoPoliticaController@destroy');
     Route::resource('segmentocultura', 'App\Http\Controllers\SegmentoCulturaController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\SegmentoCulturaController@destroy');
+    Route::get('segmentocultura/{id}/destroy', 'App\Http\Controllers\SegmentoCulturaController@destroy');
     Route::resource('programadenegocio', 'App\Http\Controllers\ProgramaDeNegocioController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\ProgramaDeNegocioController@destroy');
+    Route::get('programadenegocio/{id}/destroy', 'App\Http\Controllers\ProgramaDeNegocioController@destroy');
     Route::resource('unidadesarea', 'App\Http\Controllers\UnidadesAreaController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\UnidadesAreaController@destroy');
+    Route::get('unidadesarea/{id}/destroy', 'App\Http\Controllers\UnidadesAreaController@destroy');
     Route::resource('usuario', 'App\Http\Controllers\UserController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\UserController@destroy');
+    Route::get('user/{id}/destroy', 'App\Http\Controllers\UserController@destroy');
     Route::resource('grupocliente', 'App\Http\Controllers\GrupoClienteController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\GrupoClienteController@destroy');
+    Route::get('grupocliente/{id}/destroy', 'App\Http\Controllers\GrupoClienteController@destroy');
     Route::resource('areagrupocliente', 'App\Http\Controllers\AreaGrupoClienteController');
     Route::get('areagrupocliente/{id}/destroy', 'App\Http\Controllers\AreaGrupoClienteController@destroy');
+    Route::post('areagrupocliente/showUM', 'App\Http\Controllers\AreaGrupoClienteController@showUM')->name('showUM');
     Route::resource('inscricaoestadual', 'App\Http\Controllers\InscricaoEstadualController');
-    //Route::get('/{id}/destroy', 'App\Http\Controllers\InscricaoEstadualController@destroy');
+    Route::get('inscricaoestadual/{id}/destroy', 'App\Http\Controllers\InscricaoEstadualController@destroy');
     Route::resource('operacao', 'App\Http\Controllers\OperacaoController');
     Route::get('operacao/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
-    Route::post('areagrupocliente/showUM', 'App\Http\Controllers\AreaGrupoClienteController@showUM')->name('showUM');
+
 });
 
 

@@ -7,7 +7,7 @@ PRIORIDADE:
             1.1.1-Exibir potencial e metas definidas para o mês pro safra
             1.1.2-Filtro de Safra
             1.1.3-Clientes dos usuários logados
-            
+
     2-Privilégios:
         2.1-Verificar definição para usuário/Funcionário (Madallozzo)
             2.1.1-Parâmetros: somente para cargo de gerente (ou superior ou ADMINISTRADOR)
@@ -33,10 +33,10 @@ PRIORIDADE:
         5.2-Definir e-mail funcional para envio
 
 RELATÓRIOS:
-    
+
 
 TRATAMENTO DE ERROS E VALIDAÇÕES
-    1-Formulários: exibir erros antes do submit e abaixo do input (CRUD e LOGIN);
+    1-Formulários: exibir erros antes do submit e abaixo do input (CRUDs e LOGIN);
         1.1- Validar dinamicamente nos inputs (Ex. exibir mensagem que já existe dado cadastrado no banco)
 
 
