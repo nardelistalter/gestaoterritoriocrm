@@ -94,7 +94,7 @@
                                 class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
                         <a class="collapse-item" href={{ route('grupocliente.index') }}><i
                                 class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('funcionario.index') }}><i
                                 class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
                         <a class="collapse-item" href={{ route('usuario.index') }}><i
                                 class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>

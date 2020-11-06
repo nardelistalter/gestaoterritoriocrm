@@ -60,8 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('operacao/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::resource('cliente', 'App\Http\Controllers\ClienteController');
     Route::get('cliente/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
-    /*Route::resource('funcionario', 'App\Http\Controllers\FuncionarioController');
-    Route::get('funcionario/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');*/
+    Route::resource('funcionario', 'App\Http\Controllers\FuncionarioController');
+    Route::get('funcionario/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
 });
 

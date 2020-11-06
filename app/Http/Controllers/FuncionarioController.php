@@ -2,31 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
-use App\Models\VisaoPolitica;
+use App\Models\Funcionario;
+use App\Models\Cargo;
 use App\Models\Pessoa;
 use App\Models\PFisica;
-use App\Models\PJuridica;
 use App\Models\Email;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class FuncionarioController extends Controller
 {
-    private $cliente;
-    private $visaopolitica;
+    private $funcionario;
+    private $cargo;
     private $pessoa;
-    private $pj;
     private $pf;
     private $email;
     private $municipio;
 
     public function __construct()
     {
-        $this->cliente = new Cliente();
-        $this->visaopolitica = new VisaoPolitica();
+        $this->funcionario = new Funcionario();
+        $this->cargo = new Cargo();
         $this->pessoa = new Pessoa();
-        $this->pj = new PJuridica();
         $this->pf = new PFisica();
         $this->email = new Email();
         $this->municipio = new Municipio();
@@ -39,15 +36,14 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = $this->cliente::all()->sortBy('nome');
-        $visaopoliticas =  $this->visaopolitica::all();
+        $funcionarios = $this->funcionario::all()->sortBy('nome');
+        $cargos =  $this->cargo::all();
         $pessoas =  $this->pessoa::all();
-        $pjs = $this->pj::all();
         $pfs = $this->pf::all();
         $emails = $this->email::all();
         $municipios = $this->municipio::all()->sortBy('nome');
-        return view('cliente.content_cliente')->with('clientes', $clientes)->with('visaopoliticas', $visaopoliticas)->with('pessoas', $pessoas)
-            ->with('pjs', $pjs)->with('pfs', $pfs)->with('email', $emails)->with('municipios', $municipios);
+        return view('funcionario.content_funcionario')->with('funcionarios', $funcionarios)->with('cargoa', $cargos)
+            ->with('pessoas', $pessoas)->with('pfs', $pfs)->with('email', $emails)->with('municipios', $municipios);
     }
 
     /**
@@ -79,13 +75,13 @@ class ClienteController extends Controller
             'add-municipio' => 'required|min:1',
         ]);
 
-        $clientes =  new Cliente;
-        $clientes->nome = $request->input('add-cliente');
-        $clientes->microrregiao_id = $request->input('add-microrregiao');
+        $funcionarios =  new Funcionario;
+        $funcionarios->nome = $request->input('add-funcionario');
+        $funcionarios->microrregiao_id = $request->input('add-microrregiao');
 
-        $clientes->save();
+        $funcionarios->save();
 
-        return redirect('cliente')->with('success', 'Cliente salvo com sucesso!');*/
+        return redirect('funcionario')->with('success', 'Funcionário salvo com sucesso!');*/
     }
 
     /**
@@ -120,17 +116,17 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         /*$this->validate($request, [
-            'up-cliente' => 'required|max:45',
+            'up-funcionario' => 'required|max:45',
             'up-microrregiao' => 'required|integer'
         ]);
 
-        $clientes =  Cliente::find($id);
-        $clientes->nome = $request->input('up-cliente');
-        $clientes->microrregiao_id = $request->input('up-microrregiao');
+        $funcionarios =  Funcionario::find($id);
+        $funcionarios->nome = $request->input('up-funcionario');
+        $funcionarios->microrregiao_id = $request->input('up-microrregiao');
 
-        $clientes->save();
+        $funcionarios->save();
 
-        return redirect('cliente')->with('success', 'Cliente alterado com sucesso!');*/
+        return redirect('funcionario')->with('success', 'Funcionário alterado com sucesso!');*/
     }
 
     /**
@@ -142,9 +138,9 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         /*try {
-            $clientes =  Cliente::find($id);
-            $clientes->delete();
-            //return redirect('cliente')->with('success', 'Cliente excluído com sucesso!');
+            $funcionarios =  Funcionario::find($id);
+            $funcionarios->delete();
+            //return redirect('funcionario')->with('success', 'Funcionário excluído com sucesso!');
             return ['status' => 'success'];
 		} catch (\Illuminate\Database\QueryException $qe) {
 			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('titulo', 'Clientes')
+@section('titulo', 'Funcionários')
 
 @section('content')
 
@@ -14,65 +14,64 @@
                     disabled><i class="fas fa-plus-circle m-1" data-toggle="tooltip" data-placement="top"
                         title="Incluir item"></i>{{ __('Novo') }}</button>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Clientes') }}</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">{{ __('Cadastro de Funcionários') }}</h1>
         </div>
 
         <!-- Content Datatable -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('Clientes') }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('Funcionários') }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableCliente" class="datatable table table-sm table-responsive text-center rounded"
+                    <table id="datatableFuncionario" class="datatable table table-sm table-responsive text-center rounded"
                         cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Nome</th>
-                                <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
-                                <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
+                                <th class="th-sm border-bottom border-left">CPF</th>
                                 <th style="display: none;">pf_fk</th>
-                                <th style="display: none;">pj_fk</th>
-                                <th style="display: none;">vpolitica_fk</th>
-                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Nasc/Fund</th>
-                                <th style="display: none;">data</th>
-                                <th class="th-sm border-bottom border-left">Sexo</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
+                                <th class="th-sm border-bottom border-left">Cargo</th>
+                                <th style="display: none;">cargo_fk</th>
+                                <th class="th-sm border-bottom border-left">Superior</th>
+                                <th style="display: none;">gerente_fk</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Admissão</th>
+                                <th style="display: none;">data_adm</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Demissão</th>
+                                <th style="display: none;">data_dem</th>
+                                <th style="display: none;">data_nasc</th>
+                                <th style="display: none;">sexo</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($clientes as $cliente)
+                            @foreach ($funcionarios as $funcionario)
                                 @php
-                                    $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-
-                                    if ($pfisica != null) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                        //dd($pessoa);
-                                    } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
+                                    $cargo = $funcionario->find($funcionario->id)->cargo;
+                                    $pfisica = $funcionario->find($funcionario->id)->pfisica;
+                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
                                     $municipio = $pessoa->find($pessoa->id)->municipio;
                                     $microrregiao = $municipio->find($municipio->id)->microrregiao;
                                     $estado = $microrregiao->find($microrregiao->id)->estado;                                
                                 @endphp
                                 <tr>
-                                    <th class="align-middle border-left">{{ $cliente->id }}</th>
+                                    <th class="align-middle border-left">{{ $funcionario->id }}</th>
                                     <td class="align-middle border-left">{{ $pessoa->nome }}</td>
-                                    <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left">{{ $pfisica->cpf ?? $pjuridica->cnpj }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $pfisica->id ?? '' }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $pjuridica->id ?? '' }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($pfisica->dataNascimento ?? $pjuridica->dataFundacao)) }}</td>
-                                    <td style="display: none;">{{ $pfisica->dataNascimento ?? $pjuridica->dataFundacao }}</td>
-                                    <td class="align-middle border-left">{{ $pfisica->sexo ?? '' }}</td>
-                                    <th class="align-middle border-left">{{ $cliente->observacao }}</th>
+                                    <td style="display: none;">{{ $municipio->id }}</td>
+                                    <td class="align-middle border-left">{{ $pfisica->cpf }}</td>
+                                    <td style="display: none;">{{ $pfisica->id }}</td>
+                                    <td class="align-middle border-left">{{ $cargo->descricao }}</td>
+                                    <td style="display: none;">{{ $cargo->id }}</td>
+                                    <th class="align-middle border-left">{{ $funcionario->gerente_id }}</th>
+                                    <td style="display: none;">{{ $funcionario->gerente }}</th>
+                                    <th class="align-middle border-left">{{ date("d/m/Y", strtotime($funcionario->dataAdmissao)) }}</td>
+                                    <td style="display: none;">{{ $funcionario->dataAdmissao }}</td>
+                                    <th class="align-middle border-left">{{ date("d/m/Y", strtotime($funcionario->dataDemissao ?? '')) }}</td>
+                                    <td style="display: none;">{{ $funcionario->dataDemissao ?? '' }}</td>
+                                    <td style="display: none;">{{ $pfisica->dataNascimento }}</td>
+                                    <td style="display: none;">{{ $pfisica->sexo}}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view disabled"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -81,7 +80,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
-                                        onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nickname }} - {{ $cliente->email }}', '{{ strtolower(class_basename($cliente)) }}');" title="Excluir"><i
+                                        onclick="return confirmDeletion({{ $funcionario->id }}, '{{ $funcionario->nickname }} - {{ $funcionario->email }}', '{{ strtolower(class_basename($funcionario)) }}');" title="Excluir"><i
                                             class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -91,16 +90,19 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Nome</th>
-                                <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
-                                <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
+                                <th class="th-sm border-bottom border-left">CPF</th>
                                 <th style="display: none;">pf_fk</th>
-                                <th style="display: none;">pj_fk</th>
-                                <th style="display: none;">vpolitica_fk</th>
-                                <th class="th-sm border-bottom border-left">Nasc/Fund</th>
-                                <th style="display: none;">data</th>
-                                <th class="th-sm border-bottom border-left">Sexo</th>
-                                <th class="th-sm border-bottom border-left">Observação</th>
+                                <th class="th-sm border-bottom border-left">Cargo</th>
+                                <th style="display: none;">cargo_fk</th>
+                                <th class="th-sm border-bottom border-left">Superior</th>
+                                <th style="display: none;">gerente_fk</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Admissão</th>
+                                <th style="display: none;">data_adm</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Demissão</th>
+                                <th style="display: none;">data_dem</th>
+                                <th style="display: none;">data_nasc</th>
+                                <th style="display: none;">sexo</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </tfoot>
@@ -125,11 +127,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\ClienteController@store') }}" method="POST" id="addForm">
+                    <form action="{{ action('App\Http\Controllers\FuncionarioController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="add-cliente">Descrição</label>
-                            <input type="text" class="form-control" name="add-cliente" required>
+                            <label class="mb-0" for="add-funcionario">Descrição</label>
+                            <input type="text" class="form-control" name="add-funcionario" required>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-funcionario">Funcionário</label>
@@ -169,14 +171,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cliente" method="POST" id="editForm">
+                    <form action="/funcionario" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label class="mb-0" for="up-cliente">Descrição</label>
-                            <input type="text" class="form-control" id="up-cliente" name="up-cliente" required>
+                            <label class="mb-0" for="up-funcionario">Descrição</label>
+                            <input type="text" class="form-control" id="up-funcionario" name="up-funcionario" required>
                         </div>
-                        <div id="select-cliente" class="form-group col-xs-2">
+                        <div id="select-funcionario" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
                     </form>
@@ -210,8 +212,8 @@
                             <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-cliente">Descrição</label>
-                            <input type="text" class="form-control" id="v-cliente" name="v-cliente" readonly>
+                            <label class="mb-0" for="v-funcionario">Descrição</label>
+                            <input type="text" class="form-control" id="v-funcionario" name="v-funcionario" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-funcionario">Funcionário</label>
@@ -241,7 +243,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/cliente" method="POST" id="deleteForm">
+                    <form action="/funcionario" method="POST" id="deleteForm">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <div id="delete-modal-body">
