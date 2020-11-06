@@ -41,7 +41,6 @@ TRATAMENTO DE ERROS E VALIDAÇÕES
     1-Formulários: exibir erros antes do submit e abaixo do input (CRUDs e LOGIN);
         1.1- Validar dinamicamente nos inputs (Ex. exibir mensagem que já existe dado cadastrado no banco)
 
-
 =============================================================================================================
     Definir validação do ano das classes dependentes de Safra (Formulário e Banco):
         *Meta: Se o mês (Meta) for menor que o mêsInício (Safra), atribuir para ano (Meta) o anoInicio (Safra) + 1. Senão, ano igual ao da Safra

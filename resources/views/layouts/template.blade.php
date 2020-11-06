@@ -112,7 +112,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Operações') }}</h6>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('meta.index') }}><i
                                 class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
                         <a class="collapse-item" href={{ route('operacao.index') }}><i
                                 class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
