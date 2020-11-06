@@ -90,10 +90,11 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Pessoas:') }}</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
+                        <a class="collapse-item" href={{ route('cliente.index') }}><i 
+                                class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
                         <a class="collapse-item" href={{ route('grupocliente.index') }}><i
                                 class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('funcionario.index') }}><i
                                 class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
                         <a class="collapse-item" href={{ route('usuario.index') }}><i
                                 class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
@@ -111,7 +112,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Operações') }}</h6>
-                        <a class="collapse-item" href="#"><i
+                        <a class="collapse-item" href={{ route('meta.index') }}><i
                                 class="fas fa-crosshairs mr-1"></i></i>{{ __('Metas') }}</a>
                         <a class="collapse-item" href={{ route('operacao.index') }}><i
                                 class="fas fa-money-bill-alt mr-1"></i>{{ __('Vendas') }}</a>
@@ -218,14 +219,14 @@
                 </div>
             </li>
 
+            {{-- 
             <!-- Nav Item - Charts -->
             {{--
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     <span>{{ __('Gráficos') }}</span></a>
-            </li>
-             --}}
+            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

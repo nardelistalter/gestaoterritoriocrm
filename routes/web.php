@@ -59,8 +59,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('inscricaoestadual/{id}/destroy', 'App\Http\Controllers\InscricaoEstadualController@destroy');
     Route::resource('operacao', 'App\Http\Controllers\OperacaoController');
     Route::get('operacao/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
+    Route::resource('cliente', 'App\Http\Controllers\ClienteController');
+    Route::get('cliente/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
+    Route::resource('funcionario', 'App\Http\Controllers\FuncionarioController');
+    Route::get('funcionario/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
+    Route::resource('meta', 'App\Http\Controllers\MetaController');
+    Route::get('meta/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
-
 });
 
 

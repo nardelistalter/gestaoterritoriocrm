@@ -23,13 +23,17 @@ PRIORIDADE:
         3.6-Exibir Segmento/Culturas e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
         3.7-Para cargos superiores exibir subordinados e respectivos valores (Ordem do maior para o menor - Potencial-Meta-Vendas)
 
-    4-Manutenção do Perfil do Usuário:
+    4-Manutenção do Perfil do Usuário (alterar imagem):
         4.1-Criar Form
         4.2-Alteração dos Dados
 
     5-Recuperação de senha
         5.1-Função no HomeController
         5.2-Definir e-mail funcional para envio
+
+    6-CRUD de Pessoas (acrescentar lista de e-mails no form)
+        6.1-Cliente (Tabela e CRUD)
+        6.2-Funcionário (Tabela e CRUD)
 
 RELATÓRIOS:
     1-Clientes
@@ -47,7 +51,6 @@ RELATÓRIOS:
 TRATAMENTO DE ERROS E VALIDAÇÕES
     1-Formulários: exibir erros antes do submit e abaixo do input (CRUDs);
         1.1- Validar dinamicamente nos inputs (Ex. exibir mensagem que já existe dado cadastrado no banco)
-
 
 =============================================================================================================
     Vendas:
