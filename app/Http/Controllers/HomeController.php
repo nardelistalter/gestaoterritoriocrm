@@ -101,6 +101,7 @@ class HomeController extends Controller
             return redirect()->route('home');
         } else {
             return redirect('login')->with('error', 'Login não permitido! Verifique e-mail ou senha!');
+            //return redirect('login');
         }
     }
 

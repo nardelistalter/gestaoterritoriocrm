@@ -15,9 +15,17 @@
     @endif--}}
 
     <!-- Exibe erros no formulário -->
-    @if (session('error'))
+    {{-- @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
+        </div>
+    @endif--}}
+
+    @if (\Session::has('error'))
+        <div class="toast-body">
+            <div class="alert alert-danger">
+                <p>{{ \Session::get('error') }}</p>
+            </div>
         </div>
     @endif
     <!-- Fim erros no formulário -->
@@ -29,7 +37,7 @@
                 aria-describedby="emailHelp" placeholder="E-mail">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control form-control-user" id="inputPassword" name="inputPassword"
+            <input type="password" class="form-control form-control-user" id="inputPassword" name="inputPassword" minlength="5"
                 placeholder="Senha">
         </div>
         <div class="form-group">
