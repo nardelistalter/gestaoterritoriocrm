@@ -53,7 +53,7 @@ class EstadoController extends Controller
 
         $estados =  $this->estado;
         $estados->nome = $request->input('add-estado');
-        $estados->sigla = $request->input('add-sigla');
+        $estados->sigla = strtoupper($request->input('add-sigla'));
 
         $estados->save();
 
@@ -100,7 +100,7 @@ class EstadoController extends Controller
 
         $estados =  $this->estado::find($id);
         $estados->nome = $request->input('up-estado');
-        $estados->sigla = $request->input('up-sigla');
+        $estados->sigla = strtoupper($request->input('up-sigla'));
 
         $estados->save();
 
