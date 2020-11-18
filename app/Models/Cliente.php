@@ -10,30 +10,37 @@ class Cliente extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
+        'nome',
+        'logradouro',
+        'numero',
+        'complemento',
+        'bairro',
+        'telefone1',
+        'telefone2',
+        'municipio_id',
+        'cpf',
+        'cnpj',
+        'dataNascimento',
+        'sexo',
         'observacao',
-        'visaoPolitica_id',
-        'pf_id',
-        'pj_id'
+        'visaoPolitica_id'
     ];
 
     // Relação (1 para MUITOS)
-    public function inscricaoestadual() {
+    public function inscricaoestadual()
+    {
         return $this->hasMany(InscricaoEstadual::class, 'cliente_id');
     }
 
     // Relação (MUITOS para 1)
-    public function visapolitica() {
+    public function visapolitica()
+    {
         return $this->belongsTo(VisaoPolitica::class, 'visaoPolitica_id', 'id');
     }
 
-    // Relação (1 para 1)
-    public function pfisica() {
-        return $this->belongsTo(PFisica::class, 'pf_id', 'id');
-    }
-
-    // Relação (1 para 1)
-    public function pjuridica() {
-        return $this->belongsTo(PJuridica::class, 'pj_id', 'id');
+    // Relação (MUITOS para 1)
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id', 'id');
     }
 }

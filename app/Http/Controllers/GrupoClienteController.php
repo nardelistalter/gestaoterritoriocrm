@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Funcionario;
+use App\Models\User;
 use App\Models\GrupoCliente;
 use Illuminate\Http\Request;
 
 class GrupoClienteController extends Controller
 {
     private  $grupocliente;
-    private  $funcionario;
+    private  $user;
 
     public function __construct()
     {
         $this->grupocliente = new GrupoCliente();
-        $this->funcionario = new Funcionario();
+        $this->user = new User();
     }
 
     /**
@@ -25,8 +25,8 @@ class GrupoClienteController extends Controller
     public function index()
     {
         $grupoclientes = $this->grupocliente::all()->sortBy('descricao');
-        $funcionarios = $this->funcionario::all()->sortBy('descricao');
-        return view('grupocliente.content_grupocliente')->with('grupoclientes', $grupoclientes)->with('funcionarios', $funcionarios);
+        $users = $this->user::all()->sortBy('descricao');
+        return view('grupocliente.content_grupocliente')->with('grupoclientes', $grupoclientes)->with('users', $users);
     }
 
     /**
@@ -49,12 +49,12 @@ class GrupoClienteController extends Controller
     {
         $this->validate($request, [
             'add-grupocliente' => 'required|max:45',
-            'add-funcionario' => 'required|integer'
+            'add-user' => 'required|integer'
         ]);
 
         $grupoclientes =  new GrupoCliente;
         $grupoclientes->descricao = $request->input('add-grupocliente');
-        $grupoclientes->funcionario_id = $request->input('add-funcionario');
+        $grupoclientes->user_id = $request->input('add-user');
 
         $grupoclientes->save();
 
@@ -94,12 +94,12 @@ class GrupoClienteController extends Controller
     {
         $this->validate($request, [
             'up-grupocliente' =>'required|max:45',
-            'up-funcionario' => 'required|integer'
+            'up-user' => 'required|integer'
         ]);
 
         $grupoclientes =  GrupoCliente::find($id);
         $grupoclientes->descricao = $request->input('up-grupocliente');
-        $grupoclientes->funcionario_id = $request->input('up-funcionario');
+        $grupoclientes->user_id = $request->input('up-user');
 
         $grupoclientes->save();
 

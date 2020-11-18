@@ -42,7 +42,7 @@ class FuncionarioController extends Controller
         $pfs = $this->pf::all();
         $emails = $this->email::all();
         $municipios = $this->municipio::all()->sortBy('nome');
-        return view('funcionario.content_funcionario')->with('funcionarios', $funcionarios)->with('cargoa', $cargos)
+        return view('funcionario.content_funcionario')->with('funcionarios', $funcionarios)->with('cargos', $cargos)
             ->with('pessoas', $pessoas)->with('pfs', $pfs)->with('email', $emails)->with('municipios', $municipios);
     }
 

@@ -33,8 +33,6 @@
                                 <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
                                 <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
-                                <th style="display: none;">pf_fk</th>
-                                <th style="display: none;">pj_fk</th>
                                 <th style="display: none;">vpolitica_fk</th>
                                 <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Nasc/Fund</th>
                                 <th style="display: none;">data</th>
@@ -47,41 +45,28 @@
                             @foreach ($clientes as $cliente)
                                 @php
                                     $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-
-                                    if ($pfisica != null) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                        //dd($pessoa);
-                                    } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
                                     $municipio = $pessoa->find($pessoa->id)->municipio;
                                     $microrregiao = $municipio->find($municipio->id)->microrregiao;
-                                    $estado = $microrregiao->find($microrregiao->id)->estado;                                
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $cliente->id }}</th>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->nome }}</td>
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
                                     <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left">{{ $pfisica->cpf ?? $pjuridica->cnpj }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $pfisica->id ?? '' }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $pjuridica->id ?? '' }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->cpf ?? $cliente->cnpj }}</td>
                                     <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($pfisica->dataNascimento ?? $pjuridica->dataFundacao)) }}</td>
-                                    <td style="display: none;">{{ $pfisica->dataNascimento ?? $pjuridica->dataFundacao }}</td>
-                                    <td class="align-middle border-left">{{ $pfisica->sexo ?? '' }}</td>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($cliente->dataNascimento)) }}</td>
+                                    <td style="display: none;">{{ $cliente->dataNascimento}}</td>
+                                    <td class="align-middle border-left">{{ $cliente->sexo ?? '' }}</td>
                                     <th class="align-middle border-left">{{ $cliente->observacao }}</th>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view disabled"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
-                                        onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nickname }} - {{ $cliente->email }}', '{{ strtolower(class_basename($cliente)) }}');" title="Excluir"><i
+                                        onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nome }} - {{ $cliente->email }}', '{{ strtolower(class_basename($cliente)) }}');" title="Excluir"><i
                                             class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -94,8 +79,6 @@
                                 <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
                                 <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
-                                <th style="display: none;">pf_fk</th>
-                                <th style="display: none;">pj_fk</th>
                                 <th style="display: none;">vpolitica_fk</th>
                                 <th class="th-sm border-bottom border-left">Nasc/Fund</th>
                                 <th style="display: none;">data</th>
@@ -264,7 +247,7 @@
 
 @section('script_pages')
     <script type="text/javascript">
- 
+
 
     </script>
 

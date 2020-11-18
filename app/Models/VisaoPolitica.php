@@ -11,6 +11,6 @@ class VisaoPolitica extends Model
 
     // Relação 1 para muitos com clientes
     public function cliente() {
-        return $this->hasMany(Address::class, 'visaoPolitica_id');
+        return $this->hasMany(cliente::class, 'visaoPolitica_id');
     }
 }

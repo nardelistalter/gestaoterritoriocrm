@@ -33,29 +33,20 @@
                                 <th class="th-sm border-bottom border-left">E-mail</th>
                                 <th class="th-sm border-bottom border-left">Ativo</th>
                                 <th class="th-sm border-bottom border-left">Admin</th>
-                                <th class="th-sm border-bottom border-left">Funcionário</th>
-                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Foto</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                                @php
-                                $funcionario = $user->find($user->id)->funcionario;
-                                $pfisica = $funcionario->find($funcionario->id)->pfisica;
-                                $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $user->id }}</th>
-                                    <td class="align-middle border-left">{{ $user->nickname }}</td>
+                                    <td class="align-middle border-left">{{ $user->nome }}</td>
                                     <td class="align-middle border-left">{{ $user->email }}</td>
                                     <td class="align-middle border-left">{{ $user->status == 1 ? 'Sim' : 'Não' }}</td>
                                     <td class="align-middle border-left">
                                         {{ $user->perfilAdministrador == 1 ? 'Sim' : 'Não' }}
                                     </td>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $funcionario->id }}</td>
                                     <td class="align-middle border-left"><img class="img-fluid rounded-circle" width="30px"
                                             height="auto"
                                             src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}"></td>
@@ -67,7 +58,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete disabled" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
-                                        onclick="return confirmDeletion({{ $user->id }}, '{{ $user->nickname }} - {{ $user->email }}', '{{ strtolower(class_basename($user)) }}');" title="Excluir"><i
+                                        onclick="return confirmDeletion({{ $user->id }}, '{{ $user->nome }} - {{ $user->email }}', '{{ strtolower(class_basename($user)) }}');" title="Excluir"><i
                                             class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -80,8 +71,6 @@
                                 <th class="th-sm border-bottom border-left">E-mail</th>
                                 <th class="th-sm border-bottom border-left">Ativo</th>
                                 <th class="th-sm border-bottom border-left">Admin</th>
-                                <th class="th-sm border-bottom border-left">Funcionário</th>
-                                <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Foto</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
@@ -245,75 +234,9 @@
 @endsection
 
 @section('script_pages')
-    <script type="text/javascript">
+   <script type="text/javascript">
         // User
-        $(document).ready(function() {
-            /*
-                        //Start Edit Record
-                        table.on('click', '.edit', function() {
-                            $tr = $(this).closest('tr');
-                            if ($($tr).hasClass('child')) {
-                                $tr = $tr.prev('.parent');
-                            }
 
-                            var data = table.row($tr).data();
-                            console.log(data);
-
-                            $('#select-user').html('<label class="mb-0" for="up-funcionario">Funcionário</label>' +
-                                '<select class="form-control selectpicker" data-live-search="true" name="up-funcionario">' +
-                                '   <option value="">Selecione...</option>' +
-                                '   @foreach ($funcionarios as $funcionario)' +
-                                '       <option value={{ $funcionario->id }}>{{ $funcionario->nome }} - {{ $funcionario->sigla }}</option>' +
-                                '   @endforeach' +
-                                '</select>');
-
-                            $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected', 'selected');
-
-                            $('#editForm').attr('action', '/user/' + data[0]);
-                            $('#up-user').val(data[1]);
-                            $('#up-funcionario').val(data[2]);
-                            $('#editModal').modal('show');
-                        });
-                        //End Edit Record
-
-                        //Start View
-                        table.on('click', '.view', function() {
-                            $tr = $(this).closest('tr');
-                            if ($($tr).hasClass('child')) {
-                                $tr = $tr.prev('.parent');
-                            }
-
-                            var data = table.row($tr).data();
-                            console.log(data);
-
-                            $('#v-id').val(data[0]);
-                            $('#v-user').val(data[1]);
-                            $('#v-funcionario').val(data[2]);
-
-                            $('#viewForm').attr('action');
-                            $('#viewModal').modal('show');
-                        });
-                        //End View
-
-                        //Start Delete Record
-                        table.on('click', '.delete', function() {
-                            $tr = $(this).closest('tr');
-                            if ($($tr).hasClass('child')) {
-                                $tr = $tr.prev('.parent');
-                            }
-
-                            var data = table.row($tr).data();
-                            console.log(data);
-
-                            //$('#id').val(data[0]);
-
-                            $('#deleteForm').attr('action', '/user/' + data[0]);
-                            $('#delete-modal-body').html(
-                                '<input type="hidden" name="_method" value="DELETE">' +
-                                '<p>Deseja excluir "<strong>' + data[1] + '</strong>"?</p>');
-                            $('#deleteModal').modal('show');
-                        });
-                        //End Delete Record*/
         });
 
     </script>

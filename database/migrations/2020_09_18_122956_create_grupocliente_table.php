@@ -16,10 +16,10 @@ class CreateGrupoclienteTable extends Migration
         Schema::create('grupo_clientes', function (Blueprint $table) {
             $table->id();
             $table->string('descricao', 45)->nullable(false);
-            $table->unsignedBigInteger('funcionario_id')->nullable(false);
+            $table->unsignedBigInteger('user_id')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('funcionario_id')->references('id')->on('funcionarios')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

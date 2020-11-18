@@ -14,9 +14,14 @@ class Municipio extends Model
         'microrregiao_id'
     ];
 
-    // Relação 1 para muitos com pessoas
-    public function pessoa() {
-        return $this->hasMany(Pessoa::class, 'municipio_id');
+    // Relação 1 para muitos com clientes
+    public function cliente() {
+        return $this->hasMany(Cliente::class, 'municipio_id');
+    }
+
+    // Relação 1 para muitos com users
+    public function user() {
+        return $this->hasMany(User::class, 'municipio_id');
     }
 
     // Relação 1 para muitos com unidades de area

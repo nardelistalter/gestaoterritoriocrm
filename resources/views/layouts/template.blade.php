@@ -94,10 +94,8 @@
                                 class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
                         <a class="collapse-item" href={{ route('grupocliente.index') }}><i
                                 class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
-                        <a class="collapse-item" href={{ route('funcionario.index') }}><i
-                                class="fas fa-id-card mr-1"></i>{{ __('Funcionários') }}</a>
                         <a class="collapse-item" href={{ route('usuario.index') }}><i
-                                class="fas fa-id-badge mr-1"></i>{{ __('Usuários') }}</a>
+                                class="fas fa-id-badge mr-1"></i>{{ __('Funcionários/Usuários') }}</a>
                     </div>
                 </div>
             </li>
@@ -254,8 +252,7 @@
                     </button>
 
                     <div>
-                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">{{ __('Gestão de
-                            Território e Metas') }}</h1>
+                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">{{ __('Gestão de Território e Metas') }}</h1>
 
                     </div>
 
@@ -266,10 +263,13 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ Auth::user()->nickname }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ Auth::user()->nome }}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                                src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
                             </a>
+
+                             {{-- {{ Auth::user()->nome }} --}}
+                            {{-- src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }} --}}
 
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

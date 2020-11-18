@@ -39,15 +39,13 @@
                         <tbody>
                             @foreach ($grupoclientes as $grupocliente)
                                 @php
-                                $funcionario = $grupocliente->find($grupocliente->id)->funcionario;
-                                $pfisica = $funcionario->find($funcionario->id)->pfisica;
-                                $pessoa = $pfisica->find($pfisica->id)->pessoa;
+                                $user = $grupocliente->find($grupocliente->id)->user;
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $grupocliente->id }}</th>
                                     <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }}</td>
-                                    <td style="display: none;">{{ $funcionario->id }}</td>
+                                    <td class="align-middle border-left">{{ $user->nome }}</td>
+                                    <td style="display: none;">{{ $user->id }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -99,15 +97,11 @@
                             <input type="text" class="form-control" name="add-grupocliente" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-funcionario">Funcionário</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-funcionario" required>
+                            <label class="mb-0" for="add-user">Funcionário</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-user" required>
                                 <option value="">Selecione...</option>
-                                @foreach ($funcionarios as $funcionario)
-                                    @php
-                                    $pfisica = $funcionario->find($funcionario->id)->pfisica;
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    @endphp
-                                    <option value={{ $funcionario->id }}> {{ $pessoa->nome }}</option>
+                                @foreach ($users as $user)
+                                    <option value={{ $user->id }}> {{ $user->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -144,15 +138,11 @@
                             <label class="mb-0" for="up-grupocliente">Grupo de Clientes</label>
                             <input type="text" class="form-control" id="up-grupocliente" name="up-grupocliente" required>
                         </div>
-                        <div id="select-funcionario" class="form-group col-xs-2">
-                            <label class="mb-0" for="up-funcionario">Funcionário</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="up-funcionario" required>
-                                @foreach ($funcionarios as $funcionario)
-                                    @php
-                                    $pfisica = $funcionario->find($funcionario->id)->pfisica;
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    @endphp
-                                    <option value={{ $funcionario->id }}> {{ $pessoa->nome }}</option>
+                        <div id="select-user" class="form-group col-xs-2">
+                            <label class="mb-0" for="up-user">Funcionário</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-user" required>
+                                @foreach ($users as $user)
+                                    <option value={{ $user->id }}> {{ $user->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -191,8 +181,8 @@
                             <input type="text" class="form-control" id="v-grupocliente" name="v-grupocliente" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-funcionario">Funcionário</label>
-                            <input type="text" class="form-control" id="v-funcionario" name="v-funcionario" readonly>
+                            <label class="mb-0" for="v-user">Funcionário</label>
+                            <input type="text" class="form-control" id="v-user" name="v-user" readonly>
                         </div>
                 </div>
                 </form>
@@ -258,13 +248,13 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $("select[name='up-funcionario'] option[value='" + data[3] + "']").attr('selected',
+                $("select[name='up-user'] option[value='" + data[3] + "']").attr('selected',
                     'selected');
-                $("select[name='up-funcionario'] option[value='" + data[3] + "']").text(data[2]);
+                $("select[name='up-user'] option[value='" + data[3] + "']").text(data[2]);
 
                 $('#editForm').attr('action', '/grupocliente/' + data[0]);
                 $('#up-grupocliente').val(data[1]);
-                $('#up-funcionario').val(data[2]);
+                $('#up-user').val(data[2]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -281,7 +271,7 @@
 
                 $('#v-id').val(data[0]);
                 $('#v-grupocliente').val(data[1]);
-                $('#v-funcionario').val(data[2]);
+                $('#v-user').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

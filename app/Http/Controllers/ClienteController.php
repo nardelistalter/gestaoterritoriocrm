@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\VisaoPolitica;
-use App\Models\Pessoa;
-use App\Models\PFisica;
-use App\Models\PJuridica;
-use App\Models\Email;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
 
@@ -15,20 +11,12 @@ class ClienteController extends Controller
 {
     private $cliente;
     private $visaopolitica;
-    private $pessoa;
-    private $pj;
-    private $pf;
-    private $email;
     private $municipio;
 
     public function __construct()
     {
         $this->cliente = new Cliente();
         $this->visaopolitica = new VisaoPolitica();
-        $this->pessoa = new Pessoa();
-        $this->pj = new PJuridica();
-        $this->pf = new PFisica();
-        $this->email = new Email();
         $this->municipio = new Municipio();
     }
 
@@ -41,13 +29,8 @@ class ClienteController extends Controller
     {
         $clientes = $this->cliente::all()->sortBy('nome');
         $visaopoliticas =  $this->visaopolitica::all();
-        $pessoas =  $this->pessoa::all();
-        $pjs = $this->pj::all();
-        $pfs = $this->pf::all();
-        $emails = $this->email::all();
         $municipios = $this->municipio::all()->sortBy('nome');
-        return view('cliente.content_cliente')->with('clientes', $clientes)->with('visaopoliticas', $visaopoliticas)->with('pessoas', $pessoas)
-            ->with('pjs', $pjs)->with('pfs', $pfs)->with('email', $emails)->with('municipios', $municipios);
+        return view('cliente.content_cliente')->with('clientes', $clientes)->with('visaopoliticas', $visaopoliticas)->with('municipios', $municipios);
     }
 
     /**
@@ -141,7 +124,7 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        /*try {
+        try {
             $clientes =  Cliente::find($id);
             $clientes->delete();
             //return redirect('cliente')->with('success', 'Cliente excluído com sucesso!');
@@ -150,6 +133,6 @@ class ClienteController extends Controller
 			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
 		} catch (\PDOException $e) {
 			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
-		}*/
+		}
     }
 }

@@ -14,7 +14,7 @@ class Cargo extends Model
     ];
 
     // Relação (1 para MUITOS)
-    public function funcionario() {
-        return $this->hasMany(Funcionario::class, 'cargo_id');
+    public function user() {
+        return $this->hasMany(User::class, 'cargo_id');
     }
 }

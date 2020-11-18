@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Funcionario;
 use App\Models\User;
+use App\Models\Cargo;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\Facades\Image;
-//use Faker\Provider\Image;
-
 
 class UserController extends Controller
 {
-    private  $user;
-    private  $funcionario;
+    private $user;
+    private $cargo;
+    private $municipio;
 
     public function __construct()
     {
         $this->user = new User();
-        $this->funcionario = new Funcionario();
+        $this->cargo = new Cargo();
+        $this->municipio = new Municipio();
     }
 
     /**
@@ -29,8 +30,9 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user::all()->sortBy('nome');
-        $funcionarios = $this->funcionario::all()->sortBy('nome');
-        return view('user.content_user')->with('users', $users)->with('funcionarios', $funcionarios);
+        $cargos =  $this->cargo::all();
+        $municipios = $this->municipio::all()->sortBy('nome');
+        return view('user.content_user')->with('users', $users)->with('cargos', $cargos)->with('municipios', $municipios);
     }
 
     /**
@@ -61,11 +63,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'add-nickname' => 'required',
+        /*$this->validate($request, [
+            'add-nome' => 'required|max:60',
+            'add-logradouro' => 'required|max:120',
+            'add-numero' => 'required|max:10',
+            'add-complemento' => 'max:45',
+            'add-bairro' => 'required|max:45',
+            'add-telefone1' => 'required|max:15',
+            'add-telefone2' => 'max:15',
+            'add-cpf' => '',
+            'add-dataNascimento' => '',
+            'add-sexo' => '',
+            'add-email' => 'required',
             'add-password' => 'required',
-            'add-funcionario_id' => 'required',
-            'add-email' => 'required'
+            'add-status' => '',
+            'add-perfilAdministrador' => '',
+            'add-ultimoAcesso' => '',
+            'add-dataAdmissao' => '',
+            'add-dataDemissao' => '',
+            'add-municipio' => 'required|min:1',
+            'add-gerente' => 'required|min:1',
+            'add-cargo' => 'required|min:1',
         ]);
 
         $file = $request->input('add-image');
@@ -73,17 +91,20 @@ class UserController extends Controller
         Response::make($img->encode('jpeg'));
 
         $users =  new User;
-        $users->nickname = $request->input('add-user');
+
+        // .......
+        $users->name = $request->input('add-user');
         $users->email = $request->input('add-email');
         $users->password = $request->input('add-password');
         $users->image = $img;
         $users->status = $request->input('add-user');
         $users->perfilAdministrador = $request->input('add-user');
         $users->funcionario_id = $request->input('add-funcionario');
+        //.........
 
         $users->save();
 
-        return redirect('user')->with('success', 'Usuário salvo com sucesso!');
+        return redirect('user')->with('success', 'Usuário salvo com sucesso!');*/
     }
 
     /**
@@ -117,7 +138,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        /*$this->validate($request, [
             'up-nickname' => 'required',
             'up-password' => 'required',
             'up-funcionario_id' => 'required',
@@ -130,7 +151,7 @@ class UserController extends Controller
 
         $users->save();
 
-        return redirect('user')->with('success', 'Usuário alterado com sucesso!');
+        return redirect('user')->with('success', 'Usuário alterado com sucesso!');*/
     }
 
     /**

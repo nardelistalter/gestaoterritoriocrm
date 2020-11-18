@@ -11,7 +11,7 @@ class GrupoCliente extends Model
 
     protected $fillable = [
         'descricao',
-        'funcionario_id'
+        'user_id'
     ];
 
     // Relação 1 para muitos com meta
@@ -30,7 +30,7 @@ class GrupoCliente extends Model
     }
 
     // Relação (MUITOS para 1)
-    public function funcionario() {
-        return $this->belongsTo(Funcionario::class, 'funcionario_id', 'id');
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
