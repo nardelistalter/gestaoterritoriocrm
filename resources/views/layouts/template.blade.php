@@ -66,7 +66,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item collapsed">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href={{ URL::to('/') }}>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{ __('Painel de Controle') }}</span></a>
             </li>
@@ -90,7 +90,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">{{ __('Manutenção de Pessoas:') }}</h6>
-                        <a class="collapse-item" href={{ route('cliente.index') }}><i 
+                        <a class="collapse-item" href={{ route('cliente.index') }}><i
                                 class="fas fa-user-tie mr-1"></i>{{ __('Clientes') }}</a>
                         <a class="collapse-item" href={{ route('grupocliente.index') }}><i
                                 class="fas fa-users mr-1"></i>{{ __('Grupos de Clientes') }}</a>
@@ -219,7 +219,7 @@
                 </div>
             </li>
 
-            {{-- 
+            {{--
             <!-- Nav Item - Charts -->
             {{--
             <li class="nav-item">

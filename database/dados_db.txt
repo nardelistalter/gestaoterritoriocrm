@@ -729,7 +729,6 @@ App\Models\ProgramaDeNegocio::create(['valorUnitario' => 12.8, 'grupoProduto_id'
 App\Models\ProgramaDeNegocio::create(['valorUnitario' => 25.6, 'grupoProduto_id' => 14, 'safra_id' => 2, 'segmentoCultura_id' => 5, 'mesLimite' => 5]);
 
 App\Models\Cargo::create(['descricao' => 'CONSULTOR']);
-App\Models\Cargo::create(['descricao' => 'DIRETOR']);
 App\Models\Cargo::create(['descricao' => 'GERENTE']);
 
 App\Models\VisaoPolitica::create(['descricao' => 'EXTREMA DIREITA']);
@@ -796,7 +795,7 @@ App\Models\PJuridica::create(['id' => 24, 'cnpj' => '23.417.022/0001-57', 'pesso
 App\Models\PJuridica::create(['id' => 25, 'cnpj' => '16.941.823/0001-51', 'dataFundacao' => '1985-07-08', 'pessoa_id' => 25]);
 
 App\Models\Funcionario::create(['id' => 1, 'pf_id' => 1, 'dataAdmissao' => '1901-01-01', 'cargo_id' => 2]);
-App\Models\Funcionario::create(['id' => 21, 'pf_id' => 21, 'dataAdmissao' => '2002-06-15', 'cargo_id' => 3]);
+App\Models\Funcionario::create(['id' => 21, 'pf_id' => 21, 'dataAdmissao' => '2002-06-15', 'cargo_id' => 2]);
 App\Models\Funcionario::create(['id' => 4, 'pf_id' => 4, 'dataAdmissao' => '2016-05-01', 'cargo_id' => 1, 'gerente_id' => 21]);
 App\Models\Funcionario::create(['id' => 9, 'pf_id' => 9, 'dataAdmissao' => '2012-07-01', 'cargo_id' => 1, 'gerente_id' => 21]);
 App\Models\Funcionario::create(['id' => 15, 'pf_id' => 15, 'dataAdmissao' => '2018-11-01', 'cargo_id' => 1, 'gerente_id' => 21]);
