@@ -36,7 +36,6 @@
                                 <th class="th-sm border-bottom border-left">Município/UF</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Cliente</th>
-                                <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
@@ -46,13 +45,6 @@
                             @foreach ($inscricaoestaduals as $inscricaoestadual)
                                 @php
                                 $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
-                                $pfisica = $cliente->find($cliente->id)->pfisica;
-                                $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                if ($pfisica != null) {
-                                $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                } else {
-                                $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                }
                                 $grupocliente = $inscricaoestadual->find($inscricaoestadual->id)->grupocliente;
                                 $municipio = $inscricaoestadual->find($inscricaoestadual->id)->municipio;
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
@@ -64,8 +56,7 @@
                                     <td class="align-middle border-left">{{ $inscricaoestadual->localidade }}</td>
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
                                     <td style="display: none;">{{ $municipio->id }}</td>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }}</td>
-                                    <td style="display: none;">{{ $cliente->id }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->nome }}</td>
                                     <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
                                     <td style="display: none;">{{ $grupocliente->id }}</td>
                                     <td class="align-middle th-sm border-left border-right">
@@ -76,7 +67,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $inscricaoestadual->id }}, '{{ $inscricaoestadual->numero }}, {{ $inscricaoestadual->localidade }}, {{ $municipio->nome }}/{{ $estado->sigla }} ({{ $pessoa->nome }})', '{{ strtolower(class_basename($inscricaoestadual)) }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $inscricaoestadual->id }}, '{{ $inscricaoestadual->numero }}, {{ $inscricaoestadual->localidade }}, {{ $municipio->nome }}/{{ $estado->sigla }} ({{ $cliente->nome }})', '{{ strtolower(class_basename($inscricaoestadual)) }}');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -90,7 +81,6 @@
                                 <th class="th-sm border-bottom border-left">Município/UF</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Cliente</th>
-                                <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
@@ -133,16 +123,7 @@
                                 name="add-cliente" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($clientes as $cliente)
-                                    @php
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                    if ($pfisica != null) {
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    } else {
-                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
-                                    @endphp
-                                    <option value={{ $cliente->id }}> {{ $pessoa->nome }} </option>
+                                    <option value={{ $cliente->id }}> {{ $cliente->nome }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-clienteError"></span>
@@ -226,16 +207,7 @@
                             <select class="form-control selectpicker" data-live-search="true" id="up-cliente"
                                 name="up-cliente" required>
                                 @foreach ($clientes as $cliente)
-                                    @php
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                    if ($pfisica != null) {
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    } else {
-                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
-                                    @endphp
-                                    <option value={{ $cliente->id }}> {{ $pessoa->nome }} </option>
+                                    <option value={{ $cliente->id }}> {{ $cliente->nome }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="up-clienteError"></span>
@@ -378,7 +350,7 @@
                     '       <option value={{ $grupocliente->id }}>{{ $grupocliente->descricao }}</option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-grupocliente'] option[value='" + data[8] + "']").attr('selected',
+                $("select[name='up-grupocliente'] option[value='" + data[7] + "']").attr('selected',
                     'selected');
 
                 $('#select-municipio').html('<label class="mb-0" for="up-municipio">Município/UF</label>' +
@@ -413,7 +385,7 @@
                 $('#v-localidade').val(data[2]);
                 $('#v-municipio').val(data[3]);
                 $('#v-cliente').val(data[5]);
-                $('#v-grupocliente').val(data[7]);
+                $('#v-grupocliente').val(data[6]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
