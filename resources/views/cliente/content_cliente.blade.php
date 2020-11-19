@@ -45,7 +45,7 @@
                             @foreach ($clientes as $cliente)
                                 @php
                                     $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
-                                    $municipio = $pessoa->find($pessoa->id)->municipio;
+                                    $municipio = $cliente->find($cliente->id)->municipio;
                                     $microrregiao = $municipio->find($municipio->id)->microrregiao;
                                     $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
