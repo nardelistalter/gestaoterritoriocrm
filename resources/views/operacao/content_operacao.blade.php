@@ -51,20 +51,13 @@
                                 $produto = $operacao->find($operacao->id)->produto;
                                 $inscricaoestadual = $operacao->find($operacao->id)->inscricaoestadual;
                                 $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
-                                $pfisica = $cliente->find($cliente->id)->pfisica;
-                                $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                if ($pfisica) {
-                                    $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                } else {
-                                    $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                }
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $operacao->id }}</th>
                                     <td class="align-middle border-left">{{ date("d/m/Y", strtotime($operacao->data)) }}</td>
                                     <td style="display: none;">{{ $operacao->data }}</td>
                                     <td class="align-middle border-left">{{ $operacao->numeroDocumento }}</td>
-                                    <td class="align-middle border-left">{{ $pessoa->nome }} - {{ $inscricaoestadual->numero }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->nome }} - {{ $inscricaoestadual->numero }}</td>
                                     <td style="display: none;">{{ $inscricaoestadual->id }}</td>
                                     <td class="align-middle border-left">{{ $produto->descricao }}</td>
                                     <td style="display: none;">{{ $produto->id }}</td>
@@ -80,7 +73,7 @@
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
                                                 title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }}', '{{ strtolower(class_basename($operacao)) }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $cliente->nome }} - {{ $inscricaoestadual->numero }}', '{{ strtolower(class_basename($operacao)) }}');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -146,15 +139,8 @@
                                 @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
                                     $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                    if ($pfisica) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
                                     @endphp
-                                    <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} - {{ $inscricaoestadual->numero }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-inscricaoestadualError"></span>
@@ -233,15 +219,8 @@
                                 @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
                                     $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
-                                    $pfisica = $cliente->find($cliente->id)->pfisica;
-                                    $pjuridica = $cliente->find($cliente->id)->pjuridica;
-                                    if ($pfisica) {
-                                        $pessoa = $pfisica->find($pfisica->id)->pessoa;
-                                    } else {
-                                        $pessoa = $pjuridica->find($pjuridica->id)->pessoa;
-                                    }
                                     @endphp
-                                    <option value={{ $inscricaoestadual->id }}> {{ $pessoa->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} - {{ $inscricaoestadual->numero }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="up-inscricaoestadualError"></span>

@@ -15,7 +15,6 @@ class CreateClienteTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-
             $table->string('nome', 60)->nullable(false);
             $table->string('logradouro', 60)->nullable(false);
             $table->string('numero', 10)->nullable(false);
@@ -25,7 +24,7 @@ class CreateClienteTable extends Migration
             $table->string('telefone2', 15)->nullable(true);
             $table->string('cpf', 14)->nullable(true)->unique();
             $table->string('cnpj', 18)->nullable(true)->unique();
-            $table->string('email')->unique();
+            $table->string('email')->nullable(true);
             $table->dateTime('dataNascimento')->nullable(true);
             $table->string('sexo', 15)->nullable(true)->default('NÃO INFORMADO');
             $table->string('observacao', 255)->nullable(true);

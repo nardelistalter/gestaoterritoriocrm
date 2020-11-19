@@ -20,7 +20,7 @@ class CreateOperacaoTable extends Migration
             $table->decimal('qtdUnidadesProduto', 10, 2)->nullable(false);
             $table->decimal('valorUnitario', 10, 2)->nullable(false)->default(0);
             $table->unsignedBigInteger('produto_id')->nullable(false);
-            $table->unsignedBigInteger('inscricaoEstadual_id')->nullable(false);
+            $table->unsignedBigInteger('inscricaoEstadual_id')->nullable(false)->unsigned();
             $table->timestamps();
 
             $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('restrict');
