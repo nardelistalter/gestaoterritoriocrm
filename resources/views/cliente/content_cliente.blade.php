@@ -115,35 +115,42 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-cliente">Nome*</label>
                             <input type="text" class="form-control" name="add-cliente" maxlength="60" required>
+                            <span class="text-danger" id="add-clienteError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-logradouro">Logradouro*</label>
                             <input type="text" class="form-control" name="add-logradouro" maxlength="120" required>
+                            <span class="text-danger" id="add-logradouroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-numero">Número*</label>
                             <input type="text" class="form-control" name="add-numero" style="width: 130px;" maxlength="10"
                                 required>
+                            <span class="text-danger" id="add-numeroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-complemento">Complemento</label>
                             <input type="text" class="form-control" name="add-complemento"
                                 style="text-align: right; width: 350px;" maxlength="45">
+                            <span class="text-danger" id="add-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-bairro">Bairro*</label>
                             <input type="text" class="form-control" name="add-bairro"
                                 style="text-align: right; width: 350px;" maxlength="45" required>
+                            <span class="text-danger" id="add-bairroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
                             <input type="text" class="form-control" name="add-telefone1"
                                 style="text-align: right; width: 155px;" maxlength="15" required>
+                            <span class="text-danger" id="add-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone2">Telefone 2</label>
                             <input type="text" class="form-control" name="add-telefone2"
                                 style="text-align: right; width: 155px;" maxlength="15">
+                            <span class="text-danger" id="add-telefone2Error"></span>
                         </div>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary active">
@@ -153,30 +160,72 @@
                                 <input type="radio" name="cpf_cnpj" id="cnpj" autocomplete="off"> CNPJ
                             </label>
                         </div>
+                        <br><br>
                         <div class="form-group">
                             <label class="mb-0" for="add-cpf">CPF*</label>
                             <input type="text" class="form-control" name="add-cpf" style="text-align: right; width: 155px;"
                                 maxlength="14">
+                            <span class="text-danger" id="add-cpfError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-cnpj">CNPJ*</label>
                             <input type="text" class="form-control" name="add-cnpj" style="text-align: right; width: 185px;"
                                 maxlength="18">
+                            <span class="text-danger" id="add-cnpjError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-email">E-mail*</label>
                             <input type="email" class="form-control" name="add-email" required>
+                            <span class="text-danger" id="add-emailError"></span>
                         </div>
-                        {{-- <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-user">Funcionário</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-user">
+                        <div class="form-group">
+                            <label class="mb-0" for="add-datanascimento">Data Nascimento/Fundação</label>
+                            <input type="date" class="form-control" id="add-datanascimento" name="add-datanascimento"
+                                style="width: 170px;">
+                            <span class="text-danger" id="add-datanascimentoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="add-sexo">Sexo</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-sexo"
+                                style="width: 200px;" required>
                                 <option value="">Selecione...</option>
-                                @foreach ($users as $user)
-                                    <option value={{ $user->id }}> {{ $user->nome }} </option>
+                                <option value="FEMININO">FEMININO</option>
+                                <option value="MASCULINO">MASCULINO</option>
+                            </select>
+                            <span class="text-danger" id="add-sexoError"></span>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="add-municipio">Município*</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio" required>
+                                <option value="">Selecione...</option>
+                                @foreach ($municipios as $municipio)
+                                    @php
+                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
+                                    </option>
                                 @endforeach
                             </select>
-
-                        </div> --}}
+                            <span class="text-danger" id="add-municipioError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="add-visaopolitica">Visão Política</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-visaopolitica">
+                                <option value="">Selecione...</option>
+                                @foreach ($visaopoliticas as $visaopolitica)
+                                    <option value={{ $visaopolitica->id }}> {{ $visaopolitica->descricao }} </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="add-visaopoliticaError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-observacao">Observação</label>
+                            <textarea type="text" class="form-control" id="up-observacao" name="up-observacao"
+                                maxlength="255"></textarea>
+                            <span class="text-danger" id="add-observacaoError"></span>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer bg-light">
