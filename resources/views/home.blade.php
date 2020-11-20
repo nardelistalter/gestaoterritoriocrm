@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">Painel</h1>
+            <h1 id="page-title" class="h3 mb-0 text-gray-800 font-weight-bold">Painel de Controle</h1>
         </div>
 
         <!-- Content Row -->
@@ -138,6 +138,7 @@
                                 <thead class="thead-dark">
                                     <tr class="text-justify border">
                                         <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
+                                        <th class="th-sm border-bottom border-left">Potencial de Acesso</th>
                                         <th class="th-sm border-bottom border-left">Meta</th>
                                         <th class="th-sm border-bottom border-left border-right">Vendas</th>
                                     </tr>
@@ -146,47 +147,68 @@
                                     <tr>
                                         <th class="align-middle border-left">Grupo XXXXXXXX</th>
                                         <td class="align-middle border-left">R$ 169.000,00</td>
+                                        <td class="align-middle border-left">R$ 160.000,00</td>
                                         <td class="align-middle border-left border-right">R$ 152.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo YYYYYYYY</th>
+                                        <td class="align-middle border-left">R$ 139.000,00</td>
                                         <td class="align-middle border-left">R$ 82.000,00</td>
                                         <td class="align-middle border-left border-right">R$ 10.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
+                                        <td class="align-middle border-left">R$ 142.000,00</td>
+                                        <td class="align-middle border-left">R$ 79.000,00</td>
                                         <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left">R$ 160.000,00</td>
+                                        <td class="align-middle border-left">R$ 77.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 6.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
+                                        <td class="align-middle border-left">R$ 109.000,00</td>
                                         <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 47.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left">R$ 129.000,00</td>
+                                        <td class="align-middle border-left">R$ 63.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 22.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left">R$ 170.000,00</td>
+                                        <td class="align-middle border-left">R$ 59.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 7.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left">R$ 48.000,00</td>
+                                        <td class="align-middle border-left">R$ 45.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
+                                        <td class="align-middle border-left">R$ 48.000,00</td>
+                                        <td class="align-middle border-left">R$ 45.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
+                                        <td class="align-middle border-left">R$ 48.000,00</td>
+                                        <td class="align-middle border-left">R$ 45.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
                                     </tr>
                                 </tbody>
                                 <tfoot class="bg-light">
                                     <tr>
                                         <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
+                                        <th class="th-sm border-bottom border-left">Potencial de Acesso</th>
                                         <th class="th-sm border-bottom border-left">Meta</th>
                                         <th class="th-sm border-bottom border-left border-right">Vendas</th>
                                     </tr>
@@ -213,6 +235,8 @@
                                 <thead class="thead-dark">
                                     <tr class="text-justify border">
                                         <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
+                                        <th class="th-sm border-bottom border-left border-right">Pot. Acesso</th>
+                                        <th class="th-sm border-bottom border-left border-right">Meta</th>
                                         <th class="th-sm border-bottom border-left border-right">Vendas</th>
                                     </tr>
                                 </thead>
@@ -220,27 +244,69 @@
                                     <tr>
                                         <th class="align-middle border-left">FERTILIZANTE</th>
                                         <td class="align-middle border-left border-right">R$ 152.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">HERBICIDA</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                         <td class="align-middle border-left border-right">R$ 10.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">ADJUVANTE</th>
                                         <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">INSETICIDA</th>
                                         <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                     </tr>
                                     <tr>
                                         <th class="align-middle border-left">SEMENTE</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">FERTILIZANTE</th>
+                                        <td class="align-middle border-left border-right">R$ 152.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">HERBICIDA</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 10.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">ADJUVANTE</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">INSETICIDA</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-middle border-left">SEMENTE</th>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
+                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                         <td class="align-middle border-left border-right">R$ 67.000,00</td>
                                     </tr>
                                 </tbody>
                                 <tfoot class="bg-light">
                                     <tr>
                                         <th class="th-sm border-bottom border-left">Produtos</th>
+                                        <th class="th-sm border-bottom border-left border-right">Pot. Acesso</th>
+                                        <th class="th-sm border-bottom border-left border-right">Meta</th>
                                         <th class="th-sm border-bottom border-left border-right">Vendas</th>
                                     </tr>
                                 </tfoot>

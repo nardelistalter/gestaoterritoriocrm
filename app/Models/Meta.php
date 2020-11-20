@@ -12,9 +12,8 @@ class Meta extends Model
     protected $fillable = [
         'ano',
         'mes',
-        'participacaoDesejada',
-        'grupoProduto_id',
-        'safra_id',
+        'metaDesejada',
+        'programaDeNegocio_id',
         'grupoCliente_id'
     ];
 
@@ -23,13 +22,8 @@ class Meta extends Model
         return $this->belongsTo(GrupoCliente::class, 'grupoCliente_id', 'id');
     }
 
-    // Relação (MUITOS para 1)
-    public function safra() {
-        return $this->belongsTo(Safra::class, 'safra_id', 'id');
-    }
-
-    // Relação (MUITOS para 1)
-    public function grupoProduto() {
-        return $this->belongsTo(GrupoProduto::class, 'grupoProduto_id', 'id');
+    // Relação 1 para muitos com metas
+    public function programadenegocio() {
+        return $this->belongsTo(programaDeNegocio::class, 'programaDeNegocio_id', 'id');
     }
 }

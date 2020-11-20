@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meta;
 use App\Models\Safra;
 use App\Models\GrupoCliente;
-use App\Models\GrupoProduto;
+use App\Models\ProgramaDeNegocio;
 use Illuminate\Http\Request;
 
 class MetaController extends Controller
@@ -13,14 +13,14 @@ class MetaController extends Controller
     private  $meta;
     private  $safra;
     private  $grupocliente;
-    private  $grupoproduto;
+    private  $programadenegocio;
 
     public function __construct()
     {
         $this->meta = new Meta();
         $this->safra = new Safra();
         $this->grupocliente = new GrupoCliente();
-        $this->grupoproduto = new GrupoProduto();
+        $this->programadenegocio = new ProgramaDeNegocio();
     }
 
     /**
@@ -33,10 +33,10 @@ class MetaController extends Controller
         $metas = $this->meta::all();
         $safras = $this->safra::all()->sortBy('descricao');
         $grupoclientes = $this->grupocliente::all()->sortBy('descricao');
-        $grupoprodutos = $this->grupoproduto::all()->sortBy('descricao');
+        $programadenegocios = $this->programadenegocio::all();
         return view('meta.content_meta')
             ->with('metas', $metas)->with('safras', $safras)
-            ->with('grupoclientes', $grupoclientes)->with('grupoprodutos', $grupoprodutos);
+            ->with('grupoclientes', $grupoclientes)->with('programadenegocios', $programadenegocios);
     }
 
     /**
@@ -58,21 +58,19 @@ class MetaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-grupoproduto' => 'required|numeric|min:1',
+            'add-programadenegocio' => 'required|numeric|min:1',
             'add-grupocliente' => 'required|numeric|min:1',
-            'add-safra' => 'required|numeric|min:1',
-            'add-participacaodesejada' => 'required|numeric|min:1',
+            'add-metadesejada' => 'required|numeric|min:1',
             'add-mes' => 'required|numeric|min:1|max:12',
             'add-ano' => 'required|numeric|min:1901|max:2100'
         ]);
 
         $metas =  new Meta;
-        $metas->participacaoDesejada = $request->input('add-participacaodesejada');
+        $metas->metaDesejada = $request->input('add-metadesejada');
         $metas->mes = $request->input('add-mes');
         $metas->ano = $request->input('add-ano');
         $metas->grupocliente_id = $request->input('add-grupocliente');
-        $metas->safra_id = $request->input('add-safra');
-        $metas->grupoproduto_id = $request->input('add-grupoproduto');
+        $metas->programaDeNegocio_id = $request->input('add-programadenegocio');
 
         $metas->save();
 
@@ -100,9 +98,9 @@ class MetaController extends Controller
      */
     public function showUM(Request $request)
     {
-        $grupoproduto = grupoproduto::find($request->all())->first();
-        //dd($grupoproduto);
-        return ['unidadeMedida', $grupoproduto->unidadeMedida];
+        $programadenegocio = programadenegocio::find($request->all())->first();
+        //dd($programadenegocio);
+        return ['unidadeMedida', $programadenegocio->unidadeMedida];
     }
 
     /**
@@ -126,21 +124,19 @@ class MetaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-grupoproduto' => 'required|min:1',
+            'up-programadenegocio' => 'required|min:1',
             'up-grupocliente' => 'required|min:1',
-            'up-safra' => 'required|min:1',
-            'up-participacaodesejada' => 'required|numeric|min:1',
+            'up-metadesejada' => 'required|numeric|min:1',
             'up-mes' => 'required|numeric|min:1|max:12',
             'up-ano' => 'required|numeric|min:1901|max:2100'
         ]);
 
         $metas =  Meta::find($id);
-        $metas->participacaoDesejada = $request->input('up-participacaodesejada');
+        $metas->metaDesejada = $request->input('up-metadesejada');
         $metas->mes = $request->input('up-mes');
         $metas->ano = $request->input('up-ano');
         $metas->grupocliente_id = $request->input('up-grupocliente');
-        $metas->safra_id = $request->input('up-safra');
-        $metas->grupoproduto_id = $request->input('up-grupoproduto');
+        $metas->programaDeNegocio_id = $request->input('up-programadenegocio');
 
         $metas->save();
 

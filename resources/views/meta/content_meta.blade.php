@@ -33,11 +33,9 @@
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
+                                <th class="th-sm border-bottom border-left">Programa de Negócios</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Safra</th>
-                                <th style="display: none;">id_fk3</th>
-                                <th class="th-sm border-bottom border-left">Part. Desejada</th>
+                                <th class="th-sm border-bottom border-left">Meta Desejada</th>
                                 <th style="display: none;">partdesejada</th>
                                 <th class="th-sm border-bottom border-left">Ano</th>
                                 <th class="th-sm border-bottom border-left">Mês</th>
@@ -48,9 +46,11 @@
                         <tbody>
                             @foreach ($metas as $meta)
                                 @php
-                                $grupoproduto = $meta->find($meta->id)->grupoproduto;
                                 $grupocliente = $meta->find($meta->id)->grupocliente;
-                                $safra = $meta->find($meta->id)->safra;
+                                $programadenegocio = $meta->find($meta->id)->programadenegocio;
+                                $safra = $programadenegocio->find($programadenegocio->id)->safra;
+                                $grupoproduto = $programadenegocio->find($programadenegocio->id)->grupoproduto;
+                                $segmentocultura = $programadenegocio->find($programadenegocio->id)->segmentocultura;
                                 @endphp
 
                                 @switch($meta->mes)
@@ -131,12 +131,12 @@
                                     <th class="align-middle border-left">{{ $meta->id }}</th>
                                     <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
                                     <td style="display: none;">{{ $grupocliente->id }}</td>
-                                    <td class="align-middle border-left">{{ $grupoproduto->descricao }}</td>
-                                    <td style="display: none;">{{ $grupoproduto->id }}</td>
-                                    <td class="align-middle border-left">{{ $safra->descricao }}</td>
-                                    <td style="display: none;">{{ $safra->id }}</td>
-                                    <td class="align-middle border-left">{{ $meta->participacaoDesejada }}</td>
-                                    <td style="display: none;">{{ $meta->participacaoDesejada }}</td>
+                                    <td class="align-middle border-left">
+                                        {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R$ {{ $programadenegocio->valorUnitario }}
+                                    </td>
+                                    <td style="display: none;">{{ $programadenegocio->id }}</td>
+                                    <td class="align-middle border-left">R$ {{ $meta->metaDesejada }}</td>
+                                    <td style="display: none;">{{ $meta->metaDesejada }}</td>
                                     <td class="align-middle border-left">{{ $meta->ano }}</td>
                                     <td class="align-middle border-left">{{ $mes }}</td>
                                     <td style="display: none;">{{ $meta->mes }}</td>
@@ -145,10 +145,8 @@
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <!-- href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                                                                        title="Excluir"><i class="fas fa-trash-alt"></i></!-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $meta->id }}, '{{ $grupoproduto->descricao }}-{{ $grupocliente->descricao }}-{{ $safra->descricao }}', '{{ strtolower(class_basename($meta)) }}')"
+                                            onclick="return confirmDeletion({{ $meta->id }}, '{{ $grupocliente->descricao }} - {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}', '{{ strtolower(class_basename($meta)) }}')"
                                             title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -159,11 +157,9 @@
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
                                 <th style="display: none;">id_fk1</th>
-                                <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
+                                <th class="th-sm border-bottom border-left">Programa de Negócios</th>
                                 <th style="display: none;">id_fk2</th>
-                                <th class="th-sm border-bottom border-left">Safra</th>
-                                <th style="display: none;">id_fk3</th>
-                                <th class="th-sm border-bottom border-left">Part. Desejada</th>
+                                <th class="th-sm border-bottom border-left">Meta Desejada</th>
                                 <th style="display: none;">partdesejada</th>
                                 <th class="th-sm border-bottom border-left">Ano</th>
                                 <th class="th-sm border-bottom border-left">Mês</th>
@@ -207,43 +203,40 @@
                             <span class="text-danger" id="add-grupoclienteError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-grupoproduto">Grupo de Produtos</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-grupoproduto"
-                                name="add-grupoproduto" required>
+                            <label class="mb-0" for="add-programadenegocio">Programa de Negócios</label>
+                            <select class="form-control selectpicker" data-live-search="true" id="add-programadenegocio"
+                                name="add-programadenegocio" required>
                                 <option value="">Selecione...</option>
-                                @foreach ($grupoprodutos as $grupoproduto)
-                                    <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }} </option>
+                                @foreach ($programadenegocios as $programadenegocio)
+                                    @php
+                                    $safra = $programadenegocio->find($programadenegocio->id)->safra;
+                                    $grupoproduto = $programadenegocio->find($programadenegocio->id)->grupoproduto;
+                                    $segmentocultura = $programadenegocio->find($programadenegocio->id)->segmentocultura;
+                                    @endphp
+                                    <option value={{ $programadenegocio->id }}>
+                                        {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R$ {{ $programadenegocio->valorUnitario }}
+                                    </option>
                                 @endforeach
                             </select>
-                            <span class="text-danger" id="add-grupoprodutoError"></span>
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-safra">Safra</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-safra" required>
-                                <option value="">Selecione...</option>
-                                @foreach ($safras as $safra)
-                                    <option value={{ $safra->id }}>{{ $safra->descricao }}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger" id="add-safraError"></span>
+                            <span class="text-danger" id="add-programadenegocioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-participacaodesejada">Participação Desejada</label>
-                            <input type="number" class="form-control" id="add-participacaodesejada"
-                                name="add-participacaodesejada" step="0.01" min="0.01"
+                            <label class="mb-0" for="add-metadesejada">Participação Desejada</label>
+                            <input type="number" class="form-control" id="add-metadesejada"
+                                name="add-metadesejada" step="0.01" min="0.01"
                                 style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="add-participacaodesejadaError"></span>
+                            <span class="text-danger" id="add-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-ano">Ano</label>
-                            <input type="number" class="form-control" id="add-ano" name="add-ano"
-                                step="1" min="1901" max="2100" style="width: 85px;" required>
+                            <input type="number" class="form-control" id="add-ano" name="add-ano" step="1" min="1901"
+                                max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="add-anoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-mes">Mês</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-mes"
-                            style="width: 130px;" required>
+                                style="width: 130px;" required>
                                 <option value="">Selecione...</option>
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
@@ -293,23 +286,34 @@
                         <div id="select-grupocliente" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
-                        <div id="select-grupoproduto" class="form-group col-xs-2">
-                            <!-- jquery -->
-                        </div>
-                        <div id="select-safra" class="form-group col-xs-2">
-                            <!-- jquery -->
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="up-programadenegocio">Programa de Negócios</label>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-programadenegocio"
+                                name="up-programadenegocio" required>
+                                @foreach ($programadenegocios as $programadenegocio)
+                                    @php
+                                    $safra = $programadenegocio->find($programadenegocio->id)->safra;
+                                    $grupoproduto = $programadenegocio->find($programadenegocio->id)->grupoproduto;
+                                    $segmentocultura = $programadenegocio->find($programadenegocio->id)->segmentocultura;
+                                    @endphp
+                                    <option value={{ $programadenegocio->id }}>
+                                        {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R$ {{ $programadenegocio->valorUnitario }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="up-programadenegocioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-participacaodesejada">Participação Desejada (%)</label>
-                            <input type="number" class="form-control" id="up-participacaodesejada"
-                                name="up-participacaodesejada" step="0.01" min="0.01"
+                            <label class="mb-0" for="up-metadesejada">Participação Desejada (%)</label>
+                            <input type="number" class="form-control" id="up-metadesejada"
+                                name="up-metadesejada" step="0.01" min="0.01"
                                 style="text-align: right; width: 150px;" required>
-                            <span class="text-danger" id="up-participacaodesejadaError"></span>
+                            <span class="text-danger" id="up-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-ano">Ano</label>
-                            <input type="number" class="form-control" id="up-ano" name="up-ano"
-                                step="1" min="1901" max="2100" style="width: 85px;" required>
+                            <input type="number" class="form-control" id="up-ano" name="up-ano" step="1" min="1901"
+                                max="2100" style="width: 85px;" required>
                             <span class="text-danger" id="up-anoError"></span>
                         </div>
                         <div id="select-mes" class="form-group col-xs-2">
@@ -352,27 +356,23 @@
                             <input type="text" class="form-control" id="v-grupocliente" name="v-grupocliente" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-grupoproduto">Grupo de Produtos</label>
-                            <input type="text" class="form-control" id="v-grupoproduto" name="v-grupoproduto" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="v-safra">Safra</label>
-                            <input type="text" class="form-control" id="v-safra" name="v-safra" readonly>
+                            <label class="mb-0" for="v-programadenegocio">Programa de Negócios</label>
+                            <input type="text" class="form-control" id="v-programadenegocio" name="v-programadenegocio"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-participacaodesejada">Participação Desejada (%)</label>
-                            <input type="text" class="form-control" id="v-participacaodesejada"
-                                name="v-participacaodesejada" style="text-align: right; width: 150px;" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="v-ano">Ano</label>
-                            <input type="number" class="form-control" id="v-ano" name="v-ano"
-                                step="1" min="1901" max="2100" style="width: 85px;" readonly>
+                            <label class="mb-0" for="v-metadesejada">Participação Desejada (%)</label>
+                            <input type="text" class="form-control" id="v-metadesejada"
+                                name="v-metadesejada" style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-mes">Mês</label>
-                            <input type="text" class="form-control" id="v-mes" name="v-mes"
-                                style="width: 130px;" readonly>
+                            <input type="text" class="form-control" id="v-mes" name="v-mes" style="width: 130px;" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="v-ano">Ano</label>
+                            <input type="number" class="form-control" id="v-ano" name="v-ano" step="1" min="1901" max="2100"
+                                style="width: 85px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -391,7 +391,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Produto') }}
+                    <h5 class="modal-title text-white font-weight-bold" id="deleteModalTitle">{{ __('Excluir Meta') }}
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -450,26 +450,22 @@
                 $("select[name='up-grupocliente'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
-                $('#select-grupoproduto').html(
-                    '<label class="mb-0" for="up-grupoproduto">Grupo de Produtos</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto" required>' +
-                    '   @foreach ($grupoprodutos as $grupoproduto)' +
-                    '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
+                $('#select-programadenegocio').html(
+                    '<label class="mb-0" for="up-programadenegocio">Programa de Negócios</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-programadenegocio" required>' +
+                    '   @foreach ($programadenegocios as $programadenegocio)' +
+                    '       @php' +
+                    '        $safra = $programadenegocio->find($programadenegocio->id)->safra;' +
+                    '        $grupoproduto = $programadenegocio->find($programadenegocio->id)->grupoproduto;' +
+                    '        $segmentocultura = $programadenegocio->find($programadenegocio->id)->segmentocultura;' +
+                    '        @endphp' +
+                    '        <option value={{ $programadenegocio->id }}> {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R${{ $programadenegocio->valorUnitario }} </option>' +
                     '   @endforeach' +
                     '</select>');
-                $("select[name='up-grupoproduto'] option[value='" + data[4] + "']").attr('selected',
+                $("select[name='up-programadenegocio'] option[value='" + data[4] + "']").attr('selected',
                     'selected');
+                $("select[name='up-programadenegocio'] option[value='" + data[4] + "']").text(data[3]);
 
-                $('#select-safra').html(
-                    '<label class="mb-0" for="up-safra">Safra</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-safra" required>' +
-                    '   @foreach ($safras as $safra)' +
-                    '       <option value={{ $safra->id }}>{{ $safra->descricao }}</option>' +
-                    '   @endforeach' +
-                    '</select>');
-                $("select[name='up-safra'] option[value='" + data[6] + "']").attr('selected',
-                    'selected');
-                
                 $('#select-mes').html('<label class="mb-0" for="up-mes">Mês</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-mes" style="width: 130px;">' +
                     '   <option value="1">Janeiro</option>' +
@@ -486,12 +482,12 @@
                     '    <option value="12">Dezembro</option>' +
                     '</select>');
 
-                $("select[name='up-mes'] option[value='" + data[11] + "']").attr('selected',
+                $("select[name='up-mes'] option[value='" + data[9] + "']").attr('selected',
                     'selected');
 
                 $('#editForm').attr('action', '/meta/' + data[0]);
-                $('#up-participacaodesejada').val(data[8]);
-                $('#up-ano').val(data[9]);
+                $('#up-metadesejada').val(data[6]);
+                $('#up-ano').val(data[7]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -508,11 +504,10 @@
 
                 $('#v-id').val(data[0]);
                 $('#v-grupocliente').val(data[1]);
-                $('#v-grupoproduto').val(data[3]);
-                $('#v-safra').val(data[5]);
-                $('#v-participacaodesejada').val(data[7]);
-                $('#v-ano').val(data[9]);
-                $('#v-mes').val(data[10]);
+                $('#v-programadenegocio').val(data[3]);
+                $('#v-metadesejada').val(data[6]);
+                $('#v-ano').val(data[7]);
+                $('#v-mes').val(data[8]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

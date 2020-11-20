@@ -17,14 +17,12 @@ class CreateMetaTable extends Migration
             $table->id();
             $table->integer('ano')->nullable(false);
             $table->integer('mes')->nullable(false);
-            $table->decimal('participacaoDesejada', 5, 2)->nullable(false)->default(0);
-            $table->unsignedBigInteger('grupoProduto_id')->nullable(false);
-            $table->unsignedBigInteger('safra_id')->nullable(false);
+            $table->decimal('metaDesejada', 10, 2)->nullable(false)->default(0);
+            $table->unsignedBigInteger('programaDeNegocio_id')->nullable(false);
             $table->unsignedBigInteger('grupoCliente_id')->nullable(false);
             $table->timestamps();
 
-            $table->foreign('grupoProduto_id')->references('id')->on('grupo_produtos')->onDelete('restrict');
-            $table->foreign('safra_id')->references('id')->on('safras')->onDelete('restrict');
+            $table->foreign('programaDeNegocio_id')->references('id')->on('programa_de_negocios')->onDelete('restrict');
             $table->foreign('grupoCliente_id')->references('id')->on('grupo_clientes')->onDelete('restrict');
         });
     }

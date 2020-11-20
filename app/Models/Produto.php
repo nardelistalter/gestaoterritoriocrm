@@ -14,11 +14,6 @@ class Produto extends Model
         'grupoProduto_id'
     ];
 
-     // Relação 1 para muitos com metas
-     public function meta() {
-        return $this->hasMany(Meta::class, 'produto_id');
-    }
-
     // Relação 1 para muitos com operações
     public function operacao() {
         return $this->hasMany(Operacao::class, 'produto_id');

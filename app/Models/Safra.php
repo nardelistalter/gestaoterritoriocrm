@@ -20,8 +20,4 @@ class Safra extends Model
         return $this->hasMany(ProgramaDeNegocio::class, 'safra_id');
     }
 
-    // Relação 1 para muitos com metas
-    public function meta() {
-        return $this->hasMany(Meta::class, 'safra_id');
-    }
 }

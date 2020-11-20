@@ -23,9 +23,4 @@ class GrupoProduto extends Model
     public function programadenegocio() {
         return $this->hasMany(ProgramaDeNegocio::class, 'grupoProduto_id');
     }
-
-    // Relação 1 para muitos com metas
-    public function meta() {
-        return $this->hasMany(Meta::class, 'grupoProduto_id');
-    }
 }

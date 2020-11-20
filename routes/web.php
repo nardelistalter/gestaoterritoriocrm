@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('cliente', 'App\Http\Controllers\ClienteController');
     Route::get('cliente/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
     Route::resource('meta', 'App\Http\Controllers\MetaController');
-    Route::get('meta/{id}/destroy', 'App\Http\Controllers\OperacaoController@destroy');
+    Route::get('meta/{id}/destroy', 'App\Http\Controllers\MetaController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
 });
 

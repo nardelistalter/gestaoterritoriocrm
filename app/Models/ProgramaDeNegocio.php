@@ -17,6 +17,11 @@ class ProgramaDeNegocio extends Model
         'segmentoCultura_id'
     ];
 
+    // Relação 1 para muitos com programas de negócio
+    public function meta() {
+        return $this->hasMany(Meta::class, 'programaDeNegocio_id');
+    }
+
     // Relação (MUITOS para 1)
     public function segmentocultura() {
         return $this->belongsTo(SegmentoCultura::class, 'segmentoCultura_id', 'id');
