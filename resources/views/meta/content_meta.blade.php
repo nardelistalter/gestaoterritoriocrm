@@ -37,9 +37,8 @@
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Meta Desejada</th>
                                 <th style="display: none;">partdesejada</th>
-                                <th class="th-sm border-bottom border-left">Ano</th>
-                                <th class="th-sm border-bottom border-left">Mês</th>
-                                <th style="display: none;">mes</th>
+                                <th class="th-sm border-bottom border-left">Data Prevista</th>
+                                <th style="display: none;">dataprevista</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
@@ -53,80 +52,6 @@
                                 $segmentocultura = $programadenegocio->find($programadenegocio->id)->segmentocultura;
                                 @endphp
 
-                                @switch($meta->mes)
-                                    @case(1)
-                                    @php
-                                    $mes = 'Janeiro'
-                                    @endphp
-                                    @break
-
-                                    @case(2)
-                                    @php
-                                    $mes = 'Fevereiro'
-                                    @endphp
-                                    @break
-
-                                    @case(3)
-                                    @php
-                                    $mes = 'Março'
-                                    @endphp
-                                    @break
-
-                                    @case(4)
-                                    @php
-                                    $mes = 'Abril'
-                                    @endphp
-                                    @break
-
-                                    @case(5)
-                                    @php
-                                    $mes = 'Maio'
-                                    @endphp
-                                    @break
-
-                                    @case(6)
-                                    @php
-                                    $mes = 'Junho'
-                                    @endphp
-                                    @break
-
-                                    @case(7)
-                                    @php
-                                    $mes = 'Julho'
-                                    @endphp
-                                    @break
-
-                                    @case(8)
-                                    @php
-                                    $mes = 'Agosto'
-                                    @endphp
-                                    @break
-
-                                    @case(9)
-                                    @php
-                                    $mes = 'Setembro'
-                                    @endphp
-                                    @break
-
-                                    @case(10)
-                                    @php
-                                    $mes = 'Outubro'
-                                    @endphp
-                                    @break
-
-                                    @case(11)
-                                    @php
-                                    $mes = 'Novembro'
-                                    @endphp
-                                    @break
-
-                                    @case(12)
-                                    @php
-                                    $mes = 'Dezembro'
-                                    @endphp
-                                    @break
-
-                                @endswitch
                                 <tr>
                                     <th class="align-middle border-left">{{ $meta->id }}</th>
                                     <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
@@ -137,9 +62,8 @@
                                     <td style="display: none;">{{ $programadenegocio->id }}</td>
                                     <td class="align-middle border-left">R$ {{ $meta->metaDesejada }}</td>
                                     <td style="display: none;">{{ $meta->metaDesejada }}</td>
-                                    <td class="align-middle border-left">{{ $meta->ano }}</td>
-                                    <td class="align-middle border-left">{{ $mes }}</td>
-                                    <td style="display: none;">{{ $meta->mes }}</td>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($meta->dataPrevista)) }}</td>
+                                    <td style="display: none;">{{ $meta->dataPrevista }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -161,9 +85,8 @@
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Meta Desejada</th>
                                 <th style="display: none;">partdesejada</th>
-                                <th class="th-sm border-bottom border-left">Ano</th>
-                                <th class="th-sm border-bottom border-left">Mês</th>
-                                <th style="display: none;">mes</th>
+                                <th class="th-sm border-bottom border-left">Data Prevista</th>
+                                <th style="display: none;">dataprevista</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </tfoot>
@@ -228,30 +151,9 @@
                             <span class="text-danger" id="add-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-ano">Ano</label>
-                            <input type="number" class="form-control" id="add-ano" name="add-ano" step="1" min="1901"
-                                max="2100" style="width: 85px;" required>
-                            <span class="text-danger" id="add-anoError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-mes">Mês</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-mes"
-                                style="width: 130px;" required>
-                                <option value="">Selecione...</option>
-                                <option value="1">Janeiro</option>
-                                <option value="2">Fevereiro</option>
-                                <option value="3">Março</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Maio</option>
-                                <option value="6">Junho</option>
-                                <option value="7">Julho</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                            <span class="text-danger" id="add-mesError"></span>
+                            <label class="mb-0" for="add-dataprevista">Data Prevista</label>
+                            <input type="date" class="form-control" id="add-dataprevista" name="add-dataprevista" style="width: 170px;" required>
+                            <span class="text-danger" id="add-dataprevistaError"></span>
                         </div>
                     </form>
                 </div>
@@ -311,13 +213,9 @@
                             <span class="text-danger" id="up-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-ano">Ano</label>
-                            <input type="number" class="form-control" id="up-ano" name="up-ano" step="1" min="1901"
-                                max="2100" style="width: 85px;" required>
-                            <span class="text-danger" id="up-anoError"></span>
-                        </div>
-                        <div id="select-mes" class="form-group col-xs-2">
-                            <!-- jquery -->
+                            <label class="mb-0" for="up-dataprevista">Data Fim</label>
+                            <input type="date" class="form-control" id="up-dataprevista" name="up-dataprevista" style="width: 170px;" required>
+                            <span class="text-danger" id="up-dataprevistaError"></span>
                         </div>
                     </form>
                 </div>
@@ -366,13 +264,8 @@
                                 name="v-metadesejada" style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-mes">Mês</label>
-                            <input type="text" class="form-control" id="v-mes" name="v-mes" style="width: 130px;" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="v-ano">Ano</label>
-                            <input type="number" class="form-control" id="v-ano" name="v-ano" step="1" min="1901" max="2100"
-                                style="width: 85px;" readonly>
+                            <label class="mb-0" for="v-dataprevista">Data Fim</label>
+                            <input type="text" class="form-control" id="v-dataprevista" name="v-dataprevista" style="width: 130px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -466,28 +359,9 @@
                     'selected');
                 $("select[name='up-programadenegocio'] option[value='" + data[4] + "']").text(data[3]);
 
-                $('#select-mes').html('<label class="mb-0" for="up-mes">Mês</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-mes" style="width: 130px;">' +
-                    '   <option value="1">Janeiro</option>' +
-                    '    <option value="2">Fevereiro</option>' +
-                    '    <option value="3">Março</option>' +
-                    '    <option value="4">Abril</option>' +
-                    '    <option value="5">Maio</option>' +
-                    '    <option value="6">Junho</option>' +
-                    '    <option value="7">Julho</option>' +
-                    '    <option value="8">Agosto</option>' +
-                    '    <option value="9">Setembro</option>' +
-                    '    <option value="10">Outubro</option>' +
-                    '    <option value="11">Novembro</option>' +
-                    '    <option value="12">Dezembro</option>' +
-                    '</select>');
-
-                $("select[name='up-mes'] option[value='" + data[9] + "']").attr('selected',
-                    'selected');
-
                 $('#editForm').attr('action', '/meta/' + data[0]);
                 $('#up-metadesejada').val(data[6]);
-                $('#up-ano').val(data[7]);
+                document.getElementById("up-dataprevista").valueAsDate = new Date(data[8]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -506,8 +380,7 @@
                 $('#v-grupocliente').val(data[1]);
                 $('#v-programadenegocio').val(data[3]);
                 $('#v-metadesejada').val(data[6]);
-                $('#v-ano').val(data[7]);
-                $('#v-mes').val(data[8]);
+                $('#v-dataprevista').val(data[7]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

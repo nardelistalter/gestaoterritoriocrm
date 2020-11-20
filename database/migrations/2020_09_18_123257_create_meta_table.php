@@ -15,8 +15,7 @@ class CreateMetaTable extends Migration
     {
         Schema::create('metas', function (Blueprint $table) {
             $table->id();
-            $table->integer('ano')->nullable(false);
-            $table->integer('mes')->nullable(false);
+            $table->dateTime('dataPrevista')->nullable(false);
             $table->decimal('metaDesejada', 10, 2)->nullable(false)->default(0);
             $table->unsignedBigInteger('programaDeNegocio_id')->nullable(false);
             $table->unsignedBigInteger('grupoCliente_id')->nullable(false);

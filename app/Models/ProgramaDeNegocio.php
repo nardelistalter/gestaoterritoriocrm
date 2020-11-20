@@ -11,7 +11,7 @@ class ProgramaDeNegocio extends Model
 
     protected $fillable = [
         'valorUnitario',
-        'mesLimite',
+        'dataLimite',
         'grupoProduto_id',
         'safra_id',
         'segmentoCultura_id'

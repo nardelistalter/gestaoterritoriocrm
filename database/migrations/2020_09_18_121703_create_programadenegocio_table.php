@@ -16,7 +16,7 @@ class CreateProgramadenegocioTable extends Migration
         Schema::create('programa_de_negocios', function (Blueprint $table) {
             $table->id();
             $table->decimal('valorUnitario', 10, 2)->nullable(false);
-            $table->integer('mesLimite')->nullable(false);
+            $table->dateTime('dataLimite')->nullable(false);
             $table->unsignedBigInteger('grupoProduto_id')->nullable(false);
             $table->unsignedBigInteger('safra_id')->nullable(false);
             $table->unsignedBigInteger('segmentoCultura_id')->nullable(false);

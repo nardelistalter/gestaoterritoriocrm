@@ -30,89 +30,23 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Descrição</th>
-                                <th class="th-sm border-bottom border-left">Ano Início</th>
-                                <th class="th-sm border-bottom border-left">Mês Início</th>
-                                <th style="display: none;">mesNum</th>
+                                <th class="th-sm border-bottom border-left">Data Início</th>
+                                <th style="display: none;">dataInicio</th>
+                                <th class="th-sm border-bottom border-left">Data Fim</th>
+                                <th style="display: none;">dataFim</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($safras as $obj)
-                                @switch($obj->mesInicio)
-                                    @case(1)
-                                    @php
-                                    $mes = 'Janeiro'
-                                    @endphp
-                                    @break
 
-                                    @case(2)
-                                    @php
-                                    $mes = 'Fevereiro'
-                                    @endphp
-                                    @break
-
-                                    @case(3)
-                                    @php
-                                    $mes = 'Março'
-                                    @endphp
-                                    @break
-
-                                    @case(4)
-                                    @php
-                                    $mes = 'Abril'
-                                    @endphp
-                                    @break
-
-                                    @case(5)
-                                    @php
-                                    $mes = 'Maio'
-                                    @endphp
-                                    @break
-
-                                    @case(6)
-                                    @php
-                                    $mes = 'Junho'
-                                    @endphp
-                                    @break
-
-                                    @case(7)
-                                    @php
-                                    $mes = 'Julho'
-                                    @endphp
-                                    @break
-                                    @case(8)
-                                    @php
-                                    $mes = 'Agosto'
-                                    @endphp
-                                    @break
-                                    @case(9)
-                                    @php
-                                    $mes = 'Setembro'
-                                    @endphp
-                                    @break
-                                    @case(10)
-                                    @php
-                                    $mes = 'Outubro'
-                                    @endphp
-                                    @break
-                                    @case(11)
-                                    @php
-                                    $mes = 'Novembro'
-                                    @endphp
-                                    @break
-                                    @case(12)
-                                    @php
-                                    $mes = 'Dezembro'
-                                    @endphp
-                                    @break
-
-                                @endswitch
                                 <tr>
                                     <th class="align-middle border-left">{{ $obj->id }}</th>
                                     <td class="align-middle border-left">{{ $obj->descricao }}</td>
-                                    <td class="align-middle border-left">{{ $obj->anoInicio }}</td>
-                                    <td class="align-middle border-left">{{ $mes }}</td>
-                                    <td style="display: none;">{{ $obj->mesInicio }}</td>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($obj->dataInicio)) }}</td>
+                                    <td style="display: none;">{{ $obj->dataInicio }}</td>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($obj->dataFim)) }}</td>
+                                    <td style="display: none;">{{ $obj->dataFim }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -131,9 +65,10 @@
                             <tr>
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Descrição</th>
-                                <th class="th-sm border-bottom border-left">Ano Início</th>
-                                <th class="th-sm border-bottom border-left">Mês Início</th>
-                                <th style="display: none;">mesNum</th>
+                                <th class="th-sm border-bottom border-left">Data Início</th>
+                                <th style="display: none;">data Inicio</th>
+                                <th class="th-sm border-bottom border-left">Data Fim</th>
+                                <th style="display: none;">dataFim</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
@@ -164,30 +99,14 @@
                             <span class="text-danger" id="add-safraError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="add-anoinicio" name="add-anoinicio" step="1"
-                                min="1901" max="2100" style="width: 85px;" required>
-                            <span class="text-danger" id="add-anoinicioError"></span>
+                            <label class="mb-0" for="add-datainicio">Data Início</label>
+                            <input type="date" class="form-control" id="add-datainicio" name="add-datainicio" style="width: 170px;" required>
+                            <span class="text-danger" id="add-datainicioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-mesinicio">Mês Início</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-mesinicio"
-                                style="width: 130px;" required>
-                                <option value="">Selecione...</option>
-                                <option value="1">Janeiro</option>
-                                <option value="2">Fevereiro</option>
-                                <option value="3">Março</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Maio</option>
-                                <option value="6">Junho</option>
-                                <option value="7">Julho</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                            <span class="text-danger" id="add-mesinicioError"></span>
+                            <label class="mb-0" for="add-datafim">Data Fim</label>
+                            <input type="date" class="form-control" id="add-datafim" name="add-datafim" style="width: 170px;" required>
+                            <span class="text-danger" id="add-datafimError"></span>
                         </div>
                     </form>
                 </div>
@@ -222,13 +141,14 @@
                             <span class="text-danger" id="up-safraError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="up-anoinicio" name="up-anoinicio" step="1"
-                                min="1901" max="2100" style="width: 85px;" required>
-                            <span class="text-danger" id="up-anoinicioError"></span>
+                            <label class="mb-0" for="up-datainicio">Data Início</label>
+                            <input type="date" class="form-control" id="up-datainicio" name="up-datainicio" style="width: 170px;" required>
+                            <span class="text-danger" id="up-datainicioError"></span>
                         </div>
-                        <div id="select-mes" class="form-group col-xs-2">
-                            <!-- jquery -->
+                        <div class="form-group">
+                            <label class="mb-0" for="up-datafim">Data Fim</label>
+                            <input type="date" class="form-control" id="up-datafim" name="up-datafim" style="width: 170px;" required>
+                            <span class="text-danger" id="up-datafimError"></span>
                         </div>
                     </form>
                 </div>
@@ -265,14 +185,12 @@
                             <input type="text" class="form-control" id="v-safra" name="v-safra" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-anoinicio">Ano Início</label>
-                            <input type="number" class="form-control" id="v-anoinicio" name="v-anoinicio" step="1"
-                                min="1901" max="2100" style="width: 85px;" readonly>
+                            <label class="mb-0" for="v-datainicio">Data Início</label>
+                            <input type="text" class="form-control" id="v-datainicio" name="v-datainicio" style="width: 130px;" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-mesinicio">Mês Início</label>
-                            <input type="text" class="form-control" id="v-mesinicio" name="v-mesinicio"
-                                style="width: 130px;" readonly>
+                            <label class="mb-0" for="v-datafim">Data Fim</label>
+                            <input type="text" class="form-control" id="v-datafim" name="v-datafim" style="width: 130px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -338,28 +256,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-mes').html('<label class="mb-0" for="up-mesinicio">Mês Início</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-mesinicio" style="width: 130px;">' +
-                    '   <option value="1">Janeiro</option>' +
-                    '    <option value="2">Fevereiro</option>' +
-                    '    <option value="3">Março</option>' +
-                    '    <option value="4">Abril</option>' +
-                    '    <option value="5">Maio</option>' +
-                    '    <option value="6">Junho</option>' +
-                    '    <option value="7">Julho</option>' +
-                    '    <option value="8">Agosto</option>' +
-                    '    <option value="9">Setembro</option>' +
-                    '    <option value="10">Outubro</option>' +
-                    '    <option value="11">Novembro</option>' +
-                    '    <option value="12">Dezembro</option>' +
-                    '</select>');
-
-                $("select[name='up-mesinicio'] option[value='" + data[4] + "']").attr('selected',
-                    'selected');
-
                 $('#up-safra').val(data[1]);
-                $('#up-anoinicio').val(data[2]);
-                $('#up-mesinicio').val(data[3]);
+                document.getElementById("up-datainicio").valueAsDate = new Date(data[3]);
+                document.getElementById("up-datafim").valueAsDate = new Date(data[5]);
 
                 $('#editForm').attr('action', '/safra/' + data[0]);
                 $('#editModal').modal('show');
@@ -378,8 +277,8 @@
 
                 $('#v-id').val(data[0]);
                 $('#v-safra').val(data[1]);
-                $('#v-anoinicio').val(data[2]);
-                $('#v-mesinicio').val(data[3]);
+                $('#v-datainicio').val(data[2]);
+                $('#v-datafim').val(data[4]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

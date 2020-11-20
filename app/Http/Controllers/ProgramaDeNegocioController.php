@@ -62,11 +62,11 @@ class ProgramaDeNegocioController extends Controller
             'add-grupoproduto' => 'required|numeric|min:1',
             'add-safra' => 'required|numeric|min:1',
             'add-valorunitario' => 'required|numeric|min:1',
-            'add-meslimite' => 'required|numeric|min:1|max:12'
+            'add-datalimite' => 'required|date'
         ]);
 
         $programadenegocios =  new ProgramaDeNegocio;
-        $programadenegocios->mesLimite = $request->input('add-meslimite');
+        $programadenegocios->dataLimite = $request->input('add-datalimite');
         $programadenegocios->valorUnitario = $request->input('add-valorunitario');
         $programadenegocios->grupoProduto_id = $request->input('add-grupoproduto');
         $programadenegocios->safra_id = $request->input('add-safra');
@@ -113,11 +113,11 @@ class ProgramaDeNegocioController extends Controller
             'up-grupoproduto' => 'required|min:1',
             'up-safra' => 'required|min:1',
             'up-valorunitario' => 'required|min:1',
-            'up-meslimite' => 'required|numeric|min:1|max:12'
+            'up-datalimite' => 'required|date'
         ]);
 
         $programadenegocios =  ProgramaDeNegocio::find($id);
-        $programadenegocios->mesLimite = $request->input('up-meslimite');
+        $programadenegocios->dataLimite = $request->input('up-datalimite');
         $programadenegocios->valorUnitario = $request->input('up-valorunitario');
         $programadenegocios->grupoProduto_id = $request->input('up-grupoproduto');
         $programadenegocios->safra_id = $request->input('up-safra');

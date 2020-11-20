@@ -36,10 +36,11 @@
                                 <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Safra</th>
-                                <th style="display: none;">id_fk2</th>
+                                <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left">Valor</th>
-                                <th class="th-sm border-bottom border-left">Mes Limite</th>
-                                <th style="display: none;">mes</th>
+                                <th style="display: none;">valor</th>
+                                <th class="th-sm border-bottom border-left">Data Limite</th>
+                                <th style="display: none;">datalimite</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
@@ -50,75 +51,6 @@
                                 $grupoproduto = $programadenegocio->find($programadenegocio->id)->grupoproduto;
                                 $safra = $programadenegocio->find($programadenegocio->id)->safra;
                                 @endphp
-
-                                @switch($programadenegocio->mesLimite)
-                                    @case(1)
-                                    @php
-                                    $mes = 'Janeiro'
-                                    @endphp
-                                    @break
-
-                                    @case(2)
-                                    @php
-                                    $mes = 'Fevereiro'
-                                    @endphp
-                                    @break
-
-                                    @case(3)
-                                    @php
-                                    $mes = 'Março'
-                                    @endphp
-                                    @break
-
-                                    @case(4)
-                                    @php
-                                    $mes = 'Abril'
-                                    @endphp
-                                    @break
-
-                                    @case(5)
-                                    @php
-                                    $mes = 'Maio'
-                                    @endphp
-                                    @break
-
-                                    @case(6)
-                                    @php
-                                    $mes = 'Junho'
-                                    @endphp
-                                    @break
-
-                                    @case(7)
-                                    @php
-                                    $mes = 'Julho'
-                                    @endphp
-                                    @break
-                                    @case(8)
-                                    @php
-                                    $mes = 'Agosto'
-                                    @endphp
-                                    @break
-                                    @case(9)
-                                    @php
-                                    $mes = 'Setembro'
-                                    @endphp
-                                    @break
-                                    @case(10)
-                                    @php
-                                    $mes = 'Outubro'
-                                    @endphp
-                                    @break
-                                    @case(11)
-                                    @php
-                                    $mes = 'Novembro'
-                                    @endphp
-                                    @break
-                                    @case(12)
-                                    @php
-                                    $mes = 'Dezembro'
-                                    @endphp
-                                    @break
-                                @endswitch
                                 <tr>
                                     <th class="align-middle border-left">{{ $programadenegocio->id }}</th>
                                     <td class="align-middle border-left">{{ $segmentocultura->descricao }}</td>
@@ -127,18 +59,17 @@
                                     <td style="display: none;">{{ $grupoproduto->id }}</td>
                                     <td class="align-middle border-left">{{ $safra->descricao }}</td>
                                     <td style="display: none;">{{ $safra->id }}</td>
-                                    <td class="align-middle border-left">{{ $programadenegocio->valorUnitario }}</td>
-                                    <td class="align-middle border-left">{{ $mes }}</td>
-                                    <td style="display: none;">{{ $programadenegocio->mesLimite }}</td>
+                                    <td class="align-middle border-left">R$ {{ $programadenegocio->valorUnitario }}</td>
+                                    <td style="display: none;">{{ $programadenegocio->valorUnitario }}</td>
+                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($programadenegocio->dataLimite)) }}</td>
+                                    <td style="display: none;">{{ $programadenegocio->dataLimite }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $programadenegocio->id }}, '{{ $grupoproduto->descricao }} - {{ $segmentocultura->descricao }} - {{ $mes }} - {{ $safra->descricao }}', '{{ strtolower(class_basename($programadenegocio)) }}');" title="Excluir"><i
+                                            onclick="return confirmDeletion({{ $programadenegocio->id }}, '{{ $grupoproduto->descricao }} - {{ $segmentocultura->descricao }} - {{ date("d/m/Y", strtotime($programadenegocio->dataLimite)) }} - {{ $safra->descricao }}', '{{ strtolower(class_basename($programadenegocio)) }}');" title="Excluir"><i
                                                 class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -154,8 +85,9 @@
                                 <th class="th-sm border-bottom border-left">Safra</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Valor Unitário</th>
-                                <th class="th-sm border-bottom border-left">Mes Limite</th>
-                                <th style="display: none;">mes</th>
+                                <th style="display: none;">valor</th>
+                                <th class="th-sm border-bottom border-left">Data Limite</th>
+                                <th style="display: none;">datalimite</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
@@ -222,23 +154,9 @@
                             <span class="text-danger" id="add-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-meslimite">Mês Limite</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-meslimite" required>
-                                <option value="">Selecione...</option>
-                                <option value="1">Janeiro</option>
-                                <option value="2">Fevereiro</option>
-                                <option value="3">Março</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Maio</option>
-                                <option value="6">Junho</option>
-                                <option value="7">Julho</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                            <span class="text-danger" id="add-meslimiteError"></span>
+                            <label class="mb-0" for="add-datalimite">Data Limite</label>
+                            <input type="date" class="form-control" id="add-datalimite" name="add-datalimite" style="width: 170px;" required>
+                            <span class="text-danger" id="add-datalimiteError"></span>
                         </div>
                     </form>
                 </div>
@@ -284,8 +202,10 @@
                                 step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
                             <span class="text-danger" id="up-valorunitarioError"></span>
                         </div>
-                        <div id="select-meslimite" class="form-group col-xs-2">
-                            <!-- jquery -->
+                        <div class="form-group">
+                            <label class="mb-0" for="up-datalimite">Data Limite</label>
+                            <input type="date" class="form-control" id="up-datalimite" name="up-datalimite" style="width: 170px;" required>
+                            <span class="text-danger" id="up-datalimiteError"></span>
                         </div>
                     </form>
                 </div>
@@ -336,9 +256,9 @@
                             <input type="number" class="form-control" id="v-valorunitario" name="v-valorunitario"
                                 step="0.01" min="0.01" style="text-align: right; width: 150px;" readonly>
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-meslimite">Mês Limite</label>
-                            <input type="text" class="form-control" id="v-meslimite" name="v-meslimite" readonly>
+                        <div class="form-group">
+                            <label class="mb-0" for="v-datalimite">Data Limite</label>
+                            <input type="text" class="form-control" id="v-datalimite" name="v-datalimite" style="width: 130px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -432,28 +352,9 @@
                 $("select[name='up-safra'] option[value='" + data[6] + "']").attr('selected',
                     'selected');
 
-
-                $('#select-meslimite').html('<label class="mb-0" for="up-meslimite">Mês Limite</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-meslimite" required>' +
-                    '    <option value="1">Janeiro</option>' +
-                    '    <option value="2">Fevereiro</option>' +
-                    '    <option value="3">Março</option>' +
-                    '    <option value="4">Abril</option>' +
-                    '    <option value="5">Maio</option>' +
-                    '    <option value="6">Junho</option>' +
-                    '    <option value="7">Julho</option>' +
-                    '    <option value="8">Agosto</option>' +
-                    '    <option value="9">Setembro</option>' +
-                    '    <option value="10">Outubro</option>' +
-                    '    <option value="11">Novembro</option>' +
-                    '    <option value="12">Dezembro</option>' +
-                    '</select>');
-
-                $("select[name='up-meslimite'] option[value='" + data[9] + "']").attr('selected',
-                    'selected');
-
                 $('#editForm').attr('action', '/programadenegocio/' + data[0]);
-                $('#up-valorunitario').val(data[7]);
+                $('#up-valorunitario').val(data[8]);
+                document.getElementById("up-datalimite").valueAsDate = new Date(data[10]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -472,8 +373,8 @@
                 $('#v-segmentocultura').val(data[1]);
                 $('#v-grupoproduto').val(data[3]);
                 $('#v-safra').val(data[5]);
-                $('#v-valorunitario').val(data[7]);
-                $('#v-meslimite').val(data[8]);
+                $('#v-valorunitario').val(data[8]);
+                $('#v-datalimite').val(data[9]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

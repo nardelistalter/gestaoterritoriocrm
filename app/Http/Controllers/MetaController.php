@@ -61,14 +61,12 @@ class MetaController extends Controller
             'add-programadenegocio' => 'required|numeric|min:1',
             'add-grupocliente' => 'required|numeric|min:1',
             'add-metadesejada' => 'required|numeric|min:1',
-            'add-mes' => 'required|numeric|min:1|max:12',
-            'add-ano' => 'required|numeric|min:1901|max:2100'
+            'add-dataprevista' => 'required|date'
         ]);
 
         $metas =  new Meta;
         $metas->metaDesejada = $request->input('add-metadesejada');
-        $metas->mes = $request->input('add-mes');
-        $metas->ano = $request->input('add-ano');
+        $metas->dataPrevista = $request->input('add-dataprevista');
         $metas->grupocliente_id = $request->input('add-grupocliente');
         $metas->programaDeNegocio_id = $request->input('add-programadenegocio');
 
@@ -127,14 +125,12 @@ class MetaController extends Controller
             'up-programadenegocio' => 'required|min:1',
             'up-grupocliente' => 'required|min:1',
             'up-metadesejada' => 'required|numeric|min:1',
-            'up-mes' => 'required|numeric|min:1|max:12',
-            'up-ano' => 'required|numeric|min:1901|max:2100'
+            'up-dataprevista' => 'required|date'
         ]);
 
         $metas =  Meta::find($id);
         $metas->metaDesejada = $request->input('up-metadesejada');
-        $metas->mes = $request->input('up-mes');
-        $metas->ano = $request->input('up-ano');
+        $metas->dataPrevista = $request->input('up-dataprevista');
         $metas->grupocliente_id = $request->input('up-grupocliente');
         $metas->programaDeNegocio_id = $request->input('up-programadenegocio');
 

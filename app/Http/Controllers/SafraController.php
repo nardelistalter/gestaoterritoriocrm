@@ -47,14 +47,14 @@ class SafraController extends Controller
 
         $this->validate($request, [
             'add-safra' => 'required|max:45',
-            'add-mesinicio' => 'required|numeric|min:1|max:12',
-            'add-anoinicio' => 'required|numeric|min:1901|max:2100',
+            'add-datainicio' => 'required|date',
+            'add-datafim' => 'required|date',
         ]);
 
         $safras =  $this->safra;
         $safras->descricao = $request->input('add-safra');
-        $safras->mesInicio = $request->input('add-mesinicio');
-        $safras->anoInicio = $request->input('add-anoinicio');
+        $safras->dataInicio = $request->input('add-datainicio');
+        $safras->dataFim = $request->input('add-datafim');
 
         $safras->save();
 
@@ -96,14 +96,14 @@ class SafraController extends Controller
 
         $this->validate($request, [
             'up-safra' => 'required|max:45',
-            'up-anoinicio' => 'required|numeric|min:1|max:12',
-            'up-anoinicio' => 'required|numeric|min:1901|max:2100',
+            'up-datafim' => 'required|date',
+            'up-datafim' => 'required|date',
         ]);
 
         $safras =  $this->safra::find($id);
         $safras->descricao = $request->input('up-safra');
-        $safras->mesInicio = $request->input('up-mesinicio');
-        $safras->anoInicio = $request->input('up-anoinicio');
+        $safras->dataInicio = $request->input('up-datainicio');
+        $safras->dataFim = $request->input('up-datafim');
 
         $safras->save();
 

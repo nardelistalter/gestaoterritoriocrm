@@ -16,8 +16,8 @@ class CreateSafraTable extends Migration
         Schema::create('safras', function (Blueprint $table) {
             $table->id();
             $table->string('descricao', 45)->nullable(false)->unique();
-            $table->integer('mesInicio')->nullable(false);
-            $table->integer('anoInicio')->nullable(false);
+            $table->dateTime('dataInicio')->nullable(false);
+            $table->dateTime('dataFim')->nullable(false);
             $table->timestamps();
         });
     }

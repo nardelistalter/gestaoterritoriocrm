@@ -1,0 +1,50 @@
+Dashboard:
+
+/*
+ *
+ * GRUPO DE CLIENTE - POTENCIAL DE ACESSO
+ * Consulta potencial de acesso com filtro de SAFRA
+ * Saída: TOTAL
+ *
+ */
+SELECT sum(s.qtdUnidadesArea * p.valorUnitario) as potencialDeAcesso
+FROM grupo_clientes g INNER JOIN (
+					             SELECT s.id, a.grupoCliente_id as areaId, sum(a.qtdUnidadesArea) as qtdUnidadesArea
+								 FROM segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
+								 group by 1, 2
+								) as s ON s.areaId = g.id
+				   INNER JOIN (
+								 SELECT p.segmentoCultura_id, p.safra_id, sum(p.valorUnitario) as valorUnitario
+								 FROM   programa_de_negocios p
+								 group by 1, 2
+								) as p ON p.segmentoCultura_id = s.id
+					inner join safras sf on sf.id = p.safra_id
+					where sf.id = 2???
+
+
+/*
+ *
+ * GRUPO DE CLIENTE - POTENCIAL DE ACESSO
+ * Consulta potencial de acesso com filtro de SAFRA,
+ * Saída: TOTAL por Grupo de Cliente
+ *
+ */
+
+
+/*
+ *
+ * GRUPO DE CLIENTE - META
+ * Consulta META com filtro de SAFRA
+ * Saída: TOTAL
+ *
+ */
+
+
+ /*
+ *
+ * GRUPO DE CLIENTE - META
+ * Consulta META com filtro de SAFRA
+ * Saída: TOTAL por Grupo de Cliente
+ *
+ */
+

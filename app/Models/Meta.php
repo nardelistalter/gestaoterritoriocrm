@@ -10,8 +10,7 @@ class Meta extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ano',
-        'mes',
+        'dataPrevista',
         'metaDesejada',
         'programaDeNegocio_id',
         'grupoCliente_id'
@@ -24,6 +23,6 @@ class Meta extends Model
 
     // Relação 1 para muitos com metas
     public function programadenegocio() {
-        return $this->belongsTo(programaDeNegocio::class, 'programaDeNegocio_id', 'id');
+        return $this->belongsTo(ProgramaDeNegocio::class, 'programaDeNegocio_id', 'id');
     }
 }
