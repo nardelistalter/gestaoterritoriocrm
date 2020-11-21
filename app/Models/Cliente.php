@@ -18,6 +18,7 @@ class Cliente extends Model
         'telefone1',
         'telefone2',
         'municipio_id',
+        'email',
         'cpf',
         'cnpj',
         'dataNascimento',
@@ -33,7 +34,7 @@ class Cliente extends Model
     }
 
     // Relação (MUITOS para 1)
-    public function visapolitica()
+    public function visaopolitica()
     {
         return $this->belongsTo(VisaoPolitica::class, 'visaoPolitica_id', 'id');
     }

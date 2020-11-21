@@ -30,14 +30,24 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Nome</th>
+                                <th style="display: none;">logradouro</th>
+                                <th style="display: none;">numero</th>
+                                <th style="display: none;">complemento</th>
+                                <th style="display: none;">bairro</th>
                                 <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
+                                <th style="display: none;">telefone1</th>
+                                <th style="display: none;">telefone2</th>
+                                <th style="display: none;">email</th>
                                 <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
-                                <th style="display: none;">vpolitica_fk</th>
+                                <th style="display: none;">cpf</th>
+                                <th style="display: none;">cnpj</th>
                                 <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Nasc/Fund</th>
-                                <th style="display: none;">data</th>
+                                <th style="display: none;">dataNasc</th>
                                 <th class="th-sm border-bottom border-left">Sexo</th>
                                 <th class="th-sm border-bottom border-left">Observação</th>
+                                <th style="display: none;">vpolitica_fk</th>
+                                <th style="display: none;">vpolitica_desc</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </thead>
@@ -45,30 +55,42 @@
                             @foreach ($clientes as $cliente)
                                 @php
                                 $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
+                                //dd($visaopolitica);
                                 $municipio = $cliente->find($cliente->id)->municipio;
+                                //dd($municipio);
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
                                 $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $cliente->id }}</th>
                                     <td class="align-middle border-left">{{ $cliente->nome }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->logradouro }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->numero }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->complemento }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->bairro }}</td>
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->municipio_id }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->telefone1 }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->telefone2 }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->email }}</td>
                                     <td class="align-middle border-left">{{ $cliente->cpf ?? $cliente->cnpj }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $municipio->id }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->cpf }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->cnpj }}</td>
                                     <td class="align-middle border-left">
-                                        {{ date('d/m/Y', strtotime($cliente->dataNascimento)) }}
+                                        {{ date('d/m/Y', strtotime($cliente->dataNascimento)) ?? ''}}
                                     </td>
                                     <td style="display: none;">{{ $cliente->dataNascimento }}</td>
-                                    <td class="align-middle border-left">{{ $cliente->sexo ?? '' }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->sexo }}</td>
                                     <th class="align-middle border-left">{{ $cliente->observacao }}</th>
+                                    <td class="align-middle" style="display: none;">{{ $cliente->visaoPolitica_id }}</td>
+                                    <td class="align-middle" style="display: none;">{{ $visaopolitica->descricao }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a href="#" class="btn_crud btn btn-info btn-sm view disabled"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-danger btn-sm disabled" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nome }} - {{ $cliente->email }}', '{{ strtolower(class_basename($cliente)) }}');"
+                                        <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
+                                            onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nome }} - {{ $cliente->cpf ?? $cliente->cnpj }} - {{ $municipio->nome }}/{{ $estado->sigla }}', '{{ strtolower(class_basename($cliente)) }}');"
                                             title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
@@ -78,14 +100,24 @@
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
                                 <th class="th-sm border-bottom border-left">Nome</th>
+                                <th style="display: none;">logradouro</th>
+                                <th style="display: none;">numero</th>
+                                <th style="display: none;">complemento</th>
+                                <th style="display: none;">bairro</th>
                                 <th class="th-sm border-bottom border-left">Cidade/UF</th>
                                 <th style="display: none;">municipio_fk</th>
+                                <th style="display: none;">telefone1</th>
+                                <th style="display: none;">telefone2</th>
+                                <th style="display: none;">email</th>
                                 <th class="th-sm border-bottom border-left">CPF/CNPJ</th>
-                                <th style="display: none;">vpolitica_fk</th>
-                                <th class="th-sm border-bottom border-left">Nasc/Fund</th>
-                                <th style="display: none;">data</th>
+                                <th style="display: none;">cpf</th>
+                                <th style="display: none;">cnpj</th>
+                                <th id="date" class="th-sm border-bottom border-left" type="datetime-local">Nasc/Fund</th>
+                                <th style="display: none;">dataNasc</th>
                                 <th class="th-sm border-bottom border-left">Sexo</th>
                                 <th class="th-sm border-bottom border-left">Observação</th>
+                                <th style="display: none;">vpolitica_fk</th>
+                                <th style="display: none;">vpolitica_desc</th>
                                 <th class="th-sm border-bottom border-left">Ações</th>
                             </tr>
                         </tfoot>
@@ -113,9 +145,9 @@
                     <form action="{{ action('App\Http\Controllers\ClienteController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="add-cliente">Nome*</label>
-                            <input type="text" class="form-control" name="add-cliente" maxlength="60" required>
-                            <span class="text-danger" id="add-clienteError"></span>
+                            <label class="mb-0" for="add-nome">Nome*</label>
+                            <input type="text" class="form-control" name="add-nome" maxlength="60" required>
+                            <span class="text-danger" id="add-nomeError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-logradouro">Logradouro*</label>
@@ -131,26 +163,31 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-complemento">Complemento</label>
                             <input type="text" class="form-control" name="add-complemento"
-                                style="text-align: right; width: 350px;" maxlength="45">
+                                style="width: 350px;" maxlength="45">
                             <span class="text-danger" id="add-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-bairro">Bairro*</label>
                             <input type="text" class="form-control" name="add-bairro"
-                                style="text-align: right; width: 350px;" maxlength="45" required>
+                                style="width: 350px;" maxlength="45" required>
                             <span class="text-danger" id="add-bairroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
                             <input type="text" class="form-control" name="add-telefone1"
-                                style="text-align: right; width: 155px;" maxlength="15" required>
+                                style="width: 155px;" maxlength="15" required>
                             <span class="text-danger" id="add-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone2">Telefone 2</label>
                             <input type="text" class="form-control" name="add-telefone2"
-                                style="text-align: right; width: 155px;" maxlength="15">
+                                style="width: 155px;" maxlength="15">
                             <span class="text-danger" id="add-telefone2Error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="add-email">E-mail*</label>
+                            <input type="email" class="form-control" name="add-email" required>
+                            <span class="text-danger" id="add-emailError"></span>
                         </div>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary active">
@@ -173,11 +210,7 @@
                                 maxlength="18">
                             <span class="text-danger" id="add-cnpjError"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-email">E-mail*</label>
-                            <input type="email" class="form-control" name="add-email" required>
-                            <span class="text-danger" id="add-emailError"></span>
-                        </div>
+                        
                         <div class="form-group">
                             <label class="mb-0" for="add-datanascimento">Data Nascimento/Fundação</label>
                             <input type="date" class="form-control" id="add-datanascimento" name="add-datanascimento"
@@ -221,8 +254,8 @@
                             <span class="text-danger" id="add-visaopoliticaError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-observacao">Observação</label>
-                            <textarea type="text" class="form-control" id="up-observacao" name="up-observacao"
+                            <label class="mb-0" for="add-observacao">Observação</label>
+                            <textarea type="text" class="form-control" id="add-observacao" name="add-observacao"
                                 maxlength="255"></textarea>
                             <span class="text-danger" id="add-observacaoError"></span>
                         </div>
@@ -238,7 +271,7 @@
         </div>
     </div>
     <!-- End Add Modal -->
-    {{--
+ {{--    
     <!-- Start EDIT Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -272,8 +305,9 @@
         </div>
     </div>
     <!-- End EDIT Modal -->
+--}}
 
-    <!-- Start VIEW Modal -->
+        <!-- Start VIEW Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -292,12 +326,60 @@
                                 style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-cliente">Descrição</label>
-                            <input type="text" class="form-control" id="v-cliente" name="v-cliente" readonly>
+                            <label class="mb-0" for="v-nome">Nome</label>
+                            <input type="text" class="form-control" id="v-nome" name="v-nome" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-user">Funcionário</label>
-                            <input type="text" class="form-control" id="v-user" name="v-user" readonly>
+                            <label class="mb-0" for="v-logradouro">Logradouro</label>
+                            <input type="text" class="form-control" id="v-logradouro" name="v-logradouro" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-numero">Número</label>
+                            <input type="text" class="form-control" id="v-numero" name="v-numero" style="width: 130px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-complemento">Complemento</label>
+                            <input type="text" class="form-control" id="v-complemento" name="v-complemento" style="width: 350px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-bairro">Bairro</label>
+                            <input type="text" class="form-control" id="v-bairro" name="v-bairro" style="width: 350px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-municipio">Município/UF</label>
+                            <input type="text" class="form-control" id="v-municipio" name="v-municipio" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-telefone1">Telefone 1</label>
+                            <input type="text" class="form-control" id="v-telefone1" name="v-telefone1" style="width: 155px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-telefone2">Telefone 2</label>
+                            <input type="text" class="form-control" id="v-telefone2" name="v-telefone2" style="width: 155px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-email">E-mail</label>
+                            <input type="text" class="form-control" id="v-email" name="v-email" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-cpf_cnpj">CPF/CNPJ</label>
+                            <input type="text" class="form-control" id="v-cpf_cnpj" name="v-cpf_cnpj" style="width: 190px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-datanascimento">Data Nascimento/Fundação</label>
+                            <input type="text" class="form-control" id="v-datanascimento" name="v-datanascimento" style="width: 130px;" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-sexo">Sexo</label>
+                            <input type="text" class="form-control" id="v-sexo" name="v-sexo" style="width: 180px;"  readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-visaopolitica">Visão Política</label>
+                            <input type="text" class="form-control" id="v-visaopolitica" name="v-visaopolitica" style="width: 255px;"  readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-observacao">Observação</label>
+                            <textarea type="textarea" class="form-control" id="v-observacao" name="v-observacao" readonly></textarea>
                         </div>
                     </form>
                 </div>
@@ -341,12 +423,89 @@
         </div>
     </div>
     <!-- End DELETE Modal -->
-    --}}
+
 @endsection
 
 @section('script_pages')
     <script type="text/javascript">
+        // Grupo de Clientes
+        $(document).ready(function() {
 
+            var table = $('#datatableCliente').DataTable();
+
+            //Start Edit Record
+            /*table.on('click', '.edit', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $("select[name='up-user'] option[value='" + data[3] + "']").attr('selected',
+                    'selected');
+                $("select[name='up-user'] option[value='" + data[3] + "']").text(data[2]);
+
+                $('#editForm').attr('action', '/grupocliente/' + data[0]);
+                $('#up-grupocliente').val(data[1]);
+                $('#up-user').val(data[2]);
+                $('#editModal').modal('show');
+            });
+            //End Edit Record*/
+
+            //Start View
+            table.on('click', '.view', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#v-id').val(data[0]);
+                $('#v-nome').val(data[1]);
+                $('#v-logradouro').val(data[2]);
+                $('#v-numero').val(data[3]);
+                $('#v-complemento').val(data[4]);
+                $('#v-bairro').val(data[5]);
+                $('#v-municipio').val(data[6]);
+                $('#v-telefone1').val(data[8]);
+                $('#v-telefone2').val(data[9]);
+                $('#v-email').val(data[10]);
+                $('#v-cpf_cnpj').val(data[11]);
+                $('#v-datanascimento').val(data[14]);
+                $('#v-sexo').val(data[16]);
+                $('#v-observacao').val(data[17]);
+                $('#v-visaopolitica').val(data[18]);
+
+                $('#viewForm').attr('action');
+                $('#viewModal').modal('show');
+            });
+            //End View
+
+            //Start Delete Record
+            table.on('click', '.delete', function() {
+                $tr = $(this).closest('tr');
+                if ($($tr).hasClass('child')) {
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                //$('#id').val(data[0]);
+
+                $('#deleteForm').attr('action', '/cliente/' + data[0]);
+                $('#delete-modal-body').html(
+                    '<input type="hidden" name="_method" value="DELETE">' +
+                    '<p>Deseja excluir o Grupo "<strong>' + data[1] + '</strong>" de "<strong>' + data[
+                        2] + '</strong>"?</p>');
+                $('#deleteModal').modal('show');
+            });
+            //End Delete Record
+        });
 
     </script>
 

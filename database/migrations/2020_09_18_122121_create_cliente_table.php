@@ -29,11 +29,11 @@ class CreateClienteTable extends Migration
             $table->string('sexo', 15)->nullable(true)->default('NÃO INFORMADO');
             $table->string('observacao', 255)->nullable(true);
             $table->unsignedBigInteger('municipio_id')->nullable(false);
-            $table->unsignedBigInteger('visaPolitica_id')->unsigned()->nullable(true);
+            $table->unsignedBigInteger('visaoPolitica_id')->nullable(true);
             $table->timestamps();
 
             $table->foreign('municipio_id')->references('id')->on('municipios')->onDelete('restrict');
-            $table->foreign('visaPolitica_id')->references('id')->on('visao_politicas')->onDelete('restrict');
+            $table->foreign('visaoPolitica_id')->references('id')->on('visao_politicas')->onDelete('restrict');
         });
     }
 
