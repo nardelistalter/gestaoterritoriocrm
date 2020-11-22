@@ -29,9 +29,7 @@ class ClienteController extends Controller
     {
         $clientes = $this->cliente::all()->sortBy('nome');
         $visaopoliticas =  $this->visaopolitica::all();
-        //dd($visaopoliticas);
         $municipios = $this->municipio::all()->sortBy('nome');
-        //dd($municipios);
         return view('cliente.content_cliente')->with('clientes', $clientes)->with('visaopoliticas', $visaopoliticas)->with('municipios', $municipios);
     }
 
@@ -60,14 +58,13 @@ class ClienteController extends Controller
             'add-complemento' => 'max:45',
             'add-bairro' => 'required|max:45',
             'add-telefone1' => 'required|max:15',
-            'add-telefone2' => 'max:15',
-            'add-cpf' => 'max:14',
-            'add-cnpj' => 'max:18',
-            'add-email' => 'max:255',
-            'add-datanascimento' => 'max:15',
-            'add-sexo' => 'max:15',
-            'add-observacao' => 'max:255',
-            'add-visaopolitica' => 'min:1',
+            'add-telefone2' => 'nullable|max:15',
+            'add-cpf' => 'cpf',
+            'add-cnpj' => 'cnpj',
+            'add-email' => 'nullable|max:255',
+            'add-datanascimento' => 'nullable|date',
+            'add-sexo' => 'nullable|max:15',
+            'add-observacao' => 'nullable|max:255',
             'add-municipio' => 'required|min:1',
         ]);
 
@@ -83,7 +80,7 @@ class ClienteController extends Controller
         $clientes->cnpj = $request->input('add-cnpj');
         $clientes->email = $request->input('add-email');
         $clientes->dataNascimento = $request->input('add-datanascimento');
-        $clientes->sexo = $request->input('add-sexo');
+        $clientes->sexo = $request->input('add-sexo')->default('NÃO INFORMADO');
         $clientes->observacao = $request->input('add-observacao');
         $clientes->visaoPolitica_id = $request->input('add-visaopolitica');
         $clientes->municipio_id = $request->input('add-municipio');
@@ -131,14 +128,13 @@ class ClienteController extends Controller
             'up-complemento' => 'max:45',
             'up-bairro' => 'required|max:45',
             'up-telefone1' => 'required|max:15',
-            'up-telefone2' => 'max:15',
-            'up-cpf' => 'max:14',
+            'up-telefone2' => 'nullable|max:15',
+            'up-cpf' => 'cpf|max:14',
             'up-cnpj' => 'max:18',
-            'up-email' => 'max:255',
-            'up-datanascimento' => 'max:15',
-            'up-sexo' => 'max:15',
-            'up-observacao' => 'max:255',
-            'up-visaopolitica' => 'min:1',
+            'up-email' => 'nullable|max:255',
+            'up-datanascimento' => 'nullable|date',
+            'up-sexo' => 'nullable|max:15',
+            'up-observacao' => 'nullable|max:255',
             'up-municipio' => 'required|min:1',
         ]);
 
@@ -155,6 +151,7 @@ class ClienteController extends Controller
         $clientes->email = $request->input('up-email');
         $clientes->dataNascimento = $request->input('up-datanascimento');
         $clientes->sexo = $request->input('up-sexo');
+        $clientes->sexo = $request->input('up-sexo') ?? 'NÃO INFORMADO';
         $clientes->observacao = $request->input('up-observacao');
         $clientes->visaoPolitica_id = $request->input('up-visaopolitica');
         $clientes->municipio_id = $request->input('up-municipio');

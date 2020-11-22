@@ -54,6 +54,7 @@
                         <tbody>
                             @foreach ($clientes as $cliente)
                                 @php
+                                //$visaopolitica = \App\Model\VisaoPolitica::with('cliente')->get();
                                 $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
                                 //dd($visaopolitica);
                                 $municipio = $cliente->find($cliente->id)->municipio;
@@ -77,17 +78,18 @@
                                     <td class="align-middle" style="display: none;">{{ $cliente->cpf }}</td>
                                     <td class="align-middle" style="display: none;">{{ $cliente->cnpj }}</td>
                                     <td class="align-middle border-left">
-                                        {{ date('d/m/Y', strtotime($cliente->dataNascimento)) ?? ''}}
+                                        {{ date('d/m/Y', strtotime($cliente->dataNascimento)) ?? '' }}
                                     </td>
                                     <td style="display: none;">{{ $cliente->dataNascimento }}</td>
                                     <td class="align-middle border-left">{{ $cliente->sexo }}</td>
                                     <th class="align-middle border-left">{{ $cliente->observacao }}</th>
                                     <td class="align-middle" style="display: none;">{{ $cliente->visaoPolitica_id }}</td>
-                                    <td class="align-middle" style="display: none;">{{ $visaopolitica->descricao }}</td>
+                                    <td class="align-middle" style="display: none;">
+                                        {{ $visaopolitica->descricao ?? 'NÃO DEFINIDA' }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
-                                        <a href="#" class="btn_crud btn btn-warning btn-sm edit disabled"><i
+                                        <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
                                             onclick="return confirmDeletion({{ $cliente->id }}, '{{ $cliente->nome }} - {{ $cliente->cpf ?? $cliente->cnpj }} - {{ $municipio->nome }}/{{ $estado->sigla }}', '{{ strtolower(class_basename($cliente)) }}');"
@@ -162,31 +164,31 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-complemento">Complemento</label>
-                            <input type="text" class="form-control" name="add-complemento"
-                                style="width: 350px;" maxlength="45">
+                            <input type="text" class="form-control" name="add-complemento" style="width: 350px;"
+                                maxlength="45">
                             <span class="text-danger" id="add-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-bairro">Bairro*</label>
-                            <input type="text" class="form-control" name="add-bairro"
-                                style="width: 350px;" maxlength="45" required>
+                            <input type="text" class="form-control" name="add-bairro" style="width: 350px;" maxlength="45"
+                                required>
                             <span class="text-danger" id="add-bairroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
-                            <input type="text" class="form-control" name="add-telefone1"
-                                style="width: 155px;" maxlength="15" required>
+                            <input type="text" class="form-control" name="add-telefone1" style="width: 155px;"
+                                maxlength="15" required>
                             <span class="text-danger" id="add-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control" name="add-telefone2"
-                                style="width: 155px;" maxlength="15">
+                            <input type="text" class="form-control" name="add-telefone2" style="width: 155px;"
+                                maxlength="15">
                             <span class="text-danger" id="add-telefone2Error"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-email">E-mail*</label>
-                            <input type="email" class="form-control" name="add-email" required>
+                            <label class="mb-0" for="add-email">E-mail</label>
+                            <input type="email" class="form-control" name="add-email">
                             <span class="text-danger" id="add-emailError"></span>
                         </div>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -210,7 +212,7 @@
                                 maxlength="18">
                             <span class="text-danger" id="add-cnpjError"></span>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="mb-0" for="add-datanascimento">Data Nascimento/Fundação</label>
                             <input type="date" class="form-control" id="add-datanascimento" name="add-datanascimento"
@@ -220,10 +222,11 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-sexo">Sexo</label>
                             <select class="form-control selectpicker" data-live-search="true" name="add-sexo"
-                                style="width: 200px;" required>
+                                style="width: 200px;">
                                 <option value="">Selecione...</option>
                                 <option value="FEMININO">FEMININO</option>
                                 <option value="MASCULINO">MASCULINO</option>
+                                <option value="NÃO INFORMADO">NÃO INFORMADO</option>
                             </select>
                             <span class="text-danger" id="add-sexoError"></span>
                         </div>
@@ -271,7 +274,7 @@
         </div>
     </div>
     <!-- End Add Modal -->
- {{--    
+
     <!-- Start EDIT Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -287,11 +290,118 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label class="mb-0" for="up-cliente">Descrição</label>
-                            <input type="text" class="form-control" id="up-cliente" name="up-cliente" required>
+                            <label class="mb-0" for="up-nome">Nome*</label>
+                            <input type="text" class="form-control" id="up-nome" name="up-nome" maxlength="60" required>
+                            <span class="text-danger" id="up-nomeError"></span>
                         </div>
-                        <div id="select-cliente" class="form-group col-xs-2">
-                            <!-- jquery -->
+                        <div class="form-group">
+                            <label class="mb-0" for="up-logradouro">Logradouro*</label>
+                            <input type="text" class="form-control" id="up-logradouro" name="up-logradouro" maxlength="120" required>
+                            <span class="text-danger" id="up-logradouroError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-numero">Número*</label>
+                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 130px;" maxlength="10"
+                                required>
+                            <span class="text-danger" id="up-numeroError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-complemento">Complemento</label>
+                            <input type="text" class="form-control" id="up-complemento" name="up-complemento" style="width: 350px;"
+                                maxlength="45">
+                            <span class="text-danger" id="up-complementoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-bairro">Bairro*</label>
+                            <input type="text" class="form-control"  id="up-bairro" name="up-bairro" style="width: 350px;" maxlength="45"
+                                required>
+                            <span class="text-danger" id="up-bairroError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-telefone1">Telefone 1*</label>
+                            <input type="text" class="form-control"  id="up-telefone1" name="up-telefone1" style="width: 155px;"
+                                maxlength="15" required>
+                            <span class="text-danger" id="up-telefone1Error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-telefone2">Telefone 2</label>
+                            <input type="text" class="form-control"  id="up-telefone2" name="up-telefone2" style="width: 155px;"
+                                maxlength="15">
+                            <span class="text-danger" id="up-telefone2Error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-email">E-mail</label>
+                            <input type="email" class="form-control"  id="up-email" name="up-email">
+                            <span class="text-danger" id="up-emailError"></span>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="cpf_cnpj" id="cpf" autocomplete="off" checked> CPF
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="cpf_cnpj" id="cnpj" autocomplete="off"> CNPJ
+                            </label>
+                        </div>
+                        <br><br>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cpf">CPF*</label>
+                            <input type="text" class="form-control"  id="up-cpf" name="up-cpf" style="text-align: right; width: 155px;"
+                                maxlength="14">
+                            <span class="text-danger" id="up-cpfError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
+                            <input type="text" class="form-control"  id="up-cnpj" name="up-cnpj" style="text-align: right; width: 185px;"
+                                maxlength="18">
+                            <span class="text-danger" id="up-cnpjError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-0" for="up-datanascimento">Data Nascimento/Fundação</label>
+                            <input type="date" class="form-control" id="up-datanascimento" name="up-datanascimento"
+                                style="width: 170px;">
+                            <span class="text-danger" id="up-datanascimentoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-sexo">Sexo</label>
+                            <select class="form-control selectpicker" data-live-search="true"  id="up-sexo" name="up-sexo"
+                                style="width: 200px;">
+                                <option value="">Selecione...</option>
+                                <option value="FEMININO">FEMININO</option>
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="NÃO INFORMADO">NÃO INFORMADO</option>
+                            </select>
+                            <span class="text-danger" id="up-sexoError"></span>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="up-municipio">Município*</label>
+                            <select class="form-control selectpicker" data-live-search="true"  id="up-municipio" name="up-municipio" required>
+                                <option value="">Selecione...</option>
+                                @foreach ($municipios as $municipio)
+                                    @php
+                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="up-municipioError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="up-visaopolitica">Visão Política</label>
+                            <select class="form-control selectpicker" data-live-search="true"  id="up-visaopolitica" name="up-visaopolitica">
+                                <option value="">Selecione...</option>
+                                @foreach ($visaopoliticas as $visaopolitica)
+                                    <option value={{ $visaopolitica->id }}> {{ $visaopolitica->descricao }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-observacao">Observação</label>
+                            <textarea type="text" class="form-control" id="up-observacao" name="up-observacao"
+                                maxlength="255"></textarea>
                         </div>
                     </form>
                 </div>
@@ -305,9 +415,8 @@
         </div>
     </div>
     <!-- End EDIT Modal -->
---}}
 
-        <!-- Start VIEW Modal -->
+    <!-- Start VIEW Modal -->
     <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -335,15 +444,18 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-numero">Número</label>
-                            <input type="text" class="form-control" id="v-numero" name="v-numero" style="width: 130px;" readonly>
+                            <input type="text" class="form-control" id="v-numero" name="v-numero" style="width: 130px;"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-complemento">Complemento</label>
-                            <input type="text" class="form-control" id="v-complemento" name="v-complemento" style="width: 350px;" readonly>
+                            <input type="text" class="form-control" id="v-complemento" name="v-complemento"
+                                style="width: 350px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-bairro">Bairro</label>
-                            <input type="text" class="form-control" id="v-bairro" name="v-bairro" style="width: 350px;" readonly>
+                            <input type="text" class="form-control" id="v-bairro" name="v-bairro" style="width: 350px;"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-municipio">Município/UF</label>
@@ -351,11 +463,13 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-telefone1">Telefone 1</label>
-                            <input type="text" class="form-control" id="v-telefone1" name="v-telefone1" style="width: 155px;" readonly>
+                            <input type="text" class="form-control" id="v-telefone1" name="v-telefone1"
+                                style="width: 155px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control" id="v-telefone2" name="v-telefone2" style="width: 155px;" readonly>
+                            <input type="text" class="form-control" id="v-telefone2" name="v-telefone2"
+                                style="width: 155px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-email">E-mail</label>
@@ -363,23 +477,28 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-cpf_cnpj">CPF/CNPJ</label>
-                            <input type="text" class="form-control" id="v-cpf_cnpj" name="v-cpf_cnpj" style="width: 190px;" readonly>
+                            <input type="text" class="form-control" id="v-cpf_cnpj" name="v-cpf_cnpj" style="width: 190px;"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-datanascimento">Data Nascimento/Fundação</label>
-                            <input type="text" class="form-control" id="v-datanascimento" name="v-datanascimento" style="width: 130px;" readonly>
+                            <input type="text" class="form-control" id="v-datanascimento" name="v-datanascimento"
+                                style="width: 130px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-sexo">Sexo</label>
-                            <input type="text" class="form-control" id="v-sexo" name="v-sexo" style="width: 180px;"  readonly>
+                            <input type="text" class="form-control" id="v-sexo" name="v-sexo" style="width: 180px;"
+                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-visaopolitica">Visão Política</label>
-                            <input type="text" class="form-control" id="v-visaopolitica" name="v-visaopolitica" style="width: 255px;"  readonly>
+                            <input type="text" class="form-control" id="v-visaopolitica" name="v-visaopolitica"
+                                style="width: 255px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-observacao">Observação</label>
-                            <textarea type="textarea" class="form-control" id="v-observacao" name="v-observacao" readonly></textarea>
+                            <textarea type="textarea" class="form-control" id="v-observacao" name="v-observacao"
+                                readonly></textarea>
                         </div>
                     </form>
                 </div>
@@ -434,7 +553,7 @@
             var table = $('#datatableCliente').DataTable();
 
             //Start Edit Record
-            /*table.on('click', '.edit', function() {
+            table.on('click', '.edit', function() {
                 $tr = $(this).closest('tr');
                 if ($($tr).hasClass('child')) {
                     $tr = $tr.prev('.parent');
@@ -443,16 +562,37 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $("select[name='up-user'] option[value='" + data[3] + "']").attr('selected',
+                $('#select-visaopolitica').html(
+                    '<label class="mb-0" for="up-visaopolitica">Grupo de Clientes</label>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="up-visaopolitica" required>' +
+                    '   @foreach ($visaopoliticas as $visaopolitica)' +
+                    '       <option value={{ $visaopolitica->id }}>{{ $visaopolitica->descricao }}</option>' +
+                    '   @endforeach' +
+                    '</select>');
+                $("select[name='up-visaopolitica'] option[value='" + data[18] + "']").attr('selected',
                     'selected');
-                $("select[name='up-user'] option[value='" + data[3] + "']").text(data[2]);
 
-                $('#editForm').attr('action', '/grupocliente/' + data[0]);
-                $('#up-grupocliente').val(data[1]);
-                $('#up-user').val(data[2]);
+                $("select[name='up-municipio'] option[value='" + data[7] + "']").attr('selected',
+                    'selected');
+                $("select[name='up-municipio'] option[value='" + data[7] + "']").text(data[6]);
+
+                $('#editForm').attr('action', '/cliente/' + data[0]);
+                $('#up-nome').val(data[1]);
+                $('#up-logradouro').val(data[2]);
+                $('#up-numero').val(data[3]);
+                $('#up-complemento').val(data[4]);
+                $('#up-bairro').val(data[5]);
+                $('#up-telefone1').val(data[8]);
+                $('#up-telefone2').val(data[9]);
+                $('#up-email').val(data[10]);
+                $('#up-cpf').val(data[12]);
+                $('#up-cnpj').val(data[13]);
+                document.getElementById("up-datanascimento").valueAsDate = new Date(data[15]);
+                $('#up-sexo').val(data[16]);
+                $('#up-observacao').val(data[17]);
                 $('#editModal').modal('show');
             });
-            //End Edit Record*/
+            //End Edit Record
 
             //Start View
             table.on('click', '.view', function() {
@@ -478,7 +618,7 @@
                 $('#v-datanascimento').val(data[14]);
                 $('#v-sexo').val(data[16]);
                 $('#v-observacao').val(data[17]);
-                $('#v-visaopolitica').val(data[18]);
+                $('#v-visaopolitica').val(data[19]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
