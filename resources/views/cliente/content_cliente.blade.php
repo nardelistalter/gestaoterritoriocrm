@@ -54,11 +54,8 @@
                         <tbody>
                             @foreach ($clientes as $cliente)
                                 @php
-                                //$visaopolitica = \App\Model\VisaoPolitica::with('cliente')->get();
                                 $visaopolitica = $cliente->find($cliente->id)->visaopolitica;
-                                //dd($visaopolitica);
                                 $municipio = $cliente->find($cliente->id)->municipio;
-                                //dd($municipio);
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
                                 $estado = $microrregiao->find($microrregiao->id)->estado;
                                 @endphp
@@ -85,7 +82,8 @@
                                     <th class="align-middle border-left">{{ $cliente->observacao }}</th>
                                     <td class="align-middle" style="display: none;">{{ $cliente->visaoPolitica_id }}</td>
                                     <td class="align-middle" style="display: none;">
-                                        {{ $visaopolitica->descricao ?? 'NÃO DEFINIDA' }}</td>
+                                        {{ $visaopolitica->descricao ?? 'NÃO DEFINIDA' }}
+                                    </td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -174,6 +172,21 @@
                                 required>
                             <span class="text-danger" id="add-bairroError"></span>
                         </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="add-municipio">Município*</label>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio" required>
+                                <option value="">Selecione...</option>
+                                @foreach ($municipios as $municipio)
+                                    @php
+                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
+                                    $estado = $microrregiao->find($microrregiao->id)->estado;
+                                    @endphp
+                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="add-municipioError"></span>
+                        </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
                             <input type="text" class="form-control" name="add-telefone1" style="width: 155px;"
@@ -191,25 +204,28 @@
                             <input type="email" class="form-control" name="add-email">
                             <span class="text-danger" id="add-emailError"></span>
                         </div>
+
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="cpf_cnpj" id="cpf" autocomplete="off" checked> CPF
+                            <label class="btn btn-secondary active" for="add-rd-cpf">
+                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-1"
+                                    value="1" checked> CPF
                             </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="cpf_cnpj" id="cnpj" autocomplete="off"> CNPJ
+                            <label class="btn btn-secondary" for="add-rd-cnpj">
+                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-2"
+                                    value="2"> CNPJ
                             </label>
                         </div>
                         <br><br>
                         <div class="form-group">
                             <label class="mb-0" for="add-cpf">CPF*</label>
-                            <input type="text" class="form-control" name="add-cpf" style="text-align: right; width: 155px;"
-                                maxlength="14">
+                            <input type="text" name="custom_field[account][3]" value="" id="input-custom-field3" class="form-control"  style="text-align: right; width: 155px;"
+                                maxlength="14" vk_1bc56="subscribed">
                             <span class="text-danger" id="add-cpfError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-cnpj">CNPJ*</label>
-                            <input type="text" class="form-control" name="add-cnpj" style="text-align: right; width: 185px;"
-                                maxlength="18">
+                            <input type="text" name="custom_field[account][4]" value="" id="input-custom-field4" class="form-control" 
+                                maxlength="18" vk_1bc56="subscribed">
                             <span class="text-danger" id="add-cnpjError"></span>
                         </div>
 
@@ -229,22 +245,6 @@
                                 <option value="NÃO INFORMADO">NÃO INFORMADO</option>
                             </select>
                             <span class="text-danger" id="add-sexoError"></span>
-                        </div>
-
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-municipio">Município*</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-municipio" required>
-                                <option value="">Selecione...</option>
-                                @foreach ($municipios as $municipio)
-                                    @php
-                                    $microrregiao = $municipio->find($municipio->id)->microrregiao;
-                                    $estado = $microrregiao->find($microrregiao->id)->estado;
-                                    @endphp
-                                    <option value={{ $municipio->id }}> {{ $municipio->nome }}/{{ $estado->sigla }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger" id="add-municipioError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-visaopolitica">Visão Política</label>
@@ -296,87 +296,32 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-logradouro">Logradouro*</label>
-                            <input type="text" class="form-control" id="up-logradouro" name="up-logradouro" maxlength="120" required>
+                            <input type="text" class="form-control" id="up-logradouro" name="up-logradouro" maxlength="120"
+                                required>
                             <span class="text-danger" id="up-logradouroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-numero">Número*</label>
-                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 130px;" maxlength="10"
-                                required>
+                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 130px;"
+                                maxlength="10" required>
                             <span class="text-danger" id="up-numeroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-complemento">Complemento</label>
-                            <input type="text" class="form-control" id="up-complemento" name="up-complemento" style="width: 350px;"
-                                maxlength="45">
+                            <input type="text" class="form-control" id="up-complemento" name="up-complemento"
+                                style="width: 350px;" maxlength="45">
                             <span class="text-danger" id="up-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-bairro">Bairro*</label>
-                            <input type="text" class="form-control"  id="up-bairro" name="up-bairro" style="width: 350px;" maxlength="45"
-                                required>
+                            <input type="text" class="form-control" id="up-bairro" name="up-bairro" style="width: 350px;"
+                                maxlength="45" required>
                             <span class="text-danger" id="up-bairroError"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-telefone1">Telefone 1*</label>
-                            <input type="text" class="form-control"  id="up-telefone1" name="up-telefone1" style="width: 155px;"
-                                maxlength="15" required>
-                            <span class="text-danger" id="up-telefone1Error"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control"  id="up-telefone2" name="up-telefone2" style="width: 155px;"
-                                maxlength="15">
-                            <span class="text-danger" id="up-telefone2Error"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-email">E-mail</label>
-                            <input type="email" class="form-control"  id="up-email" name="up-email">
-                            <span class="text-danger" id="up-emailError"></span>
-                        </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="cpf_cnpj" id="cpf" autocomplete="off" checked> CPF
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="cpf_cnpj" id="cnpj" autocomplete="off"> CNPJ
-                            </label>
-                        </div>
-                        <br><br>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cpf">CPF*</label>
-                            <input type="text" class="form-control"  id="up-cpf" name="up-cpf" style="text-align: right; width: 155px;"
-                                maxlength="14">
-                            <span class="text-danger" id="up-cpfError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
-                            <input type="text" class="form-control"  id="up-cnpj" name="up-cnpj" style="text-align: right; width: 185px;"
-                                maxlength="18">
-                            <span class="text-danger" id="up-cnpjError"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="mb-0" for="up-datanascimento">Data Nascimento/Fundação</label>
-                            <input type="date" class="form-control" id="up-datanascimento" name="up-datanascimento"
-                                style="width: 170px;">
-                            <span class="text-danger" id="up-datanascimentoError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-sexo">Sexo</label>
-                            <select class="form-control selectpicker" data-live-search="true"  id="up-sexo" name="up-sexo"
-                                style="width: 200px;">
-                                <option value="">Selecione...</option>
-                                <option value="FEMININO">FEMININO</option>
-                                <option value="MASCULINO">MASCULINO</option>
-                                <option value="NÃO INFORMADO">NÃO INFORMADO</option>
-                            </select>
-                            <span class="text-danger" id="up-sexoError"></span>
-                        </div>
-
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-municipio">Município*</label>
-                            <select class="form-control selectpicker" data-live-search="true"  id="up-municipio" name="up-municipio" required>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-municipio"
+                                name="up-municipio" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($municipios as $municipio)
                                     @php
@@ -389,9 +334,69 @@
                             </select>
                             <span class="text-danger" id="up-municipioError"></span>
                         </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-telefone1">Telefone 1*</label>
+                            <input type="text" class="form-control" id="up-telefone1" name="up-telefone1"
+                                style="width: 155px;" maxlength="15" required>
+                            <span class="text-danger" id="up-telefone1Error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-telefone2">Telefone 2</label>
+                            <input type="text" class="form-control" id="up-telefone2" name="up-telefone2"
+                                style="width: 155px;" maxlength="15">
+                            <span class="text-danger" id="up-telefone2Error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-email">E-mail</label>
+                            <input type="email" class="form-control" id="up-email" name="up-email">
+                            <span class="text-danger" id="up-emailError"></span>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active" for="up-rd-cpf">
+                                <input type="radio" name="up-rd-cpf_cnpj" id="up-rd-cpf" autocomplete="off"
+                                    onClick=habilitacao() value="up-rd-cpf" checked> CPF
+                            </label>
+                            <label class="btn btn-secondary" for="up-rd-cnpj">
+                                <input type="radio" name="up-cpf_cnpj" id="up-rd-cnpj" autocomplete="off"
+                                    onClick="habilitacao()" value="up-rd-cnpj"> CNPJ
+                            </label>
+                        </div>
+                        <br><br>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cpf">CPF*</label>
+                            <input type="text" class="form-control" id="up-cpf" name="up-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14">
+                            <span class="text-danger" id="up-cpfError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
+                            <input type="text" class="form-control" id="up-cnpj" name="up-cnpj"
+                                style="text-align: right; width: 185px;" maxlength="18">
+                            <span class="text-danger" id="up-cnpjError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mb-0" for="up-datanascimento">Data Nascimento/Fundação</label>
+                            <input type="date" class="form-control" id="up-datanascimento" name="up-datanascimento"
+                                style="width: 170px;">
+                            <span class="text-danger" id="up-datanascimentoError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-sexo">Sexo</label>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-sexo" name="up-sexo"
+                                style="width: 200px;">
+                                <option value="">Selecione...</option>
+                                <option value="FEMININO">FEMININO</option>
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="NÃO INFORMADO">NÃO INFORMADO</option>
+                            </select>
+                            <span class="text-danger" id="up-sexoError"></span>
+                        </div>
+
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-visaopolitica">Visão Política</label>
-                            <select class="form-control selectpicker" data-live-search="true"  id="up-visaopolitica" name="up-visaopolitica">
+                            <select class="form-control selectpicker" data-live-search="true" id="up-visaopolitica"
+                                name="up-visaopolitica">
                                 <option value="">Selecione...</option>
                                 @foreach ($visaopoliticas as $visaopolitica)
                                     <option value={{ $visaopolitica->id }}> {{ $visaopolitica->descricao }} </option>
@@ -546,6 +551,7 @@
 @endsection
 
 @section('script_pages')
+
     <script type="text/javascript">
         // Grupo de Clientes
         $(document).ready(function() {
@@ -646,6 +652,24 @@
             });
             //End Delete Record
         });
+
+    </script>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            $("#input-custom-field3, #input-custom-field4").hide();
+          });
+
+          $("input[type=radio]").on("change", function() {
+            if ($(this).val() == "1") {
+              $("#input-custom-field3").show();
+              $("#input-custom-field4").hide();
+            } else if ($(this).val() == "2") {
+              $("#input-custom-field4").show();
+              $("#input-custom-field3").hide();
+            }
+          });
 
     </script>
 

@@ -144,7 +144,7 @@
                             <span class="text-danger" id="add-programadenegocioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="add-metadesejada">Participação Desejada</label>
+                            <label class="mb-0" for="add-metadesejada">Participação Desejada R$</label>
                             <input type="number" class="form-control" id="add-metadesejada"
                                 name="add-metadesejada" step="0.01" min="0.01"
                                 style="text-align: right; width: 150px;" required>
@@ -206,7 +206,7 @@
                             <span class="text-danger" id="up-programadenegocioError"></span>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="up-metadesejada">Participação Desejada (%)</label>
+                            <label class="mb-0" for="up-metadesejada">Participação Desejada R$</label>
                             <input type="number" class="form-control" id="up-metadesejada"
                                 name="up-metadesejada" step="0.01" min="0.01"
                                 style="text-align: right; width: 150px;" required>
@@ -259,7 +259,7 @@
                                 readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-metadesejada">Participação Desejada (%)</label>
+                            <label class="mb-0" for="v-metadesejada">Participação Desejada R$</label>
                             <input type="text" class="form-control" id="v-metadesejada"
                                 name="v-metadesejada" style="text-align: right; width: 150px;" readonly>
                         </div>

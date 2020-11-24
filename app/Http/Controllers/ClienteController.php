@@ -150,7 +150,6 @@ class ClienteController extends Controller
         $clientes->cnpj = $request->input('up-cnpj');
         $clientes->email = $request->input('up-email');
         $clientes->dataNascimento = $request->input('up-datanascimento');
-        $clientes->sexo = $request->input('up-sexo');
         $clientes->sexo = $request->input('up-sexo') ?? 'NÃO INFORMADO';
         $clientes->observacao = $request->input('up-observacao');
         $clientes->visaoPolitica_id = $request->input('up-visaopolitica');

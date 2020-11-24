@@ -31,9 +31,8 @@ PRIORIDADE:
         5.1-Função no HomeController
         5.2-Definir e-mail funcional para envio
 
-    6-CRUD de Pessoas (acrescentar lista de e-mails no form)
-        6.1-Cliente (Tabela e CRUD)
-        6.2-Funcionário (Tabela e CRUD)
+    6-CRUD de Usuário/Funcionário
+        6.1-Exibir nome do gerente na tabela e formulários
 
 RELATÓRIOS:
     1-Clientes
