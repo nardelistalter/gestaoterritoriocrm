@@ -1,10 +1,20 @@
 Dashboard:
 
+https://stackoverflow.com/questions/22925451/how-can-i-query-raw-via-eloquent
+https://pt.stackoverflow.com/questions/266081/laravel-como-preencher-um-select-com-eloquent
+
+FILTROS:
+	*Gerente: Opção por todos, considera seus consultores subordinados e seus respectivos grupos de clientes.
+	*Consultor: Opção por todos, considera seus respectivos grupos de clientes
+	*Grupo de clientes: Opção por todos, considera suas respectivas movimentações
+	*Safra: obrigatório, considera apenas uma safra por vez
+
 /*
  *
  * GRUPO DE CLIENTE - POTENCIAL DE ACESSO
  * Consulta potencial de acesso com filtro de SAFRA
- * Saída: TOTAL
+ * Saída: Somente valor TOTAL
+ *
  *
  */
 SELECT sum(s.qtdUnidadesArea * p.valorUnitario) as potencialDeAcesso
@@ -19,7 +29,7 @@ FROM grupo_clientes g INNER JOIN (
 								 group by 1, 2
 								) as p ON p.segmentoCultura_id = s.id
 					inner join safras sf on sf.id = p.safra_id
-					where sf.id = 2???
+					where sf.id = 2 --(id da safra???)
 
 
 /*
@@ -31,11 +41,12 @@ FROM grupo_clientes g INNER JOIN (
  */
 
 
+
 /*
  *
  * GRUPO DE CLIENTE - META
  * Consulta META com filtro de SAFRA
- * Saída: TOTAL
+ * Saída: Somente valor TOTAL
  *
  */
 
@@ -43,6 +54,25 @@ FROM grupo_clientes g INNER JOIN (
  /*
  *
  * GRUPO DE CLIENTE - META
+ * Consulta META com filtro de SAFRA
+ * Saída: TOTAL por Grupo de Cliente
+ *
+ */
+
+
+
+ /*
+ *
+ * GRUPO DE CLIENTE - VENDA REALIZADA
+ * Consulta META com filtro de SAFRA
+ * Saída: Somente valor TOTAL
+ *
+ */
+
+
+ /*
+ *
+ * GRUPO DE CLIENTE - VENDA REALIZADA
  * Consulta META com filtro de SAFRA
  * Saída: TOTAL por Grupo de Cliente
  *

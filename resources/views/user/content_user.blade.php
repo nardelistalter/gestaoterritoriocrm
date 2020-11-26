@@ -63,7 +63,7 @@
                             @foreach ($users as $user)
                                 @php
                                 $cargo = $user->find($user->id)->cargo;
-                                //$gerente = $user->find($user->id)->gerente;
+                                $gerente = $user->find($user->id)->user;
                                 //dd($gerente);
                                 $municipio = $user->find($user->id)->municipio;
                                 $microrregiao = $municipio->find($municipio->id)->microrregiao;
@@ -81,7 +81,7 @@
                                     <td class="align-middle border-left">
                                         @if (!$user->image)
                                             <img class="img-fluid rounded-circle" width="30px" height="auto"
-                                            src="{{ URL::to('img/default.png') }}">
+                                                src="{{ URL::to('img/default.png') }}">
                                         @else
                                             <img class="img-fluid rounded-circle" width="30px" height="auto"
                                                 src="data:image/png;base64,{{ chunk_split(base64_encode($user->image)) }}">
@@ -103,7 +103,7 @@
                                     </td>
                                     <td style="display: none;">{{ $user->dataNascimento }}</td>
                                     <td class="align-middle" style="display: none;">{{ $user->sexo }}</td>
-                                    <td class="align-middle border-left">{{ $user->gerente_id ?? '' }}</td>
+                                    <td class="align-middle border-left">{{ $gerente->nome ?? '' }}</td>
                                     <td class="align-middle" style="display: none;">{{ $user->gerente_id ?? '' }}</td>
                                     <td class="align-middle" style="display: none;">
                                         {{ date('d/m/Y', strtotime($user->dataAdmissao)) ?? '' }}
@@ -192,30 +192,32 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-logradouro">Logradouro*</label>
-                            <input type="text" class="form-control" id="add-logradouro" name="add-logradouro" maxlength="120" required>
+                            <input type="text" class="form-control" id="add-logradouro" name="add-logradouro"
+                                maxlength="120" required>
                             <span class="text-danger" id="add-logradouroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-numero">Número*</label>
-                            <input type="text" class="form-control" id="add-numero" name="add-numero" style="width: 130px;" maxlength="10"
-                                required>
+                            <input type="text" class="form-control" id="add-numero" name="add-numero" style="width: 130px;"
+                                maxlength="10" required>
                             <span class="text-danger" id="add-numeroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-complemento">Complemento</label>
-                            <input type="text" class="form-control" id="add-complemento" name="add-complemento" style="width: 350px;"
-                                maxlength="45">
+                            <input type="text" class="form-control" id="add-complemento" name="add-complemento"
+                                style="width: 350px;" maxlength="45">
                             <span class="text-danger" id="add-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-bairro">Bairro*</label>
-                            <input type="text" class="form-control" id="add-bairro" name="add-bairro" style="width: 350px;" maxlength="45"
-                                required>
+                            <input type="text" class="form-control" id="add-bairro" name="add-bairro" style="width: 350px;"
+                                maxlength="45" required>
                             <span class="text-danger" id="add-bairroError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-municipio">Município*</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-municipio" name="add-municipio" required>
+                            <select class="form-control selectpicker" data-live-search="true" id="add-municipio"
+                                name="add-municipio" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($municipios as $municipio)
                                     @php
@@ -230,14 +232,14 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
-                            <input type="text" class="form-control" id="add-telefone1" name="add-telefone1" style="width: 155px;"
-                                maxlength="15" required>
+                            <input type="text" class="form-control" id="add-telefone1" name="add-telefone1"
+                                style="width: 155px;" maxlength="15" required>
                             <span class="text-danger" id="add-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control" id="add-telefone2" name="add-telefone2" style="width: 155px;"
-                                maxlength="15">
+                            <input type="text" class="form-control" id="add-telefone2" name="add-telefone2"
+                                style="width: 155px;" maxlength="15">
                             <span class="text-danger" id="add-telefone2Error"></span>
                         </div>
                         <div class="form-group">
@@ -247,8 +249,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-cpf">CPF*</label>
-                            <input type="cpf" class="form-control" id="add-cpf" name="add-cpf" style="text-align: right; width: 155px;"
-                                maxlength="14">
+                            <input type="cpf" class="form-control" id="add-cpf" name="add-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14">
                             <span class="text-danger" id="add-cpfError"></span>
                         </div>
                         <div class="form-group">
@@ -270,7 +272,8 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-cargo">Cargo*</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-cargo" name="add-cargo">
+                            <select class="form-control selectpicker" data-live-search="true" id="add-cargo"
+                                name="add-cargo">
                                 <option value="">Selecione...</option>
                                 @foreach ($cargos as $cargo)
                                     <option value={{ $cargo->id }}> {{ $cargo->descricao }} </option>
@@ -280,10 +283,11 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-gerente">Gerente</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-gerente" name="add-gerente">
+                            <select class="form-control selectpicker" data-live-search="true" id="add-gerente"
+                                name="add-gerente">
                                 <option value="">Selecione...</option>
-                                @foreach ($users as $user)
-                                    <option value={{ $user->id }}> {{ $user->nome }} </option>
+                                @foreach ($gerentes as $gerente)
+                                    <option value={{ $gerente->id }}> {{ $gerente->nome }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-cargoError"></span>
@@ -302,8 +306,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-status">Ativo</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-status" name="add-status"
-                                style="width: 200px;">
+                            <select class="form-control selectpicker" data-live-search="true" id="add-status"
+                                name="add-status" style="width: 200px;">
                                 <option value="">Selecione...</option>
                                 <option value="1">SIM</option>
                                 <option value="0">NÃO</option>
@@ -312,8 +316,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-perfiladministrador">Administrador</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="add-perfiladministrador" name="add-perfiladministrador"
-                                style="width: 200px;">
+                            <select class="form-control selectpicker" data-live-search="true" id="add-perfiladministrador"
+                                name="add-perfiladministrador" style="width: 200px;">
                                 <option value="">Selecione...</option>
                                 <option value="1">SIM</option>
                                 <option value="0">NÃO</option>
@@ -356,30 +360,32 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-logradouro">Logradouro*</label>
-                            <input type="text" class="form-control" id="up-logradouro" name="up-logradouro" maxlength="120" required>
+                            <input type="text" class="form-control" id="up-logradouro" name="up-logradouro" maxlength="120"
+                                required>
                             <span class="text-danger" id="up-logradouroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-numero">Número*</label>
-                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 130px;" maxlength="10"
-                                required>
+                            <input type="text" class="form-control" id="up-numero" name="up-numero" style="width: 130px;"
+                                maxlength="10" required>
                             <span class="text-danger" id="up-numeroError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-complemento">Complemento</label>
-                            <input type="text" class="form-control" id="up-complemento" name="up-complemento" style="width: 350px;"
-                                maxlength="45">
+                            <input type="text" class="form-control" id="up-complemento" name="up-complemento"
+                                style="width: 350px;" maxlength="45">
                             <span class="text-danger" id="up-complementoError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-bairro">Bairro*</label>
-                            <input type="text" class="form-control" id="up-bairro" name="up-bairro" style="width: 350px;" maxlength="45"
-                                required>
+                            <input type="text" class="form-control" id="up-bairro" name="up-bairro" style="width: 350px;"
+                                maxlength="45" required>
                             <span class="text-danger" id="up-bairroError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-municipio">Município*</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="up-municipio" name="up-municipio" required>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-municipio"
+                                name="up-municipio" required>
                                 @foreach ($municipios as $municipio)
                                     @php
                                     $microrregiao = $municipio->find($municipio->id)->microrregiao;
@@ -393,14 +399,14 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-telefone1">Telefone 1*</label>
-                            <input type="text" class="form-control" id="up-telefone1" name="up-telefone1" style="width: 155px;"
-                                maxlength="15" required>
+                            <input type="text" class="form-control" id="up-telefone1" name="up-telefone1"
+                                style="width: 155px;" maxlength="15" required>
                             <span class="text-danger" id="up-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control" id="up-telefone2" name="up-telefone2" style="width: 155px;"
-                                maxlength="15">
+                            <input type="text" class="form-control" id="up-telefone2" name="up-telefone2"
+                                style="width: 155px;" maxlength="15">
                             <span class="text-danger" id="up-telefone2Error"></span>
                         </div>
                         <div class="form-group">
@@ -410,8 +416,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-cpf">CPF*</label>
-                            <input type="cpf" class="form-control" id="up-cpf" name="up-cpf" style="text-align: right; width: 155px;"
-                                maxlength="14">
+                            <input type="cpf" class="form-control" id="up-cpf" name="up-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14">
                             <span class="text-danger" id="up-cpfError"></span>
                         </div>
                         <div class="form-group">
@@ -441,9 +447,10 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-gerente">Gerente</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="up-gerente" name="up-gerente">
-                                @foreach ($users as $user)
-                                    <option value={{ $user->id }}> {{ $user->nome }} </option>
+                            <select class="form-control selectpicker" data-live-search="true" id="up-gerente"
+                                name="up-gerente">
+                                @foreach ($gerentes as $gerente)
+                                    <option value={{ $gerente->id }}> {{ $gerente->nome }} </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="up-cargoError"></span>
@@ -462,8 +469,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-status">Ativo</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="up-status" name="up-status"
-                                style="width: 200px;">
+                            <select class="form-control selectpicker" data-live-search="true" id="up-status"
+                                name="up-status" style="width: 200px;">
                                 <option value="1">SIM</option>
                                 <option value="0">NÃO</option>
                             </select>
@@ -471,8 +478,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-perfiladministrador">Administrador</label>
-                            <select class="form-control selectpicker" data-live-search="true" id="up-perfiladministrador" name="up-perfiladministrador"
-                                style="width: 200px;">
+                            <select class="form-control selectpicker" data-live-search="true" id="up-perfiladministrador"
+                                name="up-perfiladministrador" style="width: 200px;">
                                 <option value="1">SIM</option>
                                 <option value="0">NÃO</option>
                             </select>
@@ -571,6 +578,10 @@
                                 readonly>
                         </div>
                         <div class="form-group col-xs-2">
+                            <label class="mb-0" for="v-gerente">Gerente</label>
+                            <input type="text" class="form-control" id="v-gerente" name="v-gerente" readonly>
+                        </div>
+                        <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-dataadmissao">Data Admissão</label>
                             <input type="text" class="form-control" id="v-dataadmissao" name="v-dataadmissao"
                                 style="width: 130px;" readonly>
@@ -664,7 +675,7 @@
                 $("select[name='up-gerente'] option[value='" + data[20] + "']").attr('selected',
                     'selected');
                 $("select[name='up-gerente'] option[value='" + data[20] + "']").text(data[19]);
-                
+
                 $("select[name='up-status'] option[value='" + data[26] + "']").attr('selected',
                     'selected');
                 $("select[name='up-status'] option[value='" + data[26] + "']").text(data[4]);

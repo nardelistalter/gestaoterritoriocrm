@@ -3,12 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\GrupoCliente;
+use App\Models\GrupoProduto;
+use App\Models\Safra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class HomeController extends Controller
 {
+
+    private $user;
+    private $gerente;
+    private $grupocliente;
+    private $grupoproduto;
+    private $safra;
+
+    public function __construct()
+    {
+        $this->grupocliente = new GrupoCliente();
+        $this->grupoproduto = new GrupoProduto();
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -16,7 +33,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = DB::table('users')->where('cargo_id', 3)->get();
+        $gerentes = DB::table('users')->where('cargo_id', 2)->get();
+        //dd($gerente);
+        $grupoclientes = $this->grupocliente::all()->sortBy('descricao');
+        $grupoprodutos = $this->grupoproduto::all()->sortBy('descricao');
+        $safras = DB::table('safras')->orderBy('descricao', 'desc')->get();
+        //dd($safras);
+        /*$potencialacesso = DB::table('grupo_clientes')
+            ->select(DB::raw('sum(s.qtdUnidadesArea * p.valorUnitario)'))
+            ->where('code', 'LIKE', '64%')
+            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();*/
+
+        return view('home')->with('users', $users)->with('gerentes', $gerentes)
+            ->with('grupoclientes', $grupoclientes)->with('grupoprodutos', $grupoprodutos)->with('safras', $safras);
     }
 
     /**

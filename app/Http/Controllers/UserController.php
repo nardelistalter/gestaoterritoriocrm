@@ -8,6 +8,7 @@ use App\Models\Municipio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\Validator;
 use Intervention\Image\Facades\Image;
 
 
@@ -32,10 +33,10 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user::all();
-        //$gerentes = DB::table('users')->where('cargo_id', 2)->get();
+        $gerentes = DB::table('users')->where('cargo_id', 2)->get();
         $cargos =  $this->cargo::all();
         $municipios = $this->municipio::all()->sortBy('nome');
-        return view('user.content_user')->with('users', $users)->with('cargos', $cargos)->with('municipios', $municipios);
+        return view('user.content_user')->with('users', $users)->with('cargos', $cargos)->with('municipios', $municipios)->with('gerentes', $gerentes);
     }
 
     /**
@@ -241,5 +242,19 @@ class UserController extends Controller
         $response->header('Content-Type', 'image/jpeg');
 
         return $response;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profileUpdate(Request $request)
+    {
+        $data = $request->all();
+        auth()->user('id');
+        dd(auth()->user('id'));
     }
 }

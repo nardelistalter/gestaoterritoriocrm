@@ -9,26 +9,43 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="crud_button">
+            <div class="crud_button col-8">
                 <div class="row">
                     <div class="col">
+                        <label class="mb-0" for="add-estado">Gerente:</label>
                         <select class="form-control">
-                            <option>Selecione Gerente</option>
+                            <option value="">TODOS</option>
+                            @foreach ($gerentes as $gerente)
+                                <option value={{ $gerente->id }}> {{ $gerente->nome }}</option>
+                            @endforeach
+                        </select>
                         </select>
                     </div>
                     <div class="col">
+                        <label class="mb-0" for="add-estado">Consultor:</label>
                         <select class="form-control">
-                            <option>Selecione Consultor</option>
+                            <option value="">TODOS</option>
+                            @foreach ($users as $user)
+                                <option value={{ $user->id }}> {{ $user->nome }}</option>
+                            @endforeach
+                        </select>
                         </select>
                     </div>
                     <div class="col">
+                        <label class="mb-0" for="add-estado">Grupo de Clientes:</label>
                         <select class="form-control">
-                            <option>Selecione Grupo de Clientes</option>
+                            <option value="">TODOS</option>
+                            @foreach ($grupoclientes as $grupocliente)
+                                <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col">
+                    <div class="col-2">
+                        <label class="mb-0" for="add-estado">Safra:</label>
                         <select class="form-control">
-                            <option>Selecione a Safra</option>
+                            @foreach ($safras as $safra)
+                                <option value={{ $safra->id }}> {{ $safra->descricao }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

@@ -26,43 +26,72 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col">
-                            <form>
-                                <div class="form-group d-flex flex-column justify-content-center align-items-center">
-                                    <img class="img-profile rounded-circle"  width="200px"
-                                        src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                            <div class="float-right">
+                                <form>
+                                    <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                                        <img class="img-profile rounded-circle" width="200px"
+                                            src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
                                         <br>
-                                    <label for="exampleFormControlFile1">Alterar Imagem</label>
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                </div>
-                            </form>
+                                        <label for="exampleFormControlFile1">Alterar Imagem</label>
+                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="col-9">
-                            <form>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Nome</label>
-                                    <input type="text" class="form-control" id="exampleInputName"
-                                        aria-describedby="emailHelp">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">E-mail</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Senha Atual</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Nova Senha</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Repetir Nova Senha</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
-                                </div>
+                        <div class="col-6">
+                            <div class="col-6">
+                                <form>
+                                    <div class="form-group" style="min-width: 200px">
+                                        <label for="exampleInputEmail1">Nome</label>
+                                        <input type="text" class="form-control" id="exampleInputName"
+                                            aria-describedby="emailHelp">
+                                        @if ($errors->has('senha'))
+                                            <span class="help-block">
+                                                <strong>{{--  --}}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group" style="min-width: 200px">
+                                        <label for="exampleInputEmail1">E-mail</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp">
+                                            @if ($errors->has('senha'))
+                                            <span class="help-block">
+                                                <strong>{{--  --}}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group" style="min-width: 200px">
+                                        <label for="exampleInputPassword1">Senha Atual</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        @if ($errors->has('senha'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('senha') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group" style="min-width: 200px">
+                                        <label for="exampleInputPassword1">Nova Senha</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        @if ($errors->has('senha'))
+                                            <span class="help-block">
+                                                <strong>{{--  --}}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group" style="min-width: 200px">
+                                        <label for="exampleInputPassword1">Repetir Nova Senha</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        @if ($errors->has('senha'))
+                                            <span class="help-block">
+                                                <strong>{{--  --}}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
-                                <button type="submit" class="btn btn-primary">Salvar</button>
-                            </form>
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
