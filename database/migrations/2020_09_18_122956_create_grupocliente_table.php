@@ -15,7 +15,7 @@ class CreateGrupoclienteTable extends Migration
     {
         Schema::create('grupo_clientes', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 45)->nullable(false);
+            $table->string('descricao', 45)->nullable(false)->unique();
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->timestamps();
 

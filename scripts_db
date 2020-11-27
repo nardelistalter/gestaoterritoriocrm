@@ -1,9 +1,10 @@
 Dashboard:
 
+https://laravel.com/docs/8.x/database
 https://stackoverflow.com/questions/22925451/how-can-i-query-raw-via-eloquent
 https://pt.stackoverflow.com/questions/266081/laravel-como-preencher-um-select-com-eloquent
 
-FILTROS:
+FILTROS (JAVASCRIPT):
 	*Gerente: Opção por todos, considera seus consultores subordinados e seus respectivos grupos de clientes.
 	*Consultor: Opção por todos, considera seus respectivos grupos de clientes
 	*Grupo de clientes: Opção por todos, considera suas respectivas movimentações
@@ -17,19 +18,19 @@ FILTROS:
  *
  *
  */
-SELECT sum(s.qtdUnidadesArea * p.valorUnitario) as potencialDeAcesso
+SELECT sum(s.qtdUnidadesArea * p.valorUnitario) AS potencialDeAcesso
 FROM grupo_clientes g INNER JOIN (
-					             SELECT s.id, a.grupoCliente_id as areaId, sum(a.qtdUnidadesArea) as qtdUnidadesArea
+					             SELECT s.id, a.grupoCliente_id AS areaId, sum(a.qtdUnidadesArea) AS qtdUnidadesArea
 								 FROM segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
 								 group by 1, 2
-								) as s ON s.areaId = g.id
+								) AS s ON s.areaId = g.id
 				   INNER JOIN (
-								 SELECT p.segmentoCultura_id, p.safra_id, sum(p.valorUnitario) as valorUnitario
+								 SELECT p.segmentoCultura_id, p.safra_id, sum(p.valorUnitario) AS valorUnitario
 								 FROM   programa_de_negocios p
 								 group by 1, 2
-								) as p ON p.segmentoCultura_id = s.id
-					inner join safras sf on sf.id = p.safra_id
-					where sf.id = 2 --(id da safra???)
+								) AS p ON p.segmentoCultura_id = s.id
+					INNER JOIN safras sf ON sf.id = p.safra_id
+					WHERE sf.id = 2 --(id da safra???)
 
 
 /*
@@ -39,42 +40,68 @@ FROM grupo_clientes g INNER JOIN (
  * Saída: TOTAL por Grupo de Cliente
  *
  */
+        $totalpotencialacesso = DB::select('SELECT COALESCE(SUM(s.qtdUnidadesArea * p.valorUnitario), 0) AS potencialDeAcesso
+                            FROM gestaoterritoriocrm_db.grupo_clientes g LEFT JOIN (
+                                         SELECT s.id, a.grupoCliente_id AS areaId, SUM(a.qtdUnidadesArea) AS qtdUnidadesArea
+                                         FROM gestaoterritoriocrm_db.segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
+                                         group by 1, 2
+                                        ) AS s ON s.areaId = g.id
+                           LEFT JOIN (
+                                         SELECT p.segmentoCultura_id, p.safra_id, SUM(p.valorUnitario) AS valorUnitario
+                                         FROM   gestaoterritoriocrm_db.programa_de_negocios p
+                                         group by 1, 2
+                                        ) AS p ON p.segmentoCultura_id = s.id
+                            LEFT JOIN gestaoterritoriocrm_db.safras sf ON sf.id = p.safra_id
+                            INNER JOIN users u ON u.id = g.user_id
+                            WHERE ' . $wheres)[0];
+
+        // Total de Potencial de Acesso por Grupo de Cliente
+        $grupopotencialacesso = DB::select('SELECT g.descricao, COALESCE(SUM(s.qtdUnidadesArea * p.valorUnitario), 0) AS potencialDeAcesso
+                            FROM grupo_clientes g LEFT JOIN (
+                                         SELECT s.id, a.grupoCliente_id AS areaId, sum(a.qtdUnidadesArea) AS qtdUnidadesArea
+                                         FROM segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
+                                         group by 1, 2
+                                        ) AS s ON s.areaId = g.id
+                            LEFT JOIN (
+                                         SELECT p.segmentoCultura_id, p.safra_id, sum(p.valorUnitario) AS valorUnitario
+                                         FROM   programa_de_negocios p
+                                         group by 1, 2
+                                        ) AS p ON p.segmentoCultura_id = s.id
+                            LEFT JOIN safras sf ON sf.id = p.safra_id
+                            INNER JOIN users u ON u.id = g.user_id
+                            WHERE ' . $wheres . '
+                            GROUP BY 1');
+                            //dd($grupopotencialacesso);
+
+        //Total de venda
+        $totalvenda = DB::select('SELECT COALESCE(SUM(o.qtdUnidadesProduto * o.valorUnitario), 0) AS Total
+                                FROM grupo_clientes g INNER JOIN inscricao_estaduals ie ON ie.grupoCliente_id = g.id
+                                LEFT JOIN operacaos o ON ie.id = o.inscricaoEstadual_id
+                                INNER JOIN users u ON u.id = g.user_id
+                                WHERE ' . $wheres2 . '')[0];
+                                //dd($totalvenda);
+
+        //Total de venda por grupo de clientes
+        $grupovenda = DB::select('SELECT g.descricao, COALESCE(SUM(o.qtdUnidadesProduto * o.valorUnitario), 0) AS Total
+                                FROM grupo_clientes g INNER JOIN inscricao_estaduals ie ON ie.grupoCliente_id = g.id
+                                LEFT JOIN operacaos o ON ie.id = o.inscricaoEstadual_id 
+                                INNER JOIN users u ON u.id = g.user_id
+                                WHERE ' . $wheres2 . '
+                                GROUP BY 1');
+                                //dd($grupovenda);
+
+        //Total de Meta
+        $totalmeta = DB::select('SELECT COALESCE(SUM(m.metaDesejada), 0) AS Total
+                                FROM grupo_clientes g LEFT JOIN metas m ON m.grupoCliente_id = g.id
+                                INNER JOIN users u ON u.id = g.user_id
+                                WHERE ' . $wheres3 . '')[0];
+                                //dd($totalmeta);
 
 
-
-/*
- *
- * GRUPO DE CLIENTE - META
- * Consulta META com filtro de SAFRA
- * Saída: Somente valor TOTAL
- *
- */
-
-
- /*
- *
- * GRUPO DE CLIENTE - META
- * Consulta META com filtro de SAFRA
- * Saída: TOTAL por Grupo de Cliente
- *
- */
-
-
-
- /*
- *
- * GRUPO DE CLIENTE - VENDA REALIZADA
- * Consulta META com filtro de SAFRA
- * Saída: Somente valor TOTAL
- *
- */
-
-
- /*
- *
- * GRUPO DE CLIENTE - VENDA REALIZADA
- * Consulta META com filtro de SAFRA
- * Saída: TOTAL por Grupo de Cliente
- *
- */
-
+        //Total de Meta por Grupo de Cliente
+        $grupometa = DB::select('SELECT g.descricao, COALESCE(SUM(m.metaDesejada), 0) AS Total
+                                FROM grupo_clientes g LEFT JOIN metas m ON m.grupoCliente_id = g.id
+                                INNER JOIN users u ON u.id = g.user_id
+                                WHERE ' . $wheres3 . '
+                                GROUP BY 1');
+                                //dd($grupometa);

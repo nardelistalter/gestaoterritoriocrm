@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\GrupoCliente;
 use App\Models\GrupoProduto;
-use App\Models\Safra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,21 +34,120 @@ class HomeController extends Controller
     {
         $users = DB::table('users')->where('cargo_id', 3)->get();
         $gerentes = DB::table('users')->where('cargo_id', 2)->get();
-        //dd($gerente);
         $grupoclientes = $this->grupocliente::all()->sortBy('descricao');
         $grupoprodutos = $this->grupoproduto::all()->sortBy('descricao');
         $safras = DB::table('safras')->orderBy('descricao', 'desc')->get();
-        //dd($safras);
-        /*$potencialacesso = DB::table('grupo_clientes')
-            ->select(DB::raw('sum(s.qtdUnidadesArea * p.valorUnitario)'))
-            ->where('code', 'LIKE', '64%')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();*/
 
-        return view('home')->with('users', $users)->with('gerentes', $gerentes)
-            ->with('grupoclientes', $grupoclientes)->with('grupoprodutos', $grupoprodutos)->with('safras', $safras);
+        $id_gerente = 3;
+        $id_consultor = null;
+        $id_grupocliente = null;
+        $id_safra = 2;
+        $safra = DB::select('SELECT *
+                            FROM gestaoterritoriocrm_db.safras
+                            WHERE id = ?', [$id_safra])[0];
+
+        $wheresgeneric = "";
+        $wheres = " ( sf.id IS NULL OR sf.id = $id_safra) ";
+        $wheres2 = " (o.data IS NULL OR (o.data >= '$safra->dataInicio' AND o.data <= '$safra->dataFim')) ";
+        $wheres3 = " (m.dataPrevista IS NULL OR (m.dataPrevista >= '$safra->dataInicio' AND m.dataPrevista <= '$safra->dataFim')) ";
+
+        if ($id_gerente != null) {
+            $wheresgeneric .= " AND u.gerente_id = $id_gerente";
+        }
+
+        if ($id_consultor != null) {
+            $wheresgeneric .= " AND u.id  = $id_consultor";
+        }
+
+        if ($id_grupocliente != null) {
+            $wheresgeneric .= " AND g.id  = $id_grupocliente";
+        }
+
+        $wheres .= $wheresgeneric;
+        $wheres2 .= $wheresgeneric;
+        $wheres3 .= $wheresgeneric;
+
+        // Total de Potencial de Acesso
+        $totalpotencialacesso = DB::select('SELECT COALESCE(SUM(s.qtdUnidadesArea * p.valorUnitario), 0) AS potencialDeAcesso
+                FROM gestaoterritoriocrm_db.grupo_clientes g LEFT JOIN (
+                                SELECT s.id, a.grupoCliente_id AS areaId, SUM(a.qtdUnidadesArea) AS qtdUnidadesArea
+                                FROM gestaoterritoriocrm_db.segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
+                                group by 1, 2
+                            ) AS s ON s.areaId = g.id
+                LEFT JOIN (
+                                SELECT p.segmentoCultura_id, p.safra_id, SUM(p.valorUnitario) AS valorUnitario
+                                FROM   gestaoterritoriocrm_db.programa_de_negocios p
+                                group by 1, 2
+                            ) AS p ON p.segmentoCultura_id = s.id
+                LEFT JOIN gestaoterritoriocrm_db.safras sf ON sf.id = p.safra_id
+                INNER JOIN users u ON u.id = g.user_id
+                WHERE ' . $wheres)[0];
+
+        //Total de venda
+        $totalvenda = DB::select('SELECT COALESCE(SUM(o.qtdUnidadesProduto * o.valorUnitario), 0) AS Total
+                FROM grupo_clientes g INNER JOIN inscricao_estaduals ie ON ie.grupoCliente_id = g.id
+                LEFT JOIN operacaos o ON ie.id = o.inscricaoEstadual_id
+                INNER JOIN users u ON u.id = g.user_id
+                WHERE ' . $wheres2 . '')[0];
+        //dd($totalvenda);
+
+        //Total de Meta
+        $totalmeta = DB::select('SELECT COALESCE(SUM(m.metaDesejada), 0) AS Total
+                FROM grupo_clientes g LEFT JOIN metas m ON m.grupoCliente_id = g.id
+                INNER JOIN users u ON u.id = g.user_id
+                WHERE ' . $wheres3 . '')[0];
+        //dd($totalmeta);
+
+
+
+
+        // Total de Potencial de Acesso por Grupo de Cliente
+        $grupopotencialacesso = DB::select('SELECT g.descricao, COALESCE(SUM(s.qtdUnidadesArea * p.valorUnitario), 0) AS potencialDeAcesso
+                FROM grupo_clientes g LEFT JOIN (
+                                SELECT s.id, a.grupoCliente_id AS areaId, sum(a.qtdUnidadesArea) AS qtdUnidadesArea
+                                FROM segmento_culturas s INNER JOIN area_grupo_clientes a ON s.id = a.segmentoCultura_id
+                                group by 1, 2
+                            ) AS s ON s.areaId = g.id
+                LEFT JOIN (
+                                SELECT p.segmentoCultura_id, p.safra_id, sum(p.valorUnitario) AS valorUnitario
+                                FROM   programa_de_negocios p
+                                group by 1, 2
+                            ) AS p ON p.segmentoCultura_id = s.id
+                LEFT JOIN safras sf ON sf.id = p.safra_id
+                INNER JOIN users u ON u.id = g.user_id
+                WHERE ' . $wheres . '
+                GROUP BY 1');
+        //dd($grupopotencialacesso);
+
+        //Total de venda por grupo de clientes
+        $grupovenda = DB::select('SELECT g.descricao, COALESCE(SUM(o.qtdUnidadesProduto * o.valorUnitario), 0) AS Total
+                FROM grupo_clientes g INNER JOIN inscricao_estaduals ie ON ie.grupoCliente_id = g.id
+                LEFT JOIN operacaos o ON ie.id = o.inscricaoEstadual_id 
+                INNER JOIN users u ON u.id = g.user_id
+                WHERE ' . $wheres2 . '
+                GROUP BY 1');
+        //dd($grupovenda);
+
+        //Total de Meta por Grupo de Cliente
+        $grupometa = DB::select('SELECT g.descricao, COALESCE(SUM(m.metaDesejada), 0) AS Total
+                                FROM grupo_clientes g LEFT JOIN metas m ON m.grupoCliente_id = g.id
+                                INNER JOIN users u ON u.id = g.user_id
+                                WHERE ' . $wheres3 . '
+                                GROUP BY 1');
+        //dd($grupometa);
+
+
+        return view('home')
+            ->with('users', $users)
+            ->with('gerentes', $gerentes)
+            ->with('grupoclientes', $grupoclientes)
+            ->with('grupoprodutos', $grupoprodutos)
+            ->with('safras', $safras)
+            ->with('totalpotencialacesso', $totalpotencialacesso)
+            ->with('grupopotencialacesso', $grupopotencialacesso)
+            ->with('totalvenda', $totalvenda)
+            ->with('grupovenda', $grupovenda)
+            ->with('totalmeta', $totalmeta);
     }
 
     /**
