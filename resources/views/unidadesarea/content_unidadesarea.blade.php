@@ -34,7 +34,8 @@
                                 <th class="th-sm border-bottom border-left">Quantidade</th>
                                 <th style="display: none;">qtdArea</th>
                                 <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado (%)</th>
+                                <th class="th-sm border-bottom border-left">MKT Share Desejado</th>
+                                <th style="display: none;">mkt_desej</th>
                                 <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Município</th>
@@ -53,11 +54,11 @@
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $unidadesarea->id }}</th>
-                                    <td class="align-middle border-left">{{ $unidadesarea->qtdArea }}
-                                        {{ $unidadesarea->unidadeMedida }}</td>
+                                    <td class="align-middle border-left">{{ number_format($unidadesarea->qtdArea, 2, ',', '.') }} {{ $unidadesarea->unidadeMedida }}</td>
                                     <td style="display: none;">{{ $unidadesarea->qtdArea }}</td>
                                     <td style="display: none;">{{ $unidadesarea->unidadeMedida }}</td>
-                                    <td class="align-middle border-left">{{ $unidadesarea->mktShareDesejado }}</td>
+                                    <td class="align-middle border-left">{{ number_format($unidadesarea->mktShareDesejado, 2, ',', '.') }}%</td>
+                                    <td style="display: none;">{{ $unidadesarea->mktShareDesejado }}</td>
                                     <td class="align-middle border-left">{{ $segmentocultura->descricao }}</td>
                                     <td style="display: none;">{{ $segmentocultura->id }}</td>
                                     <td class="align-middle border-left">{{ $municipio->nome }}/{{ $estado->sigla }}</td>
@@ -83,7 +84,8 @@
                                 <th class="th-sm border-bottom border-left">Quantidade</th>
                                 <th style="display: none;">qtdArea</th>
                                 <th style="display: none;">unidadeMedida</th>
-                                <th class="th-sm border-bottom border-left">MKT Share Desejado  (%)</th>
+                                <th class="th-sm border-bottom border-left">MKT Share Desejado</th>
+                                <th style="display: none;">mkt_desej</th>
                                 <th class="th-sm border-bottom border-left">Segmento/Cultura</th>
                                 <th style="display: none;">id_fk1</th>
                                 <th class="th-sm border-bottom border-left">Município</th>
@@ -267,18 +269,13 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-qtdarea">Quantidade</label>
-                            <input type="number" class="form-control" id="v-qtdarea" name="v-qtdarea" step="0.01" min="0.01"
+                            <input type="text" class="form-control" id="v-qtdarea" name="v-qtdarea"
                                 style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-unidademedida">Unidade de Medida</label>
-                            <input type="text" class="form-control" id="v-unidademedida" name="v-unidademedida"
-                                style="text-align: center; width: 120px;" readonly>
-                        </div>
-                        <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-mktsharedesejado">Market Share Desejado (%)</label>
-                            <input type="number" class="form-control" id="v-mktsharedesejado" name="v-mktsharedesejado"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 100px;"
+                            <input type="text" class="form-control" id="v-mktsharedesejado" name="v-mktsharedesejado"
+                                style="text-align: right; width: 100px;"
                                 readonly>
                         </div>
                         <div class="form-group">
@@ -376,8 +373,8 @@
                 $('#editForm').attr('action', '/unidadesarea/' + data[0]);
                 $('#up-qtdarea').val(data[2]);
                 $('#up-unidademedida').val(data[3]);
-                $('#up-mktsharedesejado').val(data[4]);
-                $('#up-observacao').val(data[9]);
+                $('#up-mktsharedesejado').val(data[5]);
+                $('#up-observacao').val(data[10]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -393,12 +390,11 @@
                 console.log(data);
 
                 $('#v-id').val(data[0]);
-                $('#v-qtdarea').val(data[2]);
-                $('#v-unidademedida').val(data[3]);
+                $('#v-qtdarea').val(data[1]);
                 $('#v-mktsharedesejado').val(data[4]);
-                $('#v-segmentocultura').val(data[5]);
-                $('#v-municipio').val(data[7]);
-                $('#v-observacao').val(data[9]);
+                $('#v-segmentocultura').val(data[6]);
+                $('#v-municipio').val(data[8]);
+                $('#v-observacao').val(data[10]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

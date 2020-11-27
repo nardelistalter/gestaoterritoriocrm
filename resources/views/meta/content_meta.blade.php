@@ -57,10 +57,10 @@
                                     <td class="align-middle border-left">{{ $grupocliente->descricao }}</td>
                                     <td style="display: none;">{{ $grupocliente->id }}</td>
                                     <td class="align-middle border-left">
-                                        {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R$ {{ $programadenegocio->valorUnitario }}
+                                        {{ $grupoproduto->descricao }}-{{ $segmentocultura->descricao }}-{{ $safra->descricao }}-R$ {{ number_format($programadenegocio->valorUnitario, 2, ',', '.') }}
                                     </td>
                                     <td style="display: none;">{{ $programadenegocio->id }}</td>
-                                    <td class="align-middle border-left">R$ {{ $meta->metaDesejada }}</td>
+                                    <td class="align-middle border-left">R$ {{ number_format($meta->metaDesejada, 2, ',', '.') }}</td>
                                     <td style="display: none;">{{ $meta->metaDesejada }}</td>
                                     <td class="align-middle border-left">{{ date("d/m/Y", strtotime($meta->dataPrevista)) }}</td>
                                     <td style="display: none;">{{ $meta->dataPrevista }}</td>
@@ -147,7 +147,7 @@
                             <label class="mb-0" for="add-metadesejada">Participação Desejada R$</label>
                             <input type="number" class="form-control" id="add-metadesejada"
                                 name="add-metadesejada" step="0.01" min="0.01"
-                                style="text-align: right; width: 150px;" required>
+                                style="text-align: right; width: 200px;" required>
                             <span class="text-danger" id="add-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
@@ -209,7 +209,7 @@
                             <label class="mb-0" for="up-metadesejada">Participação Desejada R$</label>
                             <input type="number" class="form-control" id="up-metadesejada"
                                 name="up-metadesejada" step="0.01" min="0.01"
-                                style="text-align: right; width: 150px;" required>
+                                style="text-align: right; width: 200px;" required>
                             <span class="text-danger" id="up-metadesejadaError"></span>
                         </div>
                         <div class="form-group">
@@ -261,7 +261,7 @@
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-metadesejada">Participação Desejada R$</label>
                             <input type="text" class="form-control" id="v-metadesejada"
-                                name="v-metadesejada" style="text-align: right; width: 150px;" readonly>
+                                name="v-metadesejada" style="text-align: right; width: 200px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-dataprevista">Data Fim</label>
@@ -379,7 +379,7 @@
                 $('#v-id').val(data[0]);
                 $('#v-grupocliente').val(data[1]);
                 $('#v-programadenegocio').val(data[3]);
-                $('#v-metadesejada').val(data[6]);
+                $('#v-metadesejada').val(data[5]);
                 $('#v-dataprevista').val(data[7]);
 
                 $('#viewForm').attr('action');

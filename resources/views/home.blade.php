@@ -81,8 +81,23 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Meta</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$
-                                    {{ number_format($totalmeta->Total, 2, ',', '.') }}
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">R$
+                                            {{ number_format($totalmeta->Total, 2, ',', '.') }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            {{--
+                                            number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
+                                            --}};
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                                role="progressbar" style="width: 5%"
+                                                aria-valuenow={{ number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, ',', '.') }}
+                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -92,6 +107,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
@@ -107,8 +124,13 @@
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            {{--
+                                            number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
+                                            --}};
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                                role="progressbar" style="width: 80%"
+                                                aria-valuenow={{ number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, ',', '.') }}
+                                                aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -168,14 +190,18 @@
                                 <tbody>
                                     @foreach ($grupoclientetotals as $grupoclientetotal)
                                         <tr>
-                                            <th class="align-middle border-left">{{ $grupoclientetotal->descricao }}</th>
+                                            <th class="align-middle border-left">
+                                                {{ strtoupper($grupoclientetotal->descricao) }}
+                                            </th>
                                             <td class="align-middle border-left">R$
                                                 {{ number_format($grupoclientetotal->potencialDeAcesso, 2, ',', '.') }}
                                             </td>
                                             <td class="align-middle border-left">R$
-                                                {{ number_format($grupoclientetotal->meta, 2, ',', '.') }}</td>
+                                                {{ number_format($grupoclientetotal->meta, 2, ',', '.') }}
+                                            </td>
                                             <td class="align-middle border-left border-right">R$
-                                                {{ number_format($grupoclientetotal->venda, 2, ',', '.') }}</td>
+                                                {{ number_format($grupoclientetotal->venda, 2, ',', '.') }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -214,66 +240,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th class="align-middle border-left">FERTILIZANTE</th>
-                                        <td class="align-middle border-left border-right">R$ 152.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">HERBICIDA</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 10.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">ADJUVANTE</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">INSETICIDA</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">SEMENTE</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">FERTILIZANTE</th>
-                                        <td class="align-middle border-left border-right">R$ 152.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">HERBICIDA</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 10.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">ADJUVANTE</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">INSETICIDA</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">SEMENTE</th>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
+                                    @foreach ($grupoprodutototals as $grupoprodutototal)
+                                        <tr>
+                                            <th class="align-middle border-left">
+                                                {{ strtoupper($grupoprodutototal->descricao) }}
+                                            </th>
+                                            <td class="align-middle border-left">R$
+                                                {{ number_format($grupoprodutototal->potencialDeAcesso, 2, ',', '.') }}
+                                            </td>
+                                            <td class="align-middle border-left">R$
+                                                {{ number_format($grupoprodutototal->meta, 2, ',', '.') }}
+                                            </td>
+                                            <td class="align-middle border-left border-right">R$
+                                                {{ number_format($grupoprodutototal->venda, 2, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot class="bg-light">
                                     <tr>

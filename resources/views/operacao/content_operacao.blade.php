@@ -39,6 +39,7 @@
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Qtd</th>
+                                <th style="display: none;">qtd</th>
                                 <th class="th-sm border-bottom border-left">Valor Unit.</th>
                                 <th style="display: none;">unit</th>
                                 <th class="th-sm border-bottom border-left">Total</th>
@@ -61,10 +62,11 @@
                                     <td style="display: none;">{{ $inscricaoestadual->id }}</td>
                                     <td class="align-middle border-left">{{ $produto->descricao }}</td>
                                     <td style="display: none;">{{ $produto->id }}</td>
-                                    <td class="align-middle border-left">{{ $operacao->qtdUnidadesProduto }}</td>
-                                    <td class="align-middle border-left">R$ {{ $operacao->valorUnitario }}</td>
+                                    <td class="align-middle border-left">{{ number_format($operacao->qtdUnidadesProduto, 2, ',', '.') }}</td>
+                                    <td style="display: none;">{{ $operacao->qtdUnidadesProduto }}</td>
+                                    <td class="align-middle border-left">R$ {{ number_format($operacao->valorUnitario, 2, ',', '.') }}</td>
                                     <td style="display: none;">{{ $operacao->valorUnitario }}</td>
-                                    <td class="align-middle border-left">R$ {{ $operacao->qtdUnidadesProduto * $operacao->valorUnitario }}</td>
+                                    <td class="align-middle border-left">R$ {{ number_format($operacao->qtdUnidadesProduto * $operacao->valorUnitario, 2, ',', '.') }}</td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
@@ -90,6 +92,7 @@
                                 <th class="th-sm border-bottom border-left">Produto</th>
                                 <th style="display: none;">id_fk2</th>
                                 <th class="th-sm border-bottom border-left">Qtd</th>
+                                <th style="display: none;">qtd</th>
                                 <th class="th-sm border-bottom border-left">Valor Unit.</th>
                                 <th style="display: none;">unit</th>
                                 <th class="th-sm border-bottom border-left">Total</th>
@@ -300,7 +303,7 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-qtdunidadesproduto">Quantidade</label>
-                            <input type="number" class="form-control" id="v-qtdunidadesproduto" name="v-qtdunidadesproduto"
+                            <input type="text" class="form-control" id="v-qtdunidadesproduto" name="v-qtdunidadesproduto"
                                 style="text-align: right; width: 160px;" readonly>
                         </div>
                         <div class="form-group col-xs-2">
@@ -399,9 +402,9 @@
                 //$('#up-data').val(data[1]);
                 document.getElementById("up-data").valueAsDate = new Date(data[2]);
                 $('#up-numerodocumento').val(data[3]);
-                $('#up-qtdunidadesproduto').val(data[8]);
-                $('#up-valorunitario').val(data[10]);
-                $('#up-valortotal').val(data[11]);
+                $('#up-qtdunidadesproduto').val(data[9]);
+                $('#up-valorunitario').val(data[11]);
+                $('#up-valortotal').val(data[12]);
 
                 $('#editModal').modal('show');
             });
@@ -423,8 +426,8 @@
                 $('#v-numerodocumento').val(data[3]);
                 $('#v-produto').val(data[6]);
                 $('#v-qtdunidadesproduto').val(data[8]);
-                $('#v-valorunitario').val(data[9]);
-                $('#v-valortotal').val(data[11]);
+                $('#v-valorunitario').val(data[10]);
+                $('#v-valortotal').val(data[12]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

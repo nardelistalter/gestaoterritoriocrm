@@ -63,6 +63,7 @@
                                     <td class="align-middle border-left">{{ $areagrupocliente->qtdUnidadesArea }}
                                         {{ $segmentocultura->unidadeMedida }}
                                     </td>
+                                    <td style="display: none;">{{ number_format($areagrupocliente->qtdUnidadesArea, 2, ',', '.') }}</td>
                                     <td style="display: none;">{{ $areagrupocliente->qtdUnidadesArea }}</td>
                                     <td style="display: none;">{{ $segmentocultura->unidadeMedida }}</td>
                                     <td class="align-middle th-sm border-left border-right">
@@ -90,6 +91,7 @@
                                 <th style="display: none;">id_fk3</th>
                                 <th class="th-sm border-bottom border-left">Quantidade</th>
                                 <th style="display: none;">qtd</th>
+                                <th style="display: none;">um</th>
                                 <th class="th-sm border-bottom border-left border-right">Ações</th>
                             </tr>
                         </tfoot>
@@ -413,8 +415,8 @@
                     'selected');
 
                 $('#editForm').attr('action', '/areagrupocliente/' + data[0]);
-                $('#up-qtdunidadesarea').val(data[8]);
-                $('#up-unidademedida').val(data[9]);
+                $('#up-qtdunidadesarea').val(data[9]);
+                $('#up-unidademedida').val(data[10]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -433,8 +435,8 @@
                 $('#v-grupocliente').val(data[1]);
                 $('#v-municipio').val(data[5]);
                 $('#v-segmentocultura').val(data[3]);
-                $('#v-qtdunidadesarea').val(data[7]);
-                $('#v-unidademedida').val(data[9]);
+                $('#v-qtdunidadesarea').val(data[8]);
+                $('#v-unidademedida').val(data[10]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

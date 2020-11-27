@@ -59,7 +59,7 @@
                                     <td style="display: none;">{{ $grupoproduto->id }}</td>
                                     <td class="align-middle border-left">{{ $safra->descricao }}</td>
                                     <td style="display: none;">{{ $safra->id }}</td>
-                                    <td class="align-middle border-left">R$ {{ $programadenegocio->valorUnitario }}</td>
+                                    <td class="align-middle border-left">R$ {{ number_format($programadenegocio->valorUnitario, 2, ',', '.') }}</td>
                                     <td style="display: none;">{{ $programadenegocio->valorUnitario }}</td>
                                     <td class="align-middle border-left">{{ date("d/m/Y", strtotime($programadenegocio->dataLimite)) }}</td>
                                     <td style="display: none;">{{ $programadenegocio->dataLimite }}</td>
@@ -253,8 +253,8 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-valorunitario">Valor Unitário</label>
-                            <input type="number" class="form-control" id="v-valorunitario" name="v-valorunitario"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;" readonly>
+                            <input type="text" class="form-control" id="v-valorunitario" name="v-valorunitario"
+                                style="text-align: right; width: 150px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-datalimite">Data Limite</label>
@@ -373,7 +373,7 @@
                 $('#v-segmentocultura').val(data[1]);
                 $('#v-grupoproduto').val(data[3]);
                 $('#v-safra').val(data[5]);
-                $('#v-valorunitario').val(data[8]);
+                $('#v-valorunitario').val(data[7]);
                 $('#v-datalimite').val(data[9]);
 
                 $('#viewForm').attr('action');
