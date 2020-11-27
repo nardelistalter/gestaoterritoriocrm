@@ -63,7 +63,9 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Potencial de Acesso
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ number_format($totalpotencialacesso->potencialDeAcesso, 2, ",", ".") }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$
+                                    {{ number_format($totalpotencialacesso->potencialDeAcesso, 2, ',', '.') }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -79,7 +81,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Meta</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$ {{ number_format($totalmeta->Total, 2, ",", ".") }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$
+                                    {{ number_format($totalmeta->Total, 2, ',', '.') }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
@@ -97,7 +101,9 @@
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Venda Realizada</div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">R$ {{ number_format($totalvenda->Total, 2, ",", ".") }}</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">R$
+                                            {{ number_format($totalvenda->Total, 2, ',', '.') }}
+                                        </div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
@@ -149,9 +155,8 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatableDashboardGrupoClientes"
-                                class="datatable table table-sm text-center rounded" cellspacing="0"
-                                width="100%">
+                            <table id="datatableDashboardGrupoClientes" class="datatable table table-sm text-center rounded"
+                                cellspacing="0" width="100%">
                                 <thead class="thead-dark">
                                     <tr class="text-justify border">
                                         <th class="th-sm border-bottom border-left">Grupo de Clientes</th>
@@ -161,66 +166,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo XXXXXXXX</th>
-                                        <td class="align-middle border-left">R$ 169.000,00</td>
-                                        <td class="align-middle border-left">R$ 160.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 152.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo YYYYYYYY</th>
-                                        <td class="align-middle border-left">R$ 139.000,00</td>
-                                        <td class="align-middle border-left">R$ 82.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 10.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 142.000,00</td>
-                                        <td class="align-middle border-left">R$ 79.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 67.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 160.000,00</td>
-                                        <td class="align-middle border-left">R$ 77.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 6.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 109.000,00</td>
-                                        <td class="align-middle border-left">R$ 69.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 47.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 129.000,00</td>
-                                        <td class="align-middle border-left">R$ 63.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 22.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 170.000,00</td>
-                                        <td class="align-middle border-left">R$ 59.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 7.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 48.000,00</td>
-                                        <td class="align-middle border-left">R$ 45.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 48.000,00</td>
-                                        <td class="align-middle border-left">R$ 45.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="align-middle border-left">Grupo ZZZZZZZZZ</th>
-                                        <td class="align-middle border-left">R$ 48.000,00</td>
-                                        <td class="align-middle border-left">R$ 45.000,00</td>
-                                        <td class="align-middle border-left border-right">R$ 18.000,00</td>
-                                    </tr>
+                                    @foreach ($grupoclientetotals as $grupoclientetotal)
+                                        <tr>
+                                            <th class="align-middle border-left">{{ $grupoclientetotal->descricao }}</th>
+                                            <td class="align-middle border-left">R$
+                                                {{ number_format($grupoclientetotal->potencialDeAcesso, 2, ',', '.') }}
+                                            </td>
+                                            <td class="align-middle border-left">R$
+                                                {{ number_format($grupoclientetotal->meta, 2, ',', '.') }}</td>
+                                            <td class="align-middle border-left border-right">R$
+                                                {{ number_format($grupoclientetotal->venda, 2, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot class="bg-light">
                                     <tr>
@@ -246,9 +203,8 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatableDashboardGrupoProdutos"
-                                class="datatable table table-sm text-center rounded" cellspacing="0"
-                                width="100%">
+                            <table id="datatableDashboardGrupoProdutos" class="datatable table table-sm text-center rounded"
+                                cellspacing="0" width="100%">
                                 <thead class="thead-dark">
                                     <tr class="text-justify border">
                                         <th class="th-sm border-bottom border-left">Grupo de Produtos</th>
