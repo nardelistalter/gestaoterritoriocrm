@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col">
                         <label class="mb-0" for="add-estado">Gerente:</label>
-                        <select class="form-control">
+                        <select class="form-control bg-info text-white">
                             <option value="">TODOS</option>
                             @foreach ($gerentes as $gerente)
                                 <option value={{ $gerente->id }}> {{ $gerente->nome }}</option>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col">
                         <label class="mb-0" for="add-estado">Consultor:</label>
-                        <select class="form-control">
+                        <select class="form-control bg-info text-white">
                             <option value="">TODOS</option>
                             @foreach ($users as $user)
                                 <option value={{ $user->id }}> {{ $user->nome }}</option>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col">
                         <label class="mb-0" for="add-estado">Grupo de Clientes:</label>
-                        <select class="form-control">
+                        <select class="form-control bg-info text-white">
                             <option value="">TODOS</option>
                             @foreach ($grupoclientes as $grupocliente)
                                 <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }}</option>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-2">
                         <label class="mb-0" for="add-estado">Safra:</label>
-                        <select class="form-control">
+                        <select class="form-control bg-info text-white">
                             @foreach ($safras as $safra)
                                 <option value={{ $safra->id }}> {{ $safra->descricao }}</option>
                             @endforeach
@@ -57,8 +57,8 @@
         <div class="row">
 
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
+                <div class="card border-left-primary shadow h-100 py-2" style="background-color: #dffaff;">
+                    <div class="card-body ">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Potencial de Acesso
@@ -76,7 +76,7 @@
             </div>
 
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
+                <div class="card border-left-success shadow h-100 py-2" style="background-color: #e9ffdf;">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
@@ -111,7 +111,7 @@
 
 
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-left-info shadow h-100 py-2" style="background-color: #fffcdf;">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
