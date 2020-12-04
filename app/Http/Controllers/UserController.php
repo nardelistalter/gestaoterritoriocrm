@@ -34,6 +34,7 @@ class UserController extends Controller
     {
         $users = $this->user::all();
         $gerentes = DB::table('users')->where('cargo_id', 2)->get();
+        
         $cargos =  $this->cargo::all();
         $municipios = $this->municipio::all()->sortBy('nome');
         return view('user.content_user')->with('users', $users)->with('cargos', $cargos)->with('municipios', $municipios)->with('gerentes', $gerentes);

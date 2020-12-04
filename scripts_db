@@ -1,5 +1,8 @@
 Dashboard:
 
+<option value="{{ $item->id}}" class="{{$item->gerente}}"> {{ $item->id}} </option>
+
+
 https://laravel.com/docs/8.x/database
 https://stackoverflow.com/questions/22925451/how-can-i-query-raw-via-eloquent
 https://pt.stackoverflow.com/questions/266081/laravel-como-preencher-um-select-com-eloquent

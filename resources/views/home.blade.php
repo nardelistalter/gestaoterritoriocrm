@@ -12,9 +12,9 @@
             <div class="crud_button col-8">
                 <div class="row">
                     <div class="col">
-                        <label class="mb-0" for="add-estado">Gerente:</label>
-                        <select class="form-control bg-info text-white">
-                            <option value="">TODOS</option>
+                        <label class="mb-0">Gerente:</label>
+                        <select id="selectgerente" class="form-control">
+                            <option value="0">TODOS</option>
                             @foreach ($gerentes as $gerente)
                                 <option value={{ $gerente->id }}> {{ $gerente->nome }}</option>
                             @endforeach
@@ -22,31 +22,41 @@
                         </select>
                     </div>
                     <div class="col">
-                        <label class="mb-0" for="add-estado">Consultor:</label>
-                        <select class="form-control bg-info text-white">
-                            <option value="">TODOS</option>
-                            @foreach ($users as $user)
-                                <option value={{ $user->id }}> {{ $user->nome }}</option>
+                        <label class="mb-0">Consultor:</label>
+                        <select id="selectconsultor" name="selectconsultor" class="form-control">
+                            <option value="0" id="selectconsultor_todos">TODOS</option>
+                            @foreach ($consultores as $consultor)
+                                <option value={{ $consultor->id }} class="{{ $consultor->gerente_id }}">
+                                    {{ $consultor->nome }}
+                                </option>
                             @endforeach
-                        </select>
                         </select>
                     </div>
                     <div class="col">
-                        <label class="mb-0" for="add-estado">Grupo de Clientes:</label>
-                        <select class="form-control bg-info text-white">
-                            <option value="">TODOS</option>
+                        <label class="mb-0">Grupo de Clientes:</label>
+                        <select id="selectgrupocliente" name="selectgrupocliente" class="form-control">
+                            <option value="0" id="selectgrupocliente_todos">TODOS</option>
                             @foreach ($grupoclientes as $grupocliente)
-                                <option value={{ $grupocliente->id }}> {{ $grupocliente->descricao }}</option>
+                                <option value={{ $grupocliente->id }} class="{{ $grupocliente->user_id }}">
+                                    {{ $grupocliente->descricao }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-2">
-                        <label class="mb-0" for="add-estado">Safra:</label>
-                        <select class="form-control bg-info text-white">
+                        <label class="mb-0">Safra:</label>
+                        <select id="selectsafra" class="form-control">
                             @foreach ($safras as $safra)
                                 <option value={{ $safra->id }}> {{ $safra->descricao }}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-1">
+                        <label class="mb-0" for="XXXXXX"></label>
+                        <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
+                            data-target="#addModal" onclick="filtrar()"><i class="fas fa-plus-circle m-1"
+                                data-toggle="tooltip" data-placement="top"
+                                title="Incluir item"></i>{{ __('Filtrar') }}</button>
                     </div>
                 </div>
             </div>
@@ -63,7 +73,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Potencial de Acesso
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">R$
+                                <div id="cardtotalpotencialacesso" class="h5 mb-0 font-weight-bold text-gray-800">R$
                                     {{ number_format($totalpotencialacesso->potencialDeAcesso, 2, ',', '.') }}
                                 </div>
                             </div>
@@ -83,7 +93,7 @@
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Meta</div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">R$
+                                        <div id="cardtotalmeta" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">R$
                                             {{ number_format($totalmeta->Total, 2, ',', '.') }}
                                         </div>
                                     </div>
@@ -93,8 +103,10 @@
                                             number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-                                                role="progressbar" style="width: 5%"
-                                                aria-valuenow={{ number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, ',', '.') }}
+                                                role="progressbar" style="width: 15%;"
+                                                aria-valuenow={{-- number_format(($totalmeta->
+                                                Total/$totalpotencialacesso->potencialDeAcesso)*100,2,',','.')
+                                                --}}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -129,7 +141,9 @@
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
                                                 role="progressbar" style="width: 80%"
-                                                aria-valuenow={{ number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, ',', '.') }}
+                                                aria-valuenow={{--
+                                                number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
+                                                --}}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -289,6 +303,116 @@
 
     @section('script_pages')
 
-        <!-- Null -->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#selectgerente').change(function(e) {
+                    valor = $("#selectgerente").val();
+                    if (valor != 0) {
+                        $("#selectconsultor option").hide();
+                        $("#selectconsultor ." + valor).show();
+                    } else {
+                        $("#selectconsultor option").show();
+                    }
+                    $('#selectconsultor_todos').show();
+                    $("#selectconsultor").val("0").change();
+                    $("#selectgrupocliente option").hide();
+                    $('#selectgrupocliente_todos').show();
+                    for (let i = 0; i < $("#selectconsultor option").length; i++) {
+                        console.log($("#selectconsultor option")[i].style.display);
+                        if ($("#selectconsultor option")[i].style.display != "none") {
+                            $("#selectgrupocliente ." + $("#selectconsultor option")[i].value).show();
+                        }
+
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                $('#selectconsultor').change(function(e) {
+                    valor = $("#selectconsultor").val();
+                    if (valor != 0) {
+                        $("#selectgrupocliente option").hide();
+                        $("#selectgrupocliente ." + valor).show();
+                    } else {
+                        $("#selectgrupocliente option").hide();
+                    }
+                    $('#selectgrupocliente_todos').show();
+                    $("#selectgrupocliente").val("0").change();
+                });
+            });
+
+            function filtrar() {
+                var url = location.origin + "?";
+                var adicionar = false;
+                var gerente = $("#selectgerente option:selected").val();
+                var consultor = $("#selectconsultor option:selected").val();
+                var grupo_cliente = $("#selectgrupocliente option:selected").val();
+                var safra = $("#selectsafra option:selected").val();
+                console.log(gerente, consultor, grupo_cliente, safra);
+                if (gerente != 0) {
+                    if (adicionar) {
+                        url += "&";
+                    }
+                    url += "gerente=" + gerente;
+                    adicionar = true;
+                }
+                if (consultor != 0) {
+                    if (adicionar) {
+                        url += "&";
+                    }
+                    url += "consultor=" + consultor;
+                    adicionar = true;
+                }
+                if (grupo_cliente != 0) {
+                    if (adicionar) {
+                        url += "&";
+                    }
+                    url += "grupo_cliente=" + grupo_cliente;
+                    adicionar = true;
+                }
+                if (safra != 0) {
+                    if (adicionar) {
+                        url += "&";
+                    }
+                    url += "safra=" + safra;
+                    adicionar = true;
+                }
+                console.log(url);
+                location.href = url;
+            }
+
+            // Função para pegar os parâmetros de busca da URL
+            function getParameterByName(name, url = window.location.href) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            var gerente = getParameterByName("gerente");
+            var consultor = getParameterByName("consultor");
+            var grupo_cliente = getParameterByName("grupo_cliente");
+            var safra = getParameterByName("safra");
+
+            if (gerente) {
+                document.getElementById("selectgerente").value = gerente;
+                    document.getElementById("selectgerente").dispatchEvent(new Event("change"));
+                    if (consultor) {
+                        document.getElementById("selectconsultor").value = consultor;
+                        
+                            document.getElementById("selectconsultor").dispatchEvent(new Event("change"));
+                            if (grupo_cliente) {
+                                document.getElementById("selectgrupocliente").value = grupo_cliente;
+                            }
+                    }
+            }
+
+            if (safra) {
+                document.getElementById("selectsafra").value = safra;
+            }
+
+        </script>
 
     @endsection

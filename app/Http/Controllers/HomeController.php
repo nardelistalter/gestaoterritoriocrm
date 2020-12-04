@@ -29,17 +29,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->where('cargo_id', 3)->get();
+        //dd($_GET);
+        $consultores = DB::table('users')->where('cargo_id', 3)->get();
+        //dd($consultores);
         $gerentes = DB::table('users')->where('cargo_id', 2)->get();
         $grupoclientes = $this->grupocliente::all()->sortBy('descricao');
         $grupoprodutos = $this->grupoproduto::all()->sortBy('descricao');
         $safras = DB::table('safras')->orderBy('descricao', 'desc')->get();
         //dd($grupoclientes);
 
-        $id_gerente = null;
-        $id_consultor = null;
-        $id_grupocliente = null;
-        $id_safra = 2;
+        // Quando carrega dashboard captura a primeira safra do select
+        $obj_safra = $safras->first();
+        $id_safra = $obj_safra->id;
+        if (isset($_GET["safra"])) {
+            $id_safra =$_GET["safra"];
+        }
         $safra = DB::select('SELECT *
                             FROM safras
                             WHERE id = ?', [$id_safra])[0];
@@ -48,17 +52,18 @@ class HomeController extends Controller
         $wheres = " ( s.id IS NULL OR s.id = $id_safra) ";
         $wheres2 = " (o.data IS NULL OR (o.data >= '$safra->dataInicio' AND o.data <= '$safra->dataFim')) ";
         $wheres3 = " (m.dataPrevista IS NULL OR (m.dataPrevista >= '$safra->dataInicio' AND m.dataPrevista <= '$safra->dataFim')) ";
+        $wheres4 = " (sc.safra_id IS NULL OR sc.safra_id = $id_safra) ";
 
-        if ($id_gerente != null) {
-            $wheresgeneric .= " AND u.gerente_id = $id_gerente";
+        if (isset($_GET["gerente"])) {
+            $wheresgeneric .= " AND u.gerente_id = " . $_GET["gerente"];
         }
 
-        if ($id_consultor != null) {
-            $wheresgeneric .= " AND u.id  = $id_consultor";
+        if (isset($_GET["consultor"])) {
+            $wheresgeneric .= " AND gc.user_id  = " . $_GET["consultor"];
         }
 
-        if ($id_grupocliente != null) {
-            $wheresgeneric .= " AND gc.id  = $id_grupocliente";
+        if (isset($_GET["grupo_cliente"])) {
+            $wheresgeneric .= " AND gc.id  = " . $_GET["grupo_cliente"];
         }
 
         // Valores por Grupo de Cliente
@@ -109,32 +114,25 @@ class HomeController extends Controller
         //dd($grupoclientetotals);
 
         // Valores por Grupo de Produto
+        //DB::enableQueryLog();
         $grupoprodutototals = DB::select('
             WITH 
-                g_produtos AS (
-                    SELECT gp.id, gp.descricao, gc.user_id
-                    FROM grupo_produtos gp LEFT JOIN programa_de_negocios pdn ON pdn.grupoProduto_id = gp.id
-                    LEFT JOIN metas m ON m.programaDeNegocio_id = pdn.id
-                    LEFT JOIN grupo_clientes gc ON gc.id = m.grupoCliente_id
-                    LEFT JOIN users u ON u.id = gc.user_id
-                    WHERE 1 = 1
-                ),
-
                 potencialDeAcesso AS (
                     SELECT gp.id, gp.descricao, COALESCE(SUM(agc.qtdUnidadesArea * sc.valorUnitario), 0) AS potencialDeAcesso
-                    FROM g_produtos gp LEFT JOIN (
+                    FROM grupo_produtos gp LEFT JOIN (
                         SELECT sc.id, pdn.grupoProduto_id AS valorId, pdn.safra_id, SUM(pdn.valorUnitario) AS valorUnitario
                         FROM segmento_culturas sc INNER JOIN programa_de_negocios pdn ON sc.id = pdn.segmentoCultura_id
                         GROUP BY 1, 2, 3
                         ) AS sc ON sc.valorId = gp.id
                     LEFT JOIN (
-                         SELECT agc.segmentoCultura_id, SUM(agc.qtdUnidadesArea) AS qtdUnidadesArea
-                         FROM   area_grupo_clientes agc
-                         group by 1
+                        SELECT agc.segmentoCultura_id, SUM(agc.qtdUnidadesArea) AS qtdUnidadesArea
+                        FROM area_grupo_clientes agc
+                        LEFT JOIN grupo_clientes gc ON gc.id = agc.grupoCliente_id 
+                        INNER JOIN users u ON u.id = gc.user_id
+                        WHERE 1 = 1 ' . $wheresgeneric . '
+                        GROUP BY 1
                         ) AS agc ON agc.segmentoCultura_id = sc.id
-                    
-
-                        
+                        WHERE ' . $wheres4 . ' 
                     GROUP BY 1, 2
                 ),
 
@@ -142,9 +140,10 @@ class HomeController extends Controller
                     SELECT gp.id, gp.descricao, COALESCE(SUM(o.qtdUnidadesProduto * o.valorUnitario), 0) AS venda
                     FROM grupo_produtos gp LEFT JOIN produtos p ON p.grupoProduto_id = gp.id
                     LEFT JOIN operacaos o ON p.id = o.produto_id 
-
-
-
+                    LEFT JOIN inscricao_estaduals ie ON ie.id = o.inscricaoEstadual_id 
+                    LEFT JOIN grupo_clientes gc ON ie.grupoCliente_id = gc.id
+                    INNER JOIN users u ON u.id = gc.user_id
+                    WHERE ' . $wheres2 . $wheresgeneric . ' 
                     GROUP BY 1, 2
                 ),
 
@@ -152,16 +151,17 @@ class HomeController extends Controller
                     SELECT gp.id, gp.descricao, COALESCE(SUM(m.metaDesejada), 0) AS meta
                     FROM grupo_produtos gp LEFT JOIN programa_de_negocios pdn ON pdn.grupoProduto_id = gp.id
                     LEFT JOIN metas m ON m.programaDeNegocio_id = pdn.id
-                    
-                    
-
+                    LEFT JOIN grupo_clientes gc ON m.grupoCliente_id = gc.id
+                    INNER JOIN users u ON u.id = gc.user_id
+                    WHERE ' . $wheres3 . $wheresgeneric . ' 
                     GROUP BY 1, 2
                 )
 
-                SELECT pda.descricao, pda.potencialDeAcesso, m.meta, v.venda
-                FROM potencialDeAcesso pda INNER JOIN meta m ON pda.id = m.id INNER JOIN venda v ON m.id = v.id
+                SELECT pda.descricao, COALESCE(pda.potencialDeAcesso, 0) AS potencialDeAcesso, COALESCE(m.meta, 0) AS meta, COALESCE(v.venda, 0) AS venda
+                FROM potencialDeAcesso pda LEFT JOIN meta m ON pda.id = m.id LEFT JOIN venda v ON m.id = v.id
                 ORDER BY 1
             ');
+        //dd(DB::getQueryLog());
         //dd($grupoprodutototals);        
 
         $wheres .= $wheresgeneric;
@@ -200,7 +200,7 @@ class HomeController extends Controller
         //dd($totalmeta);
 
         return view('home')
-            ->with('users', $users)
+            ->with('consultores', $consultores)
             ->with('gerentes', $gerentes)
             ->with('grupoclientes', $grupoclientes)
             ->with('grupoprodutos', $grupoprodutos)

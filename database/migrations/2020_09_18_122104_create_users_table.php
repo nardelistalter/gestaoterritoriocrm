@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable(false);
             $table->rememberToken();
+            $table->string('nome_image')->nullable(true);
             $table->binary('image')->nullable(true);
             $table->boolean('status')->nullable(false)->default(false);
             $table->boolean('perfilAdministrador')->nullable(false)->default(false);

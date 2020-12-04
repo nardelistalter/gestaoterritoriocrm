@@ -26,6 +26,7 @@ class User extends Authenticatable
         'cpf',
         'dataNascimento',
         'sexo',
+        'nome_image',
         'image',
         'password',
         'status',
