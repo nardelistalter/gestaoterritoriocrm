@@ -252,7 +252,9 @@
                     </button>
 
                     <div>
-                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">{{ __('Gestão de Território e Metas') }}</h1>
+                        <h1 id="system-title" class="h3 mb-0 text-gray-800 font-weight-bold font-italic">
+                            {{ __('Gestão de Território e Metas') }}
+                        </h1>
 
                     </div>
 
@@ -265,11 +267,13 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600">{{ Auth::user()->nome }}</span>
                                 <img class="img-profile rounded-circle"
-                                src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                                    src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
                             </a>
 
-                             {{-- {{ Auth::user()->nome }} --}}
-                            {{-- src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }} --}}
+                            {{-- {{ Auth::user()->nome }} --}}
+                            {{--
+                            src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}
+                            --}}
 
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -299,7 +303,8 @@
 
                 <!-- Alert Start  -->
 
-                @if ($errors->any()) <!-- ou (count($errors) > 0)-->
+                @if ($errors->any())
+                    <!-- ou (count($errors) > 0)-->
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -406,6 +411,7 @@
 
     <!-- Core plugin JavaScript-->
     <script src={{ URL::to('vendor/jquery-easing/jquery.easing.min.js') }}></script>
+    <script src={{ URL::to('vendor/mask/jquery.mask.min.js') }}></script>
 
     <!-- Custom scripts for all pages-->
     <script src={{ URL::to('js/sb-admin-2.min.js') }}></script>

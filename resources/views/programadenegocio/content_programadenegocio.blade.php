@@ -26,8 +26,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table id="datatableProgramaDeNegocio"
-                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
-                        width="100%">
+                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
@@ -59,18 +58,22 @@
                                     <td style="display: none;">{{ $grupoproduto->id }}</td>
                                     <td class="align-middle border-left">{{ $safra->descricao }}</td>
                                     <td style="display: none;">{{ $safra->id }}</td>
-                                    <td class="align-middle border-left">R$ {{ number_format($programadenegocio->valorUnitario, 2, ',', '.') }}</td>
+                                    <td class="align-middle border-left">R$
+                                        {{ number_format($programadenegocio->valorUnitario, 2, ',', '.') }}
+                                    </td>
                                     <td style="display: none;">{{ $programadenegocio->valorUnitario }}</td>
-                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($programadenegocio->dataLimite)) }}</td>
+                                    <td class="align-middle border-left">
+                                        {{ date('d/m/Y', strtotime($programadenegocio->dataLimite)) }}
+                                    </td>
                                     <td style="display: none;">{{ $programadenegocio->dataLimite }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $programadenegocio->id }}, '{{ $grupoproduto->descricao }} - {{ $segmentocultura->descricao }} - {{ date("d/m/Y", strtotime($programadenegocio->dataLimite)) }} - {{ $safra->descricao }}', '{{ strtolower(class_basename($programadenegocio)) }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $programadenegocio->id }}, '{{ $grupoproduto->descricao }} - {{ $segmentocultura->descricao }} - {{ date('d/m/Y', strtotime($programadenegocio->dataLimite)) }} - {{ $safra->descricao }}', '{{ strtolower(class_basename($programadenegocio)) }}');"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -119,7 +122,8 @@
 
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-segmentocultura">Segmento/Cultura</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-segmentocultura"
+                                required>
                                 <option value="">Selecione...</option>
                                 @foreach ($segmentoculturas as $segmentocultura)
                                     <option value={{ $segmentocultura->id }}> {{ $segmentocultura->descricao }} </option>
@@ -129,7 +133,8 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-grupoproduto">Grupo de Produtos</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-grupoproduto"
+                                required>
                                 <option value="">Selecione...</option>
                                 @foreach ($grupoprodutos as $grupoproduto)
                                     <option value={{ $grupoproduto->id }}> {{ $grupoproduto->descricao }} </option>
@@ -150,12 +155,13 @@
                         <div class="form-group">
                             <label class="mb-0" for="add-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="add-valorunitario" name="add-valorunitario"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
+                                step="0.01" min="0.01" style="text-align: right; width: 250px;" required>
                             <span class="text-danger" id="add-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-datalimite">Data Limite</label>
-                            <input type="date" class="form-control" id="add-datalimite" name="add-datalimite" style="width: 170px;" required>
+                            <input type="date" class="form-control" id="add-datalimite" name="add-datalimite"
+                                style="width: 170px;" required>
                             <span class="text-danger" id="add-datalimiteError"></span>
                         </div>
                     </form>
@@ -177,7 +183,8 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Programa de Negócio' }}</h5>
+                        {{ 'Alterar Programa de Negócio' }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -199,12 +206,13 @@
                         <div class="form-group">
                             <label class="mb-0" for="up-valorunitario">Valor Unitário</label>
                             <input type="number" class="form-control" id="up-valorunitario" name="up-valorunitario"
-                                step="0.01" min="0.01" style="text-align: right; width: 150px;" required>
+                                step="0.01" min="0.01" style="text-align: right; width: 250px;" required>
                             <span class="text-danger" id="up-valorunitarioError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-datalimite">Data Limite</label>
-                            <input type="date" class="form-control" id="up-datalimite" name="up-datalimite" style="width: 170px;" required>
+                            <input type="date" class="form-control" id="up-datalimite" name="up-datalimite"
+                                style="width: 170px;" required>
                             <span class="text-danger" id="up-datalimiteError"></span>
                         </div>
                     </form>
@@ -236,7 +244,8 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-segmentocultura">Segmento/Cultura</label>
@@ -254,11 +263,12 @@
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-valorunitario">Valor Unitário</label>
                             <input type="text" class="form-control" id="v-valorunitario" name="v-valorunitario"
-                                style="text-align: right; width: 150px;" readonly>
+                                style="text-align: right; width: 250px;" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-datalimite">Data Limite</label>
-                            <input type="text" class="form-control" id="v-datalimite" name="v-datalimite" style="width: 130px;" readonly>
+                            <input type="text" class="form-control" id="v-datalimite" name="v-datalimite"
+                                style="width: 130px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -334,7 +344,8 @@
                 $("select[name='up-segmentocultura'] option[value='" + data[2] + "']").attr('selected',
                     'selected');
 
-                $('#select-grupoproduto').html('<label class="mb-0" for="up-grupoproduto">Grupo de Produtos</label>' +
+                $('#select-grupoproduto').html(
+                    '<label class="mb-0" for="up-grupoproduto">Grupo de Produtos</label>' +
                     '<select class="form-control selectpicker" data-live-search="true" name="up-grupoproduto" required>' +
                     '   @foreach ($grupoprodutos as $grupoproduto)' +
                     '       <option value={{ $grupoproduto->id }}>{{ $grupoproduto->descricao }}</option>' +
@@ -403,6 +414,6 @@
 
     </script>
 
- @include('scripts.confirmdeletion')
+    @include('scripts.confirmdeletion')
 
 @endsection

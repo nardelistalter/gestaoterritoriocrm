@@ -144,6 +144,29 @@
                 <div class="modal-body">
                     <form action="{{ action('App\Http\Controllers\ClienteController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active" for="add-rd-cpf">
+                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-1"
+                                    value="1" checked> CPF
+                            </label>
+                            <label class="btn btn-secondary" for="add-rd-cnpj">
+                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-2"
+                                    value="2"> CNPJ
+                            </label>
+                        </div>
+                        <br><br>
+                        <div id="div-cpf" class="form-group">
+                            <label class="mb-0" for="add-cpf">CPF*</label>
+                            <input type="text" name="custom_field[account][3]" value="" id="input-custom-field3"
+                                class="form-control" style="width: 155px;" maxlength="14" vk_1bc56="subscribed">
+                            <span class="text-danger" id="add-cpfError"></span>
+                        </div>
+                        <div id="div-cnpj" class="form-group" style="display: none;">
+                            <label class="mb-0" for="add-cnpj">CNPJ*</label>
+                            <input type="text" name="custom_field[account][4]" value="" id="input-custom-field4"
+                                class="form-control" style="width: 185px;" maxlength="18" vk_1bc56="subscribed">
+                            <span class="text-danger" id="add-cnpjError"></span>
+                        </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-nome">Nome*</label>
                             <input type="text" class="form-control" name="add-nome" maxlength="60" required>
@@ -189,14 +212,14 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone1">Telefone 1*</label>
-                            <input type="text" class="form-control" name="add-telefone1" style="width: 155px;"
-                                maxlength="15" required>
+                            <input type="text" class="form-control" id="add-telefone1" name="add-telefone1"
+                                style="width: 155px;" maxlength="15" required>
                             <span class="text-danger" id="add-telefone1Error"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-telefone2">Telefone 2</label>
-                            <input type="text" class="form-control" name="add-telefone2" style="width: 155px;"
-                                maxlength="15">
+                            <input type="text" class="form-control" id="add-telefone2" name="add-telefone2"
+                                style="width: 155px;" maxlength="15">
                             <span class="text-danger" id="add-telefone2Error"></span>
                         </div>
                         <div class="form-group">
@@ -205,29 +228,7 @@
                             <span class="text-danger" id="add-emailError"></span>
                         </div>
 
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active" for="add-rd-cpf">
-                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-1"
-                                    value="1" checked> CPF
-                            </label>
-                            <label class="btn btn-secondary" for="add-rd-cnpj">
-                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-2"
-                                    value="2"> CNPJ
-                            </label>
-                        </div>
-                        <br><br>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-cpf">CPF*</label>
-                            <input type="text" name="custom_field[account][3]" value="" id="input-custom-field3" class="form-control"  style="text-align: right; width: 155px;"
-                                maxlength="14" vk_1bc56="subscribed">
-                            <span class="text-danger" id="add-cpfError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-cnpj">CNPJ*</label>
-                            <input type="text" name="custom_field[account][4]" value="" id="input-custom-field4" class="form-control" 
-                                maxlength="18" vk_1bc56="subscribed">
-                            <span class="text-danger" id="add-cnpjError"></span>
-                        </div>
+
 
                         <div class="form-group">
                             <label class="mb-0" for="add-datanascimento">Data Nascimento/Fundação</label>
@@ -289,6 +290,29 @@
                     <form action="/cliente" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active" for="up-rd-cpf">
+                                <input type="radio" name="up-rd-cpf_cnpj" id="up-rd-cpf" autocomplete="off"
+                                    onClick=habilitacao() value="up-rd-cpf" checked> CPF
+                            </label>
+                            <label class="btn btn-secondary" for="up-rd-cnpj">
+                                <input type="radio" name="up-cpf_cnpj" id="up-rd-cnpj" autocomplete="off"
+                                    onClick="habilitacao()" value="up-rd-cnpj"> CNPJ
+                            </label>
+                        </div>
+                        <br><br>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cpf">CPF*</label>
+                            <input type="text" class="form-control" id="up-cpf" name="up-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14">
+                            <span class="text-danger" id="up-cpfError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
+                            <input type="text" class="form-control" id="up-cnpj" name="up-cnpj"
+                                style="text-align: right; width: 185px;" maxlength="18">
+                            <span class="text-danger" id="up-cnpjError"></span>
+                        </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-nome">Nome*</label>
                             <input type="text" class="form-control" id="up-nome" name="up-nome" maxlength="60" required>
@@ -351,29 +375,7 @@
                             <input type="email" class="form-control" id="up-email" name="up-email">
                             <span class="text-danger" id="up-emailError"></span>
                         </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active" for="up-rd-cpf">
-                                <input type="radio" name="up-rd-cpf_cnpj" id="up-rd-cpf" autocomplete="off"
-                                    onClick=habilitacao() value="up-rd-cpf" checked> CPF
-                            </label>
-                            <label class="btn btn-secondary" for="up-rd-cnpj">
-                                <input type="radio" name="up-cpf_cnpj" id="up-rd-cnpj" autocomplete="off"
-                                    onClick="habilitacao()" value="up-rd-cnpj"> CNPJ
-                            </label>
-                        </div>
-                        <br><br>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cpf">CPF*</label>
-                            <input type="text" class="form-control" id="up-cpf" name="up-cpf"
-                                style="text-align: right; width: 155px;" maxlength="14">
-                            <span class="text-danger" id="up-cpfError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
-                            <input type="text" class="form-control" id="up-cnpj" name="up-cnpj"
-                                style="text-align: right; width: 185px;" maxlength="18">
-                            <span class="text-danger" id="up-cnpjError"></span>
-                        </div>
+
 
                         <div class="form-group">
                             <label class="mb-0" for="up-datanascimento">Data Nascimento/Fundação</label>
@@ -656,20 +658,45 @@
     </script>
 
     <script type="text/javascript">
-        
         $(document).ready(function() {
-            $("#input-custom-field3, #input-custom-field4").hide();
-          });
 
-          $("input[type=radio]").on("change", function() {
-            if ($(this).val() == "1") {
-              $("#input-custom-field3").show();
-              $("#input-custom-field4").hide();
-            } else if ($(this).val() == "2") {
-              $("#input-custom-field4").show();
-              $("#input-custom-field3").hide();
+            var options = {
+                onComplete: function(cnpj) {
+                    $.get("http://www.receitaws.com.br/v1/cnpj/" + cnpj.replace(/\D/g, ""), function(data,
+                        status) {
+                        alert("Data: " + data + "\nStatus: " + status);
+                    });
+                },
             }
-          });
+
+            $('#input-custom-field3').mask('000.000.000-00');
+            $('#input-custom-field4').mask('00.000.000/0000-00', options);
+
+
+            var PhoneMaskBehavior = function(val) {
+                    let len = val.replace(/\D/g, '').length;
+                    return len === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                },
+                phoneOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                        field.mask(PhoneMaskBehavior.apply({}, arguments), options);
+                    }
+                };
+            $('#add-telefone1').mask(PhoneMaskBehavior, phoneOptions);
+            $('#add-telefone2').mask(PhoneMaskBehavior, phoneOptions);
+
+            //$("#div-cpf, #div-cnpj").hide();
+        });
+
+        $("input[type=radio]").on("change", function() {
+            if ($(this).val() == "1") {
+                $("#div-cpf").show();
+                $("#div-cnpj").hide();
+            } else if ($(this).val() == "2") {
+                $("#div-cnpj").show();
+                $("#div-cpf").hide();
+            }
+        });
 
     </script>
 

@@ -54,7 +54,7 @@
                     <div class="col-1">
                         <label class="mb-0" for="XXXXXX"></label>
                         <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
-                            data-target="#addModal" onclick="filtrar()"><i class="fas fa-plus-circle m-1"
+                            data-target="#addModal" onclick="filtrar()"><i class="fas fa-search-dollar m-1"
                                 data-toggle="tooltip" data-placement="top"
                                 title="Incluir item"></i>{{ __('Filtrar') }}</button>
                     </div>
@@ -104,8 +104,8 @@
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                                                 role="progressbar"
-                                                style="width: {{ ($totalpotencialacesso->potencialDeAcesso == 0) ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}%;"
-                                                aria-valuenow={{ ($totalpotencialacesso->potencialDeAcesso == 0) ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}
+                                                style="width: {{ $totalpotencialacesso->potencialDeAcesso == 0 ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}%;"
+                                                aria-valuenow={{ $totalpotencialacesso->potencialDeAcesso == 0 ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -140,8 +140,8 @@
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
                                                 role="progressbar"
-                                                style="width: {{ ($totalmeta->Total == 0) ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}%;"
-                                                aria-valuenow={{ ($totalmeta->Total == 0) ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}
+                                                style="width: {{ $totalmeta->Total == 0 ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}%;"
+                                                aria-valuenow={{ $totalmeta->Total == 0 ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
