@@ -103,10 +103,9 @@
                                             number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-                                                role="progressbar" style="width: 15%;"
-                                                aria-valuenow={{-- number_format(($totalmeta->
-                                                Total/$totalpotencialacesso->potencialDeAcesso)*100,2,',','.')
-                                                --}}
+                                                role="progressbar"
+                                                style="width: {{ ($totalpotencialacesso->potencialDeAcesso == 0) ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}%;"
+                                                aria-valuenow={{ ($totalpotencialacesso->potencialDeAcesso == 0) ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -140,10 +139,9 @@
                                             number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
                                             --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                                                role="progressbar" style="width: 80%"
-                                                aria-valuenow={{--
-                                                number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
-                                                --}}
+                                                role="progressbar"
+                                                style="width: {{ ($totalmeta->Total == 0) ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}%;"
+                                                aria-valuenow={{ ($totalmeta->Total == 0) ? 0 : number_format(($totalvenda->Total / $totalmeta->Total) * 100, 2, '.', '') }}
                                                 aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
@@ -325,9 +323,7 @@
 
                     }
                 });
-            });
 
-            $(document).ready(function() {
                 $('#selectconsultor').change(function(e) {
                     valor = $("#selectconsultor").val();
                     if (valor != 0) {
@@ -339,7 +335,41 @@
                     $('#selectgrupocliente_todos').show();
                     $("#selectgrupocliente").val("0").change();
                 });
+
+                // Função para pegar os parâmetros de busca da URL
+                function getParameterByName(name, url = window.location.href) {
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+                var gerente = getParameterByName("gerente");
+                var consultor = getParameterByName("consultor");
+                var grupo_cliente = getParameterByName("grupo_cliente");
+                var safra = getParameterByName("safra");
+
+                if (gerente) {
+                    document.getElementById("selectgerente").value = gerente;
+                    document.getElementById("selectgerente").dispatchEvent(new Event("change"));
+                }
+
+                if (consultor) {
+                    document.getElementById("selectconsultor").value = consultor;
+                    document.getElementById("selectconsultor").dispatchEvent(new Event("change"));
+                }
+
+                if (grupo_cliente) {
+                    document.getElementById("selectgrupocliente").value = grupo_cliente;
+                }
+
+                if (safra) {
+                    document.getElementById("selectsafra").value = safra;
+                }
             });
+
 
             function filtrar() {
                 var url = location.origin + "?";
@@ -379,38 +409,6 @@
                 }
                 console.log(url);
                 location.href = url;
-            }
-
-            // Função para pegar os parâmetros de busca da URL
-            function getParameterByName(name, url = window.location.href) {
-                name = name.replace(/[\[\]]/g, '\\$&');
-                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, ' '));
-            }
-
-            var gerente = getParameterByName("gerente");
-            var consultor = getParameterByName("consultor");
-            var grupo_cliente = getParameterByName("grupo_cliente");
-            var safra = getParameterByName("safra");
-
-            if (gerente) {
-                document.getElementById("selectgerente").value = gerente;
-                    document.getElementById("selectgerente").dispatchEvent(new Event("change"));
-                    if (consultor) {
-                        document.getElementById("selectconsultor").value = consultor;
-                        
-                            document.getElementById("selectconsultor").dispatchEvent(new Event("change"));
-                            if (grupo_cliente) {
-                                document.getElementById("selectgrupocliente").value = grupo_cliente;
-                            }
-                    }
-            }
-
-            if (safra) {
-                document.getElementById("selectsafra").value = safra;
             }
 
         </script>
