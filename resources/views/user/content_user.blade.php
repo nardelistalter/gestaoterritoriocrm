@@ -186,6 +186,12 @@
                     <form action="{{ action('App\Http\Controllers\UserController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
+                            <label class="mb-0" for="add-cpf">CPF*</label>
+                            <input type="cpf" class="form-control" id="add-cpf" name="add-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14">
+                            <span class="text-danger" id="add-cpfError"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="mb-0" for="add-nome">Nome*</label>
                             <input type="text" class="form-control" id="add-nome" name="add-nome" maxlength="60" required>
                             <span class="text-danger" id="add-nomeError"></span>
@@ -246,12 +252,6 @@
                             <label class="mb-0" for="add-email">E-mail</label>
                             <input type="email" class="form-control" id="add-email" name="add-email">
                             <span class="text-danger" id="add-emailError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="add-cpf">CPF*</label>
-                            <input type="cpf" class="form-control" id="add-cpf" name="add-cpf"
-                                style="text-align: right; width: 155px;" maxlength="14">
-                            <span class="text-danger" id="add-cpfError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-datanascimento">Data Nascimento*</label>
@@ -354,6 +354,12 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
+                            <label class="mb-0" for="up-cpf">CPF*</label>
+                            <input type="cpf" class="form-control" id="up-cpf" name="up-cpf"
+                                style="text-align: right; width: 155px;" maxlength="14" readonly>
+                            <span class="text-danger" id="up-cpfError"></span>
+                        </div>
+                        <div class="form-group">
                             <label class="mb-0" for="up-nome">Nome*</label>
                             <input type="text" class="form-control" id="up-nome" name="up-nome" maxlength="60" required>
                             <span class="text-danger" id="up-nomeError"></span>
@@ -413,12 +419,6 @@
                             <label class="mb-0" for="up-email">E-mail</label>
                             <input type="email" class="form-control" id="up-email" name="up-email">
                             <span class="text-danger" id="up-emailError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cpf">CPF*</label>
-                            <input type="cpf" class="form-control" id="up-cpf" name="up-cpf"
-                                style="text-align: right; width: 155px;" maxlength="14">
-                            <span class="text-danger" id="up-cpfError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-datanascimento">Data Nascimento*</label>
@@ -650,6 +650,29 @@
 
     <script type="text/javascript">
         // Usuários
+
+        $(document).ready(function() {
+
+            $('#add-cpf').mask('000.000.000-00');
+
+            var PhoneMaskBehavior = function(val) {
+                    let len = val.replace(/\D/g, '').length;
+                    return len === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+                },
+                phoneOptions = {
+                    onKeyPress: function(val, e, field, options) {
+                        field.mask(PhoneMaskBehavior.apply({}, arguments), options);
+                    }
+                };
+
+            $('#add-telefone1').mask(PhoneMaskBehavior, phoneOptions);
+            $('#add-telefone2').mask(PhoneMaskBehavior, phoneOptions);
+
+            $('#up-telefone1').mask(PhoneMaskBehavior, phoneOptions);
+            $('#up-telefone2').mask(PhoneMaskBehavior, phoneOptions);
+
+        });
+
         $(document).ready(function() {
 
             var table = $('#datatableUser').DataTable();

@@ -55,28 +55,37 @@
                                 @endphp
                                 <tr>
                                     <th class="align-middle border-left">{{ $operacao->id }}</th>
-                                    <td class="align-middle border-left">{{ date("d/m/Y", strtotime($operacao->data)) }}</td>
+                                    <td class="align-middle border-left">{{ date('d/m/Y', strtotime($operacao->data)) }}
+                                    </td>
                                     <td style="display: none;">{{ $operacao->data }}</td>
                                     <td class="align-middle border-left">{{ $operacao->numeroDocumento }}</td>
-                                    <td class="align-middle border-left">{{ $cliente->nome }} - {{ $inscricaoestadual->numero }}</td>
+                                    <td class="align-middle border-left">{{ $cliente->nome }} -
+                                        {{ $inscricaoestadual->numero }}
+                                    </td>
                                     <td style="display: none;">{{ $inscricaoestadual->id }}</td>
                                     <td class="align-middle border-left">{{ $produto->descricao }}</td>
                                     <td style="display: none;">{{ $produto->id }}</td>
-                                    <td class="align-middle border-left">{{ number_format($operacao->qtdUnidadesProduto, 2, ',', '.') }}</td>
+                                    <td class="align-middle border-left">
+                                        {{ number_format($operacao->qtdUnidadesProduto, 2, ',', '.') }}
+                                    </td>
                                     <td style="display: none;">{{ $operacao->qtdUnidadesProduto }}</td>
-                                    <td class="align-middle border-left">R$ {{ number_format($operacao->valorUnitario, 2, ',', '.') }}</td>
+                                    <td class="align-middle border-left">R$
+                                        {{ number_format($operacao->valorUnitario, 2, ',', '.') }}
+                                    </td>
                                     <td style="display: none;">{{ $operacao->valorUnitario }}</td>
-                                    <td class="align-middle border-left">R$ {{ number_format($operacao->qtdUnidadesProduto * $operacao->valorUnitario, 2, ',', '.') }}</td>
+                                    <td class="align-middle border-left">R$
+                                        {{ number_format($operacao->qtdUnidadesProduto * $operacao->valorUnitario, 2, ',', '.') }}
+                                    </td>
                                     <td class="align-middle th-sm border-left border-right">
                                         <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                                                                                                                                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $cliente->nome }} - {{ $inscricaoestadual->numero }}', '{{ strtolower(class_basename($operacao)) }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $operacao->id }}, '{{ date('d/m/Y', strtotime($operacao->data)) }} - {{ $operacao->numeroDocumento }} - {{ $produto->descricao }} - {{ $cliente->nome }} - {{ $inscricaoestadual->numero }}', '{{ strtolower(class_basename($operacao)) }}');"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -121,29 +130,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ action('App\Http\Controllers\OperacaoController@store') }}" method="POST"
-                        id="addForm">
+                    <form action="{{ action('App\Http\Controllers\OperacaoController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label class="mb-0" for="add-data">Data</label>
-                            <input type="date" class="form-control" id="add-data" name="add-data" style="width: 170px;" required>
+                            <input type="date" class="form-control" id="add-data" name="add-data" style="width: 170px;"
+                                required>
                             <span class="text-danger" id="add-dataError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-numerodocumento">Número do Documento</label>
-                            <input type="text" class="form-control" id="add-numerodocumento" name="add-numerodocumento" maxlength="15"
-                                style="width: 120px;" required>
+                            <input type="text" class="form-control" id="add-numerodocumento" name="add-numerodocumento"
+                                maxlength="15" style="width: 120px;" required>
                             <span class="text-danger" id="add-numerodocumentoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="add-inscricaoestadual">Cliente/Inscrição Estadual</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="add-inscricaoestadual"
+                                required>
                                 <option value="">Selecione...</option>
                                 @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
                                     $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
                                     @endphp
-                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} -
+                                        {{ $inscricaoestadual->numero }}
+                                    </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="add-inscricaoestadualError"></span>
@@ -160,8 +172,9 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-qtdunidadesproduto">Quantidade</label>
-                            <input type="number" class="form-control" id="add-qtdunidadesproduto" name="add-qtdunidadesproduto"
-                                step="0.01" min="0.01" style="text-align: right; width: 160px;" required>
+                            <input type="number" class="form-control" id="add-qtdunidadesproduto"
+                                name="add-qtdunidadesproduto" step="0.01" min="0.01"
+                                style="text-align: right; width: 160px;" required>
                             <span class="text-danger" id="add-qtdunidadesprodutoError"></span>
                         </div>
                         <div class="form-group">
@@ -172,8 +185,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="add-valortotal">Valor Total</label>
-                            <input type="number" class="form-control" id="add-valortotal" name="add-valortotal"
-                                step="0.01" min="0.01" style="text-align: right; width: 250px;" readonly>
+                            <input type="text" class="form-control" id="add-valortotal" name="add-valortotal"
+                                style="text-align: right; width: 250px;" readonly>
                             <span class="text-danger" id="add-valortotalError"></span>
                         </div>
                     </form>
@@ -195,7 +208,8 @@
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     <h5 class="modal-title text-dark font-weight-bold" id="editModalTitle">
-                        {{ 'Alterar Venda' }}</h5>
+                        {{ 'Alterar Venda' }}
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -207,37 +221,42 @@
                         {{ method_field('PUT') }}
                         <div class="form-group">
                             <label class="mb-0" for="up-data">Data</label>
-                            <input type="date" class="form-control" id="up-data" name="up-data" style="width: 170px;" required>
+                            <input type="date" class="form-control" id="up-data" name="up-data" style="width: 170px;"
+                                required>
                             <span class="text-danger" id="up-dataError"></span>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-numerodocumento">Número do Documento</label>
-                            <input type="text" class="form-control" id="up-numerodocumento" name="up-numerodocumento" maxlength="15"
-                                style="width: 120px;" required>
+                            <input type="text" class="form-control" id="up-numerodocumento" name="up-numerodocumento"
+                                maxlength="15" style="width: 120px;" required>
                             <span class="text-danger" id="up-numerodocumentoError"></span>
                         </div>
                         <div id="select-inscricaoestadual" class="form-group col-xs-2">
                             <label class="mb-0" for="up-inscricaoestadual">Cliente/Inscrição Estadual</label>
-                            <select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual" required>
+                            <select class="form-control selectpicker" data-live-search="true" name="up-inscricaoestadual"
+                                required>
                                 @foreach ($inscricaoestaduals as $inscricaoestadual)
                                     @php
                                     $cliente = $inscricaoestadual->find($inscricaoestadual->id)->cliente;
                                     @endphp
-                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} - {{ $inscricaoestadual->numero }} </option>
+                                    <option value={{ $inscricaoestadual->id }}> {{ $cliente->nome }} -
+                                        {{ $inscricaoestadual->numero }}
+                                    </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="up-inscricaoestadualError"></span>
                         </div>
-                        {{--  <div id="select-inscricaoestadual" class="form-group col-xs-2">
+                        {{-- <div id="select-inscricaoestadual" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>--}}
-                        <div  id="select-produto" class="form-group col-xs-2">
+                        <div id="select-produto" class="form-group col-xs-2">
                             <!-- jquery -->
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-qtdunidadesproduto">Quantidade</label>
-                            <input type="number" class="form-control" id="up-qtdunidadesproduto" name="up-qtdunidadesproduto"
-                                step="0.01" min="0.01" style="text-align: right; width: 160px;" required>
+                            <input type="number" class="form-control" id="up-qtdunidadesproduto"
+                                name="up-qtdunidadesproduto" step="0.01" min="0.01" style="text-align: right; width: 160px;"
+                                required>
                             <span class="text-danger" id="up-qtdunidadesprodutoError"></span>
                         </div>
                         <div class="form-group">
@@ -248,8 +267,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="up-valortotal">Valor Total</label>
-                            <input type="number" class="form-control" id="up-valortotal" name="up-valortotal"
-                                step="0.01" min="0.01" style="text-align: right; width: 250px;" readonly>
+                            <input type="text" class="form-control" id="up-valortotal" name="up-valortotal"
+                                style="text-align: right; width: 250px;" readonly>
                             <span class="text-danger" id="up-valortotalError"></span>
                         </div>
                     </form>
@@ -281,7 +300,8 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-data">Data</label>
@@ -295,7 +315,8 @@
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-inscricaoestadual">Cliente/Inscrição Estadual</label>
-                            <input type="text" class="form-control" id="v-inscricaoestadual" name="v-inscricaoestadual" readonly>
+                            <input type="text" class="form-control" id="v-inscricaoestadual" name="v-inscricaoestadual"
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-produto">Produto</label>
@@ -313,9 +334,8 @@
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-valortotal">Valor Total</label>
-                            <input type="text" class="form-control" id="v-valortotal" name="v-valortotal"
-                                step="0.01" min="0.01" max="100" style="text-align: right; width: 250px;"
-                                readonly>
+                            <input type="text" class="form-control" id="v-valortotal" name="v-valortotal" step="0.01"
+                                min="0.01" max="100" style="text-align: right; width: 250px;" readonly>
                         </div>
                     </form>
                 </div>
@@ -367,9 +387,60 @@
 @section('script_pages')
     <script type="text/javascript">
         // Operacao
-       $(document).ready(function() {
+        $(document).ready(function() {
 
             var table = $('#datatableOperacao').DataTable();
+
+            // Cálculos de valor total no Modal de Inclusão
+            $('#add-qtdunidadesproduto').change(function(e) {
+                valorQtd = $("#add-qtdunidadesproduto").val();
+                valorUnit = $("#add-valorunitario").val();
+                if (valorQtd != 0 && valorUnit) {
+                    valorTotal = (valorQtd * valorUnit).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+                    $('#add-valortotal').val(valorTotal);
+                }
+            });
+
+            $('#add-valorunitario').change(function(e) {
+                valorQtd = $("#add-qtdunidadesproduto").val();
+                valorUnit = $("#add-valorunitario").val();
+                if (valorQtd != 0 && valorUnit) {
+                    valorTotal = (valorQtd * valorUnit).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+                    $('#add-valortotal').val(valorTotal);
+                }
+            });
+
+
+            // Cálculos de valor total no Modal de Edição
+            $('#up-qtdunidadesproduto').change(function(e) {
+                valorQtd = $("#up-qtdunidadesproduto").val();
+                valorUnit = $("#up-valorunitario").val();
+                if (valorQtd != 0 && valorUnit) {
+                    valorTotal = (valorQtd * valorUnit).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+                    $('#up-valortotal').val(valorTotal);
+                }
+            });
+
+            $('#up-valorunitario').change(function(e) {
+                valorQtd = $("#up-qtdunidadesproduto").val();
+                valorUnit = $("#up-valorunitario").val();
+                if (valorQtd != 0 && valorUnit) {
+                    valorTotal = (valorQtd * valorUnit).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+                    $('#up-valortotal').val(valorTotal);
+                }
+            });
 
             //Start Edit Record
             table.on('click', '.edit', function() {
@@ -399,12 +470,16 @@
 
                 $('#editForm').attr('action', '/operacao/' + data[0]);
                 $('#up-id').val(data[0]);
-                //$('#up-data').val(data[1]);
                 document.getElementById("up-data").valueAsDate = new Date(data[2]);
                 $('#up-numerodocumento').val(data[3]);
                 $('#up-qtdunidadesproduto').val(data[9]);
                 $('#up-valorunitario').val(data[11]);
-                $('#up-valortotal').val(data[12]);
+                valorTotal = (data[9] * data[11]).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+                $('#up-valortotal').val(valorTotal);
+
 
                 $('#editModal').modal('show');
             });
@@ -452,10 +527,12 @@
                 $('#deleteModal').modal('show');
             });
             //End Delete Record
+
+
         });
 
     </script>
 
- @include('scripts.confirmdeletion')
+    @include('scripts.confirmdeletion')
 
 @endsection

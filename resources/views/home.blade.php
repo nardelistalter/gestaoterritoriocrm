@@ -9,7 +9,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="crud_button col-8">
+            <div class="crud_button col-10">
                 <div class="row">
                     <div class="col">
                         <label class="mb-0">Gerente:</label>
@@ -51,7 +51,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2 align-self-end">
                         <label class="mb-0" for="XXXXXX"></label>
                         <button type="button" class="btn btn-group-sm btn-success mb-0 shadow-lg" data-toggle="modal"
                             data-target="#addModal" onclick="filtrar()"><i class="fas fa-search-dollar m-1"
@@ -324,6 +324,7 @@
                     }
                 });
 
+
                 $('#selectconsultor').change(function(e) {
                     valor = $("#selectconsultor").val();
                     if (valor != 0) {
@@ -336,7 +337,7 @@
                     $("#selectgrupocliente").val("0").change();
                 });
 
-                // Função para pegar os parâmetros de busca da URL
+                // Função para pegar os parâmetros de busca da URL e manter os nomes nos filtros
                 function getParameterByName(name, url = window.location.href) {
                     name = name.replace(/[\[\]]/g, '\\$&');
                     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -370,7 +371,7 @@
                 }
             });
 
-
+            // Montagem da URL do filtro 
             function filtrar() {
                 var url = location.origin + "?";
                 var adicionar = false;

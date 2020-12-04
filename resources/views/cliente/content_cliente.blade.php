@@ -227,9 +227,6 @@
                             <input type="email" class="form-control" name="add-email">
                             <span class="text-danger" id="add-emailError"></span>
                         </div>
-
-
-
                         <div class="form-group">
                             <label class="mb-0" for="add-datanascimento">Data Nascimento/Fundação</label>
                             <input type="date" class="form-control" id="add-datanascimento" name="add-datanascimento"
@@ -290,29 +287,12 @@
                     <form action="/cliente" method="POST" id="editForm">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active" for="up-rd-cpf">
-                                <input type="radio" name="up-rd-cpf_cnpj" id="up-rd-cpf" autocomplete="off"
-                                    onClick=habilitacao() value="up-rd-cpf" checked> CPF
-                            </label>
-                            <label class="btn btn-secondary" for="up-rd-cnpj">
-                                <input type="radio" name="up-cpf_cnpj" id="up-rd-cnpj" autocomplete="off"
-                                    onClick="habilitacao()" value="up-rd-cnpj"> CNPJ
-                            </label>
-                        </div>
-                        <br><br>
                         <div class="form-group">
-                            <label class="mb-0" for="up-cpf">CPF*</label>
-                            <input type="text" class="form-control" id="up-cpf" name="up-cpf"
-                                style="text-align: right; width: 155px;" maxlength="14">
-                            <span class="text-danger" id="up-cpfError"></span>
+                            <label class="mb-0" name="up-cpf_cnpj" for="up-cpf_cnpj">?</label>
+                            <input type="text" class="form-control" id="up-cpf_cnpj" name="up-cpf_cnpj"
+                                style="text-align: right; width: 155px;" maxlength="14" readonly>
                         </div>
-                        <div class="form-group">
-                            <label class="mb-0" for="up-cnpj">CNPJ*</label>
-                            <input type="text" class="form-control" id="up-cnpj" name="up-cnpj"
-                                style="text-align: right; width: 185px;" maxlength="18">
-                            <span class="text-danger" id="up-cnpjError"></span>
-                        </div>
+
                         <div class="form-group">
                             <label class="mb-0" for="up-nome">Nome*</label>
                             <input type="text" class="form-control" id="up-nome" name="up-nome" maxlength="60" required>
@@ -375,8 +355,6 @@
                             <input type="email" class="form-control" id="up-email" name="up-email">
                             <span class="text-danger" id="up-emailError"></span>
                         </div>
-
-
                         <div class="form-group">
                             <label class="mb-0" for="up-datanascimento">Data Nascimento/Fundação</label>
                             <input type="date" class="form-control" id="up-datanascimento" name="up-datanascimento"
@@ -394,7 +372,6 @@
                             </select>
                             <span class="text-danger" id="up-sexoError"></span>
                         </div>
-
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="up-visaopolitica">Visão Política</label>
                             <select class="form-control selectpicker" data-live-search="true" id="up-visaopolitica"
@@ -441,6 +418,11 @@
                             <input type="text" class="form-control" id="v-id" name="v-id"
                                 style="text-align: center; width: 90px" readonly>
                         </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" name="v-cpf_cnpj" for="v-cpf_cnpj">?</label>
+                            <input type="text" class="form-control" id="v-cpf_cnpj" name="v-cpf_cnpj" style="width: 190px;"
+                                readonly>
+                        </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-nome">Nome</label>
                             <input type="text" class="form-control" id="v-nome" name="v-nome" readonly>
@@ -481,11 +463,6 @@
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-email">E-mail</label>
                             <input type="text" class="form-control" id="v-email" name="v-email" readonly>
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-cpf_cnpj">CPF/CNPJ</label>
-                            <input type="text" class="form-control" id="v-cpf_cnpj" name="v-cpf_cnpj" style="width: 190px;"
-                                readonly>
                         </div>
                         <div class="form-group col-xs-2">
                             <label class="mb-0" for="v-datanascimento">Data Nascimento/Fundação</label>
@@ -584,6 +561,12 @@
                     'selected');
                 $("select[name='up-municipio'] option[value='" + data[7] + "']").text(data[6]);
 
+                if (data[12]) {
+                    $("label[name='up-cpf_cnpj']").text("CPF:");
+                } else {
+                    $("label[name='up-cpf_cnpj']").text("CNPJ:");
+                }
+
                 $('#editForm').attr('action', '/cliente/' + data[0]);
                 $('#up-nome').val(data[1]);
                 $('#up-logradouro').val(data[2]);
@@ -593,8 +576,7 @@
                 $('#up-telefone1').val(data[8]);
                 $('#up-telefone2').val(data[9]);
                 $('#up-email').val(data[10]);
-                $('#up-cpf').val(data[12]);
-                $('#up-cnpj').val(data[13]);
+                $('#up-cpf_cnpj').val(data[11]);
                 document.getElementById("up-datanascimento").valueAsDate = new Date(data[15]);
                 $('#up-sexo').val(data[16]);
                 $('#up-observacao').val(data[17]);
@@ -611,6 +593,12 @@
 
                 var data = table.row($tr).data();
                 console.log(data);
+
+                if (data[12]) {
+                    $("label[name='v-cpf_cnpj']").text("CPF:");
+                } else {
+                    $("label[name='v-cpf_cnpj']").text("CNPJ:");
+                }
 
                 $('#v-id').val(data[0]);
                 $('#v-nome').val(data[1]);
@@ -685,7 +673,8 @@
             $('#add-telefone1').mask(PhoneMaskBehavior, phoneOptions);
             $('#add-telefone2').mask(PhoneMaskBehavior, phoneOptions);
 
-            //$("#div-cpf, #div-cnpj").hide();
+            $('#up-telefone1').mask(PhoneMaskBehavior, phoneOptions);
+            $('#up-telefone2').mask(PhoneMaskBehavior, phoneOptions);
         });
 
         $("input[type=radio]").on("change", function() {
