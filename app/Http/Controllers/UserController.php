@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Municipio;
+use Cartalyst\Sentinel\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Validator;
 use Intervention\Image\Facades\Image;
@@ -34,7 +36,7 @@ class UserController extends Controller
     {
         $users = $this->user::all();
         $gerentes = DB::table('users')->where('cargo_id', 2)->get();
-        
+
         $cargos =  $this->cargo::all();
         $municipios = $this->municipio::all()->sortBy('nome');
         return view('user.content_user')->with('users', $users)->with('cargos', $cargos)->with('municipios', $municipios)->with('gerentes', $gerentes);
@@ -109,7 +111,7 @@ class UserController extends Controller
         $users->email = $request->input('add-email');
         $users->dataNascimento = $request->input('add-datanascimento');
         $users->sexo = $request->input('add-sexo') ?? 'NÃO INFORMADO';
-        $users->password = '12345';
+        $users->password = bcrypt('12345');
         //$users->image = $img;
         $users->status = $request->input('add-status');
         $users->perfilAdministrador = $request->input('add-perfiladministrador');
@@ -121,7 +123,7 @@ class UserController extends Controller
 
         $users->save();
 
-        return redirect('user.content_user')->with('success', 'Usuário salvo com sucesso!');
+        return redirect('usuario')->with('success', 'Usuário salvo com sucesso!');
     }
 
     /**
@@ -246,6 +248,33 @@ class UserController extends Controller
     }
 
     /**
+     * Alterar imagem do usuário logado
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function imageUpdate(Request $request)
+    {
+        $userlog = auth()->user('id');
+        $user = User::find($userlog->id);
+
+        if ($request->hasFile('profileimage')) {
+            $file = $request->file('profileimage');
+            $name = $file->getClientOriginalName();
+            $img = Image::make($file->getRealPath());
+            $img->resize(500, 500);
+            $location = public_path('/images/users/' . $name);
+            $user->image = Image::make($file->getRealPath())->resize(500, 500)->save($location);
+            $user->nome_image = $name;
+            $user->save();
+            return redirect('profile')->with('success', 'Imagem alterada com sucesso!');
+        } else {
+            return redirect('profile')->with('error', 'Imagem NÃO alterada!');
+        }
+    }
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -254,8 +283,33 @@ class UserController extends Controller
      */
     public function profileUpdate(Request $request)
     {
+        $this->validate($request, [
+            'atualpassword' => 'required|min:5',
+            'newpassword' => 'min:5',
+        ]);
+
+        $user = auth()->user('id');
+        if (Hash::check($request->input('atualpassword'), $user->password)) {
+            $user =  User::find($user->id);
+            if ($request->input('nome')) {
+                $user->nome = $request->input('nome');
+            }
+            if ($request->input('email')) {
+                $user->email = $request->input('email');
+            }
+            if ($request->input('newpassword')) {
+                $user->password = bcrypt($request->input('newpassword'));
+            }
+            $user->save();
+
+            return redirect('profile')->with('success', 'Dados alterados com sucesso!');
+        } else {
+            return redirect('profile')->with('error', 'Senha Atual não confere!');
+        }
+        /*
+        dd('Cheguei aqui!');
         $data = $request->all();
         auth()->user('id');
-        dd(auth()->user('id'));
+        dd(auth()->user('id'));*/
     }
 }

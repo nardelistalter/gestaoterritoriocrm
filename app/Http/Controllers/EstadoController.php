@@ -120,10 +120,10 @@ class EstadoController extends Controller
             $estados->delete();
             //return redirect('estado')->with('success', 'Estado excluído com sucesso!');
             return ['status' => 'success'];
-		} catch (\Illuminate\Database\QueryException $qe) {
-			return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
-		} catch (\PDOException $e) {
-			return ['status' => 'errorPDO', 'message' => $e->getMessage()];
-		}
+        } catch (\Illuminate\Database\QueryException $qe) {
+            return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+        } catch (\PDOException $e) {
+            return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+        }
     }
 }

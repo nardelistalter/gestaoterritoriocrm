@@ -50,6 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('unidadesarea/{id}/destroy', 'App\Http\Controllers\UnidadesAreaController@destroy');
     Route::resource('usuario', 'App\Http\Controllers\UserController');
     Route::get('user/{id}/destroy', 'App\Http\Controllers\UserController@destroy');
+    Route::put('profile', 'App\Http\Controllers\UserController@profileUpdate');
+    Route::put('imageupdate', 'App\Http\Controllers\UserController@imageUpdate');
     Route::resource('grupocliente', 'App\Http\Controllers\GrupoClienteController');
     Route::get('grupocliente/{id}/destroy', 'App\Http\Controllers\GrupoClienteController@destroy');
     Route::resource('areagrupocliente', 'App\Http\Controllers\AreaGrupoClienteController');
@@ -65,7 +67,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('meta/{id}/destroy', 'App\Http\Controllers\MetaController@destroy');
     Route::get('usuario/{id}/image', 'App\Http\Controllers\UserController@image');
 });
-
-
-
-
