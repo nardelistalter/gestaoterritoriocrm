@@ -211,26 +211,6 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        try {
-            $users =  User::find($id);
-            $users->delete();
-            //return redirect('user')->with('success', 'Usuário excluído com sucesso!');
-            return ['status' => 'success'];
-        } catch (\Illuminate\Database\QueryException $qe) {
-            return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
-        } catch (\PDOException $e) {
-            return ['status' => 'errorPDO', 'message' => $e->getMessage()];
-        }
-    }
-
-    /**
      * Exibir imagem do usuário logado
      *
      * @param  int  $id
@@ -257,8 +237,8 @@ class UserController extends Controller
 
     public function imageUpdate(Request $request)
     {
-        $userlog = auth()->user('id');
-        $user = User::find($userlog->id);
+        $user = auth()->user('id');
+        $user = User::find($user->id);
 
         if ($request->hasFile('profileimage')) {
             $file = $request->file('profileimage');
@@ -274,6 +254,7 @@ class UserController extends Controller
             return redirect('profile')->with('error', 'Imagem NÃO alterada!');
         }
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -285,21 +266,36 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'atualpassword' => 'required|min:5',
-            'newpassword' => 'min:5',
+            'newpassword' => 'nullable|min:5',
         ]);
 
         $user = auth()->user('id');
+        $user =  User::find($user->id);
+
         if (Hash::check($request->input('atualpassword'), $user->password)) {
-            $user =  User::find($user->id);
+
             if ($request->input('nome')) {
                 $user->nome = $request->input('nome');
             }
+
             if ($request->input('email')) {
                 $user->email = $request->input('email');
             }
+
             if ($request->input('newpassword')) {
                 $user->password = bcrypt($request->input('newpassword'));
             }
+
+            if ($request->hasFile('profileimage')) {
+                $file = $request->file('profileimage');
+                $name = $file->getClientOriginalName();
+                $img = Image::make($file->getRealPath());
+                $img->resize(500, 500);
+                $location = public_path('/images/users/' . $name);
+                $user->image = Image::make($file->getRealPath())->resize(500, 500)->save($location);
+                $user->nome_image = $name;
+            }
+
             $user->save();
 
             return redirect('profile')->with('success', 'Dados alterados com sucesso!');
@@ -312,4 +308,25 @@ class UserController extends Controller
         auth()->user('id');
         dd(auth()->user('id'));*/
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $users =  User::find($id);
+            $users->delete();
+            //return redirect('user')->with('success', 'Usuário excluído com sucesso!');
+            return ['status' => 'success'];
+        } catch (\Illuminate\Database\QueryException $qe) {
+            return ['status' => 'errorQuery', 'message' => $qe->getMessage()];
+        } catch (\PDOException $e) {
+            return ['status' => 'errorPDO', 'message' => $e->getMessage()];
+        }
+    }
+
 }

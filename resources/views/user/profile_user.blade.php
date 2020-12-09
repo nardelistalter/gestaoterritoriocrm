@@ -27,11 +27,11 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('Usuário Logado') }}</h6>
             </div>
             <div class="card-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-3">
+                <div class="container-fluid mt-3 mb-3">
+                    <div class="row d-flex justify-content-center">
+                        {{-- <div class="col-3">
                             <div class="float-right">
-                                <form action="/imageupdate" name="form_profile" method="POST" enctype="multipart/form-data"
+                                <form action="/imageupdate" name="form_profile1" method="POST" enctype="multipart/form-data"
                                     autocomplete="off">
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
@@ -45,14 +45,20 @@
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                 </form>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="col-6">
-                                <form action="/profile" name="form_profile" method="POST" id="form_profile"
+                        </div> --}}
+                        <div class="col-3">
+                            <div class="col">
+                                <form action="/profile" name="form_profile" method="POST" id="form_profile" enctype="multipart/form-data"
                                     autocomplete="off">
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
-
+                                    <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                                        <img class="img-profile rounded-circle" width="200px"
+                                            src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                                        <br>
+                                        <input type="file" class="form-control-file" id="profileimage" name="profileimage"
+                                            accept="image/*">
+                                    </div>
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="nome">Nome</label>
                                         <input type="text" class="form-control" id="nome" name="nome"
@@ -88,7 +94,7 @@
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="newpassword">Nova Senha*</label>
                                         <input type="password" class="form-control" id="newpassword" autocomplete="off"
-                                            min="5" name="newpassword" required>
+                                            min="5" name="newpassword">
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
                                                 <strong>{{--
@@ -99,7 +105,7 @@
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="repeatnewpassword">Repetir Nova Senha*</label>
                                         <input type="password" class="form-control" id="repeatnewpassword"
-                                            autocomplete="off" min="5" required>
+                                            autocomplete="off" min="5">
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
                                                 <strong>{{--
@@ -111,7 +117,6 @@
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

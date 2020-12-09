@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 
 class OperacaoController extends Controller
 {
-    private  $operacao;
-    private  $produto;
-    private  $inscricaoestadual;
+    private $operacao;
+    private $produto;
+    private $inscricaoestadual;
 
     public function __construct()
     {
@@ -56,7 +56,7 @@ class OperacaoController extends Controller
             'add-data' => 'required|date',
             'add-numerodocumento' => 'required|max:15',
             'add-qtdunidadesproduto' => 'required|numeric|min:0',
-            'add-valorunitario' => 'required|numeric|min:0',  
+            'add-valorunitario' => 'required|numeric|min:0',
             'add-produto' => 'required|numeric|min:1',
             'add-inscricaoestadual' => 'required|numeric|min:1',
         ]);
@@ -109,7 +109,7 @@ class OperacaoController extends Controller
             'up-data' => 'required|date',
             'up-numerodocumento' => 'required|max:15',
             'up-qtdunidadesproduto' => 'required|numeric|min:0',
-            'up-valorunitario' => 'required|numeric|min:0',  
+            'up-valorunitario' => 'required|numeric|min:0',
             'up-produto' => 'required|numeric|min:1',
             'up-inscricaoestadual' => 'required|numeric|min:1',
         ]);

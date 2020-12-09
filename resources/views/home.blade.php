@@ -99,9 +99,6 @@
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm mr-2">
-                                            {{--
-                                            number_format(($totalvenda->Total/$totalmeta->Total)*100,2,',','.')
-                                            --}};
                                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                                                 role="progressbar"
                                                 style="width: {{ $totalpotencialacesso->potencialDeAcesso == 0 ? 0 : number_format(($totalmeta->Total / $totalpotencialacesso->potencialDeAcesso) * 100, 2, '.', '') }}%;"
@@ -118,8 +115,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2" style="background-color: #fffcdf;">
@@ -155,7 +150,6 @@
                 </div>
             </div>
 
-
             {{--
             <!-- Pending Requests Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -174,6 +168,7 @@
                     </div>
                 </div>
             </div> --}}
+
         </div>
 
         <!-- Content Row -->
@@ -182,6 +177,7 @@
 
             <!-- Area Chart -->
             <div class="col-xl-7 col-lg-7">
+
                 <!-- Content Datatable -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -230,6 +226,7 @@
                     </div>
                 </div>
                 <!-- End Content Datatable -->
+
             </div>
 
             <!-- Pie Chart -->
@@ -320,10 +317,8 @@
                         if ($("#selectconsultor option")[i].style.display != "none") {
                             $("#selectgrupocliente ." + $("#selectconsultor option")[i].value).show();
                         }
-
                     }
                 });
-
 
                 $('#selectconsultor').change(function(e) {
                     valor = $("#selectconsultor").val();
@@ -371,7 +366,7 @@
                 }
             });
 
-            // Montagem da URL do filtro 
+            // Montagem da URL do filtro
             function filtrar() {
                 var url = location.origin + "?";
                 var adicionar = false;
