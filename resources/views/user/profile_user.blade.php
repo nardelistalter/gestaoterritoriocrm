@@ -46,6 +46,7 @@
                                 </form>
                             </div>
                         </div> --}}
+
                         <div class="col-3">
                             <div class="col">
                                 <form action="/profile" name="form_profile" method="POST" id="form_profile" enctype="multipart/form-data"
@@ -53,15 +54,21 @@
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
                                     <div class="form-group d-flex flex-column justify-content-center align-items-center">
-                                        <img class="img-profile rounded-circle" width="200px"
-                                            src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                                        @if (!Auth::user()->image)
+                                            <img class="img-fluid rounded-circle" width="200px" height="auto"
+                                                src="{{ URL::to('img/default.png') }}">
+                                        @else
+                                            <img class="img-fluid rounded-circle" width="200px" height="auto"
+                                                src="data:image/png;base64,{{ chunk_split(base64_encode(Auth::user()->image)) }}">
+                                        @endif
                                         <br>
                                         <input type="file" class="form-control-file" id="profileimage" name="profileimage"
                                             accept="image/*">
                                     </div>
+                                    <br>
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="nome">Nome</label>
-                                        <input type="text" class="form-control" id="nome" name="nome"
+                                        <input type="text" class="form-control" id="nome" name="nome" value="{{ Auth::user()->nome }}"
                                             aria-describedby="emailHelp">
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
@@ -72,7 +79,7 @@
                                     </div>
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="email">E-mail</label>
-                                        <input type="email" class="form-control" id="email" name="email"
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}"
                                             aria-describedby="emailHelp">
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
@@ -94,7 +101,7 @@
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="newpassword">Nova Senha*</label>
                                         <input type="password" class="form-control" id="newpassword" autocomplete="off"
-                                            min="5" name="newpassword">
+                                            min="5" name="newpassword" onkeyup="reqRepNova()" >
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
                                                 <strong>{{--
@@ -104,8 +111,8 @@
                                     </div>
                                     <div class="form-group" style="min-width: 200px">
                                         <label for="repeatnewpassword">Repetir Nova Senha*</label>
-                                        <input type="password" class="form-control" id="repeatnewpassword"
-                                            autocomplete="off" min="5">
+                                        <input type="password" class="form-control" id="repeatnewpassword" name="repeatnewpassword"
+                                            autocomplete="off" min="5" onkeyup="reqNova()" >
                                         @if ($errors->has('senha'))
                                             <span class="help-block">
                                                 <strong>{{--
@@ -139,8 +146,18 @@
                     alert('senha atual não confere');
                     document.form_profile.atualpassword.focus();
                 }
-
             });*/
+
+            function reqNova(){
+                console.log("Entrou aquie agora.............");
+                document.getElementById("repeatnewpassword").required = true;
+            };
+
+            function reqRepNova(){
+                console.log("Entrou aquie agora2.............");
+                document.getElementById("newpassword").required = true;
+            };
+
 
             $("#newpassword").change(function() {
                 param1 = $("#newpassword").val();
@@ -149,7 +166,6 @@
                     console.log(param1, param2);
                     validarSenha(param1, param2);
                 }
-
             });
 
             $("#repeatnewpassword").change(function() {

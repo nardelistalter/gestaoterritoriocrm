@@ -78,7 +78,7 @@ class UserController extends Controller
             'add-bairro' => 'required|max:45',
             'add-telefone1' => 'required|max:15',
             'add-telefone2' => 'nullable|max:15',
-            'add-cpf' => 'required|cpf',
+            'add-cpf' => 'required',
             'add-datanascimento' => 'required|date',
             'add-sexo' => 'max:15',
             'add-image' => 'nullable',
@@ -165,7 +165,7 @@ class UserController extends Controller
             'up-bairro' => 'required|max:45',
             'up-telefone1' => 'required|max:15',
             'up-telefone2' => 'nullable|max:15',
-            'up-cpf' => 'required|cpf',
+            'up-cpf' => 'required',
             'up-datanascimento' => 'required|date',
             'up-sexo' => 'max:15',
             'up-image' => 'nullable',
@@ -283,7 +283,9 @@ class UserController extends Controller
             }
 
             if ($request->input('newpassword')) {
-                $user->password = bcrypt($request->input('newpassword'));
+                if ($request->input('newpassword') == $request->input('repeatnewpassword')) {
+                    $user->password = bcrypt($request->input('newpassword'));
+                }
             }
 
             if ($request->hasFile('profileimage')) {

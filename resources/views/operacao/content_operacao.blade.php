@@ -389,8 +389,6 @@
         // Operacao
         $(document).ready(function() {
 
-            var table = $('#datatableOperacao').DataTable();
-
             // Cálculos de valor total no Modal de Inclusão
             $('#add-qtdunidadesproduto').change(function(e) {
                 valorQtd = $("#add-qtdunidadesproduto").val();
@@ -441,6 +439,8 @@
                     $('#up-valortotal').val(valorTotal);
                 }
             });
+
+            var table = $('#datatableOperacao').DataTable();
 
             //Start Edit Record
             table.on('click', '.edit', function() {
