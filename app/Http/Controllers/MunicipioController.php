@@ -52,7 +52,7 @@ class MunicipioController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-municipio' => 'required|max:45',
+            'add-municipio' => 'required|max:45|unique:municipios,nome',
             'add-microrregiao' => 'required|integer'
         ]);
 
@@ -97,7 +97,7 @@ class MunicipioController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-municipio' => 'required|max:45',
+            'up-municipio' => 'required|max:45|unique:municipios,nome,' . $id,
             'up-microrregiao' => 'required|integer'
         ]);
 

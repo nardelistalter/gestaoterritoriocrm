@@ -46,7 +46,7 @@ class SafraController extends Controller
     {
 
         $this->validate($request, [
-            'add-safra' => 'required|max:45',
+            'add-safra' => 'required|max:45|unique:safras,descricao',
             'add-datainicio' => 'required|date',
             'add-datafim' => 'required|date',
         ]);
@@ -95,7 +95,7 @@ class SafraController extends Controller
         $safra = DB::table('safras')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-safra' => 'required|max:45',
+            'up-safra' => 'required|max:45|unique:safras,descricao,' . $id,
             'up-datafim' => 'required|date',
             'up-datafim' => 'required|date',
         ]);

@@ -44,9 +44,9 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
-            'add-cargo' => 'required|max:45',
+            'add-cargo' => 'required|max:45|unique:cargos,descricao',
         ]);
 
         $cargos =  $this->cargo;
@@ -55,6 +55,12 @@ class CargoController extends Controller
         $cargos->save();
 
         return redirect('cargo')->with('success', 'Cargo salvo com sucesso!');
+    }
+
+    public function getValidate() {
+        return [
+            'add-cargo' => 'required|max:45|unique:cargos,descricao',
+        ];
     }
 
     /**
@@ -91,7 +97,7 @@ class CargoController extends Controller
         $cargo = DB::table('cargos')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-cargo' => ['required', 'max:45'],
+            'up-cargo' => 'required|max:45|unique:cargos,descricao,'. $id,
         ]);
 
         $cargos =  $this->cargo::find($id);

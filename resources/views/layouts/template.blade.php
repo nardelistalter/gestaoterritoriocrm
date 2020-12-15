@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </li>
-
+{{--
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -181,6 +181,7 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRelatorio"
                     aria-expanded="true" aria-controls="collapseRelatorio">
@@ -215,7 +216,7 @@
                         <a class="collapse-item" href="#"><i class="fas fa-calendar mr-1"></i>{{ __('Safras') }}</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             {{--
             <!-- Nav Item - Charts -->

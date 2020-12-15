@@ -46,7 +46,7 @@ class VisaoPoliticaController extends Controller
     {
 
         $this->validate($request, [
-            'add-visaopolitica' => 'required|max:45',
+            'add-visaopolitica' => 'required|max:45|unique:visao_politicas,descricao',
         ]);
 
         $visaopoliticas =  $this->visaopolitica;
@@ -91,7 +91,7 @@ class VisaoPoliticaController extends Controller
         $visaopolitica = DB::table('visao_politicas')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-visaopolitica' => ['required', 'max:45'],
+            'up-visaopolitica' => ['required', 'max:45', 'unique:visao_politicas,descricao,' . $id],
         ]);
 
         $visaopoliticas =  $this->visaopolitica::find($id);

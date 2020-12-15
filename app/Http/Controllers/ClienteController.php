@@ -51,6 +51,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+        //dd($request['account']);
+        //dd($request);
+        //dd($request['custom_field']);
+        dd($request['custom_field']);
         $this->validate($request, [
             'add-nome' => 'required|max:60',
             'add-logradouro' => 'required|max:120',
@@ -59,8 +64,8 @@ class ClienteController extends Controller
             'add-bairro' => 'required|max:45',
             'add-telefone1' => 'required|max:15',
             'add-telefone2' => 'nullable|max:15',
-            'add-cpf' => 'cpf',
-            'add-cnpj' => 'cnpj',
+            'add-cpf' => 'cpf|max:14|required_without:add-cnpj|unique:users,cpf',
+            'add-cnpj' => 'cnpj|max:18|required_without:add-cpf|unique:users,cnpj',
             'add-email' => 'nullable|max:255',
             'add-datanascimento' => 'nullable|date',
             'add-sexo' => 'nullable|max:15',
@@ -80,7 +85,7 @@ class ClienteController extends Controller
         $clientes->cnpj = $request->input('add-cnpj');
         $clientes->email = $request->input('add-email');
         $clientes->dataNascimento = $request->input('add-datanascimento');
-        $clientes->sexo = $request->input('add-sexo')->default('NÃO INFORMADO');
+        $clientes->sexo = $request->input('up-sexo') ?? 'NÃO INFORMADO';
         $clientes->observacao = $request->input('add-observacao');
         $clientes->visaoPolitica_id = $request->input('add-visaopolitica');
         $clientes->municipio_id = $request->input('add-municipio');
@@ -129,8 +134,8 @@ class ClienteController extends Controller
             'up-bairro' => 'required|max:45',
             'up-telefone1' => 'required|max:15',
             'up-telefone2' => 'nullable|max:15',
-            'up-cpf' => 'cpf|max:14',
-            'up-cnpj' => 'max:18',
+            'up-cpf' => 'cpf|max:14|required_without:up-cnpj|unique:users,cpf'. $id,
+            'up-cnpj' => 'max:18|required_without:up-cpf|unique:users,cnpj'. $id,
             'up-email' => 'nullable|max:255',
             'up-datanascimento' => 'nullable|date',
             'up-sexo' => 'nullable|max:15',

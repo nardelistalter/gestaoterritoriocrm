@@ -48,7 +48,7 @@ class MicrorregiaoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-microrregiao' => 'required',
+            'add-microrregiao' => 'required|unique:microrregiaos,nome',
             'add-estado' => 'required'
         ]);
 
@@ -93,7 +93,7 @@ class MicrorregiaoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45'],
+            'up-microrregiao' => ['required', 'max:45', 'unique:microrregiaos,nome,' . $id],
             'up-estado' => ['required', 'integer']
         ]);
 

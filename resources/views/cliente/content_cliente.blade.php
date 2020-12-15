@@ -150,20 +150,20 @@
                                     value="1" checked> CPF
                             </label>
                             <label class="btn btn-secondary" for="add-rd-cnpj">
-                                <input type="radio" name="custom_field[account][1]" id="id-custom_field-account-1-2"
+                                <input type="radio" name="custom_field[account][2]" id="id-custom_field-account-1-2"
                                     value="2"> CNPJ
                             </label>
                         </div>
                         <br><br>
                         <div id="div-cpf" class="form-group">
                             <label class="mb-0" for="add-cpf">CPF*</label>
-                            <input type="text" name="custom_field[account][3]" value="" id="input-custom-field3"
+                            <input type="text" name="custom_field[account][3]" value="" id="input-custom-field1"
                                 class="form-control" style="width: 155px;" maxlength="14" vk_1bc56="subscribed">
                             <span class="text-danger" id="add-cpfError"></span>
                         </div>
                         <div id="div-cnpj" class="form-group" style="display: none;">
                             <label class="mb-0" for="add-cnpj">CNPJ*</label>
-                            <input type="text" name="custom_field[account][4]" value="" id="input-custom-field4"
+                            <input type="text" name="custom_field[account][4]" value="" id="input-custom-field2"
                                 class="form-control" style="width: 185px;" maxlength="18" vk_1bc56="subscribed">
                             <span class="text-danger" id="add-cnpjError"></span>
                         </div>
@@ -657,8 +657,8 @@
                 },
             }
 
-            $('#input-custom-field3').mask('000.000.000-00');
-            $('#input-custom-field4').mask('00.000.000/0000-00', options);
+            $('#input-custom-field1').mask('000.000.000-00');
+            $('#input-custom-field2').mask('00.000.000/0000-00', options);
 
 
             var PhoneMaskBehavior = function(val) {

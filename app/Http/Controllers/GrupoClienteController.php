@@ -48,7 +48,7 @@ class GrupoClienteController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-grupocliente' => 'required|max:45',
+            'add-grupocliente' => 'required|max:45|unique:grupo_clientes,descricao',
             'add-user' => 'required|integer'
         ]);
 
@@ -58,7 +58,7 @@ class GrupoClienteController extends Controller
 
         $grupoclientes->save();
 
-        return redirect('grupocliente')->with('success', 'Grupo de clientes salvo com sucesso!');
+        return redirect('grupocliente')->with('success', 'Grupo de Clientes salvo com sucesso!');
     }
 
     /**
@@ -93,7 +93,7 @@ class GrupoClienteController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-grupocliente' =>'required|max:45',
+            'up-grupocliente' =>'required|max:45|unique:grupo_clientes,descricao,' . $id,
             'up-user' => 'required|integer'
         ]);
 
@@ -103,7 +103,7 @@ class GrupoClienteController extends Controller
 
         $grupoclientes->save();
 
-        return redirect('grupocliente')->with('success', 'Grupo de clientes alterado com sucesso!');
+        return redirect('grupocliente')->with('success', 'Grupo de Clientes alterado com sucesso!');
     }
 
     /**

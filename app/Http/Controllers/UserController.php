@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
 
 
@@ -78,11 +79,11 @@ class UserController extends Controller
             'add-bairro' => 'required|max:45',
             'add-telefone1' => 'required|max:15',
             'add-telefone2' => 'nullable|max:15',
-            'add-cpf' => 'required',
+            'add-cpf' => 'required|unique:users,cpf',
             'add-datanascimento' => 'required|date',
             'add-sexo' => 'max:15',
             'add-image' => 'nullable',
-            'add-email' => 'required|max:255',
+            'add-email' => 'required|max:255|unique:users,email',
             'add-status' => 'required|min:0|max:1',
             'add-perfiladministrador' => 'required|min:0|max:1',
             'add-dataadmissao' => 'required|date',
@@ -157,7 +158,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        /*Validator::make($request, [
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($id),
+            ],
+        ]);*/
+
         $this->validate($request, [
+            Rule::unique('users')->ignore($id),
             'up-nome' => 'required|max:60',
             'up-logradouro' => 'required|max:120',
             'up-numero' => 'required|max:10',
@@ -165,11 +174,11 @@ class UserController extends Controller
             'up-bairro' => 'required|max:45',
             'up-telefone1' => 'required|max:15',
             'up-telefone2' => 'nullable|max:15',
-            'up-cpf' => 'required',
+            'up-cpf' => 'required|unique:users,cpf,'. $id,
             'up-datanascimento' => 'required|date',
             'up-sexo' => 'max:15',
             'up-image' => 'nullable',
-            'up-email' => 'required|max:255',
+            'up-email' => 'required|max:255|unique:users,email,'. $id,
             'up-status' => 'required|min:0|max:1',
             'up-perfiladministrador' => 'required|min:0|max:1',
             'up-dataadmissao' => 'required|date',

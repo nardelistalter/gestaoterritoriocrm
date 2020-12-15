@@ -46,7 +46,7 @@ class SegmentoCulturaController extends Controller
     {
 
         $this->validate($request, [
-            'add-segmentocultura' => 'required|max:45',
+            'add-segmentocultura' => 'required|max:45|unique:segmento_culturas,descricao',
             'add-unidadeMedida' => 'required|max:20'
         ]);
 
@@ -93,7 +93,7 @@ class SegmentoCulturaController extends Controller
         $segmentoculturas = DB::table('segmento_culturas')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-segmentocultura' => 'required|max:45',
+            'up-segmentocultura' => 'required|max:45|unique:segmento_culturas,descricao,' . $id,
             'up-unidadeMedida' => 'required|max:20'
         ]);
 

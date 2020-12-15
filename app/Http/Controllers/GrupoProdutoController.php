@@ -46,7 +46,7 @@ class GrupoProdutoController extends Controller
     {
 
         $this->validate($request, [
-            'add-grupoproduto' => 'required|max:45',
+            'add-grupoproduto' => 'required|max:45|unique:grupo_produtos,descricao',
             'add-unidadeMedida' => 'required|max:20'
         ]);
 
@@ -93,7 +93,7 @@ class GrupoProdutoController extends Controller
         $grupoprodutos = DB::table('grupo_produtos')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-grupoproduto' => 'required|max:45',
+            'up-grupoproduto' => 'required|max:45|unique:grupo_produtos,descricao,' . $id,
             'up-unidadeMedida' => 'required|max:20'
         ]);
 

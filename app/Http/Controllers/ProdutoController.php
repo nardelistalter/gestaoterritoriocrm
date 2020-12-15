@@ -48,7 +48,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-produto' => 'required',
+            'add-produto' => 'required|unique:produtos,descricao',
             'add-grupoproduto' => 'required'
         ]);
 
@@ -93,7 +93,7 @@ class ProdutoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-produto' => ['required', 'max:45'],
+            'up-produto' => ['required', 'max:45', 'unique:produtos,descricao,' . $id],
             'up-grupoproduto' => ['required', 'integer']
         ]);
 
