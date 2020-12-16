@@ -41,15 +41,13 @@
                                     <th class="align-middle border-left">{{ $obj->id }}</th>
                                     <td class="align-middle border-left">{{ $obj->descricao }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
-                                        <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->descricao }}', '{{ strtolower(class_basename($obj)) }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $obj->id }}, '{{ $obj->descricao }}', '{{ strtolower(class_basename($obj)) }}');"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -124,7 +122,7 @@
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
                         title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                    <button type="submit" form="editForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                    <button type="submit" form="editForm" class="btn btn-success" data-toggle="tooltip" title="Salvar" onclick="return confirm($(up-cargo).val())"><i
                             class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                 </div>
             </div>
@@ -146,7 +144,8 @@
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
                             <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <input type="text" class="form-control" id="v-id" name="v-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
                             <label class="mb-0" for="v-cargo">Descrição</label>

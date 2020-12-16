@@ -93,13 +93,13 @@ class MicrorregiaoController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-microrregiao' => ['required', 'max:45', 'unique:microrregiaos,nome,' . $id],
-            'up-estado' => ['required', 'integer']
+            'form-microrregiao' => ['required', 'max:45', 'unique:microrregiaos,nome,' . $id],
+            'form-estado' => ['required', 'integer']
         ]);
 
         $microrregioes = Microrregiao::find($id);
-        $microrregioes->nome = $request->input('up-microrregiao');
-        $microrregioes->estado_id = $request->input('up-estado');
+        $microrregioes->nome = $request->input('form-microrregiao');
+        $microrregioes->estado_id = $request->input('form-estado');
 
         $microrregioes->save();
 

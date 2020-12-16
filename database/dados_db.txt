@@ -885,3 +885,6 @@ App\Models\Operacao::create(['data' =>  '2020-08-22', 'numeroDocumento' => 712, 
 App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 356, 'qtdUnidadesProduto' =>  221,4, 'valorUnitario' =>  210,  'produto_id' =>  19, 'inscricaoEstadual_id' => 19]);
 App\Models\Operacao::create(['data' =>  '2020-07-22', 'numeroDocumento' => 357, 'qtdUnidadesProduto' =>  20,64, 'valorUnitario' =>  990,  'produto_id' =>  20, 'inscricaoEstadual_id' => 20]);
 App\Models\Operacao::create(['data' =>  '2020-08-15', 'numeroDocumento' => 682, 'qtdUnidadesProduto' =>  200, 'valorUnitario' =>  41,  'produto_id' =>  17, 'inscricaoEstadual_id' => 22]);
+
+
+App\Models\User::where('id', 1)->update(['nome' => 'admin', 'email' => 'admin@admin.com', 'password' => bcrypt('admin')]);

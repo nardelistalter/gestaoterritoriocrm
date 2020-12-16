@@ -1,8 +1,6 @@
 <script>
-    function confirmDeletion(id, nome, rota) {
-        console.log(id);
-        console.log(nome);
-        console.log(rota);
+    function confirm(cargo, rota, id) {
+        
         Swal.fire({
             title: '{{ __('Deseja realmente excluir ') }}\n' + id + ' - ' + nome + '?',
             text: '{{ __('Esse ação não poderá ser desfeita!') }}',
@@ -14,7 +12,7 @@
             cancelButtonText: '{{ __(' Agora não.') }}',
         }).then(function(result) {
             if (result.value) {
-                $.get(`${rota}/${id}/destroy`, function(data) {
+                $.put(`${rota}/${id}/destroy`, function(data) {
                     if (data.status == 'success') {
                         Swal.fire('{{ __('Excluído!') }}',
                             '{{ __('Exclusão realizada com sucesso.') }}',
@@ -25,7 +23,7 @@
                     } else if (data.status == 'errorQuery') {
                         Swal.fire(
                             '{{ __('Erro!') }}',
-                            '{{ __('Ocorreu um problema ao excluir o item solicitado.Entre em contato com o suporte! ERROR: 001 ') }}',
+                            '{{ __('Ocorreu um problema ao excluir o item solicitado.Entre em contato com o suporte!ERROR: 001 ') }}',
                             'error'
                         );
                     } else if (data.status == 'errorPDO') {

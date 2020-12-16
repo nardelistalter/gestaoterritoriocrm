@@ -275,7 +275,6 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'atualpassword' => 'required|min:5',
-            'newpassword' => 'nullable|min:5',
         ]);
 
         $user = auth()->user('id');
@@ -289,12 +288,6 @@ class UserController extends Controller
 
             if ($request->input('email')) {
                 $user->email = $request->input('email');
-            }
-
-            if ($request->input('newpassword')) {
-                if ($request->input('newpassword') == $request->input('repeatnewpassword')) {
-                    $user->password = bcrypt($request->input('newpassword'));
-                }
             }
 
             if ($request->hasFile('profileimage')) {
@@ -318,6 +311,39 @@ class UserController extends Controller
         $data = $request->all();
         auth()->user('id');
         dd(auth()->user('id'));*/
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profilePassUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'atualpassword' => 'required|min:5',
+            'newpassword' => 'nullable|min:5',
+        ]);
+
+        $user = auth()->user('id');
+        $user =  User::find($user->id);
+
+        if (Hash::check($request->input('atualpassword'), $user->password)) {
+
+            if ($request->input('newpassword')) {
+                if ($request->input('newpassword') == $request->input('repeatnewpassword')) {
+                    $user->password = bcrypt($request->input('newpassword'));
+                }
+            }
+
+            $user->save();
+
+            return redirect('profile')->with('success', 'Senha alterada com sucesso!');
+        } else {
+            return redirect('profile')->with('error', 'Senha Atual não confere!');
+        }
     }
 
     /**

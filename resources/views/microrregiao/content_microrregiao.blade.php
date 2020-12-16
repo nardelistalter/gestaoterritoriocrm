@@ -24,9 +24,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="datatableMicrorregiao"
-                        class="datatable table table-sm table-responsive text-center rounded" cellspacing="0"
-                        width="100%">
+                    <table id="datatableMicrorregiao" class="datatable table table-sm table-responsive text-center rounded"
+                        cellspacing="0" width="100%">
                         <thead class="thead-dark">
                             <tr class="text-justify border">
                                 <th class="th-sm border-bottom border-left">id</th>
@@ -47,15 +46,15 @@
                                     <td class="align-middle border-left">{{ $estado->nome }} - {{ $estado->sigla }}</td>
                                     <td style="display: none;">{{ $estado->id }}</td>
                                     <td class="align-middle th-sm border-left border-right">
-                                        <a  href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
+                                        <a href="#" class="btn_crud btn btn-info btn-sm view"><i class="fas fa-eye"
                                                 data-toggle="tooltip" title="Visualizar"></i></a>
                                         <a href="#" class="btn_crud btn btn-warning btn-sm edit"><i
                                                 class="fas fa-pencil-alt" data-toggle="tooltip" title="Editar"></i></a>
                                         <!--<a href="#" class="btn_crud btn btn-danger btn-sm delete" data-toggle="tooltip"
-                                                title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
+                                                    title="Excluir"><i class="fas fa-trash-alt"></i></a>-->
                                         <a href="#" class="btn_crud btn btn-danger btn-sm" data-toggle="tooltip"
-                                            onclick="return confirmDeletion({{ $microrregiao->id }}, '({{ $microrregiao->nome }}/{{ $estado->sigla }})', '{{ strtolower(class_basename($microrregiao)) }}');" title="Excluir"><i
-                                                class="fas fa-trash-alt"></i></a>
+                                            onclick="return confirmDeletion({{ $microrregiao->id }}, '({{ $microrregiao->nome }}/{{ $estado->sigla }})', '{{ strtolower(class_basename($microrregiao)) }}');"
+                                            title="Excluir"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -93,14 +92,16 @@
                         id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="add-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" name="add-microrregiao" required>
+                            <label class="mb-0" for="form-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" name="form-microrregiao" required>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-estado">Estado</label>
-                            <!--<input type="text" class="form-control" maxlength="2"
-                                                                style="text-transform: uppercase; width: 60px" name="estado" required>-->
-                            <select class="form-control selectpicker" data-live-search="true" name="add-estado" required>
+                            <label class="mb-0" for="form-estado">Estado</label>
+                            <a href="#" class="btn_crud btn btn-sm text-success estado" data-toggle="modal"
+                                data-target="#addEstado">
+                                <i class="fas fa-plus" data-toggle="tooltip" title="Novo Estado"></i>
+                            </a>
+                            <select class="form-control selectpicker" data-live-search="true" name="form-estado" required>
                                 <option value="">Selecione...</option>
                                 @foreach ($estados as $estado)
                                     <option value={{ $estado->id }}> {{ $estado->nome }} - {{ $estado->sigla }} </option>
@@ -136,8 +137,8 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label class="mb-0" for="up-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" id="up-microrregiao" name="up-microrregiao" required>
+                            <label class="mb-0" for="form-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" id="form-microrregiao" name="form-microrregiao" required>
                         </div>
                         <div id="select-microrregiao" class="form-group col-xs-2">
                             <!-- jquery -->
@@ -169,16 +170,17 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id" style="text-align: center; width: 90px" readonly>
+                            <label class="mb-0" for="form-id">id</label>
+                            <input type="text" class="form-control" id="form-id" name="form-id"
+                                style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-microrregiao">Descrição</label>
-                            <input type="text" class="form-control" id="v-microrregiao" name="v-microrregiao" readonly>
+                            <label class="mb-0" for="form-microrregiao">Descrição</label>
+                            <input type="text" class="form-control" id="form-microrregiao" name="form-microrregiao" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-estado">Estado</label>
-                            <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
+                            <label class="mb-0" for="form-estado">Estado</label>
+                            <input type="text" class="form-control" id="form-estado" name="form-estado" readonly>
                         </div>
                     </form>
                 </div>
@@ -223,6 +225,52 @@
     </div>
     <!-- End DELETE Modal -->
 
+    <!-- MODAIS AUXILIARES INICIO -->
+
+    <!-- MODAL ESTADO -->
+
+    <!-- Start Add Modal -->
+    <div class="modal fade" id="addEstado" tabindex="1600" role="dialog" aria-labelledby="addEstadoLabel" aria-hidden="true"
+        style="z-index: 1600 !important;">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title text-white font-weight-bold" id="addEstadoLabel">{{ __('Novo Estado') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ action('App\Http\Controllers\EstadoController@store') }}" method="POST" id="formAddEstado" onsubmit="return false;">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label class="mb-0" for="form-estado">Descrição</label>
+                            <input type="text" class="form-control" id="form-estado" name="form-estado" required>
+                            <span class="text-danger" id="form-estadoError"></span>
+                        </div>
+                        <div class="form-group col-xs-2">
+                            <label class="mb-0" for="form-sigla">Sigla</label>
+                            <input type="text" class="form-control" maxlength="2"
+                                style="text-transform: uppercase; width: 60px" id="form-sigla" name="form-sigla"
+                                required>
+                            <span class="text-danger" id="form-siglaError"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
+                        title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
+                    <button type="submit" form="addForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                            class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Add Modal -->
+
+    <!-- MODAIS AUXILIARES FIM -->
+
+
 @endsection
 
 
@@ -230,6 +278,55 @@
     <script type="text/javascript">
         // Microrregiao
         $(document).ready(function() {
+
+            $("#formAddEstado").submit(function() {
+
+                // Pegando os dados do formulário e pegando o token que válida o request.
+                var estado = $("#form-estado").val();
+                var sigla = $("#form-sigla").val();
+                var _token = $("[name='_token']")[0].value;
+
+                // Montando o objeto que sera enviado na request.
+                var dados = {
+                    estado: estado,
+                    sigla: sigla,
+                    _token: _token,
+                    ajax: true
+                }
+
+                // Executando o POST para a rota de cadastro de estado
+                $.ajax({
+                        url: "/estado",
+                        type: 'POST',
+                        data: dados
+                    })
+
+                    // Caso der sucesso então adiciona a nova estado no select e fecha o modal.
+                    .done(function(result) {
+                        result = JSON.parse(
+                        result); // Como o resultado volta em string então da parse pra JSON
+
+                        // Setando a estado no select.
+                        $('[name=form-estado]').map(function(_i, element) {
+                            var option = document.createElement("option");
+                            option.text = result.estado + "/" + result.sigla;
+                            option.value = result.id;
+                            element.appendChild(option);
+                            element.value = result.id;
+                        });
+
+                        // Fechando o modal
+                        $('#addEstado').modal('hide');
+                    })
+
+                    // Caso der erro então da um aviso.
+                    .fail(function(err) {
+                        console.log(err);
+                        alert("Erro ao tentar cadastrar o estado.");
+                    })
+
+                return false;
+            });
 
             var table = $('#datatableMicrorregiao').DataTable();
 
@@ -243,18 +340,21 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#select-microrregiao').html('<label class="mb-0" for="up-estado">Estado</label>' +
-                    '<select class="form-control selectpicker" data-live-search="true" name="up-estado" required>' +
+                $('#select-microrregiao').html('<label class="mb-0" for="form-estado">Estado</label>' +
+                    '<a href="#" class="btn_crud btn btn-sm text-success estado" data-toggle="modal" data-target="#addEstado">' +
+                    '    <i class="fas fa-plus" data-toggle="tooltip" title="Novo Estado"></i>' +
+                    '</a>' +
+                    '<select class="form-control selectpicker" data-live-search="true" name="form-estado" required>' +
                     '   @foreach ($estados as $estado)' +
                     '       <option value={{ $estado->id }}>{{ $estado->nome }} - {{ $estado->sigla }}</option>' +
                     '   @endforeach' +
                     '</select>');
 
-                $("select[name='up-estado'] option[value='" + data[3] + "']").attr('selected', 'selected');
+                $("select[name='form-estado'] option[value='" + data[3] + "']").attr('selected', 'selected');
 
                 $('#editForm').attr('action', '/microrregiao/' + data[0]);
-                $('#up-microrregiao').val(data[1]);
-                $('#up-estado').val(data[2]);
+                $('#editModal #form-microrregiao').val(data[1]);
+                $('#editModal #form-estado').val(data[2]);
                 $('#editModal').modal('show');
             });
             //End Edit Record
@@ -269,9 +369,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#v-id').val(data[0]);
-                $('#v-microrregiao').val(data[1]);
-                $('#v-estado').val(data[2]);
+                $('#viewModal #form-id').val(data[0]);
+                $('#viewModal #form-microrregiao').val(data[1]);
+                $('#viewModal #form-estado').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');
@@ -301,6 +401,6 @@
 
     </script>
 
- @include('scripts.confirmdeletion')
+    @include('scripts.confirmdeletion')
 
 @endsection
