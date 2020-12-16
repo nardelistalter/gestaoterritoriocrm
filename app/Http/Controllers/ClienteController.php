@@ -55,7 +55,10 @@ class ClienteController extends Controller
         //dd($request['account']);
         //dd($request);
         //dd($request['custom_field']);
-        dd($request['custom_field']);
+        //dd($request['custom_field']);
+        dd($request);
+        //dd($request['custom_field']['account'][2]);
+        //dd($request['custom_field']['account']["3"]);
         $this->validate($request, [
             'add-nome' => 'required|max:60',
             'add-logradouro' => 'required|max:120',
@@ -64,8 +67,8 @@ class ClienteController extends Controller
             'add-bairro' => 'required|max:45',
             'add-telefone1' => 'required|max:15',
             'add-telefone2' => 'nullable|max:15',
-            'add-cpf' => 'cpf|max:14|required_without:add-cnpj|unique:users,cpf',
-            'add-cnpj' => 'cnpj|max:18|required_without:add-cpf|unique:users,cnpj',
+            'custom_field.account.4' => 'max:18|required_without:custom_field.account.3|unique:clientes,cnpj',
+            'custom_field.account.3' => 'max:14|required_without:custom_field.account.4|unique:clientes,cpf',
             'add-email' => 'nullable|max:255',
             'add-datanascimento' => 'nullable|date',
             'add-sexo' => 'nullable|max:15',
@@ -81,8 +84,8 @@ class ClienteController extends Controller
         $clientes->bairro = $request->input('add-bairro');
         $clientes->telefone1 = $request->input('add-telefone1');
         $clientes->telefone2 = $request->input('add-telefone2');
-        $clientes->cpf = $request->input('add-cpf');
-        $clientes->cnpj = $request->input('add-cnpj');
+        $clientes->cpf = $request['custom_field']['account']["3"];
+        $clientes->cnpj = $request['custom_field']['account']["4"];
         $clientes->email = $request->input('add-email');
         $clientes->dataNascimento = $request->input('add-datanascimento');
         $clientes->sexo = $request->input('up-sexo') ?? 'NÃO INFORMADO';
