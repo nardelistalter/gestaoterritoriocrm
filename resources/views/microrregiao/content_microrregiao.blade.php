@@ -244,23 +244,23 @@
                     <form action="{{ action('App\Http\Controllers\EstadoController@store') }}" method="POST" id="formAddEstado" onsubmit="return false;">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="form-estado">Descrição</label>
-                            <input type="text" class="form-control" id="form-estado" name="form-estado" required>
-                            <span class="text-danger" id="form-estadoError"></span>
+                            <label class="mb-0" for="form-estado-modal">Descrição</label>
+                            <input type="text" class="form-control" id="form-estado-modal" name="form-estado-modal" required>
+                            <span class="text-danger" id="form-estado-modalError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="form-sigla">Sigla</label>
+                            <label class="mb-0" for="form-sigla-modal">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="form-sigla" name="form-sigla"
+                                style="text-transform: uppercase; width: 60px" id="form-sigla-modal" name="form-sigla-modal"
                                 required>
-                            <span class="text-danger" id="form-siglaError"></span>
+                            <span class="text-danger" id="form-sigla-modalError"></span>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="tooltip"
                         title="Cancelar"><i class="fas fa-undo-alt mr-1"></i>{{ __('Cancelar') }}</button>
-                    <button type="submit" form="addForm" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
+                    <button type="submit" form="formAddEstado" class="btn btn-success" data-toggle="tooltip" title="Salvar"><i
                             class="fas fa-save mr-1"></i>{{ __('Salvar') }}</button>
                 </div>
             </div>
@@ -270,26 +270,30 @@
 
     <!-- MODAIS AUXILIARES FIM -->
 
-
 @endsection
-
 
 @section('script_pages')
     <script type="text/javascript">
-        // Microrregiao
+
         $(document).ready(function() {
 
+            /**
+             * @author: Eduardo Debastiani Mior
+             * 
+             * Função adaptada por Nardeli Miguel Stalter em 16/12/2020
+             * 
+            */
             $("#formAddEstado").submit(function() {
 
                 // Pegando os dados do formulário e pegando o token que válida o request.
-                var estado = $("#form-estado").val();
-                var sigla = $("#form-sigla").val();
+                var estado = $("#form-estado-modal").val();
+                var sigla = $("#form-sigla-modal").val();
                 var _token = $("[name='_token']")[0].value;
 
                 // Montando o objeto que sera enviado na request.
                 var dados = {
-                    estado: estado,
-                    sigla: sigla,
+                    "form-estado": estado,
+                    "form-sigla": sigla,
                     _token: _token,
                     ajax: true
                 }
@@ -305,11 +309,12 @@
                     .done(function(result) {
                         result = JSON.parse(
                         result); // Como o resultado volta em string então da parse pra JSON
+                        //console.log(result);
 
                         // Setando a estado no select.
                         $('[name=form-estado]').map(function(_i, element) {
                             var option = document.createElement("option");
-                            option.text = result.estado + "/" + result.sigla;
+                            option.text = result.nome + "/" + result.sigla;
                             option.value = result.id;
                             element.appendChild(option);
                             element.value = result.id;

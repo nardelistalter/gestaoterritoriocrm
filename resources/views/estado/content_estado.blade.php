@@ -86,15 +86,15 @@
                     <form action="{{ action('App\Http\Controllers\EstadoController@store') }}" method="POST" id="addForm">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label class="mb-0" for="add-estado">Descrição</label>
-                            <input type="text" class="form-control" id="add-estado" name="add-estado" required>
-                            <span class="text-danger" id="add-estadoError"></span>
+                            <label class="mb-0" for="form-estado">Descrição</label>
+                            <input type="text" class="form-control" id="form-estado" name="form-estado" required>
+                            <span class="text-danger" id="form-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="add-sigla">Sigla</label>
+                            <label class="mb-0" for="form-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="add-sigla" name="add-sigla" required>
-                            <span class="text-danger" id="add-siglaError"></span>
+                                style="text-transform: uppercase; width: 60px" id="form-sigla" name="form-sigla" required>
+                            <span class="text-danger" id="form-siglaError"></span>
                         </div>
                     </form>
                 </div>
@@ -124,15 +124,15 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label class="mb-0" for="up-estado">Descrição</label>
-                            <input type="text" class="form-control" id="up-estado" name="up-estado" required>
-                            <span class="text-danger" id="up-estadoError"></span>
+                            <label class="mb-0" for="form-estado">Descrição</label>
+                            <input type="text" class="form-control" id="form-estado" name="form-estado" required>
+                            <span class="text-danger" id="form-estadoError"></span>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="up-sigla">Sigla</label>
+                            <label class="mb-0" for="form-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="up-sigla" name="up-sigla" required>
-                            <span class="text-danger" id="up-estadoError"></span>
+                                style="text-transform: uppercase; width: 60px" id="form-sigla" name="form-sigla" required>
+                            <span class="text-danger" id="form-estadoError"></span>
                         </div>
                     </form>
                 </div>
@@ -160,18 +160,18 @@
                 <div class="modal-body">
                     <form action="" method="POST" id="viewForm">
                         <div class="form-group">
-                            <label class="mb-0" for="v-id">id</label>
-                            <input type="text" class="form-control" id="v-id" name="v-id"
+                            <label class="mb-0" for="form-id">id</label>
+                            <input type="text" class="form-control" id="form-id" name="form-id"
                                 style="text-align: center; width: 90px" readonly>
                         </div>
                         <div class="form-group">
-                            <label class="mb-0" for="v-estado">Descrição</label>
-                            <input type="text" class="form-control" id="v-estado" name="v-estado" readonly>
+                            <label class="mb-0" for="form-estado">Descrição</label>
+                            <input type="text" class="form-control" id="form-estado" name="form-estado" readonly>
                         </div>
                         <div class="form-group col-xs-2">
-                            <label class="mb-0" for="v-sigla">Sigla</label>
+                            <label class="mb-0" for="form-sigla">Sigla</label>
                             <input type="text" class="form-control" maxlength="2"
-                                style="text-transform: uppercase; width: 60px" id="v-sigla" name="v-sigla" readonly>
+                                style="text-transform: uppercase; width: 60px" id="form-sigla" name="form-sigla" readonly>
                         </div>
                     </form>
                 </div>
@@ -236,8 +236,8 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#up-estado').val(data[1]);
-                $('#up-sigla').val(data[2]);
+                $('#editModal #form-estado').val(data[1]);
+                $('#editModal #form-sigla').val(data[2]);
 
                 $('#editForm').attr('action', '/estado/' + data[0]);
                 $('#editModal').modal('show');
@@ -254,9 +254,9 @@
                 var data = table.row($tr).data();
                 console.log(data);
 
-                $('#v-id').val(data[0]);
-                $('#v-estado').val(data[1]);
-                $('#v-sigla').val(data[2]);
+                $('#viewForm #form-id').val(data[0]);
+                $('#viewForm #form-estado').val(data[1]);
+                $('#viewForm #form-sigla').val(data[2]);
 
                 $('#viewForm').attr('action');
                 $('#viewModal').modal('show');

@@ -48,15 +48,19 @@ class MicrorregiaoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-microrregiao' => 'required|unique:microrregiaos,nome',
-            'add-estado' => 'required'
+            'form-microrregiao' => 'required|unique:microrregiaos,nome',
+            'form-estado' => 'required'
         ]);
 
         $microrregioes =  new Microrregiao;
-        $microrregioes->nome = $request->input('add-microrregiao');
-        $microrregioes->estado_id = $request->input('add-estado');
+        $microrregioes->nome = $request->input('form-microrregiao');
+        $microrregioes->estado_id = $request->input('form-estado');
 
         $microrregioes->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($microrregioes);
+        }
 
         return redirect('microrregiao')->with('success', 'Microrregião salva com sucesso!');
     }
@@ -102,6 +106,10 @@ class MicrorregiaoController extends Controller
         $microrregioes->estado_id = $request->input('form-estado');
 
         $microrregioes->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($microrregioes);
+        }
 
         return redirect('microrregiao')->with('success', 'Microrregião alterada com sucesso!');
     }

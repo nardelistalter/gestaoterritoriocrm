@@ -52,15 +52,19 @@ class MunicipioController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'add-municipio' => 'required|max:45|unique:municipios,nome',
-            'add-microrregiao' => 'required|integer'
+            'form-municipio' => 'required|max:45|unique:municipios,nome',
+            'form-microrregiao' => 'required|integer'
         ]);
 
         $municipios =  new Municipio;
-        $municipios->nome = $request->input('add-municipio');
-        $municipios->microrregiao_id = $request->input('add-microrregiao');
+        $municipios->nome = $request->input('form-municipio');
+        $municipios->microrregiao_id = $request->input('form-microrregiao');
 
         $municipios->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($municipios);
+        }
 
         return redirect('municipio')->with('success', 'Município salvo com sucesso!');
     }
@@ -97,15 +101,19 @@ class MunicipioController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'up-municipio' => 'required|max:45|unique:municipios,nome,' . $id,
-            'up-microrregiao' => 'required|integer'
+            'form-municipio' => 'required|max:45|unique:municipios,nome,' . $id,
+            'form-microrregiao' => 'required|integer'
         ]);
 
         $municipios =  Municipio::find($id);
-        $municipios->nome = $request->input('up-municipio');
-        $municipios->microrregiao_id = $request->input('up-microrregiao');
+        $municipios->nome = $request->input('form-municipio');
+        $municipios->microrregiao_id = $request->input('form-microrregiao');
 
         $municipios->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($municipios);
+        }
 
         return redirect('municipio')->with('success', 'Município alterado com sucesso!');
     }

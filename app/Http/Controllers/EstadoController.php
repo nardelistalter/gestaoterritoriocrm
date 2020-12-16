@@ -47,15 +47,19 @@ class EstadoController extends Controller
 
         $this->validate($request, [
             //'estado' => ['required', 'unique:estados, nome,' . $request->id, 'max:45'],
-            'add-estado' => 'required|max:45|unique:estados,nome',
-            'add-sigla' => 'required|max:2|unique:estados,sigla',
+            'form-estado' => 'required|max:45|unique:estados,nome',
+            'form-sigla' => 'required|max:2|unique:estados,sigla',
         ]);
 
         $estados =  $this->estado;
-        $estados->nome = $request->input('add-estado');
-        $estados->sigla = strtoupper($request->input('add-sigla'));
+        $estados->nome = $request->input('form-estado');
+        $estados->sigla = strtoupper($request->input('form-sigla'));
 
         $estados->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($estados);
+        }
 
         return redirect('estado')->with('success', 'Estado salvo com sucesso!');
     }
@@ -94,15 +98,19 @@ class EstadoController extends Controller
         $estado = DB::table('estados')->where('id', $id)->first();
 
         $this->validate($request, [
-            'up-estado' => ['required', 'max:45', 'unique:estados,nome,'. $id],
-            'up-sigla' => ['required', 'max:2', 'unique:estados,sigla,'. $id],
+            'form-estado' => ['required', 'max:45', 'unique:estados,nome,'. $id],
+            'form-sigla' => ['required', 'max:2', 'unique:estados,sigla,'. $id],
         ]);
 
         $estados =  $this->estado::find($id);
-        $estados->nome = $request->input('up-estado');
-        $estados->sigla = strtoupper($request->input('up-sigla'));
+        $estados->nome = $request->input('form-estado');
+        $estados->sigla = strtoupper($request->input('form-sigla'));
 
         $estados->save();
+
+        if ($request->input('ajax')) {
+            return json_encode($estados);
+        }
 
         return redirect('estado')->with('success', 'Estado alterado com sucesso!');
     }
